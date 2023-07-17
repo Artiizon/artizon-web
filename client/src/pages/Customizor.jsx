@@ -15,6 +15,7 @@ const Customizor = () => {
 
   const [file, setFile] = useState('');
   
+  const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
 
   const [activeEditorTab, setActiveEditorTab] = useState('');
@@ -35,9 +36,42 @@ const Customizor = () => {
           readFile={readFile}
         />;
       case 'aipicker':
-        return <AIPicker />;
+        return <AIPicker
+          prompt={prompt}
+          setPrompt={setPrompt}
+          generatingImg={generatingImg}
+          handleSubmit={handleSubmit}
+        />;
       default:
         return null;
+    }
+  }
+
+  const handleSubmit = async (type) => {
+    if (!prompt) return alert('Please enter a prompt');
+
+    try {
+      // call our backend to generate an ai image
+      setGeneratingImg(true);
+
+      const response = await fetch('http://localhost:8080/api/v1/dalle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt,
+        })
+      })
+
+      const data = await response.json();
+
+      // handleDecals(type, `data:image/png;base64,${data.photo}`);
+    } catch (err) {
+      alert(err)
+    } finally {
+      setGeneratingImg(false);
+      setActiveEditorTab('');
     }
   }
 
@@ -63,6 +97,14 @@ const Customizor = () => {
         state.isLogoTexture = true;
         state.isFullTexture = false;
     }
+
+    // after setting the state, update the active filter tab
+    setActiveFilterTab((prevState) => {
+      return {
+        ...prevState,
+        [tabName]: !prevState[tabName],
+      }
+    });
   }
 
   const readFile = (type) => {
@@ -82,7 +124,7 @@ const Customizor = () => {
               <div className='editortabs-container tabs'>
                 {EditorTabs.map((tab) => (
                   <Tab
-                    key={tab}
+                    key={tab.name}
                     tab={tab}
                     handleClick={() => setActiveEditorTab(tab.name)}
                   />
@@ -105,11 +147,11 @@ const Customizor = () => {
           <motion.div className='filtertabs-container' {...slideAnimation('up')}>
             {FilterTabs.map((tab) => (
               <Tab
-                key={tab}
+                key={tab.name}
                 tab={tab}
                 isFilterTab
-                isActiveTab=""
-                handleClick={() => {}}
+                isActiveTab={activeFilterTab[tab.name]}
+                handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
           </motion.div>
