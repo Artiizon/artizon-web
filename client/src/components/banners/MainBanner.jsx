@@ -1,4 +1,4 @@
-import appleBanner from '../../images/apple-banner.jpg';
+import appleBanner from '../../images/banner.jpg';
 import StandardLink from '../links/StandardLink';
 
 function MainBanner() {

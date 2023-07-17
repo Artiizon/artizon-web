@@ -7,10 +7,10 @@ import Footer from "../components/footer/Footer";
 
 import StandardCarousel from "../components/carousel/StandardCarousel";
 
-import img1 from "../images/iphone-se.jpg";
-import img2 from "../images/ipad.jpg";
-import img3 from "../images/airpods.jpeg";
-import img4 from "../images/iwatch.jpg";
+import img1 from "../images/tshirt1.jpg";
+import img2 from "../images/tshirt2.jpg";
+import img3 from "../images/tshirt3.jpg";
+import img4 from "../images/tshirt4.jpg";
 
 import mov1 from "../images/movies/spirited.png";
 import mov2 from "../images/movies/slow-horses.jpg";
