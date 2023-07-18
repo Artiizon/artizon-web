@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap");
 @import url("https://rsms.me/inter/inter.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -159,5 +160,321 @@ input[type="file"] {
   }
   100%{
       transform: translate(0, 0);
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Poppins', sans-serif;
+    color: var(--hue-text); */
+}
+
+:root{
+    --hue-background: #161616;
+    --hue-text: #F6F6F6;
+}
+
+/* body{
+    background-color: var(--hue-background);
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+} */
+
+h1{
+    font-size: 4.5rem;
+    line-height: 100px;
+}
+
+header{
+    background-color: var(--hue-background);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    align-items: center;
+}
+
+header p{
+    font-weight: 400;
+    font-size: 2.7rem;
+    position: relative;
+    opacity: 0;
+    animation: reveal-main-icon 6s forwards;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: var(--hue-text);
+}
+
+@keyframes reveal-main-icon {
+    100%{
+        opacity: 1;
+    }
+}
+
+header p span{
+    color: rgb(207, 31, 31);
+}
+
+header div{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--hue-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+header div:hover{
+    transform: scale(110%);
+}
+
+header div:hover .inner-circle{
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+}
+
+header div:hover span{
+    background-color: var(--hue-background);
+    height: 3px;
+    z-index: 1;
+}
+
+header div .inner-circle{
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: var(--hue-text);
+    opacity: 0;
+    transition: 0.3s;
+
+}
+
+header div span{
+    width: 30px;
+    height: 2px;
+    border-radius: 5px;
+    background-color: var(--hue-text);
+    transition: 0.3s;
+}
+
+@keyframes text-reveal {
+    100%{
+        opacity: 1;
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    }
+}
+
+@keyframes example-one-anim-1 {
+    0% {
+        clip: rect(52px, 650px, 42px, 0);
+        transform: skew(0.57deg);
+    }
+
+    5.8823529412% {
+        clip: rect(141px, 650px, 51px, 0);
+    }
+
+    11.7647058824% {
+        clip: rect(2px, 650px, 6px, 0);
+        transform: skew(0.57deg);
+    }
+
+    17.6470588235% {
+        clip: rect(92px, 650px, 141px, 0);
+    }
+
+    23.5294117647% {
+        clip: rect(82px, 650px, 77px, 0);
+        transform: skew(0.07deg);
+    }
+
+    29.4117647059% {
+        clip: rect(24px, 650px, 100px, 0);
+    }
+
+    35.2941176471% {
+        clip: rect(77px, 650px, 61px, 0);
+        transform: skew(0.77deg);
+    }
+
+    41.1764705882% {
+        clip: rect(17px, 650px, 3px, 0);
+    }
+
+    47.0588235294% {
+        clip: rect(33px, 650px, 46px, 0);
+        transform: skew(0.20deg);
+    }
+
+    52.9411764706% {
+        clip: rect(25px, 650px, 96px, 0);
+    }
+
+    58.8235294118% {
+        clip: rect(56px, 650px, 90px, 0);
+        transform: skew(0.57deg);
+    }
+
+    64.7058823529% {
+        clip: rect(80px, 650px, 67px, 0);
+    }
+
+    70.5882352941% {
+        clip: rect(70px, 650px, 59px, 0);
+        transform: skew(0.07deg);
+    }
+
+    76.4705882353% {
+        clip: rect(96px, 650px, 102px, 0);
+    }
+
+    82.3529411765% {
+        clip: rect(59px, 650px, 89px, 0);
+        transform: skew(0.17deg);
+    }
+
+    88.2352941176% {
+        clip: rect(64px, 650px, 19px, 0);
+    }
+
+    94.1176470588% {
+        clip: rect(156px, 450px, 10px, 0);
+    }
+
+    100% {
+        clip: rect(17px, 650px, 2px, 0);
+        transform: skew(0.02deg);
+    }
+}
+
+@keyframes example-one-anim-2 {
+    0% {
+        clip: rect(80px, 450px, 88px, 0);
+    }
+
+    5.8823529412% {
+        clip: rect(23px, 450px, 10px, 0);
+        transform: skew(0.87deg);
+    }
+
+    11.7647058824% {
+        clip: rect(106px, 450px, 23px, 0);
+    }
+
+    17.6470588235% {
+        clip: rect(101px, 450px, 59px, 0);
+        transform: skew(0.27deg);
+    }
+
+    23.5294117647% {
+        clip: rect(99px, 450px, 69px, 0);
+    }
+
+    29.4117647059% {
+        clip: rect(106px, 450px, 92px, 0);
+    }
+
+    35.2941176471% {
+        clip: rect(27px, 450px, 16px, 0);
+        transform: skew(0.67deg);
+    }
+
+    41.1764705882% {
+        clip: rect(81px, 450px, 5px, 0);
+    }
+
+    47.0588235294% {
+        clip: rect(61px, 450px, 45px, 0);
+        transform: skew(0.07deg);
+    }
+
+    52.9411764706% {
+        clip: rect(63px, 450px, 109px, 0);
+    }
+
+    58.8235294118% {
+        clip: rect(25px, 450px, 47px, 0);
+    }
+
+    64.7058823529% {
+        clip: rect(8px, 450px, 64px, 0);
+        transform: skew(0.87deg);
+    }
+
+    70.5882352941% {
+        clip: rect(99px, 450px, 10px, 0);
+    }
+
+    76.4705882353% {
+        clip: rect(109px, 450px, 79px, 0);
+        transform: skew(0.17deg);
+    }
+
+    82.3529411765% {
+        clip: rect(69px, 450px, 6px, 0);
+    }
+
+    88.2352941176% {
+        clip: rect(14px, 450px, 23px, 0);
+    }
+
+    94.1176470588% {
+        clip: rect(60px, 450px, 105px, 0);
+        transform: skew(0.97deg);
+    }
+
+    100% {
+        clip: rect(41px, 450px, 59px, 0);
+    }
+}
+
+.example-one:before, .example-one:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #161616;
+    clip: rect(0, 0, 0, 0);
+}
+
+@media only screen and (max-width: 767px) {
+    .example-one:after {
+        left: 3px;
+        text-shadow: -2px 0 red;
+        animation: example-one-anim-1 2s infinite linear alternate-reverse;
+    }
+
+    .example-one:before {
+        left: -3px;
+        text-shadow: 3px 0 blue;
+        animation: example-one-anim-2 3s infinite linear alternate-reverse;
+    }
+}
+
+@media only screen and (min-width: 767px) {
+    .example-one:after {
+        left: 3px;
+        text-shadow: -4px 0 red;
+        animation: example-one-anim-1 2.7s infinite linear alternate-reverse;
+    }
+
+    .example-one:before {
+        left: -2.5px;
+        text-shadow: 5px 0 blue;
     }
 }

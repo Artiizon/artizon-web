@@ -14,16 +14,16 @@ const CameraRig = ({ children }) => {
     const isMobile = window.innerWidth <= 600;
 
     // set the initial position of the model
-    let targetPosition = [-0.4, 0, 2];
+    let targetPosition = [-0.4, -0.025, 2];
     if (snap.page == 'home') {
-      if (isBreakpoint) targetPosition = [0, 0, 2];
+      if (isBreakpoint) targetPosition = [0, -0.025, 2];
       if (isMobile) targetPosition = [0, 0.2, 2.5];
     } else if (snap.page == 'customizor') {
       if (isMobile) targetPosition = [0, 0.2, 2.5];
-      else targetPosition = [0, 0, 2];
+      else targetPosition = [0, -0.025, 2];
     } else if (snap.page == 'makeorder') {
       if (isMobile) targetPosition = [0, 0.2, 2.5];
-      else targetPosition = [0.6, 0, 3];
+      else targetPosition = [0.6, -0.025, 3];
     }
 
     // set model camera position

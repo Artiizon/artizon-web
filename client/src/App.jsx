@@ -6,12 +6,15 @@ import MakeOrder from "./pages/MakeOrder";
 import { useSnapshot } from "valtio";
 import state from "./store";
 
+import { Header } from "./components";
+
 function App() {
 
   const snap = useSnapshot(state);
 
   return (
     <main className="app transition-all ease-in">
+      <Header />
       <Home />
 
       {snap.page === 'makeorder' || (

@@ -17,14 +17,8 @@ const Home = () => {
     return (
         <AnimatePresence>
             {snap.page=='home' && (
+                <>
                 <motion.section className="home" {...slideAnimation('left')}>
-                    <motion.header {...slideAnimation('down')}>
-                        <img 
-                            src="./Logo.png"
-                            alt="logo"
-                            className="w-64 h-64 object-contain"
-                        />
-                    </motion.header>
                     <motion.div className="home-content" {...headContainerAnimation}>
                         <motion.div {...headTextAnimation}>
                             <h1 className="head-text">
@@ -45,6 +39,7 @@ const Home = () => {
                         </motion.div>
                     </motion.div>
                 </motion.section>
+                </>
             )}
         </AnimatePresence>
     )
