@@ -96,6 +96,7 @@ const Customizor = () => {
       default:
         state.isLogoTexture = true;
         state.isFullTexture = false;
+        break;
     }
 
     // after setting the state, update the active filter tab
@@ -117,7 +118,7 @@ const Customizor = () => {
 
   return (
     <AnimatePresence>
-      {!snap.intro && (
+      {snap.page=='customizor' && (
         <>
           <motion.div key="custom" className='absolute top-0 left-0 z-10' {...slideAnimation('left')}>
             <div className='flex items-center min-h-screen'>
@@ -139,7 +140,7 @@ const Customizor = () => {
             <CustomButton
               type='filled'
               title='Go Back'
-              handleClick={() => state.intro = true}
+              handleClick={() => state.page = 'home'}
               customStyles='w-fit px-4 py-2.5 font-bold text-sm'
             />
           </motion.div>
@@ -154,6 +155,25 @@ const Customizor = () => {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+          </motion.div>
+
+          <motion.div className='absolute z-10 bottom-5 right-5' {...fadeAnimation}>
+            <CustomButton
+              type='filled'
+              title='Make Order'
+              handleClick={() => state.page = 'makeorder'}
+              customStyles='w-fit px-4 py-2.5 font-bold text-sm'
+            />
+          </motion.div>
+
+          <motion.div className='absolute z-10 bottom-5 left-5' {...fadeAnimation}>
+            <button className='download-btn' onClick={downloadCanvasToImage}>
+                <img
+                  src={download}
+                  alt='download_image'
+                  className='w-3/5 h-3/5 object-contain'
+                />
+            </button>
           </motion.div>
         </>
       )}
