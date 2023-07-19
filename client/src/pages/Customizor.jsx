@@ -10,10 +10,14 @@ import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components';
 
+import { useNavigate } from 'react-router-dom';
+
 const Customizor = () => {
   const snap = useSnapshot(state);
 
   state.page = 'customizor';
+
+  const navigate = useNavigate();
 
   const [file, setFile] = useState('');
   
@@ -162,7 +166,7 @@ const Customizor = () => {
             <CustomButton
               type='filled'
               title='Make Order'
-              handleClick={() => state.page = 'makeorder'}
+              handleClick={() => navigate('/makeorder')}
               customStyles='w-fit px-4 py-2.5 font-bold text-sm'
             />
           </motion.div>

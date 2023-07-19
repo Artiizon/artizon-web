@@ -21,14 +21,14 @@ const CanvasModel = () => {
 
   useEffect(() => {
     const onMouseDown = (event) => {
-      event.preventDefault();
+      // event.preventDefault();
       isMouseDownRef.current = true;
       mouseRef.current.x = event.clientX;
       mouseRef.current.y = event.clientY;
     };
 
     const onMouseMove = (event) => {
-      event.preventDefault();
+      // event.preventDefault();
       if (isMouseDownRef.current) {
         const deltaX = event.clientX - mouseRef.current.x;
         const deltaY = event.clientY - mouseRef.current.y;

@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const snap = useSnapshot(state)
+
+    state.page = 'home'
     
     useEffect(() => {
         document.getElementById("main-btn").className = "get-started"

@@ -6,27 +6,36 @@ import axios from "axios";
 import state from "../store";
 import { CustomButton } from "../components";
 
+import Canvas from "../canvas";
+
 import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation, fadeAnimation } from "../config/motion";
+
+import { useNavigate } from "react-router-dom";
 
 const MakeOrder = () => {
     const snap = useSnapshot(state)
 
+    state.page = 'makeorder';
+
+    const navigate = useNavigate();
+
     const [amount, setAmount] = useState('');
     const [material, setMaterial] = useState('');
     
-    useEffect(() => {
-        document.getElementById("main-btn").className = "get-started"
-    }, [])
+    // useEffect(() => {
+    //     document.getElementById("main-btn").className = "get-started"
+    // }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const color = snap.tcolor;
-        const logo = snap.logoDecal;
+        const color = state.tcolor;
+        const logo = state.logoDecal;
 
         axios.post('http://localhost:8080/order', {amount, material, color, logo}).then(res => {
             console.log(res);
             state.page = 'home';
+            navigate('/');
         }).catch(err => {
             console.log(err);
         }
@@ -35,16 +44,15 @@ const MakeOrder = () => {
 
     return (
         <AnimatePresence>
-            {snap.page=='makeorder' && (
                 <>
-                <motion.div className='absolute z-10 top-5 right-5' {...fadeAnimation}>
+                {/* <motion.div className='absolute z-10 top-5 right-5' {...fadeAnimation}>
                     <CustomButton
                         type='filled'
                         title='Go Back'
                         handleClick={() => state.page = 'customizor'}
                         customStyles='w-fit px-4 py-2.5 font-bold text-sm'
                     />
-                </motion.div>
+                </motion.div> */}
 
                 <div className="p-3 bg-gray-200 justify-center flex">
                         <form onSubmit={handleSubmit}>
@@ -63,9 +71,9 @@ const MakeOrder = () => {
                             </div>
                             <button className="">Submit</button>
                         </form>
+                        {/* <Canvas /> */}
                 </div>
               </>
-            )}
         </AnimatePresence>
     )
 }

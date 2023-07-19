@@ -22,15 +22,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
+          <Route path="/makeorder" element={<MakeOrder />} />
         </Routes>
       </Router>
-
-      {snap.page === 'makeorder' || (
-        <Canvas />
-      )}
-      
-      {/* <Customizor /> */}
-      {/* <MakeOrder /> */}
+      <Canvas />
     </main>
   )
 }
