@@ -21,7 +21,7 @@ const FooterlowerLink = ({ name, path }) => {
 
 function Footer() {
   return (
-    <div className="px-[200px] bg-gray-200 text-xs font-semibold text-gray-600">
+    <div className="px-[200px] bg-gray-200 text-xs font-semibold  text-gray-600">
       <div className="flex flex-row py-2">
         More ways to shop.
         <FooterStandardLink name="Find an Store" path="/" /> or

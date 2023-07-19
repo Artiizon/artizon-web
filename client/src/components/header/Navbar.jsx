@@ -19,8 +19,8 @@ function Navbar() {
     <div className='fixed p-4 w-full text-gray-100 bg-gray-800 flex flex-row gap-3 justify-between items-center shadow-md'>
         <FaBeer />
         <div className='flex flex-row gap-5'>
-          <NavbarItem path='/store' name="Store"/>
-          <NavbarItem path='/social' name="Social"/>
+          <NavbarItem path='/stock' name="Stock"/>
+          <NavbarItem path='/social' name="Stock Details"/>
           <NavbarItem path='/contact' name="Contact"/>
           <NavbarItem path='/help' name="Help"/>
           <NavbarItem path='/login' name="Login"/>
