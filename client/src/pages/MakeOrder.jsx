@@ -46,15 +46,14 @@ const MakeOrder = () => {
                     />
                 </motion.div>
 
-                <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
-                    <div className="w-50 bg-white rounded p-3">
+                <div className="p-3 bg-gray-200 justify-center flex">
                         <form onSubmit={handleSubmit}>
-                            <h2>Make Your T-Shirt Order</h2>
-                            <div className="mb-2">
+                            <h1>Make Your T-Shirt Order</h1>
+                            <div className="m">
                                 <label htmlFor="amount">Amount</label>
                                 <input type="number" className="form-control" placeholder="How many T-shirts do you need" onChange={e => setAmount(e.target.value)} />
                             </div>
-                            <div className="mb-2">
+                            <div className="">
                                 <label htmlFor="material">T-Shirt Material</label>
                                 <select name="material" className="form-control" onChange={e => setMaterial(e.target.value)}>
                                     <option value="">Material</option>
@@ -62,9 +61,8 @@ const MakeOrder = () => {
                                     <option value="Silk">Silk</option>
                                 </select>
                             </div>
-                            <button className="btn btn-success">Submit</button>
+                            <button className="">Submit</button>
                         </form>
-                    </div>
                 </div>
               </>
             )}

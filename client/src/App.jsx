@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Canvas from "./canvas";
 import Customizor from "./pages/Customizor";
 import Home from "./pages/Home";
@@ -14,15 +16,21 @@ function App() {
 
   return (
     <main className="app transition-all ease-in">
-      <Header />
-      <Home />
+
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/customizor" element={<Customizor />} />
+        </Routes>
+      </Router>
 
       {snap.page === 'makeorder' || (
         <Canvas />
       )}
       
-      <Customizor />
-      <MakeOrder />
+      {/* <Customizor /> */}
+      {/* <MakeOrder /> */}
     </main>
   )
 }

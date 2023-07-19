@@ -13,6 +13,8 @@ import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../compone
 const Customizor = () => {
   const snap = useSnapshot(state);
 
+  state.page = 'customizor';
+
   const [file, setFile] = useState('');
   
   const [prompt, setPrompt] = useState('');
@@ -118,7 +120,6 @@ const Customizor = () => {
 
   return (
     <AnimatePresence>
-      {snap.page=='customizor' && (
         <>
           <motion.div key="custom" className='absolute top-0 left-0 z-10' {...slideAnimation('left')}>
             <div className='flex items-center min-h-screen'>
@@ -136,14 +137,14 @@ const Customizor = () => {
             </div>
           </motion.div>
 
-          <motion.div className='absolute z-10 top-5 right-5' {...fadeAnimation}>
+          {/* <motion.div className='absolute z-10 top-5 right-5' {...fadeAnimation}>
             <CustomButton
               type='filled'
               title='Go Back'
               handleClick={() => state.page = 'home'}
               customStyles='w-fit px-4 py-2.5 font-bold text-sm'
             />
-          </motion.div>
+          </motion.div> */}
 
           <motion.div className='filtertabs-container' {...slideAnimation('up')}>
             {FilterTabs.map((tab) => (
@@ -176,7 +177,6 @@ const Customizor = () => {
             </button>
           </motion.div>
         </>
-      )}
     </AnimatePresence>
   )
 }

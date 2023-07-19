@@ -7,6 +7,8 @@ import { CustomButton } from "../components";
 
 import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation } from "../config/motion";
 
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
     const snap = useSnapshot(state)
     
@@ -14,9 +16,10 @@ const Home = () => {
         document.getElementById("main-btn").className = "get-started"
     }, [])
 
+    const navigate = useNavigate();
+
     return (
         <AnimatePresence>
-            {snap.page=='home' && (
                 <>
                 <motion.section className="home" {...slideAnimation('left')}>
                     <motion.div className="home-content" {...headContainerAnimation}>
@@ -33,14 +36,16 @@ const Home = () => {
                             <CustomButton
                                 // type="filled"
                                 title="Customize It"
-                                handleClick={() => state.page = 'customizor'}
+                                handleClick={() => {
+                                    state.page = 'customizor'
+                                    navigate('/customizor')}
+                                }
                                 // customStyles="w-fit px-4 py-2.5 font-bold text-sm"
                             />
                         </motion.div>
                     </motion.div>
                 </motion.section>
                 </>
-            )}
         </AnimatePresence>
     )
 }
