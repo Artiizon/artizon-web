@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 p-4 bg-black text-white flex justify-between items-center shadow-md">
       <div className="flex items-center gap-3">
         <NavLink to="/" className="text-xl font-bold">
-        <div className="flex items-center">
+        <div className="flex items-center px-5">
   <p className="text-4xl">
     <span className="font-bold text-white">ar</span>
     <span className="text-red-500 font-extrabold animate-bounce">T</span>

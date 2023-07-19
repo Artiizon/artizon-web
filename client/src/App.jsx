@@ -7,6 +7,7 @@ import Help from './pages/Help';
 import CompanyDesign from './pages/CompanyDesign';
 import Login from './pages/Login';
 import CompanyDesViewMore from './pages/CompanyDesViewMore';
+import ArtizonFeedback from './pages/ArtizonFeedback';
 
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/help" element={<Help/>}/>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/com-design-view-more" element={<CompanyDesViewMore/>}/>
+            <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
  
          </Routes> 
      </Router> 
