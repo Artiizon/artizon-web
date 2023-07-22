@@ -24,6 +24,7 @@ function Navbar() {
           <NavbarItem path='/contact' name="Contact"/>
           <NavbarItem path='/help' name="Help"/>
           <NavbarItem path='/login' name="Login"/>
+          <NavbarItem path='/usermanage' name="User Manage"/>
          
 
          </div>
