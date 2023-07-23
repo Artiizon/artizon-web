@@ -158,12 +158,22 @@ const OrderUpdate = () => {
             <div className="flex flex-grow px-3">
               {tabs.map(tab => (
                 <button
-                  key={tab}
-                  className={`px-4 py-2  border-x-2 border-gray-300 ${selectedTab === tab ? "bg-blue-500 text-white" : " text-gray-700"}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab}
-                </button>
+                key={tab}
+                className="px-4 py-2 font-semibold focus:outline-none relative"
+                style={{
+                  borderBottom: selectedTab === tab ? "2px solid #3B82F6" : "2px solid transparent",
+                  color: selectedTab === tab ? "#3B82F6" : "#4B5563",
+                }}
+                onClick={() => handleTabClick(tab)}
+              >
+                {tab}
+                {selectedTab === tab && (
+                  <div
+                    className="absolute left-0 right-0 bottom-0 h-1 bg-blue-500"
+                    style={{ width: "100%" }}
+                  />
+                )}
+              </button>
                      
               ))}
               
