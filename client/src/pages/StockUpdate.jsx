@@ -2,170 +2,69 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 import { useNavigate } from "react-router-dom";
-
-// Placeholder function for fetching stock details by ID
-const fetchStockById = async (id) => {
-  // Replace this with your actual API call or data fetching logic
-  // For now, let's assume stocks is an array of stock objects
-  // and we are finding the stock with the matching ID
-    const stocks = [
-        {
-          id: 1,
-          date: "2023-07-17",
-          time: "09:00 AM",
-          items: [
-            {
-              itemId: 1,
-              type: "Shirt",
-              quantity: 50,
-              itemName: "Shirt1",
-              color: "White",
-            },
-            {
-              itemId: 2,
-              type: "Pants",
-              quantity: 30,
-              itemName: "Pants1",
-              color: "Black",
-            },
-          ],
-        },
-        {
-          id: 2,
-          date: "2023-07-17",
-          time: "09:00 AM",
-          items: [
-            {
-              itemId: 1,
-              type: "Shirt",
-              quantity: 50,
-              itemName: "Shirt1",
-              color: "White",
-            },
-            {
-              itemId: 2,
-              type: "Pants",
-              quantity: 30,
-              itemName: "Pants1",
-              color: "Black",
-            },
-          ],
-        },
-    
-        {
-          id: 3,
-          date: "2023-07-17",
-          time: "09:00 AM",
-          items: [
-            {
-              itemId: 1,
-              type: "Shirt",
-              quantity: 50,
-              itemName: "Shirt1",
-              color: "White",
-            },
-            {
-              itemId: 2,
-              type: "Pants",
-              quantity: 30,
-              itemName: "Pants1",
-              color: "Black",
-            },
-          ],
-        },
-    
-        {
-          id: 4,
-          date: "2023-07-17",
-          time: "09:00 AM",
-          items: [
-            {
-              itemId: 1,
-              type: "Shirt",
-              quantity: 50,
-              itemName: "Shirt1",
-              color: "White",
-            },
-            {
-              itemId: 2,
-              type: "Pants",
-              quantity: 30,
-              itemName: "Pants1",
-              color: "Black",
-            },
-          ],
-        },
-    
-        {
-          id: 5,
-          date: "2023-07-17",
-          time: "09:00 AM",
-          items: [
-            {
-              itemId: 1,
-              type: "Shirt",
-              quantity: 50,
-              itemName: "Shirt1",
-              color: "White",
-            },
-            {
-              itemId: 2,
-              type: "Pants",
-              quantity: 30,
-              itemName: "Pants1",
-              color: "Black",
-            },
-          ],
-        }
-        
-        // Add more sample stocks here...
-      ];
-  
-
-  // Find the stock with the matching ID
-  const stock = stocks.find((stock) => stock.id === parseInt(id, 10));
-  return stock || null;
-};
+import axios from "axios";
+import {
+  Button,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 function StockUpdatePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [stock, setStock] = useState(null);
   const [formData, setFormData] = useState({
-    // Initialize form data with empty values or default values for the stock fields
-    date: "",
-    time: "",
     items: [],
   });
 
-  // Fetch stock details based on the ID from the URL
   useEffect(() => {
     const fetchStockDetails = async () => {
-      const stockDetails = await fetchStockById(id);
-      if (stockDetails) {
-        setStock(stockDetails);
-        setFormData(stockDetails); // Set form data with the fetched stock details
+      try {
+        const response = await axios.get(`http://localhost:3001/api/stock/${id}`);
+        const stockDetails = response.data;
+        if (stockDetails) {
+          setStock(stockDetails);
+          setFormData(stockDetails);
+        }
+      } catch (error) {
+        console.error("Error fetching stock details:", error);
       }
     };
 
     fetchStockDetails();
   }, [id]);
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:3001/api/stock/${id}`, formData);
+      console.log("Stock updated successfully!");
+      navigate("/stock");
+    } catch (error) {
+      console.error("Error updating stock:", error);
+    }
   };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    // Perform the update logic here, such as sending the updated stock data to the server
-    // or updating the data locally (depending on your setup)
-    console.log("Updated stock data:", formData);
-    // After successful update, you can navigate the user back to the StockManagementPage
-    navigate("/stock");
+  const handleQuantityChange = (index, value) => {
+    setFormData((prevFormData) => {
+      const updatedItems = [...prevFormData.items];
+      updatedItems[index] = {
+        ...updatedItems[index],
+        quantity: value,
+      };
+      return {
+        ...prevFormData,
+        items: updatedItems,
+      };
+    });
   };
 
   if (!stock) {
@@ -174,78 +73,95 @@ function StockUpdatePage() {
 
   return (
     <StandardLayout>
-      <div className="px-10 bg-white">
-        <h1 className="text-3xl font-semibold pb-6">Update Stock</h1>
+      <Container maxWidth="md">
+        <Typography variant="h4" component="h1" gutterBottom>
+          Update Stock
+        </Typography>
         <form onSubmit={handleUpdate}>
-          {/* Input fields for updating stock data */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Date:</label>
-            <input
-              type="text"
-              name="date"
-              value={formData.date}
-              onChange={handleFormChange}
-              className="border rounded-md py-2 px-3 w-full"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Time:</label>
-            <input
-              type="text"
-              name="time"
-              value={formData.time}
-              onChange={handleFormChange}
-              className="border rounded-md py-2 px-3 w-full"
-            />
-          </div>
-
-          {/* Add input fields for other stock properties */}
-          {/* For example, for each item in the items array */}
-          {formData.items.map((item, index) => (
-            <div key={index} className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Item ID:</label>
-              <input
-                type="text"
-                name={`items[${index}].itemId`}
-                value={item.itemId}
-                onChange={handleFormChange}
-                className="border rounded-md py-2 px-3 w-full"
-              />
-              {/* Add other input fields for item properties (type, quantity, item name, color) */}
-              {/* For example: */}
-              <label className="block text-gray-700 text-sm font-bold mb-2">Type:</label>
-              <input
-                type="text"
-                name={`items[${index}].type`}
-                value={item.type}
-                onChange={handleFormChange}
-                className="border rounded-md py-2 px-3 w-full"
-              />
-              {/* Add other input fields for item properties */}
-              {/* For example: */}
-              {/* Quantity, Item Name, Color */}
-            </div>
-          ))}
-
-          {/* Submit and Cancel buttons */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="bg-black text-white py-2 px-4 rounded-md mr-2"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/stock")}
-              className="bg-gray-500 text-white py-2 px-4 rounded-md"
-            >
-              Cancel
-            </button>
-          </div>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Item Code</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Item Name</TableCell>
+                  <TableCell>Color</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {formData.items.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        name={`items[${index}].item_id`}
+                        value={item.item_id}
+                        readOnly
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        name={`items[${index}].type`}
+                        value={item.type}
+                        readOnly
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        name={`items[${index}].quantity`}
+                        value={item.quantity}
+                        onChange={(e) => handleQuantityChange(index, e.target.value)}
+                        />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        name={`items[${index}].item_name`}
+                        value={item.item_name}
+                        readOnly
+                   
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        name={`items[${index}].color`}
+                        value={item.color}
+                        readOnly
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            halfWidth
+            style={{ marginTop: 16, marginBottom: 20 }}
+          >
+            Update
+          </Button>
+          <Button
+            color="primary"
+            halfWidth
+            onClick={() => navigate("/stock")}
+            style={{ marginTop: 16, marginLeft: 16, marginBottom: 20 }}
+          >
+            Cancel
+          </Button>
         </form>
-      </div>
+      </Container>
     </StandardLayout>
   );
 }

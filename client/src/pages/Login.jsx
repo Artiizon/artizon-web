@@ -74,7 +74,7 @@ const loginValidation=Yup.object({
             </Formik>
             <div className="flex flex-col gap-2 text-center my-6">
                 <FormLink name="Forgot password?" path="/"/>
-                <p className="text-sm">Don't have an account? <FormLink name="Create account" path="/" /> </p>
+                <p className="text-sm">Don't have an account? <FormLink name="Create account" path="/Signup" /> </p>
             </div>   
 
 

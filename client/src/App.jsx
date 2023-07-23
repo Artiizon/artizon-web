@@ -6,6 +6,9 @@ import Help from './pages/Help';
 
 import Login from './pages/Login';
 
+
+import Signup from './pages/Signup';
+
 import Stock from './pages/Stock';
 
 import StockDetailsPage from './pages/StockDetails';
@@ -31,6 +34,7 @@ function App() {
             <Route exact path="/stock/:id" element={<StockDetailsPage/>} />
             <Route exact path="/stock/:id/update" element={<StockUpdatePage/>} />
             <Route exact path="/stock/new" element={<StockNew/>} />
+            <Route exact path="/Signup" element={<Signup/>}/>
  
          </Routes> 
      </Router> 

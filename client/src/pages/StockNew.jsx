@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import TimePicker from "react-time-picker";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const colorOptions = [
   { value: "white", label: "White" },
@@ -15,20 +14,20 @@ const colorOptions = [
   { value: "yellow", label: "Yellow" },
 ];
 
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
+};
+
 function AddNewStockPage() {
+  const navigate = useNavigate();
   const [stockData, setStockData] = useState({
     date: new Date(),
-    time: "09:00",
+    time: getCurrentTime(),
     items: [],
   });
-
-  const handleStockChange = (e) => {
-    const { name, value } = e.target;
-    setStockData((prevStockData) => ({
-      ...prevStockData,
-      [name]: value,
-    }));
-  };
 
   const handleItemChange = (index, e) => {
     const { name, value } = e.target;
@@ -48,7 +47,10 @@ function AddNewStockPage() {
   const handleAddItem = () => {
     setStockData((prevStockData) => ({
       ...prevStockData,
-      items: [...prevStockData.items, { itemId: "", type: "", quantity: "", itemName: "", color: "" }],
+      items: [
+        ...prevStockData.items,
+        { itemId: "", type: "", quantity: "", itemName: "", color: "" },
+      ],
     }));
   };
 
@@ -65,8 +67,24 @@ function AddNewStockPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(stockData);
+
+  // Check if there is at least one item
+  if (stockData.items.length === 0) {
+    alert("Please add at least one item to save the stock.");
+    return; // Stop the form submission
+  }
+
+    // Make a POST request to the backend API endpoint
+    axios
+      .post("http://localhost:3001/api/stock", stockData)
+      .then((response) => {
+        console.log(response.data);
+        navigate("/stock");
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error response
+      });
   };
 
   return (
@@ -79,34 +97,17 @@ function AddNewStockPage() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="pb-4">
-          <label className="block text-sm font-medium text-gray-700">Date</label>
-          <DatePicker
-            name="date"
-            selected={stockData.date}
-            onChange={(date) => setStockData((prevStockData) => ({ ...prevStockData, date }))}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
-        </div>
-
-        <div className="pb-4">
-          <label className="block text-sm font-medium text-gray-700">Time</label>
-          <TimePicker
-            name="time"
-            value={stockData.time}
-            onChange={(time) => setStockData((prevStockData) => ({ ...prevStockData, time }))}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
-        </div>
-
+      
         <div className="pb-6">
-          <label className="block text-sm font-medium text-gray-700">Items</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Items
+          </label>
           {stockData.items.map((item, index) => (
             <div key={index} className="flex items-center space-x-4 mt-2">
               <div className="w-32">
-                <label className="block text-sm font-medium text-gray-700">Item ID</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Item Code
+                </label>
                 <input
                   type="text"
                   name="itemId"
@@ -117,7 +118,9 @@ function AddNewStockPage() {
                 />
               </div>
               <div className="w-32">
-                <label className="block text-sm font-medium text-gray-700">Type</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Type
+                </label>
                 <select
                   name="type"
                   value={item.type}
@@ -128,15 +131,19 @@ function AddNewStockPage() {
                   <option value="" disabled>
                     Select Type
                   </option>
-                  <option value="Shirt">Shirt</option>
-                  <option value="Pants">Pants</option>
-                  <option value="Shoes">Shoes</option>
+                  <option value="Material">Material</option>
+                  <option value="Button">Button</option>
+                  <option value="Ink">Ink</option>
+                  <option value="Thread">Thread</option>
+                  
                 </select>
               </div>
               <div className="w-20">
-                <label className="block text-sm font-medium text-gray-700">Quantity</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Quantity
+                </label>
                 <input
-                  type="number"
+                  type="text"
                   name="quantity"
                   value={item.quantity}
                   onChange={(e) => handleItemChange(index, e)}
@@ -145,7 +152,9 @@ function AddNewStockPage() {
                 />
               </div>
               <div className="w-32">
-                <label className="block text-sm font-medium text-gray-700">Item Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Item Name
+                </label>
                 <input
                   type="text"
                   name="itemName"
@@ -156,7 +165,9 @@ function AddNewStockPage() {
                 />
               </div>
               <div className="w-32">
-                <label className="block text-sm font-medium text-gray-700">Color</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Color
+                </label>
                 <select
                   name="color"
                   value={item.color}
@@ -175,19 +186,31 @@ function AddNewStockPage() {
                 </select>
               </div>
               {index > 0 && (
-                <button type="button" onClick={() => handleRemoveItem(index)} className="text-red-500">
+                <button
+                  type="button"
+                  onClick={() => handleRemoveItem(index)}
+                  className="text-red-500"
+                >
                   Remove
                 </button>
               )}
             </div>
           ))}
-          <button type="button" onClick={handleAddItem} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button
+            type="button"
+            onClick={handleAddItem}
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
             Add Item
           </button>
         </div>
 
         <div>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
             Save Stock
           </button>
           <Link to="/stock" className="ml-4 text-blue-500">
