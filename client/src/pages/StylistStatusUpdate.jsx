@@ -159,7 +159,7 @@ const OrderUpdate = () => {
               {tabs.map(tab => (
                 <button
                   key={tab}
-                  className={`px-4 py-2  border-x-2 border-gray-300 ${selectedTab === tab ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+                  className={`px-4 py-2  border-x-2 border-gray-300 ${selectedTab === tab ? "bg-blue-500 text-white" : " text-gray-700"}`}
                   onClick={() => handleTabClick(tab)}
                 >
                   {tab}
