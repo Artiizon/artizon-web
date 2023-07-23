@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import SearchBar from "../../components/searchbars/searchbar";
 
@@ -53,7 +54,9 @@ export default function CustomerManage() {
             key={item.uId}
           >
             <div className="w-[150px] pl-2 pb-1">{item.uId}</div>
-            <div className="w-[260px] pl-2">{item.fullName}</div>
+            <div className="w-[260px] pl-2">
+              <NavLink to="/customerPortfolia">{item.fullName}</NavLink>
+            </div>
             <div className="w-[260px] pl-2">{item.email}</div>
             <div className="w-[160px] pl-2">{item.orders}</div>
           </div>

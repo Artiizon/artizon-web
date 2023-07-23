@@ -11,6 +11,7 @@ import Login from './pages/Login';
 
 import './App.css'
 import DesignerPortfolia from './pages/Portfolia/DesignerPortfolia';
+import CustomerPortfolia from './pages/Portfolia/CustomerPortfolia';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/usermanage" element={<UserManageMain />}/>
             <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
+            <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
          </Routes> 
      </Router> 
   </div>
