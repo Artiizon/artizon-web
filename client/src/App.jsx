@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import './App.css'
 import DesignerPortfolia from './pages/Portfolia/DesignerPortfolia';
 import CustomerPortfolia from './pages/Portfolia/CustomerPortfolia';
+import CustomerDetails from './pages/Portfolia/CustomerDetails';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
             <Route exact path="/usermanage" element={<UserManageMain />}/>
             <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
             <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
+            <Route exact path="/customerdetails" element={<CustomerDetails />}/>
+            <Route exact path="/changePassword" element={<ChangePassword />}/>
          </Routes> 
      </Router> 
   </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Navbar from "../../components/header/Navbar";
 import pp1 from "../../images/portPp/maleAvatar.png";
 import cmp from "../../images/portPp/complete.png";
@@ -64,7 +65,7 @@ export default function CustomerPortfolia() {
           className="w-[150px] h-[150px] ml-[220px] mt-[120px] "
         />
         <p className="text-[35px]  ml-[35px] mt-[200px] font-bold uppercase">
-          Kasun Madhushan
+        <NavLink to="/customerdetails">Kasun Madhushan</NavLink>
         </p>
 
 
