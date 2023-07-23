@@ -18,8 +18,8 @@ const FooterLowerLink = ({ name, path }) => {
 
 function Footer() {
   return (
-    <div className="footer-container">
-      <div className="px-[200px] bg-black text-xs font-semibold text-white min-h-[90px]">  
+    <div className="footer-container bg-black text-xs font-semibold text-white">
+      <div className="px-[200px]">  
         <div className="flex flex-row py-2">
           More ways to shop.
           <FooterStandardLink name="Find a Store" path="/" /> or
@@ -34,7 +34,6 @@ function Footer() {
             <FooterLowerLink name="Legal" path="/" />
             <FooterLowerLink name="Map" path="/" />
           </div>
-  
           <div>
             <FooterLowerLink name="Sri Lanka" path="/" />
           </div>

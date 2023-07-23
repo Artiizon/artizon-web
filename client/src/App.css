@@ -3,6 +3,7 @@
 
 body {
     font-family: "Montserrat";
+
 }
 .font-custom {
     font-family:sans-serif;
@@ -12,6 +13,25 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
     /* Add any additional styling */
   }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set a minimum height of the viewport height */
+    margin: 0;
+  }
+  
+  #root {
+    flex: 1; /* Allow the main content to grow and take up all available space */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-container {
+    flex-shrink: 0; /* Prevent the footer from shrinking */
+  }
+  
+  
   
   
   

@@ -8,6 +8,7 @@ import CompanyDesign from './pages/CompanyDesign';
 import Login from './pages/Login';
 import CompanyDesViewMore from './pages/CompanyDesViewMore';
 import ArtizonFeedback from './pages/ArtizonFeedback';
+import StylistStatusUpdate from './pages/StylistStatusUpdate';
 
 import './App.css'
 
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/com-design-view-more" element={<CompanyDesViewMore/>}/>
             <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
+            <Route exact path="/order-status-update" element={<StylistStatusUpdate/>}/>
  
          </Routes> 
      </Router> 
