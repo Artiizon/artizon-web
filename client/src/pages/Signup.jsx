@@ -1,3 +1,4 @@
+import StandardLayout from "../components/layout/StandardLayout";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -7,6 +8,7 @@ import axios from "axios";
 const SignupPage = () => {
   const navigate = useNavigate();
 
+  const [emailError, setEmailError] = useState('');
   const [signupForm, setSignupForm] = useState({
     firstName: "",
     lastName: "",
@@ -17,10 +19,14 @@ const SignupPage = () => {
     confirmPassword: "",
   });
 
+  
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setSignupForm({ ...signupForm, [name]: value });
   };
+
+  
 
   const signupValidation = Yup.object({
     firstName: Yup.string().required("First name is required"),
@@ -28,7 +34,9 @@ const SignupPage = () => {
     title: Yup.string().required("Title is required"),
     email: Yup.string().required("Email address is required").email("Email must be valid"),
     contactNumber: Yup.string().required("Contact number is required"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string()
+       .required("Password is required")
+       .min(8, "Password must be at least 8 characters long"), 
     confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Confirm Password is required"),
@@ -37,11 +45,23 @@ const SignupPage = () => {
   const handleSignupSubmit = async (values, { setSubmitting }) => {
     try {
       // Send a POST request to the backend API with the signup form data
-      await axios.post('http://localhost:3001/api/signup', values);
-      // If the request is successful, navigate the user to the login page
-      navigate('/login');
+      const response = await axios.post('http://localhost:3001/api/signup', values);
+      console.log(response);
+      // If the request is successful and the response contains the message "Email already registered"
+       if (response.data.message === 'Email already registered') {
+        // Set the error message in the state to display it in the UI
+      } else {
+        // If the response doesn't contain the "Email already registered" message,
+        // it means the signup was successful. You can handle the successful signup flow here.
+        navigate('/login');
+      }
+    
+    
+    
     } catch (error) {
       console.error('Error creating user:', error);
+      console.log('Error message:', error.response.data.message); 
+      setEmailError(error.response.data.message);
       // Handle any errors here (e.g., display an error message to the user)
     }finally {
         // Set submitting to false to re-enable the submit button after the request is complete
@@ -52,10 +72,12 @@ const SignupPage = () => {
   const titleOptions = ["Mr", "Mrs"];
 
   return (
+    <StandardLayout>
+   
     <div className="h-screen px-[200px]">
       <div className="flex items-center justify-center pt-3">
         <div className="w-[400px]">
-          <p className="font-bold text-4xl pb-2">Create Account</p>
+          <p className="font-bold text-4xl pb-2">Signup</p>
           <p className="pb-3">Please fill in your details</p>
 
           <Formik
@@ -66,6 +88,7 @@ const SignupPage = () => {
             {(formik) => (
               <Form className="flex flex-col gap-2">
                 
+                <label className="text-gray-600 text-sm font-semibold">first name</label>
                 <Field
                   type="text"
                   name="firstName"
@@ -74,6 +97,7 @@ const SignupPage = () => {
                  />
                 <ErrorMessage name="firstName" component="div" className="text-red-600" />
 
+                <label className="text-gray-600 text-sm font-semibold">last name</label>
                 <Field
                   type="text"
                   name="lastName"
@@ -82,6 +106,7 @@ const SignupPage = () => {
                 />
                 <ErrorMessage name="lastName" component="div" className="text-red-600" />
 
+                <label className="text-gray-600 text-sm font-semibold">title</label>
                 <Field as="select" name="title" className="border rounded-md p-2" >
                     <option value="">Select Title</option>
                     {titleOptions.map((titleOption) => (
@@ -92,14 +117,17 @@ const SignupPage = () => {
                   </Field>
                   <ErrorMessage name="title" component="div" className="text-red-600" />
            
+                <label className="text-gray-600 text-sm font-semibold">email</label>
                 <Field
                   type="text"
                   name="email"
                   placeholder="Email Address"
                   className="border rounded-md p-2"
                 />
-                <ErrorMessage name="email" component="div" className="text-red-600" />
-
+                <ErrorMessage name="email" component="div"  className="text-red-600" />
+                {emailError && <div className="text-red-600">{emailError}</div>}
+           
+                <label className="text-gray-600 text-sm font-semibold">contact number</label>
                 <Field
                   type="text"
                   name="contactNumber"
@@ -108,6 +136,7 @@ const SignupPage = () => {
                 />
                 <ErrorMessage name="contactNumber" component="div" className="text-red-600" />
 
+                <label className="text-gray-600 text-sm font-semibold">password</label>
                 <Field
                   type="password"
                   name="password"
@@ -116,6 +145,7 @@ const SignupPage = () => {
                 />
                 <ErrorMessage name="password" component="div" className="text-red-600" />
 
+                <label className="text-gray-600 text-sm font-semibold">confirm password</label>
                 <Field
                   type="password"
                   name="confirmPassword"
@@ -141,6 +171,7 @@ const SignupPage = () => {
         </div>
       </div>
     </div>
+    </StandardLayout>
   );
 };
 

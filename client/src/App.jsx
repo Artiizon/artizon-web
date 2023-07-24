@@ -35,7 +35,9 @@ function App() {
             <Route exact path="/stock/:id/update" element={<StockUpdatePage/>} />
             <Route exact path="/stock/new" element={<StockNew/>} />
             <Route exact path="/Signup" element={<Signup/>}/>
- 
+            <Route exact path="/home" element={<Home/>}/>
+          
+            
          </Routes> 
      </Router> 
   </div>
