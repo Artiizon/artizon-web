@@ -203,6 +203,10 @@ app.post('/api/login', async (req, res) => {
     // Get the user_type from the database
     const userType = existingUser[0][0].user_type;
 
+  // Create a JWT token with the user data
+ 
+
+
     // Define the routes for different user types
     const userRoutes = {
       1: '/home',

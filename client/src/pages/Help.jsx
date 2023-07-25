@@ -4,7 +4,11 @@ import StandardLayout from "../components/layout/StandardLayout";
 function Help() {
   return (
   
-          <StandardLayout>Help</StandardLayout>
+          <StandardLayout>
+              <div className="min-h-screen">
+                   Help
+              </div>          
+          </StandardLayout>
   
   );
 }

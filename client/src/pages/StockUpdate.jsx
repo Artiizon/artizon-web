@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Button,
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
 
 function StockUpdatePage() {
   const { id } = useParams();
@@ -73,95 +60,56 @@ function StockUpdatePage() {
 
   return (
     <StandardLayout>
-      <Container maxWidth="md">
-        <Typography variant="h4" component="h1" gutterBottom>
-          Update Stock
-        </Typography>
+      <div className="px-10 py-10 min-h-screen">
+        <h1 className="text-3xl font-semibold">Update Stock</h1>
         <form onSubmit={handleUpdate}>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Item Code</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Item Name</TableCell>
-                  <TableCell>Color</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {formData.items.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        name={`items[${index}].item_id`}
-                        value={item.item_id}
-                        readOnly
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        name={`items[${index}].type`}
-                        value={item.type}
-                        readOnly
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        name={`items[${index}].quantity`}
-                        value={item.quantity}
-                        onChange={(e) => handleQuantityChange(index, e.target.value)}
-                        />
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        name={`items[${index}].item_name`}
-                        value={item.item_name}
-                        readOnly
-                   
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        name={`items[${index}].color`}
-                        value={item.color}
-                        readOnly
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            halfWidth
-            style={{ marginTop: 16, marginBottom: 20 }}
-          >
-            Update
-          </Button>
-          <Button
-            color="primary"
-            halfWidth
-            onClick={() => navigate("/stock")}
-            style={{ marginTop: 16, marginLeft: 16, marginBottom: 20 }}
-          >
-            Cancel
-          </Button>
+          <table className="w-full table-auto bg-white shadow-md rounded-lg overflow-hidden mt-4">
+            <thead>
+              <tr className="bg-black text-white">
+                <th className="px-4 py-3 text-left">Item Code</th>
+                <th className="px-4 py-3 text-left">Type</th>
+                <th className="px-4 py-3 text-left">Item Name</th>
+                <th className="px-4 py-3 text-left">Color</th>
+                <th className="px-4 py-3 text-right">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {formData.items.map((item, index) => (
+                <tr key={index} className="bg-white hover:bg-gray-200 transition-all ease-in-out">
+                  <td className="px-4 py-3">{item.item_id}</td>
+                  <td className="px-4 py-3">{item.type}</td>
+                  <td className="px-4 py-3">{item.item_name}</td>
+                  <td className="px-4 py-3">{item.color}</td>
+                  <td className="px-4 py-3 text-right">
+                    <input
+                      type="text"
+                      name={`items[${index}].quantity`}
+                      value={item.quantity}
+                      onChange={(e) => handleQuantityChange(index, e.target.value)}
+                      className="px-2 py-1 border border-gray-300 rounded-md"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex justify-end mt-4">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md mr-3"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/stock")}
+              className="bg-red-500 text-white px-6 py-2.5 rounded-md"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
-      </Container>
+      </div>
     </StandardLayout>
   );
 }

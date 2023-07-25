@@ -35,7 +35,7 @@ function StockDetailsPage() {
 
   return (
     <StandardLayout>
-      <div className="px-10 py-6 bg-white">
+      <div className="px-10 py-6 bg-white  min-h-screen">
         <h1 className="text-3xl font-semibold pb-6">Stock Details</h1>
 
         {/* Display stock details here */}

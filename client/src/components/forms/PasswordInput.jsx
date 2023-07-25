@@ -25,7 +25,7 @@ function PasswordInput({ placeholder, ...props }) {
           className="text-xs font-semibold py-1 text-gray-400 hover:text-gray-600 hover:cursor-pointer transition-all ease-in-out"
           onClick={() => setPasswordVisibility(!passwordVisibility)}
         >
-          {passwordVisibility ? "Hide Password" : "show password"}
+          
         </div>
       </div>
       <p className="text-red-700 text-ms font-bold">

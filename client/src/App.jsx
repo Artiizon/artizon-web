@@ -16,7 +16,7 @@ import StockDetailsPage from './pages/StockDetails';
 import StockUpdatePage from './pages/StockUpdate';
 import StockNew from './pages/StockNew';
 
-
+import TextileProManagerdashboard from './pages/textileProManagerdashboard';
 
 import './App.css'
 
@@ -36,6 +36,8 @@ function App() {
             <Route exact path="/stock/new" element={<StockNew/>} />
             <Route exact path="/Signup" element={<Signup/>}/>
             <Route exact path="/home" element={<Home/>}/>
+            
+            <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
           
             
          </Routes> 

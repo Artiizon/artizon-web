@@ -27,7 +27,7 @@ function StockManagementPage() {
 
   return (
     <StandardLayout>
-      <div className="px-10 bg-white">
+      <div className="px-10 bg-white min-h-screen">
         <div className="flex justify-between items-center mb-6 m-5">
           
           <h1 className="text-3xl font-semibold">Stock Management</h1>
@@ -48,8 +48,9 @@ function StockManagementPage() {
 
 
         {/* Table for stocks */}
-<table className="w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
-  <thead>
+<div className="w-full overflow-hidden max-h-[508px] overflow-y-scroll">
+<table className="w-full table-auto bg-white shadow-md rounded-lg">
+  <thead className="sticky top-0 bg-black text-white">
     <tr className="bg-black text-white">
       <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
       <th className="px-4 py-3 text-left">Date</th>
@@ -58,7 +59,7 @@ function StockManagementPage() {
     </tr>
   </thead>
 
-  <tbody>
+  <tbody className="">
   {stockData.map((value) => {
     
   return(
@@ -91,6 +92,7 @@ function StockManagementPage() {
 
 
 </table>
+      </div>
       </div>
     </StandardLayout>
   );
