@@ -7,7 +7,7 @@ function PasswordInput({ placeholder, ...props }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-gray-600 text-sm font-semibold">
+      <label className="text-gray-600 text-lg font-semibold">
         {field.name}
       </label>
       <div>

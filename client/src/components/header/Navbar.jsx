@@ -23,7 +23,7 @@ const Navbar = () => {
         <NavbarItem path='/stock' name="Stock"/>
         <NavbarItem path='/contact' name="Contact"/>
         <NavbarItem path='/help' name="Help"/>
-        <NavbarItem path='/login' name="Login"/>
+        
 
 
       </div>
@@ -31,6 +31,7 @@ const Navbar = () => {
       <div className="flex items-center gap-5">
         <FaShoppingCart size={20} />
         <NavbarItem path="/login" name="Login" isButton />
+        <NavbarItem path="/signup" name="signup" isButton />
       </div>
     </nav>
   );

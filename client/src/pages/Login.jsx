@@ -58,40 +58,56 @@ function Login() {
 
   return (
     <Header>
-      <div className="h-screen  flex items-center justify-center">
-        <div className="w-[900px] p-8 bg-white rounded-md shadow-md flex">
+      <div className="h-screen flex items-center justify-center">
+        <div className="w-screen bg-white rounded-md shadow-md flex">
           {/* Left Part - Image */}
-          <div className="flex-1 bg-gray-300">
+          <div className="w-1/2 overflow-hidden">
             <img src={img1} alt="Image" className="w-full h-full object-cover" />
           </div>
 
           {/* Right Part - Login Form */}
-          <div className="flex-1 p-8">
-            <p className="text-2xl font-bold text-center pb-4">Log In</p>
+          <div className="w-1/2 p-8 mt-11">
+            <h2 className="text-3xl font-bold  pb-4 mt-4 ml-56">Log In</h2>
+            {/* <h2 className="text-3xl font-semibold mb-4">Signup</h2>
+      */}
             <Formik enableReinitialize initialValues={{email,password}} validationSchema={loginValidation} 
                   onSubmit={handleLoginSubmit}
             >
               {(formik) => (
-                <Form className="flex flex-col gap-4">
+                <Form className="flex flex-col gap-4 w-2/3 ml-20">
                   <Input
                     type="text"
                     name="email"
                     placeholder="Enter your email address"
-                    onChange={handleOnChange} 
+                    onChange={handleOnChange}
+                    className="w-1/2"
                   />
+
+                  {/* <label className="text-gray-600 font-semibold">Email</label> */}
+                  {/* <Field
+                    type="text"
+                    name="email"
+                    placeholder="Enter your Email Address"
+                    className="border border-gray-300 p-2 rounded-md block mt-2"
+                  />
+                  <ErrorMessage name="email" component="div" className="text-red-600" />
+                  {emailError && <div className="text-red-600">{emailError}</div>} */}
+
 
                   <PasswordInput
                     type="password"
                     name="password"
                     placeholder="Enter your password"
-                    onChange={handleOnChange} 
+                    onChange={handleOnChange}
+                    className="w-1/2"
                   />
                   {loginError && <div className="text-red-600 text-sm">{loginError}</div>}
         
                   <button 
                     type="submit" 
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md mx-auto"
                     disabled={formik.isSubmitting}
+                    style={{ width: "50%" }}
                   >
                     {formik.isSubmitting ? 'Logging In...' : 'Login'}
                   </button>
@@ -100,7 +116,7 @@ function Login() {
             </Formik>
             <div className="flex flex-col gap-2 text-center my-4">
               <FormLink name="Forgot password?" path="/"/>
-              <p className="text-sm">Don't have an account? <FormLink name="Create account" path="/Signup" /> </p>
+              <p className="text-sm">Don't have an account? <FormLink name="Sign up" path="/Signup" /> </p>
             </div>   
             
           </div>
