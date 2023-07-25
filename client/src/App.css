@@ -56,6 +56,15 @@ body {
   z-index: 99999; /* Ensure the content appears above the overlay */
 }
 
+.custom-popup-width {
+  width: 800px; /* Set the desired width for the popup */
+}
+
+.max-h-screen {
+  max-height: calc(100vh - 40px); /* Subtract any additional padding/margin values if present */
+}
+
+
 
   
   

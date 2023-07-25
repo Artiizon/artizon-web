@@ -19,7 +19,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-5">
-        <NavbarItem path="/dashboard" name="Dashboard" />
+        <NavbarItem path="/stylist-dash" name="Dashboard" />
         <NavbarItem path="/design-lab" name="Design Lab" />
         <NavbarItem path="/company-design" name="Designs" />
         <NavbarItem path="/help" name="Help" />

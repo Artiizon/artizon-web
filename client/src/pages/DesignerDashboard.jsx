@@ -4,8 +4,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { MdFeedback } from 'react-icons/md';
 import { SiAffinitydesigner } from 'react-icons/si';
 import {BiSolidNote} from 'react-icons/bi'
-import {AiOutlinePlus} from 'react-icons/ai'
+import { AiOutlinePlus, AiOutlineEye } from 'react-icons/ai';
 import StandardLayout from '../components/layout/StandardLayout';
+import { BsArrowRightShort } from 'react-icons/bs';
+
 
 const data = [
   { name: 'Jan', orders: 20 },
@@ -73,28 +75,41 @@ const DashboardLabel = ({ title, value, color }) => {
   );
 };
 
-const DashboardCard = ({ title, link, value }) => {
-    return (
-      <div>
-        <Link to={link}>
-          <div className="rounded-lg shadow-md overflow-hidden bg-gradient-to-br from-blue-500 to-blue-900 hover:shadow-lg cursor-default transition duration-300">
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold text-white mb-4">
-                {title}
-              </h2>
-              <div className="flex justify-end">
-                <div className="flex items-center bg-white rounded-full p-3 text-blue-600 font-semibold text-sm cursor-pointer">
-                  
-                 
-                  {value}
-                </div>
-              </div>
+const DashboardCard = ({ title, topic, link, value }) => {
+  const getIcon = (value) => {
+    switch (value) {
+      case 'Add':
+        return <AiOutlinePlus className="text-3xl" />;
+      case 'View':
+        return <AiOutlineEye className="text-3xl" />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+      <Link to={link} className="block">
+        <div className="bg-gradient-to-br from-blue-500 to-blue-900 text-white p-6 cursor-default">
+          <h2 className="text-2xl font-semibold mb-4">{topic}</h2>
+          <div className="flex items-center justify-end">
+            <div className="bg-white rounded-full p-3 text-blue-600 font-semibold text-sm ">
+              {getIcon(value)}
             </div>
+          </div>
+        </div>
+      </Link>
+      <div className="px-6 py-4">
+        <Link to={link} className="block">
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-semibold">{title}</span>
+            <BsArrowRightShort className="text-3xl" />
           </div>
         </Link>
       </div>
-    );
-  };
+    </div>
+  );
+};
   
 
 
@@ -124,12 +139,12 @@ const DashboardPage = () => {
   <div className="flex justify-end gap-4">
     <div className="flex-1">
       <div className="h-full flex flex-col">
-        <DashboardCard title="New Design" link="/new-design" value="Add" />
+        <DashboardCard title="Add New Design" topic="New Design" link="/new-design" value="Add" />
       </div>
     </div>
     <div className="flex-1">
       <div className="h-full flex flex-col">
-        <DashboardCard title="My Designs" link="/des-design" value="View" />
+        <DashboardCard title="View My Designs" topic="My Designs" link="/des-design" value="View" />
       </div>
     </div>
     {/* Add more cards for other sections */}
