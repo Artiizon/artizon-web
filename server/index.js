@@ -23,7 +23,7 @@ const db = mysql.createConnection({
 });
 
 app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Hello from DALL.E' });
+    res.status(200).json({ message: 'Hello from Backend' });
 });
 
 app.post('/order', (req, res) => {
@@ -36,4 +36,4 @@ app.post('/order', (req, res) => {
 });
 
 
-app.listen(8080, () => console.log('Server is running on port 8080'));
+app.listen(process.env.PORT, () => console.log('Server is running on port 8080'));
