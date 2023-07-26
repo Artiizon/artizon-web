@@ -14,6 +14,7 @@ import StylistReviewOrders from './pages/StylistReviewOrders';
 import DesignerDashboard from './pages/DesignerDashboard';
 import DesignerDesigns from './pages/DesignerDesigns';
 import AddNewDesign from './pages/AddNewDesign';
+import ManagerDashboard from './pages/ManagerDashboard';
 
 import './App.css'
 
@@ -37,6 +38,7 @@ function App() {
             <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
             <Route exact path="/des-design" element={<DesignerDesigns/>}/>
             <Route exact path="/new-design" element={<AddNewDesign/>}/>
+            <Route exact path="/manager-dash" element={<ManagerDashboard/>}/>
             
  
          </Routes> 
