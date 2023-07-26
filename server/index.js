@@ -189,6 +189,8 @@ app.post('/api/login', async (req, res) => {
     // Check if the email exists in the database
     const existingUser = await db.query("SELECT * FROM login_details WHERE email = ?", [email]);
 
+    const existingLoginUser = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+
     if (existingUser[0].length === 0) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
@@ -202,6 +204,10 @@ app.post('/api/login', async (req, res) => {
 
     // Get the user_type from the database
     const userType = existingUser[0][0].user_type;
+
+
+    // Get the user name from the user data
+    const userName = existingLoginUser[0][0].title + ". " + existingLoginUser[0][0].first_name;
 
   // Create a JWT token with the user data
  
@@ -217,7 +223,12 @@ app.post('/api/login', async (req, res) => {
     };
 
     // Navigate to the corresponding route based on the user_type
-    res.status(200).json({ message: 'Login successful', userType, route: userRoutes[userType] });
+    res.status(200).json({
+       message: 'Login successful', 
+       userType, 
+       route: userRoutes[userType],
+       userName: userName,
+       });
     
   } catch (error) {
     console.error(error);

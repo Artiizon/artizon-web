@@ -104,7 +104,7 @@ const SignupPage = () => {
                     name="firstName"
                     placeholder="First Name"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
-                    
+                    style={{ width: "250px" }}
                   />
                   <ErrorMessage name="firstName" component="div" className="text-red-600" />
 
@@ -114,11 +114,13 @@ const SignupPage = () => {
                     name="lastName"
                     placeholder="Last Name"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
+                    style={{ width: "250px" }}
+           
                   />
                   <ErrorMessage name="lastName" component="div" className="text-red-600" />
 
                   <label className="text-gray-600 font-semibold">Title</label>
-                  <Field as="select" name="title"   className="border border-gray-300 p-2 rounded-md block mt-2 w-52" >
+                  <Field as="select" name="title" style={{ width: "250px" }} className="border border-gray-300 p-2 rounded-md block mt-2 w-52" >
                     <option value="">Select Title</option>
                     {titleOptions.map((titleOption) => (
                       <option key={titleOption} value={titleOption}>
@@ -134,6 +136,8 @@ const SignupPage = () => {
                     name="email"
                     placeholder="Email Address"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
+                    style={{ width: "250px" }}
+           
                   />
                   <ErrorMessage name="email" component="div" className="text-red-600" />
                   {emailError && <div className="text-red-600">{emailError}</div>}
@@ -157,6 +161,7 @@ const SignupPage = () => {
                     name="contactNumber"
                     placeholder="Contact Number"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
+                    style={{ width: "250px" }}
                   />
                   <ErrorMessage name="contactNumber" component="div" className="text-red-600" />
 
@@ -166,6 +171,8 @@ const SignupPage = () => {
                     name="password"
                     placeholder="Password"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
+                    style={{ width: "250px" }}
+           
                   />
                   <ErrorMessage name="password" component="div" className="text-red-600" />
 
@@ -175,6 +182,8 @@ const SignupPage = () => {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     className="border border-gray-300 p-2 rounded-md block mt-2"
+                    style={{ width: "250px" }}
+           
                   />
                   <ErrorMessage name="confirmPassword" component="div" className="text-red-600" />
 

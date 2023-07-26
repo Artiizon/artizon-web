@@ -1,8 +1,12 @@
-
 import { FaShoppingCart } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../pages/AuthContext';
+
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { userName,isLoggedIn, handleLogout  } = useAuth();
+  
   return (
     <nav className="fixed top-0 left-0 right-0 p-4 bg-black text-white flex justify-between items-center shadow-md">
       <div className="flex items-center gap-3">
@@ -30,8 +34,45 @@ const Navbar = () => {
 
       <div className="flex items-center gap-5">
         <FaShoppingCart size={20} />
-        <NavbarItem path="/login" name="Login" isButton />
-        <NavbarItem path="/signup" name="signup" isButton />
+        {/* <NavbarItem path="/login" name="Login" isButton />
+        <NavbarItem path="/signup" name="signup" isButton /> */}
+
+
+        {isLoggedIn ? (
+          <>
+           <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              >
+                {userName}
+            </button>
+        
+        
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              >
+                Login
+              </button>
+            </Link>
+            <Link to="/signup">
+              <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+                Signup
+              </button>
+            </Link>
+          </>
+        )}
+
+
+
       </div>
     </nav>
   );

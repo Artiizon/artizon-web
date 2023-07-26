@@ -4,12 +4,13 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; 
+import Cookies from 'js-cookie'; // Import js-cookie library
 
 import Input from "../components/forms/Input";
 import PasswordInput from "../components/forms/PasswordInput";
 import FormLink from "../components/forms/FormLink";
-
-import img1 from "../images/tshirt.jpg";
+import { useAuth } from '../pages/AuthContext';
+import img1 from "../images/login.jpg";
 
 const LOGIN_DATA = {
   email: "",
@@ -21,7 +22,7 @@ function Login() {
  
   const [loginForm, setLoginForm] = useState(LOGIN_DATA);
   const [loginError, setLoginError] = useState('');
-
+  const { setIsLoggedIn, setUserName } = useAuth();
   const { email, password } = loginForm;
 
   const  handleOnChange=(e)=>{
@@ -41,12 +42,18 @@ function Login() {
       const response = await axios.post('http://localhost:3001/api/login', values);
     
       if (response.status === 200) {
+        console.log(response.data.userName);
         // Login successful
+        setUserName(response.data.userName);
+        setIsLoggedIn(true);
         navigate(response.data.route);
+        Cookies.set('isLoggedIn', true, { expires: 7 }); // Set the cookie to expire in 7 days
+        Cookies.set('userName', response.data.userName, { expires: 7 }); // Set the cookie to expire in 7 days
+  
       } else {
         // Handle other status codes or error messages as needed
       }
-      
+      console.log("Osho");
     } catch (error) {
       console.error('Error logging in:', error);
       console.log('Error message:', error.response.data.message); 
@@ -61,8 +68,8 @@ function Login() {
       <div className="h-screen flex items-center justify-center">
         <div className="w-screen bg-white rounded-md shadow-md flex">
           {/* Left Part - Image */}
-          <div className="w-1/2 overflow-hidden">
-            <img src={img1} alt="Image" className="w-full h-full object-cover" />
+          <div className="w-1/2 overflow-hidden"  style={{ height: '100vh' }}>
+            <img src={img1} alt="Image" className="w-full h-full object-cover " />
           </div>
 
           {/* Right Part - Login Form */}
