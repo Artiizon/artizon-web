@@ -48,7 +48,7 @@ const DashboardCard = ({ title, link, icon, value }) => {
   return (
     <div className="w-1/2 px-2">
       <Link to={link}>
-        <div className="rounded-lg shadow-md overflow-hidden bg-gradient-to-br from-blue-500 to-blue-900 hover:shadow-lg cursor-default transition duration-300">
+        <div className="rounded-lg shadow-md overflow-hidden bg-gradient-to-br from-gray-500 to-gray-800 hover:shadow-lg cursor-default transition duration-300">
           <div className="p-6">
             <h2 className="text-2xl font-semibold text-white mb-4">
               {icon} {title}

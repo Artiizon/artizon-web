@@ -90,7 +90,7 @@ const DashboardCard = ({ title, topic, link, value }) => {
   return (
     <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
       <Link to={link} className="block">
-        <div className="bg-gradient-to-br from-blue-500 to-blue-900 text-white p-6 cursor-default">
+        <div className="bg-gradient-to-br from-gray-500 to-gray-900 text-white p-6 cursor-default">
           <h2 className="text-2xl font-semibold mb-4">{topic}</h2>
           <div className="flex items-center justify-end">
             <div className="bg-white rounded-full p-3 text-blue-600 font-semibold text-sm ">
