@@ -71,7 +71,10 @@ const CanvasModel = () => {
       <Environment preset="city" />
 
       <CameraRig>
-        <Backdrop />
+        {snap.page === 'customizor' || (
+          <Backdrop />
+        )}
+        
         <Center>
           {snap.page === 'customizor' && (
             <group ref={groupRef}>

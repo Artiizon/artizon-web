@@ -26,8 +26,8 @@ const Home = () => {
                 <motion.section className="home" {...slideAnimation('left')}>
                     <motion.div className="home-content" {...headContainerAnimation}>
                         <motion.div {...headTextAnimation}>
-                            <h1 className="head-text">
-                                LET'S <br className="x1:block hidden" /> DO IT.
+                            <h1 className="text-l font-bold">
+                                LET'S DO IT.
                             </h1>
                         </motion.div>
                         <motion.div {...headContentAnimation} className="flex flex-col gap-5">
