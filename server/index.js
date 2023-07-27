@@ -5,12 +5,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./db");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 const app = express();
 const port = 3001; // Or any port you want to use
 
 app.use(cors());
 app.use(bodyParser.json());
+const secretKey = '12345';
 
 // API route for fetching all stocks
 app.get("/api/stocks", async (req, res) => {
@@ -210,7 +213,10 @@ app.post('/api/login', async (req, res) => {
     const userName = existingLoginUser[0][0].title + ". " + existingLoginUser[0][0].first_name;
 
   // Create a JWT token with the user data
- 
+  const token = jwt.sign({ email, userType }, secretKey, { expiresIn: '1h' });
+
+      // Set the tokens in cookies
+      res.cookie('authToken', token, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
 
 
     // Define the routes for different user types
@@ -219,7 +225,10 @@ app.post('/api/login', async (req, res) => {
       2: '/designer',
       3: '/admin',
       4: '/stylist',
-      5: '/textile-production-manager',
+      5: '/textileProManagerdashboard',
+
+      
+      
     };
 
     // Navigate to the corresponding route based on the user_type
@@ -228,6 +237,7 @@ app.post('/api/login', async (req, res) => {
        userType, 
        route: userRoutes[userType],
        userName: userName,
+       token:token
        });
     
   } catch (error) {

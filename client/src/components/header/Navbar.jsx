@@ -6,6 +6,8 @@ import { useAuth } from '../../pages/AuthContext';
 const Navbar = () => {
   const navigate = useNavigate();
   const { userName,isLoggedIn, handleLogout  } = useAuth();
+
+  console.log("Bhagi",isLoggedIn);
   
   return (
     <nav className="fixed top-0 left-0 right-0 p-4 bg-black text-white flex justify-between items-center shadow-md">
@@ -36,7 +38,6 @@ const Navbar = () => {
         <FaShoppingCart size={20} />
         {/* <NavbarItem path="/login" name="Login" isButton />
         <NavbarItem path="/signup" name="signup" isButton /> */}
-
 
         {isLoggedIn ? (
           <>
@@ -86,7 +87,7 @@ const NavbarItem = ({ path, name, isButton = false }) => {
   return (
     <NavLink
       to={path}
-      activeClassName="text-gray-300"
+      activeclassname="text-gray-300"
       className={itemClasses}
     >
       {name}

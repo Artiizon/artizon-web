@@ -22,7 +22,7 @@ function Login() {
  
   const [loginForm, setLoginForm] = useState(LOGIN_DATA);
   const [loginError, setLoginError] = useState('');
-  const { setIsLoggedIn, setUserName } = useAuth();
+  const { setIsLoggedIn, setUserName, setUserType } = useAuth();
   const { email, password } = loginForm;
 
   const  handleOnChange=(e)=>{
@@ -43,15 +43,25 @@ function Login() {
     
       if (response.status === 200) {
         console.log(response.data.userName);
+      
+        Cookies.set('isLoggedIn', true, { expires: 7 }); // Set the cookie to expire in 7 days
+        Cookies.set('userName', response.data.userName, { expires: 7 }); // Set the cookie to expire in 7 days
+        Cookies.set('userType', response.data.userType, { expires: 7 });
+        
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', response.data.userName);
+        localStorage.setItem('userType', response.data.userType);
+        setUserType(response.data.userType);
+      
         // Login successful
         setUserName(response.data.userName);
         setIsLoggedIn(true);
+        
+        console.log(response.data.userType);
         navigate(response.data.route);
-        Cookies.set('isLoggedIn', true, { expires: 7 }); // Set the cookie to expire in 7 days
-        Cookies.set('userName', response.data.userName, { expires: 7 }); // Set the cookie to expire in 7 days
-  
       } else {
         // Handle other status codes or error messages as needed
+
       }
       console.log("Osho");
     } catch (error) {

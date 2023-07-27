@@ -5,7 +5,7 @@ function Help() {
   return (
   
           <StandardLayout>
-              <div className="min-h-screen">
+              <div className="min-h-screen mt-10">
                    Help
               </div>          
           </StandardLayout>

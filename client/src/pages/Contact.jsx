@@ -4,7 +4,7 @@ function Contact() {
   return (
        
         <StandardLayout>
-         <div className="min-h-screen">
+         <div className="min-h-screen mt-10">
           Contact
          </div>
 
