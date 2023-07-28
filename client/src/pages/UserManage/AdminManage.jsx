@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SearchBar from "../../components/searchbars/searchbar";
 import { NavLink } from "react-router-dom";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 const DATA = [
   {
@@ -77,12 +79,58 @@ export default function StylistManage() {
           >
             <div className="w-[50px] pl-2 pb-1 text-center radius-[15px] ">{item.uId}</div>
             <div className="w-[260px] pl-2 ml-[30px] text-center">
-              <NavLink to="/designerPortfolia ">{item.fullName}</NavLink>
+              {item.fullName}
             </div>
             <div className=" w-[305px] pl-2 text-center">{item.email}</div>
-            <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px]">
-              More
-            </button>
+            
+            <Popup
+              trigger={
+                <button>
+                  {" "}
+                  <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] ">
+                    More
+                  </button>
+                </button>
+              }
+              modal
+              nested
+              overlayStyle={{
+                background: "rgba(0, 0, 0, 0.5)", // Set the overlay background to transparent black
+              }}
+              contentStyle={{
+                background: "transparent", // Set the content background to transparent
+                border: "none", // Remove border
+                boxShadow: "none", // Remove box shadow
+              }}
+            >
+              {(close) => (
+                <div className="modal flex justify-center items-center ">
+                  <div
+                    className="content p-4 rounded-[15px] bg-white w-[450px] h-[300px] justify-center items-center "
+                    style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
+                  >
+                    <div className="flex">
+                      <p className="text-2xl font-semibold">
+                        Mr. Janod Umayanga
+                      </p>
+                      <p className="text-sm ml-[20px] mt-[6px]">(admin)</p>
+                    </div>
+                    <p className="text-xl ml-[20px] mt-[6px]">
+                      janodum84@gmail.com
+                    </p>
+                    <p className="text-l ml-[20px] mt-[6px]">+94 742586134</p>
+                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
+                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
+                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
+                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px]">
+                      DELETE USER
+                    </button>
+                  </div>
+                </div>
+              )}
+            </Popup>
+
+
           </div>
         ))}
       </div>
