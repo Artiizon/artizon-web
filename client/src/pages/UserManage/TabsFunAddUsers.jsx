@@ -4,10 +4,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import CustomerManage from './CustomerManage';
 import DesignerManage from './DesignerManage';
 import AdminManage from './AdminManage';
 import StylistManage from './StylistManage';
+import AddDesigner from './AddDesigner';
+import AddStylist from './AddStylist';
+import AddAdmin from './AddAdmin';
  
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -65,7 +67,6 @@ export default function TabsFun() {
               color: '#FF0000', // Change the selected tab label color here
             },
           }}>
-            <Tab label="Customers" {...a11yProps(0)} />
             <Tab label="Designers" {...a11yProps(1)} />
             <Tab label="Stylist" {...a11yProps(2)} />
             <Tab label="Admin" {...a11yProps(3)} />
@@ -73,16 +74,13 @@ export default function TabsFun() {
           
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <CustomerManage />
+          <AddDesigner />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <DesignerManage />
+          <AddStylist />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <StylistManage />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <AdminManage />
+          <AddAdmin />
         </CustomTabPanel>
       </Box>
     );

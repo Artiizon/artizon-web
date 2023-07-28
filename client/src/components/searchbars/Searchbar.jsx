@@ -27,7 +27,7 @@ export default function SearchBar({ data, setFilteredData }) {
           placeholder="Search..."
           value={searchQuery}
           onChange={handleInputChange}
-          className="py-[5px] pl-7 pr-4 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none w-[400px]"
+          className="py-[5px] pl-7 pr-4 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none w-[670px]"
         />
     </div>
   );
