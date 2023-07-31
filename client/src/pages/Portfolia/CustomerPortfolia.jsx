@@ -30,9 +30,9 @@ const Counts = ({ count, tag, im }) => {
   );
 };
 
-const OrderCard = ({ status, tags, ims }) => {
+const OrderCard = ({ status, tags, ims ,style }) => {
   return (
-    <div className="m-4 mt-[20px] p-1 w-[920px] h-[135px] bg-gray-100 shadow-lg rounded-md flex  ">
+    <div className={`m-4 mt-[20px] p-1 w-[920px] h-[135px] bg-gray-100 shadow-lg rounded-md flex  ${style}`}>
       <img src={ims} alt="imagemm" className="h-[125px] " />
       <div className="w-[140px] ml-[25px] mt-[40px]">
         <p className=" text-xl font-normal ">{tags}</p>
@@ -41,14 +41,16 @@ const OrderCard = ({ status, tags, ims }) => {
         <p className="font-bold text-xl mt-[15px] ml-[480px] text-center">
           {status}
         </p>
-        <button
-          type="button"
-          className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
+        <NavLink to="/customerOrderDetails">
+          <button
+            type="button"
+            className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
-                text-white  shadow-md shadow-slate-900  bg-slate-500"
-        >
-          Order details
-        </button>
+                text-white  shadow-md shadow-slate-900  bg-black"
+          >
+            Order details
+          </button>
+        </NavLink>
       </div>
     </div>
   );
@@ -65,26 +67,22 @@ export default function CustomerPortfolia() {
           className="w-[150px] h-[150px] ml-[220px] mt-[120px] "
         />
         <p className="text-[35px]  ml-[35px] mt-[200px] font-bold uppercase">
-        <NavLink to="/customerdetails">Kasun Madhushan</NavLink>
+          <NavLink to="/customerdetails">Kasun Madhushan</NavLink>
         </p>
 
-
-
-        
-          <button
-            type="button"
-            className="  w-[123px] h-[35px] mt-[203px] ml-[220px]
+        <button
+          type="button"
+          className="  w-[123px] h-[35px] mt-[203px] ml-[220px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
                 text-black  shadow shadow-slate-600  bg-white rounded-[20px] flex"
-          >
-            <p className="ml-[15px]">WishList</p>
-            <img
-              src={heart}
-              alt="imagce"
-              className="w-[30px] h-[30px] ml-[6px] mt-[-3px] "
-            />
-          </button>
-        
+        >
+          <p className="ml-[15px]">WishList</p>
+          <img
+            src={heart}
+            alt="imagce"
+            className="w-[30px] h-[30px] ml-[6px] mt-[-3px] "
+          />
+        </button>
       </div>
 
       <div className="flex flex-row justify-center gap-8 ">
@@ -96,10 +94,10 @@ export default function CustomerPortfolia() {
         <p className="font-semibold text-xl">ORDERS</p>
         <hr width="80%" />
         <div className="cards mt-[40px]">
-          <OrderCard status="Processing" tags="Foot ball T shirt" ims={t1} />
-          <OrderCard status="Completed" tags="Long sleves T shirt" ims={t2} />
-          <OrderCard status="Completed" tags="Normal design 01" ims={t3} />
-          <OrderCard status="Completed" tags="Normal design 02" ims={t4} />
+          <OrderCard status="Processing" tags="Foot ball T shirt" ims={t1} style="bg-[#D9D9D9]" />
+          <OrderCard status="Completed" tags="Long sleves T shirt" ims={t2} style="bg-[#F1F1F1]" />
+          <OrderCard status="Completed" tags="Normal design 01" ims={t3} style="bg-[#D9D9D9]"/>
+          <OrderCard status="Completed" tags="Normal design 02" ims={t4} style="bg-[#F1F1F1]"/>
         </div>
       </div>
     </div>

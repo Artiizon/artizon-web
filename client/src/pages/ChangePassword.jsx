@@ -70,7 +70,7 @@ export default function () {
               type="button"
               className="justify-center w-[300px] h-[30px] mt-[-2px] 
                   pt-[4px] text-sm font-medium uppercase 
-                text-white  shadow shadow-slate-600  bg-blue-600 rounded-[10px] flex"
+                text-white  shadow shadow-slate-600  bg-black rounded-[10px] flex"
             >
               <p >save</p>
               

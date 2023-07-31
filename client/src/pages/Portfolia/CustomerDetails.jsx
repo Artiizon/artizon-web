@@ -53,7 +53,7 @@ export default function CustomerDetails() {
               type="button"
               className="  w-[123px] h-[30px] mt-[-2px] ml-[20px]
                   pt-[4px] text-sm font-medium uppercase 
-                text-white  shadow shadow-slate-600  bg-blue-600 rounded-[10px] flex"
+                text-white  shadow shadow-slate-600  bg-black rounded-[10px] flex"
             >
               <p className="ml-[35px]">change</p>
               {/* <img
