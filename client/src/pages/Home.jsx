@@ -26,13 +26,13 @@ const Home = () => {
                 <motion.section className="home" {...slideAnimation('left')}>
                     <motion.div className="home-content" {...headContainerAnimation}>
                         <motion.div {...headTextAnimation}>
-                            <h1 className="text-l font-bold">
+                            <h1 className="head-text">
                                 LET'S DO IT.
                             </h1>
                         </motion.div>
                         <motion.div {...headContentAnimation} className="flex flex-col gap-5">
-                            <p className="max-w-md font-normal text-gray-600">
-                                Create your unique and exclusive shirt with our brand-new 3d customization tool. <strong>Unleash your imagination</strong>{" "} and define your own style.
+                            <p className="head-text-content">
+                                Create your unique and exclusive T-shirt with our brand-new 3d customization tool. <strong>Unleash your imagination</strong>{" "} and define your own style.
                             </p>
 
                             <CustomButton

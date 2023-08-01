@@ -29,8 +29,18 @@ html {
 }
 
 .head-text {
-  @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
+    font-size: 6rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
 }
+
+.head-text-content {
+    max-width: 500px;
+    font-family: 'Poppins', sans-serif;
+    flex: content;
+    font-size: 0.85rem;
+    color: #373434
+  }
 
 .download-btn {
   @apply w-14 h-14 flex justify-center items-center rounded-full glassmorphism cursor-pointer outline-none;
