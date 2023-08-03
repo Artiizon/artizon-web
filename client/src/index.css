@@ -7,12 +7,12 @@
 @tailwind utilities;
 
 html {
-  font-family: "Inter", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter var", sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
@@ -184,6 +184,7 @@ input[type="file"] {
 :root{
     --hue-background: #161616;
     --hue-text: #F6F6F6;
+    --hue-red: rgb(207, 31, 31);
 }
 
 /* body{
@@ -487,4 +488,155 @@ header div span{
         left: -2.5px;
         text-shadow: 5px 0 blue;
     }
+}   
+
+.header-login {
+    font-weight: 400;
+    font-size: 1.35rem;
+    position: relative;
+    opacity: 0;
+    animation: reveal-main-icon 6s forwards;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: var(--hue-text);
+}
+
+.login-page {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--hue-background);
+}
+
+.login-form-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32%;
+    padding: 1%;
+    border-radius: 25px;
+    background-color: #eeeeee;
+}
+
+.login-form-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--hue-background);
+}
+
+.login-form-container p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--hue-background);
+}
+
+.login-form-container p .signup-link {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--hue-red);
+}
+
+.login-form-container p .signup-link:hover {
+    color: var(--hue-red);
+    text-decoration: underline;
+}
+
+.login-form-container input {
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 2px solid var(--hue-background);
+    border-radius: 25px;
+    width: 60%;
+    padding: 2% 2% 2% 5%;
+}
+
+/* .login-form-container input:focus {
+    outline: none;
+    border: 2px solid var(--hue-red);
+} */
+
+.login-form-container button {
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    width: 60%;
+    padding: 2%;
+    background-color: var(--hue-background);
+    color: var(--hue-text);
+    font-size: 1.2rem;
+}
+
+.login-form-container button:hover {
+    background-color: var(--hue-red);
+    /* color: var(--hue-background); */
+    transition: 150ms;
+}
+
+.signup-page {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.signup-left {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--hue-background);
+}
+
+.signup-left img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.signup-right {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #eeeeee;
+}
+
+.signup-form-container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--hue-background);
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.signup-form-content {
+    position: absolute;
+    top: 40%;
+    left: 41%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.signup-form-content label {
+    font-size: 1.2rem;
+    color: var(--hue-background);
+    margin-right: 5%;
+}
+
+.signup-form-content input {
+    border: 2px solid var(--hue-background);
+    border-radius: 15px;
+    width: 60%;
+    margin-top: 5%;
 }

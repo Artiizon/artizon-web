@@ -4,6 +4,8 @@ import Canvas from "./canvas";
 import Customizor from "./pages/Customizor";
 import Home from "./pages/Home";
 import MakeOrder from "./pages/MakeOrder";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 import { useSnapshot } from "valtio";
 import state from "./store";
@@ -23,9 +25,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
           <Route path="/makeorder" element={<MakeOrder />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Router>
-      <Canvas />
+      {snap.page === 'no-canvas' ||( <Canvas /> )}
     </main>
   )
 }

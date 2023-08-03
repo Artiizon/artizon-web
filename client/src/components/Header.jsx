@@ -24,14 +24,14 @@ const Header = () => {
             ar<span>T</span>izon
         </p>
         </button>
-        <p>
-            {/* <NavLink to="/help">Help</NavLink> */}
+        <p className='header-login'>
+            <NavLink to="/login">Login</NavLink>
         </p>
-        <div>
+        {/* <div>
             <span></span>
             <span></span>
             <div className="inner-circle"></div>
-        </div>
+        </div> */}
     </header>
   )
 }
