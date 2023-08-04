@@ -30,7 +30,7 @@ function StockManagementPage() {
       <div className="px-10 bg-white min-h-screen">
         <div className="flex justify-between items-center mb-6 m-5">
           
-          <h1 className="text-3xl font-semibold">Stock Management</h1>
+          <h1 className="text-3xl font-semibold">Stock  Management</h1>
 
           {/* Add New Stock Button */}
           <div>
@@ -38,7 +38,7 @@ function StockManagementPage() {
               to="/stock/new" // Replace this with the path to the page where you create a new stock
               className="text-white bg-blue-500 px-4 py-2 rounded-md"
             >
-              Add New Stock
+              Add New Stock 
             </Link>
           </div>
 
@@ -50,7 +50,7 @@ function StockManagementPage() {
         {/* Table for stocks */}
 <div className="w-full overflow-hidden max-h-[508px] overflow-y-scroll">
 <table className="w-full table-auto bg-white shadow-md rounded-lg">
-  <thead className="sticky top-0 bg-black text-white">
+  <thead className="bg-black text-white">
     <tr className="bg-black text-white">
       <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
       <th className="px-4 py-3 text-left">Date</th>
@@ -75,12 +75,7 @@ function StockManagementPage() {
           >
             View Details
           </Link>
-          <Link
-            to={`/stock/${value.id}/update`}
-            className="bg-green-500 text-white py-2 px-4 rounded-md mr-2"
-          >
-            Update
-          </Link>
+         
         </div>
       </td>
     </tr>

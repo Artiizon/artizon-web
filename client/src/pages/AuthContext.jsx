@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie'; // Import js-cookie library
 
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,22 +14,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedIsLoggedIn = Cookies.get('isLoggedIn') === 'true';
     const storedUserName = Cookies.get('userName') || '';
-    const storedUserType = Cookies.get('userType');
+    const storedUserType = Cookies.get('userType') || '';
 
-      const IsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      // const IsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     
-      const storedUName = localStorage.getItem('userName') || '';
-      const storedUType = localStorage.getItem('userType');
+      // const storedUName = localStorage.getItem('userName') || '';
+      // const storedUType = localStorage.getItem('userType');
   
 
 
+    // setIsLoggedIn(storedIsLoggedIn || IsLoggedIn);
+    // setUserName(storedUserName || storedUName);
+    // setUserType(storedUserType || storedUType); 
+    
+    
     setIsLoggedIn(storedIsLoggedIn);
     setUserName(storedUserName);
-    setUserType(storedUserType);
-    
-    setIsLoggedIn(IsLoggedIn);
-    setUserName(storedUName);
-    setUserType(storedUType);
+    setUserType(storedUserType); 
     
     setIsLoading(false);
   }, []);
@@ -42,19 +44,21 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('userName');
     Cookies.remove('userType');
     // Remove the authentication token cookie
-   // Cookies.remove('authToken');
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userType');
+    //Cookies.remove('authToken');
+    // localStorage.removeItem('isLoggedIn');
+    // localStorage.removeItem('userName');
+    // localStorage.removeItem('userType');
+    // localStorage.removeItem('authToken');
+
   };
   
   return (
-    <AuthContext.Provider value={{ isLoading, isLoggedIn, setIsLoggedIn, userName, setUserName, handleLogout, userType, setUserType }}>
+    <AuthContext.Provider value={{ isLoading, isLoggedIn,setIsLoading, setIsLoggedIn, userName, setUserName, handleLogout, userType, setUserType }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
+export  const useAuth = () => {
   return useContext(AuthContext);
 };

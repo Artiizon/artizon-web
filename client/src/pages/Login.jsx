@@ -9,7 +9,7 @@ import Cookies from 'js-cookie'; // Import js-cookie library
 import Input from "../components/forms/Input";
 import PasswordInput from "../components/forms/PasswordInput";
 import FormLink from "../components/forms/FormLink";
-import { useAuth } from '../pages/AuthContext';
+import {useAuth } from '../pages/AuthContext'; 
 import img1 from "../images/login.jpg";
 
 const LOGIN_DATA = {
@@ -48,15 +48,17 @@ function Login() {
         Cookies.set('userName', response.data.userName, { expires: 7 }); // Set the cookie to expire in 7 days
         Cookies.set('userType', response.data.userType, { expires: 7 });
         
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userName', response.data.userName);
-        localStorage.setItem('userType', response.data.userType);
+        // localStorage.setItem('isLoggedIn', 'true');
+        // localStorage.setItem('userName', response.data.userName);
+        // localStorage.setItem('userType', response.data.userType);
+        // localStorage.setItem('authToken', response.data.token);
+
         setUserType(response.data.userType);
       
         // Login successful
         setUserName(response.data.userName);
         setIsLoggedIn(true);
-        
+
         console.log(response.data.userType);
         navigate(response.data.route);
       } else {

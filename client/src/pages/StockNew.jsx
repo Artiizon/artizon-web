@@ -1,18 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 
-const colorOptions = [
-  { value: "white", label: "White" },
-  { value: "black", label: "Black" },
-  { value: "gray", label: "Gray" },
-  { value: "silver", label: "Silver" },
-  { value: "red", label: "Red" },
-  { value: "blue", label: "Blue" },
-  { value: "green", label: "Green" },
-  { value: "yellow", label: "Yellow" },
+const colorOptions = {
+  Material: {
+    Silk: [
+      { value: "#FFFF00", label: "Yellow (#FFFF00)" },
+      { value: "#FF0002", label: "Red (#FF0002)" },
+    ],
+    Cotton: [
+      { value: "#00FF00", label: "Green (#00FF00)" },
+      { value: "#0000FF", label: "Blue (#0000FF)" },
+    ],
+  },
+  Button: {
+    Type1: [
+      { value: "#FFFFFF", label: "White (#FFFFFF)" },
+      { value: "#000000", label: "Black (#000000)" },
+    ],
+    Type2: [
+      { value: "#FFA500", label: "Orange (#FFA500)" },
+      { value: "#800080", label: "Purple (#800080)" },
+    ],
+    Type3: [
+      { value: "#FFC0CB", label: "Pink (#FFC0CB)" },
+      { value: "#FFD700", label: "Gold (#FFD700)" },
+    ],
+  },
+  // ... Add more color options for other item names and types as needed ...
+};
+
+const typeOptions = {
+  Material: [
+    { value: "Silk", label: "Silk" },
+    { value: "Cotton", label: "Cotton" },
+  ],
+  Button: [
+    { value: "Type1", label: "Type1" },
+    { value: "Type2", label: "Type2" },
+    { value: "Type3", label: "Type3" },
+  ],
+  Ink: [
+    { value: "Red", label: "Red" },
+    { value: "Blue", label: "Blue" },
+    { value: "Green", label: "Green" },
+  ],
+  Thread: [
+    { value: "White", label: "White" },
+    { value: "Black", label: "Black" },
+    { value: "Blue", label: "Blue" },
+  ],
+};
+const itemOptions = [
+  { value: "Material", label: "Material" },
+  { value: "Button", label: "Button" },
+  { value: "Ink", label: "Ink" },
+  { value: "Thread", label: "Thread" },
 ];
 
 const getCurrentTime = () => {
@@ -24,20 +69,21 @@ const getCurrentTime = () => {
 
 function AddNewStockPage() {
   const navigate = useNavigate();
+
+  
+
   const [stockData, setStockData] = useState({
     date: new Date(),
     time: getCurrentTime(),
-    items: [{ itemId: "", type: "", quantity: "", itemName: "", color: "" }],
+    items: [],
+    description: "",
+    totalCost: "",
   });
 
-  const handleItemChange = (index, e) => {
-    const { name, value } = e.target;
+  const handleItemChange = (index, field, value) => {
     setStockData((prevStockData) => {
       const updatedItems = [...prevStockData.items];
-      updatedItems[index] = {
-        ...updatedItems[index],
-        [name]: value,
-      };
+      updatedItems[index][field] = value;
       return {
         ...prevStockData,
         items: updatedItems,
@@ -48,10 +94,7 @@ function AddNewStockPage() {
   const handleAddItem = () => {
     setStockData((prevStockData) => ({
       ...prevStockData,
-      items: [
-        ...prevStockData.items,
-        { itemId: "", type: "", quantity: "", itemName: "", color: "" },
-      ],
+      items: [...prevStockData.items, { itemName: "", type: "", color: "", quantity: "" }],
     }));
   };
 
@@ -69,11 +112,7 @@ function AddNewStockPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (stockData.items[0].itemId === "" && 
-    stockData.items[0].type === "" && 
-    stockData.items[0].quantity === "" && 
-    stockData.items[0].itemName === "" && 
-    stockData.items[0].color === "") {
+    if (stockData.items.length === 0) {
       setShowPopup(true);
       return;
     }
@@ -91,6 +130,16 @@ function AddNewStockPage() {
 
   const titleOptions = ["Mr", "Mrs"];
   const [showPopup, setShowPopup] = useState(false);
+
+  // Check if there are no items, then add one item by default
+  useEffect(() => {
+    if (stockData.items.length === 0) {
+      handleAddItem();
+    }
+  }, [stockData.items]);
+
+
+
 
   return (
     <StandardLayout>
@@ -116,40 +165,75 @@ function AddNewStockPage() {
                   )}
                 </div>
                 <div className="flex gap-4 mt-4">
-                  <div className="w-1/5">
+                  
+                  <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Item Code
+                      Item Name
                     </label>
-                    <input
-                      type="text"
-                      name="itemId"
-                      value={item.itemId}
-                      onChange={(e) => handleItemChange(index, e)}
+                    <select
+                      name="itemName"
+                      value={item.itemName}
+                      onChange={(e) => handleItemChange(index, "itemName", e.target.value)}
                       className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                       required
-                    />
+                    >
+                      <option value="" disabled>
+                        Select Item Name
+                      </option>
+                      {itemOptions.map((itemOption) => (
+                        <option key={itemOption.value} value={itemOption.value}>
+                          {itemOption.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="w-1/5">
+                  
+                  <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
                       Type
                     </label>
                     <select
                       name="type"
                       value={item.type}
-                      onChange={(e) => handleItemChange(index, e)}
+                      onChange={(e) => handleItemChange(index, "type", e.target.value)}
                       className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                       required
                     >
                       <option value="" disabled>
                         Select Type
                       </option>
-                      <option value="Material">Material</option>
-                      <option value="Button">Button</option>
-                      <option value="Ink">Ink</option>
-                      <option value="Thread">Thread</option>
+                      {typeOptions[item.itemName]?.map((typeOption) => (
+                        <option key={typeOption.value} value={typeOption.value}>
+                          {typeOption.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
-                  <div className="w-1/5">
+
+                  <div className="w-1/3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Color
+                    </label>
+                    <select
+                      name="color"
+                      value={item.color}
+                      onChange={(e) => handleItemChange(index, "color", e.target.value)}
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select a color
+                      </option>
+                      {colorOptions[item.itemName]?.[item.type]?.map((colorOption) => (
+                        <option key={colorOption.value} value={colorOption.value}>
+                          {colorOption.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex gap-4 mt-4">
+                  <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
                       Quantity
                     </label>
@@ -157,44 +241,10 @@ function AddNewStockPage() {
                       type="text"
                       name="quantity"
                       value={item.quantity}
-                      onChange={(e) => handleItemChange(index, e)}
+                      onChange={(e) => handleItemChange(index, "quantity", e.target.value)}
                       className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                       required
                     />
-                  </div>
-                  <div className="w-1/5">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Item Name
-                    </label>
-                    <input
-                      type="text"
-                      name="itemName"
-                      value={item.itemName}
-                      onChange={(e) => handleItemChange(index, e)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-                      required
-                    />
-                  </div>
-                  <div className="w-1/5">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Color
-                    </label>
-                    <select
-                      name="color"
-                      value={item.color}
-                      onChange={(e) => handleItemChange(index, e)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select a color
-                      </option>
-                      {colorOptions.map((colorOption) => (
-                        <option key={colorOption.value} value={colorOption.value}>
-                          {colorOption.label}
-                        </option>
-                      ))}
-                    </select>
                   </div>
                 </div>
               </div>
@@ -206,6 +256,30 @@ function AddNewStockPage() {
             >
               Add Item
             </button>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Special Note
+            </label>
+            <textarea
+              name="description"
+              value={stockData.description}
+              onChange={(e) => setStockData({ ...stockData, description: e.target.value })}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label className="block text-sm  font-medium text-gray-700">
+              Total Cost (Rs.)
+            </label>
+            <input
+              type="text"
+              name="totalCost"
+              value={stockData.totalCost}
+              onChange={(e) => setStockData({ ...stockData, totalCost: e.target.value })}
+              className="mt-1 mb-4 p-2 border border-gray-300 rounded-md w-full"
+            />
           </div>
 
           <div>

@@ -212,11 +212,11 @@ app.post('/api/login', async (req, res) => {
     // Get the user name from the user data
     const userName = existingLoginUser[0][0].title + ". " + existingLoginUser[0][0].first_name;
 
-  // Create a JWT token with the user data
-  const token = jwt.sign({ email, userType }, secretKey, { expiresIn: '1h' });
+    // Create a JWT token with the user data
+    const token = jwt.sign({ email, userType }, secretKey, { expiresIn: '1h' });
 
       // Set the tokens in cookies
-      res.cookie('authToken', token, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
+     // res.cookie('authToken', token, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
 
 
     // Define the routes for different user types

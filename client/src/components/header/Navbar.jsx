@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { userName,isLoggedIn, handleLogout  } = useAuth();
 
-  console.log("Bhagi",isLoggedIn);
+  console.log("Navbar.js",isLoggedIn);
   
   return (
     <nav className="fixed top-0 left-0 right-0 p-4 bg-black text-white flex justify-between items-center shadow-md">
