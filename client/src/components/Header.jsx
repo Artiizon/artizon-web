@@ -1,11 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useSnapshot } from 'valtio';
 
 import state from '../store';
-
-import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
@@ -25,7 +23,19 @@ const Header = () => {
         </p>
         </button>
         <p className='header-login'>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/customizor">CUSTOMIZOR</NavLink>
+        </p>
+        <p className='header-login'>
+            <NavLink to="/designs">DESIGNS</NavLink>
+        </p>
+        <p className='header-login'>
+            <NavLink to="/help">HELP</NavLink>
+        </p>
+        <p className='header-login'>
+            <NavLink to="/about">ABOUT</NavLink>
+        </p>
+        <p className='header-login'>
+            <NavLink to="/login">LOGIN</NavLink>
         </p>
         {/* <div>
             <span></span>

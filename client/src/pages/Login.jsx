@@ -15,13 +15,35 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-    // useEffect(() => {
-    //     document.getElementById("main-btn").className = "get-started"
-    // }, [])
+
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    function validateEmail(email) {
+        if(email === '') {
+            setEmailError('Email required');
+            return false;
+        } else {
+            setEmailError('');
+            return true;
+        }
+    }
+
+    function validatePassword(password) {
+        if(password === '') {
+            setPasswordError('Password required');
+            return false;
+        } else {
+            setPasswordError('');
+            return true;
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        validateEmail(email);
+        validatePassword(password);
 
         axios.post('http://localhost:8080/login', {email, password}).then(res => {
             console.log(res);
@@ -37,18 +59,18 @@ const Login = () => {
         <>
             <div className="login-page">
                 <form className="login-form-container" onSubmit={handleSubmit}>
-                    <h1>Log In</h1>
+                    <h1>LOG IN</h1>
                     <p>
                         New user? <NavLink className="signup-link" to="/signup">Signup</NavLink> now.
                     </p>
                     <div>
-                        {/* <label htmlFor="email">Email</label> */}
                         <input type="email" name="email" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                     </div>
+                    <span className="login-form-error">{emailError}</span>
                     <div>
-                        {/* <label htmlFor="password">Password</label> */}
                         <input type="password" name="password" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                     </div>
+                    <span className="login-form-error">{passwordError}</span>
                     <div>
                         <button type="submit">Login</button>
                     </div>

@@ -517,7 +517,7 @@ header div span{
     width: 32%;
     padding: 1%;
     border-radius: 25px;
-    background-color: #eeeeee;
+    background-color: #d6d6d6;
 }
 
 .login-form-container h1 {
@@ -549,6 +549,7 @@ header div span{
     margin-left: 20%;
     margin-right: 20%;
     border: 2px solid var(--hue-background);
+    background-color: #f6f6f6;
     border-radius: 25px;
     width: 60%;
     padding: 2% 2% 2% 5%;
@@ -574,8 +575,16 @@ header div span{
 
 .login-form-container button:hover {
     background-color: var(--hue-red);
-    /* color: var(--hue-background); */
+    color: var(--hue-text);
     transition: 150ms;
+}
+
+.login-form-error {
+    margin-top: 5%;
+    margin-left: 25%;
+    margin-bottom: 5%;
+    color: var(--hue-red);
+    font-size: 1rem;
 }
 
 .signup-page {
@@ -605,38 +614,78 @@ header div span{
 .signup-right {
     height: 100vh;
     width: 100%;
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
-    background-color: #eeeeee;
+    background-color: #f6f6f6;
 }
 
 .signup-form-container h1 {
     font-size: 2rem;
     font-weight: bold;
     color: var(--hue-background);
-    position: absolute;
-    top: 10%;
-    left: 20%;
-    transform: translate(-50%, -50%);
+    margin-top: 1%;
+    margin-left: 5%;
+}
+
+.signup-form-container p {
+    font-size: 1.2rem;
+    color: #d6d6d6;
+    margin-left: 5%;
 }
 
 .signup-form-content {
-    position: absolute;
-    top: 40%;
-    left: 41%;
-    transform: translate(-50%, -50%);
     display: flex;
+    gap: 10%;
+    margin-left: 5%;
 }
 
 .signup-form-content label {
     font-size: 1.2rem;
     color: var(--hue-background);
     margin-right: 5%;
+    margin-top: 5%;
 }
 
 .signup-form-content input {
-    border: 2px solid var(--hue-background);
-    border-radius: 15px;
-    width: 60%;
+    background-color: #d6d6d6;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 100%;
     margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 2%;
+    overflow: scroll;
+}
+
+.signup-form-content select {
+    background-color: #d6d6d6;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 2%;
+}
+
+.signup-form-content button {
+    margin-top: 15%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    width: 90%;
+    padding: 2%;
+    background-color: var(--hue-background);
+    color: var(--hue-text);
+    font-size: 1.2rem;
+}
+
+.signup-form-content button:hover {
+    background-color: var(--hue-red);
+    color: var(--hue-text);
+    transition: 150ms;
+}
+
+.form-error {
+    color: var(--hue-red);
+    font-size: 1.2rem;
 }
