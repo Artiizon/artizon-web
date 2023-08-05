@@ -490,7 +490,7 @@ header div span{
     }
 }   
 
-.header-login {
+.header-item {
     font-weight: 400;
     font-size: 1.35rem;
     position: relative;
@@ -580,9 +580,7 @@ header div span{
 }
 
 .login-form-error {
-    margin-top: 5%;
     margin-left: 25%;
-    margin-bottom: 5%;
     color: var(--hue-red);
     font-size: 1rem;
 }
@@ -643,7 +641,6 @@ header div span{
     font-size: 1.2rem;
     color: var(--hue-background);
     margin-right: 5%;
-    margin-top: 5%;
 }
 
 .signup-form-content input {
@@ -651,8 +648,6 @@ header div span{
     color: var(--hue-background);
     border-radius: 5px;
     width: 100%;
-    margin-top: 5%;
-    margin-bottom: 5%;
     padding: 2%;
     overflow: scroll;
 }
@@ -662,8 +657,6 @@ header div span{
     color: var(--hue-background);
     border-radius: 5px;
     width: 100%;
-    margin-top: 5%;
-    margin-bottom: 5%;
     padding: 2%;
 }
 
@@ -685,7 +678,8 @@ header div span{
     transition: 150ms;
 }
 
-.form-error {
+.signup-form-error {
+    position: absolute;
     color: var(--hue-red);
     font-size: 1.2rem;
 }

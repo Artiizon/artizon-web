@@ -39,20 +39,30 @@ const Login = () => {
         }
     }
 
+    axios.defaults.withCredentials = true;
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        validateEmail(email);
-        validatePassword(password);
+        const isValidEmail = validateEmail(email);
+        const isValidPassword = validatePassword(password);
 
-        axios.post('http://localhost:8080/login', {email, password}).then(res => {
-            console.log(res);
-            state.page = 'home';
-            navigate('/');
-        }).catch(err => {
-            console.log(err);
+        if(isValidEmail && isValidPassword) {
+
+            axios.post('http://localhost:8080/login', {email, password}).then(res => {
+                if(res.data.Status === 'Success_Login') {
+                    navigate('/');
+                    alert('Login Successful');
+                } else if(res.data.Error === 'Error_No_User') {
+                    setEmailError('Email or password incorrect');
+                    setPasswordError('Email or password incorrect');
+                } else if(res.data.Error === 'Error_Wrong_Password') {
+                    setEmailError('Email or password incorrect');
+                    setPasswordError('Email or password incorrect');
+                } else {
+                    alert('Login Failed');
+                }
+            });
         }
-        )
     }
 
     return (
