@@ -68,9 +68,9 @@ const ItemPage = () => {
           <hr className="my-4 border-t-2 border-gray-200" />
         </div>
 
-        <div className="grid grid-raws-1 md:grid-raws-2 lg:grid-raws-3 gap-4">
+        <div className="grid grid-raws-1 md:grid-raws-2 lg:grid-raws-3 gap-4 justify-center ">
           {/* Item Name Dropdown */}
-          <div>
+          <div >
             <label className="block text-sm font-medium text-gray-700 ">Item Name</label>
             <select
               value={selectedItemName}

@@ -27,6 +27,7 @@ const Navbar = () => {
       <div className="flex gap-5">
         <NavbarItem path="/textileProManagerdashboard" name="Dashboard" />
         <NavbarItem path='/stock' name="Stock"/>
+        <NavbarItem path='/tpm_review_orders' name="Review Orders"/>
         <NavbarItem path='/contact' name="Contact"/>
         <NavbarItem path='/help' name="Help"/>
         

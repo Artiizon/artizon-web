@@ -190,7 +190,7 @@ function AddNewStockPage() {
                   
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Type
+                      Item Type
                     </label>
                     <select
                       name="type"
@@ -212,7 +212,7 @@ function AddNewStockPage() {
 
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Color
+                      Item Color
                     </label>
                     <select
                       name="color"
@@ -235,7 +235,7 @@ function AddNewStockPage() {
                 <div className="flex gap-4 mt-4">
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Quantity
+                      Item Quantity
                     </label>
                     <input
                       type="text"

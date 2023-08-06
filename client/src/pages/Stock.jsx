@@ -30,10 +30,10 @@ function StockManagementPage() {
       <div className="px-10 bg-white min-h-screen">
         <div className="flex justify-between items-center mb-6 m-5">
           
-          <h1 className="text-3xl font-semibold">Stock  Management</h1>
+          <h1 className="text-3xl font-semibold ">Stock  Management</h1>
 
           {/* Add New Stock Button */}
-          <div>
+          <div className="mt-5">
             <Link
               to="/stock/new" // Replace this with the path to the page where you create a new stock
               className="text-white bg-blue-500 px-4 py-2 rounded-md"

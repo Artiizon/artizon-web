@@ -68,18 +68,12 @@ const TextileProductionManagerDashboard = () => {
        {/* New section for cards with icons */}
         <div className="flex justify-center mb-8">
 
-          <Link to="/tpm_pending_orders">
-                <DashboardCardWithIcon title="Pending Orders" value={20} icon={<FaClock size={60} color="#ffc107" />} />
-           </Link>
-     
-           <Link to="/tpm_accepted_orders">
+              <DashboardCardWithIcon title="Pending Orders" value={20} icon={<FaClock size={60} color="#ffc107" />} />
+        
               <DashboardCardWithIcon title="Accepted Orders" value={50} icon={<FaCheckCircle size={60} color="#4caf50" />}/>
-          </Link>
-
-          <Link to="/tpm_rejected_orders">
+        
               <DashboardCardWithIcon title="Rejected Orders" value={10} icon={<FaTimesCircle size={60} color="#f44336" />} />
-          </Link>
-
+        
       
        
         </div>

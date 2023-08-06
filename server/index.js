@@ -256,5 +256,81 @@ app.listen(port, () => {
 });
 
 
+app.get("/api/item-names", async (req, res) => {
+  try {
+
+    const items_names = await db.query("SELECT * FROM item_name");
+    res.status(200).json(items_names);
+ 
+
+  } catch (error) {
+    console.error("fetching item names:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get("/api/item-types", async (req, res) => {
+  try {
+
+    const items_types = await db.query("SELECT * FROM item_type");
+    console.log(items_types[0]);
+    res.status(200).json(items_types);
+    
+   
+
+  } catch (error) {
+    console.error("fetching item types:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 
+
+app.get("/api/item-colors", async (req, res) => {
+  try {
+
+    const items_colors = await db.query("SELECT * FROM item_color");
+    res.status(200).json(items_colors[0]);
+       
+
+  } catch (error) {
+    console.error("fetching item colors:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+app.get("/api/item-types/:item_name_id", (req, res) => {
+  const { item_name_id } = req.params;
+  const types = itemTypes.filter((type) => type.item_name_id === parseInt(item_name_id));
+  res.json(types);
+
+  try {
+
+    const items_colors = await db.query("SELECT * FROM item_color");
+    res.status(200).json(items_colors[0]);
+       
+
+  } catch (error) {
+    console.error("fetching item colors:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+
+});
+
+app.get("/api/item-colors/:item_type_id", (req, res) => {
+  const { item_type_id } = req.params;
+  const colors = itemColors.filter((color) => color.item_type_id === parseInt(item_type_id));
+  res.json(colors);
+
+
+  
+});
+
+
+
+
+
+
+
+//--------------------------------------------------------------

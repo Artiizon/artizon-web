@@ -14,9 +14,7 @@ import TextileProManagerdashboard from './pages/textileProManagerdashboard';
 import './App.css';
 import jwt_decode from 'jwt-decode'; // Import jwt-decode library
 import Cookies from 'js-cookie'; 
-import Tpm_accepted_orders from './pages/tpm_accepted_orders';
-import Tpm_pending_orders from './pages/tpm_pending_orders';
-import Tpm_rejected_orders from './pages/tpm_rejected_orders';
+import Tpm_review_orders from './pages/tpm_review_orders';
 
 function App() {
   return (
@@ -36,9 +34,7 @@ function App() {
             <Route exact path="/stock/new" element={<StockNew/>} />
             <Route exact path="/Signup" element={<Signup/>}/>
             <Route exact path="/home" element={<Home/>}/>
-            <Route exact path="/tpm_accepted_orders" element={<Tpm_accepted_orders/>}/>
-            <Route exact path="/tpm_pending_orders" element={<Tpm_pending_orders/>}/>
-            <Route exact path="/tpm_rejected_orders" element={<Tpm_rejected_orders/>}/>
+            <Route exact path="/tpm_review_orders" element={<Tpm_review_orders/>}/>
             
 
             <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
