@@ -51,6 +51,7 @@ const Login = () => {
             axios.post('http://localhost:8080/login', {email, password}).then(res => {
                 if(res.data.Status === 'Success_Login') {
                     navigate('/');
+                    location.reload(true);
                     alert('Login Successful');
                 } else if(res.data.Error === 'Error_No_User') {
                     setEmailError('Email or password incorrect');

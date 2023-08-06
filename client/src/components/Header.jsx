@@ -32,6 +32,7 @@ const Header = () => {
     const handleLogout = () => {
         axios.get('http://localhost:8080/logout').then(res => {
             location.reload(true);
+            alert("Log out successful");
         }).catch(err => {
             console.log(err);
         })
