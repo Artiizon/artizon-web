@@ -41,7 +41,7 @@ const OrderCard = ({ status, tags, ims ,style }) => {
         <p className="font-bold text-xl mt-[15px] ml-[480px] text-center">
           {status}
         </p>
-        <NavLink to="/customerOrderDetails">
+        <NavLink to="/customerOrderDetailsF">
           <button
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
