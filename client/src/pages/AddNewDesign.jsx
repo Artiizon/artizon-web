@@ -1,17 +1,13 @@
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineDelete, AiOutlineUpload } from "react-icons/ai";
 import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios";
 
 const AddNewDesignPage = () => {
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
-  const [supportingMaterials, setSupportingMaterials] = useState([
-    { material: "" },
-  ]);
+  const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  // const [file, setFile] = useState();
   const [file, setFiles] = useState([]);
 
   const handleImageUpload = (event) => {
@@ -19,8 +15,6 @@ const AddNewDesignPage = () => {
     const fileArray = Array.from(files).slice(0, 3);
     const newFiles = fileArray.map((file) => ({ file, name: file.name }));
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
-    
-    // setFile(event.target.files[0]);
     setFiles(Array.from(files).slice(0, 3));
 
     Promise.all(
