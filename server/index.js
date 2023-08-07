@@ -260,7 +260,8 @@ app.get("/api/item-names", async (req, res) => {
   try {
 
     const items_names = await db.query("SELECT * FROM item_name");
-    res.status(200).json(items_names);
+    console.log("items_names",items_names[0])
+    res.status(200).json(items_names[0]);
  
 
   } catch (error) {
@@ -274,7 +275,7 @@ app.get("/api/item-types", async (req, res) => {
 
     const items_types = await db.query("SELECT * FROM item_type");
     console.log(items_types[0]);
-    res.status(200).json(items_types);
+    res.status(200).json(items_types[0]);
     
    
 
@@ -300,33 +301,51 @@ app.get("/api/item-colors", async (req, res) => {
 });
 
 
-app.get("/api/item-types/:item_name_id", (req, res) => {
-  const { item_name_id } = req.params;
-  const types = itemTypes.filter((type) => type.item_name_id === parseInt(item_name_id));
-  res.json(types);
+ app.get("/api/item-types/:item_name_id", async(req, res) => {
 
   try {
+    const { item_name_id } = req.params;
 
-    const items_colors = await db.query("SELECT * FROM item_color");
-    res.status(200).json(items_colors[0]);
-       
+    const item_type = await db.query("SELECT * FROM item_type WHERE item_name_id = ?", [item_name_id]);
+
+     
+
+    res.status(200).json(item_type[0]);
+    
+   
 
   } catch (error) {
-    console.error("fetching item colors:", error);
+    console.error("Error fetching stock details:", error);
     res.status(500).json({ message: "Server error" });
   }
 
-});
 
-app.get("/api/item-colors/:item_type_id", (req, res) => {
-  const { item_type_id } = req.params;
-  const colors = itemColors.filter((color) => color.item_type_id === parseInt(item_type_id));
-  res.json(colors);
+ });
 
 
+
+ 
+ app.get("/api/item-colors/:item_type_id", async(req, res) => {
+
+    try {
+      const { item_type_id } = req.params;
   
-});
-
+      const item_type = await db.query("SELECT * FROM item_color WHERE item_type_id = ?", [item_type_id]);
+  
+       
+  
+      res.status(200).json(item_type[0]);
+      
+     
+  
+    } catch (error) {
+      console.error("Error fetching stock details:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  
+  
+   });
+  
 
 
 

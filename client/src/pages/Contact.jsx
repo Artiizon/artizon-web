@@ -8,14 +8,18 @@ function AddNewStockPage() {
 
   useEffect(() => {
     // Fetch item names
-    axios.get("/api/item-names").then((response) => {
-      setItemNames(response.data);
+    axios.get("http://localhost:3001/api/item-names").then((response) => {
+    console.log("Response",response.data);  
+    setItemNames(response.data);
+
     });
   }, []);
 
   const handleItemNameChange = (event) => {
+    console.log("Item Name Change",);
     const selectedNameId = event.target.value;
-    axios.get(`/api/item-types/${selectedNameId}`).then((response) => {
+    axios.get(`http://localhost:3001/api/item-types/${selectedNameId}`).then((response) => {
+      console.log("response Item type",response);
       setItemTypes(response.data);
       setItemColors([]);
     });
@@ -23,7 +27,7 @@ function AddNewStockPage() {
 
   const handleItemTypeChange = (event) => {
     const selectedTypeId = event.target.value;
-    axios.get(`/api/item-colors/${selectedTypeId}`).then((response) => {
+    axios.get(`http://localhost:3001/api/item-colors/${selectedTypeId}`).then((response) => {
       setItemColors(response.data);
     });
   };

@@ -4,62 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 
-const colorOptions = {
-  Material: {
-    Silk: [
-      { value: "#FFFF00", label: "Yellow (#FFFF00)" },
-      { value: "#FF0002", label: "Red (#FF0002)" },
-    ],
-    Cotton: [
-      { value: "#00FF00", label: "Green (#00FF00)" },
-      { value: "#0000FF", label: "Blue (#0000FF)" },
-    ],
-  },
-  Button: {
-    Type1: [
-      { value: "#FFFFFF", label: "White (#FFFFFF)" },
-      { value: "#000000", label: "Black (#000000)" },
-    ],
-    Type2: [
-      { value: "#FFA500", label: "Orange (#FFA500)" },
-      { value: "#800080", label: "Purple (#800080)" },
-    ],
-    Type3: [
-      { value: "#FFC0CB", label: "Pink (#FFC0CB)" },
-      { value: "#FFD700", label: "Gold (#FFD700)" },
-    ],
-  },
-  // ... Add more color options for other item names and types as needed ...
-};
-
-const typeOptions = {
-  Material: [
-    { value: "Silk", label: "Silk" },
-    { value: "Cotton", label: "Cotton" },
-  ],
-  Button: [
-    { value: "Type1", label: "Type1" },
-    { value: "Type2", label: "Type2" },
-    { value: "Type3", label: "Type3" },
-  ],
-  Ink: [
-    { value: "Red", label: "Red" },
-    { value: "Blue", label: "Blue" },
-    { value: "Green", label: "Green" },
-  ],
-  Thread: [
-    { value: "White", label: "White" },
-    { value: "Black", label: "Black" },
-    { value: "Blue", label: "Blue" },
-  ],
-};
-const itemOptions = [
-  { value: "Material", label: "Material" },
-  { value: "Button", label: "Button" },
-  { value: "Ink", label: "Ink" },
-  { value: "Thread", label: "Thread" },
-];
-
 const getCurrentTime = () => {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, "0");
@@ -70,6 +14,18 @@ const getCurrentTime = () => {
 function AddNewStockPage() {
   const navigate = useNavigate();
 
+  const [itemNames, setItemNames] = useState([]);
+  const [itemTypes, setItemTypes] = useState([]);
+  const [itemColors, setItemColors] = useState([]);
+
+  useEffect(() => {
+    // Fetch item names
+    axios.get("http://localhost:3001/api/item-names").then((response) => {
+    console.log("Response",response.data);  
+    setItemNames(response.data);
+
+    });
+  }, []);
   
 
   const [stockData, setStockData] = useState({
@@ -80,10 +36,36 @@ function AddNewStockPage() {
     totalCost: "",
   });
 
+  
   const handleItemChange = (index, field, value) => {
     setStockData((prevStockData) => {
       const updatedItems = [...prevStockData.items];
-      updatedItems[index][field] = value;
+      const updatedItem = { ...updatedItems[index] };
+
+      if (field === 'itemName') {
+        const selectedNameId = value;
+        axios.get(`http://localhost:3001/api/item-types/${selectedNameId}`).then((response) => {
+          updatedItem.itemName = value;
+          updatedItem.type = ''; // Reset type when item name changes
+          updatedItem.color = ''; // Reset color when item name changes
+          setItemTypes(response.data);
+          setItemColors([]);
+        });
+      } else if (field === 'type') {
+        const selectedTypeId = value;
+        axios.get(`http://localhost:3001/api/item-colors/${selectedTypeId}`).then((response) => {
+          updatedItem.type = value;
+          updatedItem.color = ''; // Reset color when type changes
+          setItemColors(response.data);
+        });
+      } else if (field === 'color') {
+        updatedItem.color = value;
+      } else if (field === 'quantity') {
+        updatedItem.quantity = value;
+      }
+
+      updatedItems[index] = updatedItem;
+      
       return {
         ...prevStockData,
         items: updatedItems,
@@ -128,7 +110,6 @@ function AddNewStockPage() {
       });
   };
 
-  const titleOptions = ["Mr", "Mrs"];
   const [showPopup, setShowPopup] = useState(false);
 
   // Check if there are no items, then add one item by default
@@ -180,11 +161,14 @@ function AddNewStockPage() {
                       <option value="" disabled>
                         Select Item Name
                       </option>
-                      {itemOptions.map((itemOption) => (
-                        <option key={itemOption.value} value={itemOption.value}>
-                          {itemOption.label}
-                        </option>
+                      {itemNames.map((item) => (
+                          <option key={item.item_name_id} value={item.item_name_id}>
+                             {item.item_name}
+                          </option>
                       ))}
+
+
+                      
                     </select>
                   </div>
                   
@@ -202,11 +186,11 @@ function AddNewStockPage() {
                       <option value="" disabled>
                         Select Type
                       </option>
-                      {typeOptions[item.itemName]?.map((typeOption) => (
-                        <option key={typeOption.value} value={typeOption.value}>
-                          {typeOption.label}
-                        </option>
-                      ))}
+                     {itemTypes.map((type) => (
+                  <option key={type.item_type_id} value={type.item_type_id}>
+                    {type.item_type}
+                  </option>
+                ))}
                     </select>
                   </div>
 
@@ -224,9 +208,9 @@ function AddNewStockPage() {
                       <option value="" disabled>
                         Select a color
                       </option>
-                      {colorOptions[item.itemName]?.[item.type]?.map((colorOption) => (
-                        <option key={colorOption.value} value={colorOption.value}>
-                          {colorOption.label}
+                      {itemColors.map((color) => (
+                        <option key={color.item_color_id} value={color.item_color_id}>
+                          {color.item_color}
                         </option>
                       ))}
                     </select>
