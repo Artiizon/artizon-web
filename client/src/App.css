@@ -64,6 +64,10 @@ body {
   max-height: calc(100vh - 40px); /* Subtract any additional padding/margin values if present */
 }
 
+.max-w-small {
+  max-width: 200px; /* Adjust the value as per your requirement */
+}
+
 
 
   
