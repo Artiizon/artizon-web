@@ -1,88 +1,95 @@
-import StandardLayout from "../components/layout/StandardLayout";
-import { Formik, Form } from "formik";
-import { useState } from "react";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useSnapshot } from "valtio";
+import {  useState } from "react";
+import axios from "axios";
 
-import Input from "../components/forms/Input";
-import PasswordInput from "../components/forms/PasswordInput";
-import FormLink from "../components/forms/FormLink";
+import state from "../store";
 
-const LOGIN_DATA = {
-  email: "",
-  password: ""      
-};
+import { useNavigate, NavLink } from "react-router-dom";
 
-function Login() {
-  const navigate=useNavigate();
- 
-  const [loginForm, setLoginForm] = useState(LOGIN_DATA);
-  const { email, password } = loginForm;
+const Login = () => {
+    const snap = useSnapshot(state)
 
-  const  handleOnChange=(e)=>{
-   const {name,value}=e.target
+    state.page = 'no-canvas';
 
-   setLoginForm({...loginForm,[name]:value})
+    const navigate = useNavigate();
 
-  } 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  const loginSubmit=()=>{
-    navigate("/")
-  }
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
-const loginValidation=Yup.object({
-   email:Yup.string().required("Email adress is required").email("Email must be valid one"),
-   password:Yup.string().required("Password is required")
-})
+    function validateEmail(email) {
+        if(email === '') {
+            setEmailError('Email required');
+            return false;
+        } else {
+            setEmailError('');
+            return true;
+        }
+    }
 
-  return (
-    <StandardLayout>
-      <div className="h-screen px-[200px]">
-        <div className="flex items-center justify-center pt-3">
-          <div className="w-[400px]">
-            <p className="font-bold text-4xl pb-2">Sign In</p>
-            <p className="pb-3">Please enter your credentials</p>
+    function validatePassword(password) {
+        if(password === '') {
+            setPasswordError('Password required');
+            return false;
+        } else {
+            setPasswordError('');
+            return true;
+        }
+    }
 
-            <Formik enableReinitialize initialValues={{email,password}} validationSchema={loginValidation} 
-                  onSubmit={()=>loginSubmit()}
-            >
-              {(formik) => (
-                <Form className="flex flex-col gap-2">
-                  <Input
-                    key="email"
-                    type="text"
-                    name="email"
-                    placeholder="Enter your email address"
-                    onChange={handleOnChange} 
-                  />
+    axios.defaults.withCredentials = true;
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-                  <PasswordInput
-                    key="password"
-                   // type="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    onChange={handleOnChange} 
-                
-                  />
+        const isValidEmail = validateEmail(email);
+        const isValidPassword = validatePassword(password);
 
-                  
-                 <button type="submit" className="bg-gray-800 text-gray-200 p-3 rounded-lg hover:bg-gray-700 transition-all ease-in-out ">Login</button>
+        if(isValidEmail && isValidPassword) {
 
+            axios.post('http://localhost:8080/login', {email, password}).then(res => {
+                if(res.data.Status === 'Success_Login') {
+                    navigate('/');
+                    location.reload(true);
+                    alert('Login Successful');
+                } else if(res.data.Error === 'Error_No_User') {
+                    setEmailError('Email or password incorrect');
+                    setPasswordError('Email or password incorrect');
+                } else if(res.data.Error === 'Error_Wrong_Password') {
+                    setEmailError('Email or password incorrect');
+                    setPasswordError('Email or password incorrect');
+                } else {
+                    alert('Login Failed');
+                }
+            });
+        }
+    }
 
-                </Form>
-              )}
-            </Formik>
-            <div className="flex flex-col gap-2 text-center my-6">
-                <FormLink name="Forgot password?" path="/"/>
-                <p className="text-sm">Don't have an account? <FormLink name="Create account" path="/" /> </p>
-            </div>   
+    return (
+        <>
+            <div className="login-page">
+                <form className="login-form-container" onSubmit={handleSubmit}>
+                    <h1>LOG IN</h1>
+                    <p>
+                        New user? <NavLink className="signup-link" to="/signup">Signup</NavLink> now.
+                    </p>
+                    <div>
+                        <input type="email" name="email" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                    <span className="login-form-error">{emailError}</span>
+                    <div>
+                        <input type="password" name="password" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                    <span className="login-form-error">{passwordError}</span>
+                    <div>
+                        <button type="submit">Login</button>
+                    </div>
 
-
-          </div>
-        </div>
-      </div>
-    </StandardLayout>
-  );
+                </form>
+            </div>
+        </>
+    )
 }
 
-export default Login;
+export default Login

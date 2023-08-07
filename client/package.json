@@ -1,5 +1,5 @@
 {
-  "name": "artizon-web",
+  "name": "client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "formik": "^2.4.2",
+    "@react-three/drei": "^9.78.2",
+    "@react-three/fiber": "^8.13.5",
+    "axios": "^1.4.0",
+    "framer-motion": "^10.12.21",
+    "maath": "^0.7.0",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1",
-    "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.14.1",
-    "yup": "^1.2.0"
+    "react-router-dom": "^6.14.2",
+    "three": "^0.154.0",
+    "valtio": "^1.10.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
