@@ -1,30 +1,46 @@
-import { motion, AnimatePresence, color } from "framer-motion";
 import { useSnapshot } from "valtio";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 import state from "../store";
-import { CustomButton } from "../components";
-
-import Canvas from "../canvas";
-
-import { headContainerAnimation, headContentAnimation, headTextAnimation, slideAnimation, fadeAnimation } from "../config/motion";
 
 import { useNavigate } from "react-router-dom";
 
 const MakeOrder = () => {
-    const snap = useSnapshot(state)
-
-    state.page = 'makeorder';
-
     const navigate = useNavigate();
 
-    const [amount, setAmount] = useState('');
+    const [customerAuth, setCustomerAuth] = useState(false);
+    const [email, setEmail] = useState('');
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/verifyCustomer').then(res => {
+            if(res.data.Status === 'Success_Authentication') {
+                setCustomerAuth(true);
+                setEmail(res.data.email);
+            } else {
+                setCustomerAuth(false);
+            }
+        })
+    }, [])
+
+    const snap = useSnapshot(state)
+
+    state.page = 'no-canvas';
+
     const [material, setMaterial] = useState('');
-    
-    // useEffect(() => {
-    //     document.getElementById("main-btn").className = "get-started"
-    // }, [])
+    const [note, setNote] = useState('');
+    const [quantities, setQuantities] = useState([0, 0, 0, 0, 0, 0]);
+    const [sizes, setSizes] = useState([false, false, false, false, false, false]);
+
+    const handleSizes = (e) => {
+        const index = e.target.id;
+        const value = e.target.checked;
+        const newSizes = [...sizes];
+        newSizes[index] = value;
+        setSizes(newSizes);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,49 +48,103 @@ const MakeOrder = () => {
         const color = state.tcolor;
         const logo = state.logoDecal;
 
-        axios.post('http://localhost:8080/order', {amount, material, color, logo}).then(res => {
-            console.log(res);
-            state.page = 'home';
-            navigate('/');
-        }).catch(err => {
-            console.log(err);
-        }
-        )
+        axios.post('http://localhost:8080/makeOrder', {material, color, note}).then(res => {
+            if(res.data.Status === 'Success_Makeorder') {
+                navigate('/');
+                alert('Order Sent Successful');
+            } else {
+                alert('Order Sent Failed');
+            }
+        })
     }
 
     return (
-        <AnimatePresence>
-                <>
-                {/* <motion.div className='absolute z-10 top-5 right-5' {...fadeAnimation}>
-                    <CustomButton
-                        type='filled'
-                        title='Go Back'
-                        handleClick={() => state.page = 'customizor'}
-                        customStyles='w-fit px-4 py-2.5 font-bold text-sm'
-                    />
-                </motion.div> */}
-
-                <div className="p-3 bg-gray-200 justify-center flex">
-                        <form onSubmit={handleSubmit}>
-                            <h1>Make Your T-Shirt Order</h1>
-                            <div className="m">
-                                <label htmlFor="amount">Amount</label>
-                                <input type="number" className="form-control" placeholder="How many T-shirts do you need" onChange={e => setAmount(e.target.value)} />
-                            </div>
-                            <div className="">
-                                <label htmlFor="material">T-Shirt Material</label>
-                                <select name="material" className="form-control" onChange={e => setMaterial(e.target.value)}>
-                                    <option value="">Material</option>
-                                    <option value="Cotton">Cotton</option>
-                                    <option value="Silk">Silk</option>
-                                </select>
-                            </div>
-                            <button className="">Submit</button>
-                        </form>
-                        {/* <Canvas /> */}
-                </div>
-              </>
-        </AnimatePresence>
+            <>
+                {customerAuth && (
+                    <div className="make-order-page">
+                        <div className="make-order-page-left">
+                            <form onSubmit={handleSubmit}>
+                                <h1>Make Your T-Shirt Order</h1>
+                                <div>
+                                    <label htmlFor="material">T-Shirt Material</label> <br />
+                                    <select name="material" className="form-control" onChange={e => setMaterial(e.target.value)}>
+                                        <option value="">Select Material</option>
+                                        <option value="Cotton">Cotton</option>
+                                        <option value="Silk">Silk</option>
+                                        <option value="Linen">Linen</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="tcolor">T-Shirt Color</label> <br />
+                                    <p>
+                                        {state.tcolor}
+                                    </p>
+                                </div>
+                                <div>
+                                    <label htmlFor="quantities">Quantities</label> <br />
+                                    <div className="quantity-item">
+                                        <label htmlFor="XS">XS</label>
+                                        <input type="checkbox" id="0" checked={sizes[0]} onChange={handleSizes} />
+                                        {sizes[0] && (
+                                            <input className="input-text" type="number" name="XS" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                    <div className="quantity-item">
+                                        <label htmlFor="S">S</label>
+                                        <input type="checkbox" id="1" checked={sizes[1]} onChange={handleSizes} />
+                                        {sizes[1] && (
+                                            <input className="input-text" type="number" name="S" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                    <div className="quantity-item">
+                                        <label htmlFor="M">M</label>
+                                        <input type="checkbox" id="2" checked={sizes[2]} onChange={handleSizes} />
+                                        {sizes[2] && (
+                                            <input className="input-text" type="number" name="M" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                    <div className="quantity-item">
+                                        <label htmlFor="L">L</label>
+                                        <input type="checkbox" id="3" checked={sizes[3]} onChange={handleSizes} />
+                                        {sizes[3] && (
+                                            <input className="input-text" type="number" name="L" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                    <div className="quantity-item">
+                                        <label htmlFor="XL">XL</label>
+                                        <input type="checkbox" id="4" checked={sizes[4]} onChange={handleSizes} />
+                                        {sizes[4] && (
+                                            <input className="input-text" type="number" name="XL" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                    <div className="quantity-item">
+                                        <label htmlFor="XXL">XXL</label>
+                                        <input type="checkbox" id="5" checked={sizes[5]} onChange={handleSizes} />
+                                        {sizes[5] && (
+                                            <input className="input-text" type="number" name="XXL" placeholder="Quantity" />
+                                        )}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="printing_files">Printing Files</label> <br />
+                                    <input type="file" name="printing_files" />
+                                </div>
+                                <div>
+                                    <label htmlFor="additional_note">Additional Note</label> <br />
+                                    <input className="text-area" type="text" name="additional_note" onChange={(e) => setNote(e.target.value)} />
+                                </div>
+                                <button className="">Submit</button>
+                            </form>
+                        </div>
+                        <div className="make-order-page-right">
+                            <h2>Our Procedure</h2>
+                            <p>1. You make an order</p>
+                            <p>2. We make the T-shirts</p>
+                            <p>3. We deliver the T-shirts</p>
+                        </div>
+                    </div>
+                )}
+            </>
     )
 }
 
