@@ -24,7 +24,6 @@ dotenv.config();
 const allowedOrigins = ['http://localhost:5173'];
 app.use(cors());
 
-app.use(cors());
 
 app.use(express.json());
 
