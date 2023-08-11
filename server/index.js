@@ -19,10 +19,16 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
+// models
+import companydesignModel from './models/companydesign.model.js';     
+
+const allowedOrigins = ['http://localhost:5173'];
+dotenv.config();
+
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: allowedOrigins,
     methods: ['GET', 'POST'],
     credentials: true
 }));
@@ -40,6 +46,8 @@ app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);
 
 app.use('/logout', logoutRoutes);
+
+app.use('/api/addNewDesign', companydesignModel)
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Artizon Backend' });
