@@ -15,7 +15,7 @@ function ItemTypesPage() {
 
     useEffect(() => {
       axios
-        .get(`http://localhost:3001/api/item-nameByID/${item_name_id}`)
+        .get(`http://localhost:8080/api/item-nameByID/${item_name_id}`)
         .then((response) => {
           setItemName(response.data);
         })
@@ -24,7 +24,7 @@ function ItemTypesPage() {
         });
   
       axios
-        .get(`http://localhost:3001/api/item-types/${item_name_id}`)
+        .get(`http://localhost:8080/api/item-types/${item_name_id}`)
         .then((response) => {
           setItemTypes(response.data);
         })
@@ -35,7 +35,7 @@ function ItemTypesPage() {
   
     const handleSearch = () => {
       axios
-        .get(`http://localhost:3001/api/item-types/${item_name_id}?search=${searchTerm}`)
+        .get(`http://localhost:8080/api/item-types/${item_name_id}?search=${searchTerm}`)
         .then((response) => {
           setItemTypes(response.data);
         })

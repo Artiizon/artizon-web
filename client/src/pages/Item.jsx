@@ -11,13 +11,13 @@ function ItemNamePage() {
 
   useEffect(() => {
     // Fetch item names from backend API
-    axios.get("http://localhost:3001/api/item-names").then((response) => {
+    axios.get("http://localhost:8080/api/item-names").then((response) => {
       setItemNames(response.data);
     });
   }, []);
 
   const handleSearch = () => {
-    axios.get(`http://localhost:3001/api/item-names?search=${searchTerm}`)
+    axios.get(`http://localhost:8080/api/item-names?search=${searchTerm}`)
       .then((response) => {
         setItemNames(response.data);
       })

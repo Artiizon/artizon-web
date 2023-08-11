@@ -5,7 +5,7 @@ import StandardLayout from "../components/layout/StandardLayout";
 
 const fetchStockById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/stock/${id}`);
+    const response = await axios.get(`http://localhost:8080/api/stock/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching stock details:", error);

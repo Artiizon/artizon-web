@@ -20,7 +20,7 @@ function ItemColorsPage() {
 
     useEffect(() => {
       axios
-        .get(`http://localhost:3001/api/item-typeByID/${item_type_id}`)
+        .get(`http://localhost:8080/api/item-typeByID/${item_type_id}`)
         .then((response) => {
           setItemType(response.data);
         })
@@ -29,7 +29,7 @@ function ItemColorsPage() {
         });
   
       axios
-        .get(`http://localhost:3001/api/item-colors/${item_type_id}`)
+        .get(`http://localhost:8080/api/item-colors/${item_type_id}`)
         .then((response) => {
           setItemColors(response.data);
         })
@@ -40,7 +40,7 @@ function ItemColorsPage() {
   
     const handleSearch = () => {
       axios
-        .get(`http://localhost:3001/api/item-colors/${item_type_id}?search=${searchTerm}`)
+        .get(`http://localhost:8080/api/item-colors/${item_type_id}?search=${searchTerm}`)
         .then((response) => {
           setItemColors(response.data);
         })

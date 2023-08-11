@@ -15,7 +15,7 @@ function StockUpdatePage() {
   useEffect(() => {
     const fetchStockDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/stock/${id}`);
+        const response = await axios.get(`http://localhost:8080/api/stock/${id}`);
         const stockDetails = response.data;
         if (stockDetails) {
           setStock(stockDetails);
@@ -32,7 +32,7 @@ function StockUpdatePage() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3001/api/stock/${id}`, formData);
+      await axios.put(`http://localhost:8080/api/stock/${id}`, formData);
       console.log("Stock updated successfully!");
       navigate("/stock");
     } catch (error) {

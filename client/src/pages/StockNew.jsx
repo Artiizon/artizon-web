@@ -23,15 +23,15 @@ function AddNewStockPage() {
 
   
   useEffect(() => {
-    axios.get("http://localhost:3001/api/color_options").then((response) => {
+    axios.get("http://localhost:8080/api/color_options").then((response) => {
       setColorOptions(response.data);
     });
 
-    axios.get("http://localhost:3001/api/type_options").then((response) => {
+    axios.get("http://localhost:8080/api/type_options").then((response) => {
       setTypeOptions(response.data);
     });
 
-    axios.get("http://localhost:3001/api/item_options").then((response) => {
+    axios.get("http://localhost:8080/api/item_options").then((response) => {
       setItemOptions(response.data);
     });
 
@@ -85,7 +85,7 @@ function AddNewStockPage() {
     }
 
     axios
-      .post("http://localhost:3001/api/stock", stockData)
+      .post("http://localhost:8080/api/stock", stockData)
       .then((response) => {
         console.log(response.data);
         navigate("/stock");
