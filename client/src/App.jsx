@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
 
+import UserManageMain from "./pages/UserManage/UserManageMain";
+
 import { useSnapshot } from "valtio";
 import state from "./store";
 
@@ -37,6 +39,12 @@ import Tpm_review_orders from './pages/tpm_review_orders';
 import Item_Type from './pages/Item_Type'; 
 import Item_Colors from './pages/Item_Color';
 
+import DesignerPortfolia from './pages/Portfolia/DesignerPortfolia';
+import CustomerPortfolia from './pages/Portfolia/CustomerPortfolia';
+import CustomerDetails from './pages/Portfolia/CustomerDetails';
+import ChangePassword from './pages/ChangePassword';
+import AddUsers from './pages/UserManage/AddUsers';
+import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
 
 function App() {
 
@@ -65,6 +73,14 @@ function App() {
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
           <Route exact path="/manager-dash" element={<ManagerDashboard/>}/>
+          <Route exact path="/usermanage" element={<UserManageMain />}/>
+          <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
+          <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
+          <Route exact path="/customerdetails" element={<CustomerDetails />}/>
+          <Route exact path="/changePassword" element={<ChangePassword />}/>
+          <Route exact path="/addUser" element={<AddUsers />}/>
+          <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>
+
 
 
            <Route exact path="/" element={<Home/>}/>
