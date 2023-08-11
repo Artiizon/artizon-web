@@ -4,8 +4,12 @@ import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 const AddNewDesignPage = () => {
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
    const navigate = useNavigate();
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);

@@ -3,6 +3,9 @@ import StandardLayout from "../components/layout/StandardLayout";
 import { FaStar, FaStarHalfAlt, FaCommentAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
+import { useSnapshot } from "valtio";
+import state from "../store";
+
 const feedbacks = [
   {
     id: 1,
@@ -32,6 +35,10 @@ const feedbacks = [
 ];
 
 const FeedbackCard = ({ feedback }) => {
+
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+  
   const renderStarRating = (rating, reviewCount) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;

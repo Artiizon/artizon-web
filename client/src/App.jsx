@@ -11,8 +11,6 @@ import About from "./pages/About";
 import { useSnapshot } from "valtio";
 import state from "./store";
 import "@fontsource/montserrat"; 
-import Contact from './pages/Contact';
-import Help from './pages/Help';
 import CompanyDesign from './pages/CompanyDesign';
 import CompanyDesViewMore from './pages/CompanyDesViewMore';
 import ArtizonFeedback from './pages/ArtizonFeedback';
@@ -35,7 +33,7 @@ function App() {
     <main className="app transition-all ease-in">
  
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
@@ -43,10 +41,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
-          <Route exact path="/" element={<Home/>}/>
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
-          <Route exact path="/contact" element={<Contact/>}/>
-          <Route exact path="/help" element={<Help/>}/>
           <Route exact path="/com-design-view-more" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
           <Route exact path="/order-status-update" element={<StylistStatusUpdate/>}/>

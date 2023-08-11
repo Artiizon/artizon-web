@@ -8,7 +8,14 @@ import des1 from "../images/designs/design1.jpg";
 import des2 from "../images/designs/design2.jpg";
 import des3 from "../images/designs/design3.jpg";
 
+import { useSnapshot } from "valtio";
+import state from "../store";
+
 const CompanyDesViewMore = () => {
+  
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+
   const product = {
     name: '"Awesome" Design',
     description: (

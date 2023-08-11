@@ -8,6 +8,8 @@ import des3 from "../images/designs/design3.jpg";
 import des4 from "../images/designs/design4.jpg";
 import des5 from "../images/designs/design5.jpg";
 import des6 from "../images/designs/design6.jpg";
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 const products = [
   {
@@ -100,6 +102,8 @@ const CompanyDesignCard = ({ product }) => {
 };
 
 const CompanyDesign = () => {
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
   return (
     <StandardLayout>
      
