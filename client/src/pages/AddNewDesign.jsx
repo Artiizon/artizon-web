@@ -2,8 +2,11 @@ import { useState } from "react";
 import { AiOutlineDelete, AiOutlineUpload } from "react-icons/ai";
 import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const AddNewDesignPage = () => {
+   const navigate = useNavigate();
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
   const [images, setImages] = useState([]);
@@ -46,15 +49,6 @@ const AddNewDesignPage = () => {
     });
   };
 
-  const handleAddMaterial = () => {
-    if (supportingMaterials.length < 5) {
-      setSupportingMaterials((prevMaterials) => [
-        ...prevMaterials,
-        { material: "" }, // Add a new empty material when clicking "Add Material"
-      ]);
-    }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -62,7 +56,7 @@ const AddNewDesignPage = () => {
     formData.append("designName", event.target.designName.value);
     formData.append("designDescription", event.target.designDescription.value);
     formData.append("designerId", "1"); // Replace '123' with the actual designer ID
-
+    formData.append("unitPrice", event.target.unitPrice.value);  
     // Remove any empty materials from the formData
     supportingMaterials.forEach((material, index) => {
       formData.append(`materials[${index}].material`, material.material);
@@ -86,7 +80,9 @@ const AddNewDesignPage = () => {
     axios
       .post("http://localhost:8080/api/addNewDesign", formData, config)
       .then((response) => {
+        navigate('/des-design'); 
         console.log("Design and materials added successfully!", response.data);
+        
       })
       .catch((error) => {
         console.error("Error adding design and materials:", error);
@@ -138,67 +134,59 @@ const AddNewDesignPage = () => {
 
               <div className="mb-4">
                 <label
-                  htmlFor="designMaterials"
+                  htmlFor="designName"
                   className="block text-gray-800 font-semibold mb-2"
                 >
-                  Supporting Materials (Up to 5)
+                  Unit Price (Rs.)
                 </label>
-                <div className="flex flex-col gap-4">
-                  {supportingMaterials.map((item, index) => (
-                    <div key={index} className="flex">
-                      <select
-                        className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={item.material}
-                        onChange={(e) => {
-                          const newMaterials = [...supportingMaterials];
-                          newMaterials[index].material = e.target.value;
-                          setSupportingMaterials(newMaterials);
-                        }}
-                      >
-                        <option value="">Select Material</option>
-                        {materialOptions.map((material) => (
-                          <option
-                            key={material}
-                            value={material}
-                            disabled={supportingMaterials.some(
-                              (item) =>
-                                item.material === material &&
-                                item.material !==
-                                  supportingMaterials[index].material
-                            )}
-                          >
-                            {material}
-                          </option>
-                        ))}
-                      </select>
-                      {index > 0 && (
-                        <button
-                          className="ml-2 bg-transparent hover:bg-red-600 hover:text-white text-gray-400 border rounded-lg px-3 py-2"
-                          onClick={() => {
-                            setSupportingMaterials((prevMaterials) => {
-                              const newMaterials = [...prevMaterials];
-                              newMaterials.splice(index, 1);
-                              return newMaterials;
-                            });
-                          }}
-                          type="button"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                {supportingMaterials.length < 5 && (
-                  <button
-                    className="bg-transparent hover:bg-blue-500 hover:text-white text-gray-400 font-semibold px-4 py-2 rounded-lg mt-2 border"
-                    onClick={handleAddMaterial}
-                    type="button"
-                  >
-                    Add Material
-                  </button>
-                )}
+                <input
+                  type="text"
+                  id="unitPrice"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter unit price"
+                />
               </div>
+
+              <div className="mb-4">
+              <label
+                htmlFor="designMaterials"
+                className="block text-gray-800 font-semibold mb-2"
+              >
+                Supporting Material
+              </label>
+              <div className="flex flex-col gap-4">
+                {supportingMaterials.map((item, index) => (
+                  <div key={index} className="flex">
+                    <select
+                      className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={item.material}
+                      onChange={(e) => {
+                        const newMaterials = supportingMaterials.map((materialObj, idx) => ({
+                          material: idx === index ? e.target.value : "",
+                        }));
+                        setSupportingMaterials(newMaterials);
+                      }}
+                    >
+                      <option value="">Select Material</option>
+                      {materialOptions.map((material) => (
+                        <option
+                          key={material}
+                          value={material}
+                          disabled={supportingMaterials.some(
+                            (item) =>
+                              item.material === material &&
+                              item.material !== supportingMaterials[index].material
+                          )}
+                        >
+                          {material}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            </div>
+
 
               <div className="text-gray-800 font-semibold mb-2">
                 Upload Images (Up to 3)

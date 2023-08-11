@@ -22,21 +22,21 @@ const storage = multer.diskStorage({
  // Endpoint for adding new designs and materials
 router.route('/').post(upload.any(), (req, res) => {
     console.log(req.file);
-    const { designName, designDescription, designerId } = req.body;
+    const { designName, designDescription, designerId, unitPrice } = req.body;
     console.log("Received body:", req.body);
 
     const images = req.files.map((file) => file.filename);
 
     const materials = [];
   
-let index = 0;
-while (req.body[`materials[${index}].material`]) {
-  materials.push(req.body[`materials[${index}].material`]);
-  index++;
-}
+    let index = 0;
+    while (req.body[`materials[${index}].material`]) {
+      materials.push(req.body[`materials[${index}].material`]);
+      index++;
+    }
 
     const insertDesignQuery = `
-      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3)
+      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3, )
       VALUES (?, ?, ?, ?, ?, ?)
     `;
   
