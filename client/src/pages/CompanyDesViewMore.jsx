@@ -21,6 +21,7 @@ const CompanyDesViewMore = () => {
     reviewCount: 10,
     price: '$99.99',
     available: true,
+    material: 'Cotton',
     images: [
       des1,
       des2,
@@ -87,16 +88,17 @@ const CompanyDesViewMore = () => {
     <StandardLayout>
       <div className="container mx-auto px-4 py-8 mt-8  overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <img src={product.images[selectedImageIndex]} alt="Product" style={{ width: '700px', height: '400px' }} className="object-cover rounded-lg" />
-            <div className="grid grid-cols-3 gap-4 mt-4 justify-center">
-              {product.images.map((image, index) => (
-                <div key={index} onClick={() => setSelectedImageIndex(index)} className={`cursor-pointer ${selectedImageIndex === index ? 'border-blue-500 border-2' : ''}`} style={{ width: '150px', height: '120px' }}>
-                  <img src={image} alt={`Product Thumbnail ${index + 1}`} className="w-full h-full rounded-lg object-cover" />
-                </div>
-              ))}
-            </div>
+        <div className="px-4 lg:px-20">
+          <img src={product.images[selectedImageIndex]} alt="Product" style={{ width: '700px', height: '400px' }} className="object-cover rounded-lg" />
+          <div className="grid grid-cols-3 gap-4 mt-4 justify-center">
+            {product.images.map((image, index) => (
+              <div key={index} onClick={() => setSelectedImageIndex(index)} className={`cursor-pointer ${selectedImageIndex === index ? 'border-blue-500 border-2' : ''}`} style={{ width: '150px', height: '120px' }}>
+                <img src={image} alt={`Product Thumbnail ${index + 1}`} className="w-full h-full rounded-lg object-cover" />
+              </div>
+            ))}
           </div>
+        </div>
+
 
           <div>
             <Link to="/company-design" className="text-gray-700 mb-4 flex items-center">
@@ -112,6 +114,12 @@ const CompanyDesViewMore = () => {
               <p className="text-gray-400 font-light text-l mr-2">Design Code:</p>
               <p className="text-black font-light text-l">256AT5</p>
             </div>
+
+            <div className="flex items-center py-2">
+              <p className="text-gray-400 font-light text-l mr-2">Material:</p>
+              <p className="text-black font-light text-l">{product.material}</p>
+            </div>
+
 
             <div className="flex flex-col mb-2">
               <p className="text-brown">Designer Rating:</p>

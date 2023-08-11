@@ -84,7 +84,7 @@ const AddNewDesignPage = () => {
     console.log(formData.getAll("imagePreviews"));
 
     axios
-      .post("http://localhost:3001/api/addNewDesign", formData, config)
+      .post("http://localhost:8080/api/addNewDesign", formData, config)
       .then((response) => {
         console.log("Design and materials added successfully!", response.data);
       })
@@ -204,7 +204,7 @@ const AddNewDesignPage = () => {
                 Upload Images (Up to 3)
               </div>
 
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {imagePreviews.map((preview, index) => (
                   <div key={index} className="relative">
                     <img src={preview} alt={`Design Preview ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />

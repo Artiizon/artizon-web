@@ -90,16 +90,16 @@ const DashboardCard = ({ title, topic, link, value }) => {
   return (
     <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
       <Link to={link} className="block">
-        <div className="bg-gradient-to-br from-gray-500 to-gray-900 text-white p-6 cursor-default">
+        <div className="bg-gradient-to-br bg-transparent text-gray-700 p-6 cursor-default">
           <h2 className="text-2xl font-semibold mb-4">{topic}</h2>
           <div className="flex items-center justify-end">
-            <div className="bg-white rounded-full p-3 text-blue-600 font-semibold text-sm ">
+            <div className="bg-gray-300 rounded-full p-3 text-blue-600 font-semibold text-sm ">
               {getIcon(value)}
             </div>
           </div>
         </div>
       </Link>
-      <div className="px-6 py-4">
+      <div className="px-6 py-4 bg-gray-300">
         <Link to={link} className="block">
           <div className="flex items-center justify-between">
             <span className="text-xl font-semibold">{title}</span>

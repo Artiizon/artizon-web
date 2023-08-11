@@ -102,14 +102,16 @@ const CompanyDesignCard = ({ product }) => {
 const CompanyDesign = () => {
   return (
     <StandardLayout>
-      <h1 className="text-4xl py-8 font-bold text-center">Featured Designs</h1>
-      <div className="container mx-18 p-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <CompanyDesignCard key={product.id} product={product} />
-          ))}
-        </div>
+     
+      <div className="container mx-auto px-4 lg:px-20 py-8">
+      <h1 className="text-4xl py-4 font-bold text-center mb-2">Featured Designs</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        {products.map((product) => (
+          <CompanyDesignCard key={product.id} product={product} />
+        ))}
       </div>
+    </div>
+
     </StandardLayout>
   );
 };
