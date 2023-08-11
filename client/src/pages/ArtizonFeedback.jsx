@@ -112,7 +112,7 @@ const ArtizonFeedback = () => {
      
         <div className="flex flex-col py-4 px-8">
           <div>
-          <div className="flex">
+          <div className="flex gap-2">
           <p className="text-l font-bold">Artizon Rating:</p>
           <div className="ml-1">{renderStarRating(averageRating)}</div>
         </div>

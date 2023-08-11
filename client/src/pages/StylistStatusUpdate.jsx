@@ -26,10 +26,10 @@ const getStatusTextColorClass = (status) => {
     default: return "text-gray-500";
   }
 };
-
 const OrderUpdate = () => {
   const [orderData, setOrderData] = useState(orders);
   const [selectedTab, setSelectedTab] = useState("All");
+  const [updatingOrderId, setUpdatingOrderId] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleUpdateStatus = (orderId) => {
@@ -37,6 +37,8 @@ const OrderUpdate = () => {
       order.id === orderId ? { ...order, status: selectedStatus } : order
     );
     setOrderData(updatedOrders);
+    setUpdatingOrderId(null);
+    setSelectedStatus("");
   };
 
   const handleTabClick = (tab) => {
@@ -66,7 +68,7 @@ const OrderUpdate = () => {
         <div className="flex flex-col p-2">
           {filteredOrders.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48">
-              <p className="text-gray-500 text-lg mb-4">No orders {selectedTab !== "All" ? `for ${selectedTab}` : ""}</p>
+              <p className="text-gray-500 text-lg mb-4">No orders for {selectedTab === "All" ? "All" : selectedTab}</p>
               <p className="text-gray-500">Please check back later.</p>
             </div>
           ) : (
@@ -78,7 +80,7 @@ const OrderUpdate = () => {
                     <th className="px-4 py-2 text-center">Date & Time</th>
                     <th className="px-4 py-2 text-center">Quantity</th>
                     <th className="px-4 py-2 text-center">Status</th>
-                    <th className="px-4 py-2 text-center">Update Status</th>
+                    <th className="px-4 py-2 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -89,12 +91,20 @@ const OrderUpdate = () => {
                       <td className="px-4 py-2 text-center">{order.quantity}</td>
                       <td className={`px-4 py-2 ${getStatusTextColorClass(order.status)} text-center`}>{order.status}</td>
                       <td className="px-4 py-2 text-center">
-                        <select className="mr-2 p-2 rounded-lg border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none" value={order.status} onChange={handleStatusChange}>
-                          {tabs.map(status => (<option key={status} value={status}>{status}</option>))}
-                        </select>
-                        <button onClick={() => handleUpdateStatus(order.id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
-                          <FaPencilAlt />
-                        </button>
+                        {updatingOrderId === order.id ? (
+                          <>
+                            <select className="mr-2 p-2 rounded-lg border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none" value={selectedStatus} onChange={handleStatusChange}>
+                              {tabs.slice(1).map(status => (<option key={status} value={status}>{status}</option>))}
+                            </select>
+                            <button onClick={() => handleUpdateStatus(order.id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+                              <FaPencilAlt />
+                            </button>
+                          </>
+                        ) : (
+                          <button onClick={() => setUpdatingOrderId(order.id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+                            <FaPencilAlt />
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}

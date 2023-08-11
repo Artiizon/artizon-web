@@ -30,7 +30,7 @@ function Footer() {
           <div className="flex flex-row gap-6">
             <FooterLowerLink name="Privacy Policy" path="/" />
             <FooterLowerLink name="Terms of Use" path="/" />
-            <FooterLowerLink name="Sales and Refunds" path="/" />
+            <FooterLowerLink name="Company Reviews" path="/company-feedback" />
             <FooterLowerLink name="Legal" path="/" />
             <FooterLowerLink name="Map" path="/" />
           </div>
