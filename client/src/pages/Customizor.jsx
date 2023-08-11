@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 
+import axios from 'axios';
+
 import config from '../config/config';
 import state from '../store';
 import { download } from '../assets';
@@ -118,8 +120,13 @@ const Customizor = () => {
     reader(file)
       .then((result) => {
         handleDecals(type, result);
+        sessionStorage.setItem('file', result);
         setActiveEditorTab('');
       })
+  }
+
+  const handleOrder = () => {
+    navigate('/makeOrder');
   }
 
   return (
@@ -166,7 +173,7 @@ const Customizor = () => {
             <CustomButton
               type='filled'
               title='Make Order'
-              handleClick={() => navigate('/makeorder')}
+              handleClick={handleOrder}
               customStyles='w-fit px-4 py-2.5 font-bold text-sm'
             />
           </motion.div>

@@ -14,20 +14,41 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [customerAuth, setCustomerAuth] = useState(false);
-  const [email, setEmail] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerTitle, setCustomerTitle] = useState('');
+  const [customerName, setCustomerName] = useState('');
 
   axios.defaults.withCredentials = true;
 
+    // Autherize Customer
     useEffect(() => {
         axios.get('http://localhost:8080/verifyCustomer').then(res => {
             if(res.data.Status === 'Success_Authentication') {
                 setCustomerAuth(true);
-                setEmail(res.data.email);
+                setCustomerEmail(res.data.email);
             } else {
                 setCustomerAuth(false);
             }
         })
     }, [])
+
+    // Get Customer details
+        if (customerAuth) {
+            axios.post('http://localhost:8080/getCustomer', {customerEmail}).then(res => {
+                if(res.data.Status === 'Success') {
+                    sessionStorage.setItem('customer_id', res.data.customer_id);
+                    sessionStorage.setItem('customer_title', res.data.customer_title);
+                    sessionStorage.setItem('customer_name', res.data.customer_name);
+
+                    setCustomerTitle(res.data.customer_title);
+                    setCustomerName(res.data.customer_name);
+                }
+            });
+        } else {
+            sessionStorage.removeItem('customer_id');
+            sessionStorage.removeItem('customer_title');
+            sessionStorage.removeItem('customer_name');
+        }
 
     const handleLogout = () => {
         axios.get('http://localhost:8080/logout').then(res => {
@@ -63,7 +84,7 @@ const Header = () => {
         </p>
         {customerAuth && (
             <p className='header-item'>
-                <NavLink to="/profile">{email}</NavLink>
+                <NavLink to="/profile">{customerTitle} {customerName}</NavLink>
             </p>
         )}
         {customerAuth && (

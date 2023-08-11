@@ -12,6 +12,15 @@ const Shirt = () => {
 
   // console.log(nodes, materials);
 
+  if (sessionStorage.getItem('tcolor') ) {
+    const tcolor = sessionStorage.getItem('tcolor');
+    state.tcolor = tcolor;
+  }
+  if (sessionStorage.getItem('file') ) {
+    const file = sessionStorage.getItem('file');
+    state.logoDecal = file;
+  }
+
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
 

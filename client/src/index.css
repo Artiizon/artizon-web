@@ -32,6 +32,7 @@ html {
     font-size: 6rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
+    max-width: 720px;
 }
 
 .head-text-content {
@@ -501,6 +502,8 @@ header div span{
     color: var(--hue-text);
 }
 
+/* ______________________________________LOGIN PAGE___________________________________________________ */
+
 .login-page {
     height: 100vh;
     width: 100%;
@@ -584,6 +587,8 @@ header div span{
     color: var(--hue-red);
     font-size: 1rem;
 }
+
+/* ______________________________________SIGNUP PAGE___________________________________________________ */
 
 .signup-page {
     height: 100vh;
@@ -682,4 +687,87 @@ header div span{
     position: absolute;
     color: var(--hue-red);
     font-size: 1.2rem;
+}
+
+/* ______________________________________MAKE ORDER PAGE___________________________________________________ */
+
+.make-order-page {
+    width: 100%;
+    display: flex;
+}
+
+.make-order-page-left {
+    width: 50%;
+    margin-left: 5%;
+}
+
+.make-order-page-left h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--hue-background);
+}
+
+.make-order-page-left label {
+    font-size: 1.2rem;
+    color: var(--hue-background);
+    margin-right: 5%;
+}
+
+.make-order-page-left .input-text {
+    background-color: #f4f4f4;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 100%;
+    padding: 2%;
+}
+
+.quantity-item {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+}
+
+.quantity-item div input{
+    width: 100%;
+}
+
+.make-order-page-left .text-area {
+    background-color: #f4f4f4;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 50%;
+    padding: 1%;
+}
+
+.make-order-page-left select {
+    background-color: #f4f4f4;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 50%;
+    padding: 1%;
+}
+
+.make-order-page-left p {
+    background-color: #f4f4f4;
+    color: var(--hue-background);
+    border-radius: 5px;
+    width: 50%;
+    padding: 1%;
+}
+
+.make-order-page-left button {
+    margin-top: 2%;
+    margin-right: 20%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    width: 20%;
+    padding: 1%;
+    background-color: var(--hue-background);
+    color: var(--hue-text);
+    font-size: 1.2rem;
+}
+
+.make-order-page-left button:hover {
+    background-color: var(--hue-red);
+    color: var(--hue-text);
+    transition: 150ms;
 }

@@ -21,7 +21,7 @@ const ColorPicker = () => {
           '#FFFF00',
           '#00FFFF',
         ]}
-        onChangeComplete={(color) => state.tcolor = color.hex}
+        onChangeComplete={(color) => {state.tcolor = color.hex; sessionStorage.setItem('tcolor', color.hex)}}
       />
     </div>
   )
