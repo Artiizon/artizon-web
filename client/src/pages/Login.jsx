@@ -49,8 +49,24 @@ const Login = () => {
         if(isValidEmail && isValidPassword) {
 
             axios.post('http://localhost:8080/login', {email, password}).then(res => {
-                if(res.data.Status === 'Success_Login') {
+                if(res.data.Status === 'Success_Login_Customer') {
                     navigate('/');
+                    location.reload(true);
+                    alert('Login Successful');
+                }else if(res.data.Status === 'Success_Login_Designer') {
+                    navigate('/designer-dashboard');
+                    location.reload(true);
+                    alert('Login Successful');
+                }else if(res.data.Status === 'Success_Login_Stylist') {
+                    navigate('/stylist-dashboard');
+                    location.reload(true);
+                    alert('Login Successful');
+                }else if(res.data.Status === 'Success_Login_Manager') {
+                    navigate('/manager-dashboard');
+                    location.reload(true);
+                    alert('Login Successful');
+                }else if(res.data.Status === 'Success_Login_Admin') {
+                    navigate('/admin-dashboard');
                     location.reload(true);
                     alert('Login Successful');
                 } else if(res.data.Error === 'Error_No_User') {
