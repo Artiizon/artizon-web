@@ -13,6 +13,7 @@ import verifyCustomer from './routes/verifyCustomer.route.js';
 // models
 import signupModel from './models/signup.model.js';
 import loginModel from './models/login.model.js';
+import getCustomerModel from './models/getCustomer.model.js';
 
 import cookieParser from 'cookie-parser';
 
@@ -35,6 +36,8 @@ app.use('/verifyCustomer', verifyCustomer);
 app.use('/signup', signupModel);
 
 app.use('/login', loginModel);
+
+app.use('/getCustomer', getCustomerModel);
 
 app.use('/logout', logoutRoutes);
 

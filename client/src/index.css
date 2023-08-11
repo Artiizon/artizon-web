@@ -32,6 +32,7 @@ html {
     font-size: 6rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
+    max-width: 720px;
 }
 
 .head-text-content {
