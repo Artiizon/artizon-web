@@ -1,8 +1,9 @@
-
 import { FaShoppingCart } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  
   return (
     <nav className="fixed top-0 left-0 right-0 p-4 bg-black text-white flex justify-between items-center shadow-md">
       <div className="flex items-center gap-3">
@@ -19,11 +20,17 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-5">
-        <NavbarItem path="/stylist-dash" name="Dashboard" />
+        {/* <NavbarItem path="/stylist-dash" name="Dashboard" />
         <NavbarItem path="/design-lab" name="Design Lab" />
         <NavbarItem path="/company-design" name="Designs" />
         <NavbarItem path="/help" name="Help" />
         <NavbarItem path="/about" name="About" />
+      */}
+        <NavbarItem path="/textileProManagerdashboard" name="Dashboard" />
+        <NavbarItem path='/stock' name="Stock"/>
+        <NavbarItem path='/tpm_review_orders' name="Review Orders"/>
+        <NavbarItem path='/item' name="Item"/>
+     
       </div>
 
       <div className="flex items-center gap-5">
@@ -34,6 +41,9 @@ const Navbar = () => {
   );
 };
 
+        {/* <NavbarItem path='/price' name="Price"/> */}
+        
+
 const NavbarItem = ({ path, name, isButton = false }) => {
   const itemClasses = isButton
     ? 'px-4 py-2 rounded-lg border border-white text-white hover:bg-white hover:text-gray-800 transition-colors duration-300'
@@ -43,6 +53,7 @@ const NavbarItem = ({ path, name, isButton = false }) => {
     <NavLink
       to={path}
       activeClassName="text-gray-300"
+      activeclassname="text-gray-300"
       className={itemClasses}
     >
       {name}
