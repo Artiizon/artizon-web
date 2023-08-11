@@ -32,7 +32,6 @@ import { stockItemItemOptions } from "./models/Inventory/stockItemItemOptions.mo
 import { stockItemTypeOptions } from "./models/Inventory/stockItemTypeOptions.model.js";
 import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
 
-dotenv.config();
 
 // models
 import companydesignModel from './models/companydesign.model.js';     
@@ -43,31 +42,19 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ['GET', 'POST'],
-    credentials: true
+   
 }));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
 
 app.use('/api/v1/dalle', dalleRoutes);
-
 app.use('/verifyCustomer', verifyCustomer);
-
 app.use('/signup', signupModel);
-
 app.use('/login', loginModel);
-
 app.use('/getCustomer', getCustomerModel);
-
 app.use('/logout', logoutRoutes);
-
 app.use('/api/addNewDesign', companydesignModel)
-
-import cors from "cors";
-import express from "express";
-import bodyParser from "body-parser";
-import * as dotenv from 'dotenv';
 
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here

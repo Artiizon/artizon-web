@@ -10,7 +10,7 @@ import About from "./pages/About";
 
 import { useSnapshot } from "valtio";
 import state from "./store";
-import "@fontsource/montserrat"; 
+
 import CompanyDesign from './pages/CompanyDesign';
 import CompanyDesViewMore from './pages/CompanyDesViewMore';
 import ArtizonFeedback from './pages/ArtizonFeedback';
@@ -25,10 +25,6 @@ import StylistReviewAnOrder from './pages/StylistReviewAnOrder';
 
 import { Header } from "./components";
 
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import "@fontsource/montserrat";
-import Home from './pages/Home';
 import Item from './pages/Item';
 import Help from './pages/Price';
 import Stock from './pages/Stock';
