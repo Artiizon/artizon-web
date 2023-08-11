@@ -64,11 +64,6 @@ app.use('/logout', logoutRoutes);
 
 app.use('/api/addNewDesign', companydesignModel)
 
-import cors from "cors";
-import express from "express";
-import bodyParser from "body-parser";
-import * as dotenv from 'dotenv';
-
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here
 app.get("/api/stock/:id",fetchStockDetailsByID);
