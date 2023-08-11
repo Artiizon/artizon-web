@@ -6,7 +6,7 @@ import ims from "../../images/portPp/ot1.png";
 import imX from "../../images/orders/x.png";
 
 export default function CustomerOrderDetailsF() {
-  const status = "FullPayment";
+  const status = "Delivery";
   return (
     <div>
       <Navbar />

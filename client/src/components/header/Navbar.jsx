@@ -1,4 +1,4 @@
-import { FaShoppingCart } from "react-icons/fa";
+// import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-5">
-        <FaShoppingCart size={20} />
+        {/* <FaShoppingCart size={20} /> */}
         <NavbarItem path="/login" name="Login" isButton />
       </div>
     </nav>
