@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import {useAuth } from './pages/AuthContext'; 
 import "@fontsource/montserrat";
 import Home from './pages/Home';
-import Contact from './pages/Contact';
-import Help from './pages/Help';
+import Item from './pages/Item';
+import Help from './pages/Price';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Stock from './pages/Stock';
@@ -12,9 +12,9 @@ import StockUpdatePage from './pages/StockUpdate';
 import StockNew from './pages/StockNew';
 import TextileProManagerdashboard from './pages/textileProManagerdashboard';
 import './App.css';
-import jwt_decode from 'jwt-decode'; // Import jwt-decode library
-import Cookies from 'js-cookie'; 
 import Tpm_review_orders from './pages/tpm_review_orders';
+import Item_Type from './pages/Item_Type'; 
+import Item_Colors from './pages/Item_Color';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Routes>
        
           <Route exact path="/" element={<Home/>}/>
-            <Route exact path="/contact" element={<Contact/>}/>
+            <Route exact path="/item" element={<Item/>}/>
             <Route exact path="/help" element={<Help/>}/>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/stock" element={<Stock/>}/>
@@ -35,6 +35,8 @@ function App() {
             <Route exact path="/Signup" element={<Signup/>}/>
             <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/tpm_review_orders" element={<Tpm_review_orders/>}/>
+            <Route exact path="/item-types/:item_name_id" element={<Item_Type/>}/>
+            <Route exact path="/item-colors/:item_type_id" element={<Item_Colors/>}/>
             
 
             <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>

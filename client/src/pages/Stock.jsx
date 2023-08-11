@@ -22,8 +22,7 @@ function StockManagementPage() {
   }, []);
 
 
-  console.log(stockData);
-
+  
 
   return (
     <StandardLayout>
@@ -47,46 +46,52 @@ function StockManagementPage() {
 
 
 
-        {/* Table for stocks */}
-<div className="w-full overflow-hidden max-h-[508px] overflow-y-scroll">
-<table className="w-full table-auto bg-white shadow-md rounded-lg">
-  <thead className="bg-black text-white">
-    <tr className="bg-black text-white">
-      <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
-      <th className="px-4 py-3 text-left">Date</th>
-      <th className="px-4 py-3 text-left">Time</th>
-      <th className="px-4 py-3 text-right"></th>
-    </tr>
-  </thead>
+                {/* Table for stocks */}
+        <div className="w-full overflow-hidden max-h-[508px] overflow-y-scroll">
+        <table className="w-full table-auto bg-white shadow-md rounded-lg">
+          <thead className="bg-black text-white">
+            <tr className="bg-black text-white">
+              <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
+              <th className="px-4 py-3 text-left">Date and Time</th>
+              <th className="px-4 py-3 text-left">Total Cost (Rs.)</th>
+              <th className="px-4 py-3 text-right"></th>
+            </tr>
+          </thead>
 
-  <tbody className="">
-  {stockData.map((value) => {
-    
-  return(
-    <tr key={value.id} className="bg-white hover:bg-gray-200 transition-all ease-in-out">
-      <td className="px-4 py-3 w-[100px]">{value.id}</td>
-      <td className="px-4 py-3   ">{new Date(value.date).toISOString().slice(0, 10)}</td>
-      <td className="px-4 py-3">{value.time}</td>
-      <td className="px-4 py-3 text-right">
-        <div className="flex justify-end gap-2">
-          <Link
-            to={`/stock/${value.id}`}
-            className="bg-blue-500 text-white py-2 px-4 rounded-md"
-          >
-            View Details
-          </Link>
-         
-        </div>
-      </td>
-    </tr>
-  )})}
+          <tbody className="">
+          {stockData.map((value) => {
+            
+            return(
+            <tr key={value.id} className="bg-white hover:bg-gray-200 transition-all ease-in-out">
+              <td className="px-4 py-3 w-[100px]">{value.stock_id}</td>
+              <td className="px-4 py-3">
+                  {new Date(value.date_and_time).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                  })}
+              </td>
 
-  
-  </tbody>
+              <td className="px-4 py-3">{value.total_cost}</td>
+              <td className="px-4 py-3 text-right">
+                <div className="flex justify-end gap-2">
+                  <Link
+                    to={`/stock/${value.stock_id}`}
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                  >
+                    View Details
+                  </Link>
+                
+                </div>
+              </td>
+            </tr>
+          )})}
+
+          
+          </tbody>
 
 
 
-</table>
+        </table>
       </div>
       </div>
     </StandardLayout>

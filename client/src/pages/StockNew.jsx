@@ -4,68 +4,53 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 
-const getCurrentTime = () => {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
-  return `${hours}:${minutes}`;
-};
+
+const quantityInputTypes = [
+  { itemvalue: "Material", quantityType: "number", quantitylabel:"Meters" },
+  { itemvalue: "Button", quantityType: "number", quantitylabel:"Count"  },
+ 
+];
+
 
 function AddNewStockPage() {
   const navigate = useNavigate();
 
-  const [itemNames, setItemNames] = useState([]);
-  const [itemTypes, setItemTypes] = useState([]);
-  const [itemColors, setItemColors] = useState([]);
 
-  useEffect(() => {
-    // Fetch item names
-    axios.get("http://localhost:3001/api/item-names").then((response) => {
-    console.log("Response",response.data);  
-    setItemNames(response.data);
-
-    });
-  }, []);
+  const [colorOptions, setColorOptions] = useState({});
+  const [typeOptions, setTypeOptions] = useState({});
+  const [itemOptions, setItemOptions] = useState([]);
   
 
+  
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/color_options").then((response) => {
+      setColorOptions(response.data);
+    });
+
+    axios.get("http://localhost:3001/api/type_options").then((response) => {
+      setTypeOptions(response.data);
+    });
+
+    axios.get("http://localhost:3001/api/item_options").then((response) => {
+      setItemOptions(response.data);
+    });
+
+
+  }, []);
+
+  console.log("Success",itemOptions);
+
+
   const [stockData, setStockData] = useState({
-    date: new Date(),
-    time: getCurrentTime(),
     items: [],
     description: "",
     totalCost: "",
   });
 
-  
   const handleItemChange = (index, field, value) => {
     setStockData((prevStockData) => {
       const updatedItems = [...prevStockData.items];
-      const updatedItem = { ...updatedItems[index] };
-
-      if (field === 'itemName') {
-        const selectedNameId = value;
-        axios.get(`http://localhost:3001/api/item-types/${selectedNameId}`).then((response) => {
-          updatedItem.itemName = value;
-          updatedItem.type = ''; // Reset type when item name changes
-          updatedItem.color = ''; // Reset color when item name changes
-          setItemTypes(response.data);
-          setItemColors([]);
-        });
-      } else if (field === 'type') {
-        const selectedTypeId = value;
-        axios.get(`http://localhost:3001/api/item-colors/${selectedTypeId}`).then((response) => {
-          updatedItem.type = value;
-          updatedItem.color = ''; // Reset color when type changes
-          setItemColors(response.data);
-        });
-      } else if (field === 'color') {
-        updatedItem.color = value;
-      } else if (field === 'quantity') {
-        updatedItem.quantity = value;
-      }
-
-      updatedItems[index] = updatedItem;
-      
+      updatedItems[index][field] = value;
       return {
         ...prevStockData,
         items: updatedItems,
@@ -110,6 +95,7 @@ function AddNewStockPage() {
       });
   };
 
+  
   const [showPopup, setShowPopup] = useState(false);
 
   // Check if there are no items, then add one item by default
@@ -124,11 +110,13 @@ function AddNewStockPage() {
 
   return (
     <StandardLayout>
-      <div className="px-10 py-6 bg-white rounded-lg shadow-md min-h-screen">
-        <div className="flex items-center justify-between pb-6">
+      <div className="px-10 py-6 mt-3 bg-white rounded-lg shadow-md min-h-screen">
+        <div className="flex items-center justify-between pb-3">
           <h1 className="text-3xl font-semibold">Add New Stock</h1>
         </div>
-
+        <div className='px-2'>
+         <hr className=" border-t-2 border-gray-200" />
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="pb-6">
             {stockData.items.map((item, index) => (
@@ -149,68 +137,65 @@ function AddNewStockPage() {
                   
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Item Name
+                      Item Name <span className="text-red-500">*</span>
                     </label>
                     <select
                       name="itemName"
                       value={item.itemName}
                       onChange={(e) => handleItemChange(index, "itemName", e.target.value)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
                       required
                     >
                       <option value="" disabled>
                         Select Item Name
                       </option>
-                      {itemNames.map((item) => (
-                          <option key={item.item_name_id} value={item.item_name_id}>
-                             {item.item_name}
-                          </option>
+                      {itemOptions.map((itemOption) => (
+                        <option key={itemOption.value} value={itemOption.value}>
+                          {itemOption.value}
+                        </option>
                       ))}
-
-
-                      
                     </select>
                   </div>
                   
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Item Type
+                      Item Type <span className="text-red-500">*</span>
                     </label>
                     <select
                       name="type"
                       value={item.type}
                       onChange={(e) => handleItemChange(index, "type", e.target.value)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
                       required
                     >
                       <option value="" disabled>
                         Select Type
                       </option>
-                     {itemTypes.map((type) => (
-                  <option key={type.item_type_id} value={type.item_type_id}>
-                    {type.item_type}
-                  </option>
-                ))}
+                      {typeOptions[item.itemName]?.map((typeOption) => (
+                        <option key={typeOption.value} value={typeOption.value}>
+                          {typeOption.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Item Color
+                      Item Color <span className="text-red-500">*</span>
                     </label>
                     <select
                       name="color"
                       value={item.color}
                       onChange={(e) => handleItemChange(index, "color", e.target.value)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
                       required
                     >
                       <option value="" disabled>
                         Select a color
                       </option>
-                      {itemColors.map((color) => (
-                        <option key={color.item_color_id} value={color.item_color_id}>
-                          {color.item_color}
+                      {colorOptions[item.itemName]?.[item.type]?.map((colorOption) => (
+                        <option key={colorOption.value} value={colorOption.value}>
+                          {colorOption.value}
                         </option>
                       ))}
                     </select>
@@ -219,14 +204,15 @@ function AddNewStockPage() {
                 <div className="flex gap-4 mt-4">
                   <div className="w-1/3">
                     <label className="block text-sm font-medium text-gray-700">
-                      Item Quantity
+                      Item Quantity {quantityInputTypes.find(itemObj => itemObj.itemvalue === item.itemName)?.quantitylabel || ''} <span className="text-red-500">*</span>
+                      
                     </label>
                     <input
-                      type="text"
+                      type={quantityInputTypes.find(itemObj => itemObj.itemvalue === item.itemName)?.quantityType || 'text'}
                       name="quantity"
                       value={item.quantity}
                       onChange={(e) => handleItemChange(index, "quantity", e.target.value)}
-                      className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
                       required
                     />
                   </div>
@@ -244,25 +230,27 @@ function AddNewStockPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Special Note
+              Special Note <span className="text-red-500">*</span>
             </label>
             <textarea
               name="description"
               value={stockData.description}
               onChange={(e) => setStockData({ ...stockData, description: e.target.value })}
               className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              required
             />
           </div>
           <div>
             <label className="block text-sm  font-medium text-gray-700">
-              Total Cost (Rs.)
+              Total Cost (Rs.) <span className="text-red-500">*</span>
             </label>
             <input
-              type="text"
+              type="number"
               name="totalCost"
               value={stockData.totalCost}
               onChange={(e) => setStockData({ ...stockData, totalCost: e.target.value })}
               className="mt-1 mb-4 p-2 border border-gray-300 rounded-md w-full"
+              required
             />
           </div>
 
@@ -271,7 +259,12 @@ function AddNewStockPage() {
               type="submit"
               onClick={handleSubmit}
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              disabled={stockData.items.length === 0}
+              disabled={stockData.items.length === 0||
+                      stockData.items.some((item) => !item.itemName || !item.type || !item.color || !item.quantity) ||
+                      !stockData.description ||
+                      !stockData.totalCost   
+              }
+
             >
               Add Stock
             </button>

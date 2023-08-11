@@ -28,8 +28,8 @@ const Navbar = () => {
         <NavbarItem path="/textileProManagerdashboard" name="Dashboard" />
         <NavbarItem path='/stock' name="Stock"/>
         <NavbarItem path='/tpm_review_orders' name="Review Orders"/>
-        <NavbarItem path='/contact' name="Contact"/>
-        <NavbarItem path='/help' name="Help"/>
+        <NavbarItem path='/item' name="Item"/>
+        {/* <NavbarItem path='/price' name="Price"/> */}
         
 
 

@@ -1,151 +1,308 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 
-const ItemPage = () => {
-  // Sample data for item names, types, colors, and quantities
-  const itemNames = ["Material", "Button"];
-  const itemTypes = {
-    Material: ["Silk", "Cotton"],
-    Button: ["Type1", "Type2", "Type3"],
-  };
-  const itemColors = {
-    Material: ["Red", "Blue"],
-    Button: ["Brown", "Blue"],
-  };
-  const itemQuantities = {
-    Material: {
-      Silk: { Red: 20, Blue: 15 },
-      Cotton: { Red: 30, Blue: 25 },
-    },
-    Button: {
-      Type1: { Brown: 50, Blue: 40 },
-      Type2: { Brown: 60, Blue: 55 },
-      Type3: { Brown: 70, Blue: 65 },
-    },
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
+};
+
+const quantityInputTypes = [
+  { itemvalue: "Material", quantityType: "number", quantitylabel:"Meters" },
+  { itemvalue: "Button", quantityType: "number", quantitylabel:"Count"  },
+ 
+];
+
+
+function AddNewStockPage() {
+  const navigate = useNavigate();
+
+
+  const [colorOptions, setColorOptions] = useState({});
+  const [typeOptions, setTypeOptions] = useState({});
+  const [itemOptions, setItemOptions] = useState([]);
+  
+
+  
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/color_options").then((response) => {
+      setColorOptions(response.data);
+    });
+
+    axios.get("http://localhost:3001/api/type_options").then((response) => {
+      setTypeOptions(response.data);
+    });
+
+    axios.get("http://localhost:3001/api/item_options").then((response) => {
+      setItemOptions(response.data);
+    });
+
+
+  }, []);
+
+  console.log("Success",itemOptions);
+
+
+  const [stockData, setStockData] = useState({
+    date: new Date(),
+    time: getCurrentTime(),
+    items: [],
+    description: "",
+    totalCost: "",
+  });
+
+  const handleItemChange = (index, field, value) => {
+    setStockData((prevStockData) => {
+      const updatedItems = [...prevStockData.items];
+      updatedItems[index][field] = value;
+      return {
+        ...prevStockData,
+        items: updatedItems,
+      };
+    });
   };
 
-  const [selectedItemName, setSelectedItemName] = useState("");
-  const [selectedItemType, setSelectedItemType] = useState("");
-  const [selectedItemColor, setSelectedItemColor] = useState("");
-  const [quantity, setQuantity] = useState(0);
-
-  const handleItemNameChange = (e) => {
-    setSelectedItemName(e.target.value);
-    setSelectedItemType("");
-    setSelectedItemColor("");
-    setQuantity(0);
+  const handleAddItem = () => {
+    setStockData((prevStockData) => ({
+      ...prevStockData,
+      items: [...prevStockData.items, { itemName: "", type: "", color: "", quantity: "" }],
+    }));
   };
 
-  const handleItemTypeChange = (e) => {
-    setSelectedItemType(e.target.value);
-    setSelectedItemColor("");
-    setQuantity(0);
+  const handleRemoveItem = (index) => {
+    setStockData((prevStockData) => {
+      const updatedItems = [...prevStockData.items];
+      updatedItems.splice(index, 1);
+      return {
+        ...prevStockData,
+        items: updatedItems,
+      };
+    });
   };
 
-  const handleItemColorChange = (e) => {
-    setSelectedItemColor(e.target.value);
-    setQuantity(0);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (stockData.items.length === 0) {
+      setShowPopup(true);
+      return;
+    }
+
+    axios
+      .post("http://localhost:3001/api/stock", stockData)
+      .then((response) => {
+        console.log(response.data);
+        navigate("/stock");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleQuantityChange = (e) => {
-    setQuantity(parseInt(e.target.value));
-  };
+  
+  const [showPopup, setShowPopup] = useState(false);
 
-  const handleUpdateQuantity = () => {
-    // Implement the update quantity logic here
-    // For now, just log the selected values and quantity
-    console.log("Selected Item Name:", selectedItemName);
-    console.log("Selected Item Type:", selectedItemType);
-    console.log("Selected Item Color:", selectedItemColor);
-    console.log("Selected Quantity:", quantity);
-  };
+  // Check if there are no items, then add one item by default
+  useEffect(() => {
+    if (stockData.items.length === 0) {
+      handleAddItem();
+    }
+  }, [stockData.items]);
+
+
+
 
   return (
     <StandardLayout>
-      <div className="container mx-auto px-4 py-8 min-h-screen">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 ">Item Page</h1>
-        <div className="px-2">
-          <hr className="my-4 border-t-2 border-gray-200" />
+      <div className="px-10 py-6 mt-3 bg-white rounded-lg shadow-md min-h-screen">
+        <div className="flex items-center justify-between pb-3">
+          <h1 className="text-3xl font-semibold">Add New Stock</h1>
         </div>
+        <div className='px-2'>
+         <hr className=" border-t-2 border-gray-200" />
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="pb-6">
+            {stockData.items.map((item, index) => (
+              <div key={index} className="bg-gray-100 rounded-lg p-4 my-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold">Item {index + 1}</h2>
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveItem(index)}
+                      className="text-red-500"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <div className="flex gap-4 mt-4">
+                  
+                  <div className="w-1/3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Item Name <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="itemName"
+                      value={item.itemName}
+                      onChange={(e) => handleItemChange(index, "itemName", e.target.value)}
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Item Name
+                      </option>
+                      {itemOptions.map((itemOption) => (
+                        <option key={itemOption.value} value={itemOption.value}>
+                          {itemOption.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div className="w-1/3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Item Type <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="type"
+                      value={item.type}
+                      onChange={(e) => handleItemChange(index, "type", e.target.value)}
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Type
+                      </option>
+                      {typeOptions[item.itemName]?.map((typeOption) => (
+                        <option key={typeOption.value} value={typeOption.value}>
+                          {typeOption.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-        <div className="grid grid-raws-1 md:grid-raws-2 lg:grid-raws-3 gap-4 justify-center ">
-          {/* Item Name Dropdown */}
-          <div >
-            <label className="block text-sm font-medium text-gray-700 ">Item Name</label>
-            <select
-              value={selectedItemName}
-              onChange={handleItemNameChange}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-60"
+                  <div className="w-1/3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Item Color <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="color"
+                      value={item.color}
+                      onChange={(e) => handleItemChange(index, "color", e.target.value)}
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select a color
+                      </option>
+                      {colorOptions[item.itemName]?.[item.type]?.map((colorOption) => (
+                        <option key={colorOption.value} value={colorOption.value}>
+                          {colorOption.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex gap-4 mt-4">
+                  <div className="w-1/3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Item Quantity {quantityInputTypes.find(itemObj => itemObj.itemvalue === item.itemName)?.quantitylabel || ''} <span className="text-red-500">*</span>
+                      
+                    </label>
+                    <input
+                      type={quantityInputTypes.find(itemObj => itemObj.itemvalue === item.itemName)?.quantityType || 'text'}
+                      name="quantity"
+                      value={item.quantity}
+                      onChange={(e) => handleItemChange(index, "quantity", e.target.value)}
+                      className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={handleAddItem}
+              className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md"
             >
-              <option value="">Select Item Name</option>
-              {itemNames.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
+              Add Item
+            </button>
           </div>
 
-          {/* Item Type Dropdown */}
-          {selectedItemName && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Item Type</label>
-              <select
-                value={selectedItemType}
-                onChange={handleItemTypeChange}
-                className="mt-1 p-2 border border-gray-300 rounded-md w-60"
-              >
-                <option value="">Select Item Type</option>
-                {itemTypes[selectedItemName].map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Special Note <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              name="description"
+              value={stockData.description}
+              onChange={(e) => setStockData({ ...stockData, description: e.target.value })}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm  font-medium text-gray-700">
+              Total Cost (Rs.) <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              name="totalCost"
+              value={stockData.totalCost}
+              onChange={(e) => setStockData({ ...stockData, totalCost: e.target.value })}
+              className="mt-1 mb-4 p-2 border border-gray-300 rounded-md w-full"
+              required
+            />
+          </div>
 
-          {/* Item Color Dropdown */}
-          {selectedItemName && selectedItemType && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Item Color</label>
-              <select
-                value={selectedItemColor}
-                onChange={handleItemColorChange}
-                className="mt-1 p-2 border border-gray-300 rounded-md w-60"
-              >
-                <option value="">Select Item Color</option>
-                {itemColors[selectedItemName].map((color) => (
-                  <option key={color} value={color}>
-                    {color}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          <div>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              disabled={stockData.items.length === 0||
+                      stockData.items.some((item) => !item.itemName || !item.type || !item.color || !item.quantity) ||
+                      !stockData.description ||
+                      !stockData.totalCost   
+              }
 
-          {/* Quantity Input and Update Button */}
-          {selectedItemName && selectedItemType && selectedItemColor && (
-            <div className="flex flex-col">
-              <label className="block text-sm font-medium text-gray-700">Quantity</label>
-              <input
-                type="number"
-                value={quantity}
-                onChange={handleQuantityChange}
-                className="mt-1 p-2 border border-gray-300 rounded-md w-60"
-              />
+            >
+              Add Stock
+            </button>
+            <Link
+              to="/stock"
+              className="bg-red-500 text-white px-6 py-2.5 ml-3 rounded-md"
+            >
+              Cancel
+            </Link>
+          </div>
+        </form>
+
+        {showPopup && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-md shadow-md">
+              <p className="text-xl font-semibold mb-4">
+                Please add at least one item to save the stock.
+              </p>
               <button
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md w-60"
-                onClick={handleUpdateQuantity}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                onClick={() => setShowPopup(false)}
               >
-                Update Quantity
+                OK
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </StandardLayout>
   );
-};
+}
 
-export default ItemPage;
+export default AddNewStockPage;
