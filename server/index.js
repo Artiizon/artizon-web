@@ -22,6 +22,7 @@ import getAdminModel from './models/getAdmin.model.js';
 import getDesignerModel from './models/getDesigner.model.js';
 import getManagerModel from './models/getManager.model.js';
 import getStylistModel from './models/getStylist.model.js';
+import makeOrderModel from './models/makeOrder.model.js';
 
 import cookieParser from 'cookie-parser';
 
@@ -71,6 +72,7 @@ app.use('/getAdmin', getAdminModel);
 app.use('/getDesigner', getDesignerModel);
 app.use('/getManager', getManagerModel);
 app.use('/getStylist', getStylistModel);
+app.use('/makeOrder', makeOrderModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
 
