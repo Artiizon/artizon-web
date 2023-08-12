@@ -248,12 +248,12 @@ const Header = () => {
                 <NavLink to="/profile">{adminTitle} {adminName}</NavLink>
             </p>
         )}
-        {(customerAuth || adminAuth) && (
+        {(customerAuth || adminAuth || designerAuth || stylistAuth || managerAuth) && (
             <p className='header-item' onClick={handleLogout}>
                 LOGOUT
             </p>
         )}
-        {!(customerAuth || adminAuth) && (
+        {!(customerAuth || adminAuth || designerAuth || stylistAuth || managerAuth) && (
             <p className='header-item'>
                 <NavLink to="/login">LOGIN</NavLink>
             </p>
