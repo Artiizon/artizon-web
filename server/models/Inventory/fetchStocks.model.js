@@ -1,15 +1,26 @@
-import db from '../../config/db.js'; 
+import express from 'express';
+import db from '../../config/database.js';
 
-const fetchStocks = async (req, res) => {
-  try {
-    // Query the database to get all stocks
-    const stocks = await db.query("SELECT * FROM stock");
-    console.log(stocks[0]);
-    res.status(200).json(stocks[0]);
-  } catch (error) {
-    console.error("Error fetching stocks:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+const router = express.Router();
 
-export { fetchStocks };
+// Define the route for "/api/stocks"
+router.route('/')
+  .get(async (req, res) => {
+    try {
+      // Query the database to get all stocks
+      db.query("SELECT * FROM stock", (error, results) => {
+        if (error) {
+          console.error("Error fetching stocks:", error);
+          res.status(500).json({ message: "Server error" });
+        } else {
+          console.log(results);
+          res.status(200).json(results);
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching stocks:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
+export default router;

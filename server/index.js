@@ -18,7 +18,7 @@ import getCustomerModel from './models/getCustomer.model.js';
 import cookieParser from 'cookie-parser';
 
 
-import { fetchStocks } from "./models/Inventory/fetchStocks.model.js"; // Update the path
+import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
 import { stockItemNames } from "./models/Inventory/stockItemNames.model.js";
 import { stockItemNameById } from "./models/Inventory/stockItemNameById.model.js";
@@ -41,9 +41,13 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+
 app.use(cors({
-   
+  origin: 'http://127.0.0.1:5173',
+  methods: ['GET', 'POST'],
+  credentials: true
 }));
+
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
@@ -57,7 +61,7 @@ app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
 
 
-app.get("/api/stocks", fetchStocks); // Use the imported function here
+app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);
 app.get("/api/item-names",stockItemNames);
 app.get("/api/item-nameByID/:id",stockItemNameById);
