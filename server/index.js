@@ -23,6 +23,7 @@ import individualDesignDetailsModel from './models/fetchCompanyDetailsById.model
 import fetchOrdersModel from './models/fetchOrders.model.js';
 import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
 import stylistReviewOrderModel from './models/stylistReviewOrder.model.js';
+import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.model.js';
 
 import { fetchStocks } from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -66,6 +67,7 @@ app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
 app.use('/viewDesigns', fetchDesignerDesignsModel )
 app.use('/review_order', stylistReviewOrderModel)
+app.use('/accept_reject_order', stylistAcceptRejectOrderModel)
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here
 app.get("/api/stock/:id",fetchStockDetailsByID);
@@ -83,6 +85,7 @@ app.post("/api/stock",stockAddNew);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));
+app.use('/uploads/logos', express.static(path.join(__dirname, 'uploads', 'logos')));
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Artizon Backend' });
