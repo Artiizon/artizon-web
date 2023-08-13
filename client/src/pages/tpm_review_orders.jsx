@@ -1,264 +1,125 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { AiOutlineClose } from 'react-icons/ai';
 import des1 from "../images/designs/design1.jpg";
 import alert1 from "../images/alerts/No Data.png"
+import logoImageFile from "../images/logos/logo1.jpg";
+import axios from 'axios';
+import { useSnapshot } from "valtio";
+import state from "../store";
 
-const orders = [
-    {
-      id: 1,
-      date: "2023-07-01 12:12:00",
-      quantity: 2,
-      product: "Sample Design 1",
-      status: "Pending",
-      image:  des1,
-    },
-    {
-      id: 2,
-      date: "2023-07-02 12:12:00",
-      quantity: 1,
-      product: "Sample Design 2",
-      status: "Rejected",
-      image:  des1,
-    },
-    {
-      id: 3,
-      date: "2023-07-01 12:12:00",
-      quantity: 2,
-      product: "Sample Design 1",
-      status: "Accepted",
-      image:  des1,
-    },
-    {
-      id: 4,
-      date: "2023-07-02 12:12:00",
-      quantity: 8,
-      product: "Sample Design 2",
-      status: "Pending",
-      image:  des1,
-    },
-    {
-      id: 5,
-      date: "2023-07-01 12:12:00",
-      quantity: 10,
-      product: "Sample Design 1",
-      status: "Accepted",
-      image:  des1,
-    },
-    {
-      id: 6,
-      date: "2023-07-02 12:12:00",
-      quantity: 1,
-      product: "Sample Design 2",
-      status: "Pending",
-      image:  des1,
-    },
-    {
-      id: 7,
-      date: "2023-07-02 12:12:00",
-      quantity: 100,
-      product: "Sample Design 2",
-      status: "Accepted",
-      image:  des1,
-    },
-    // Add more orders as needed
-  ];
+// const customStyles = {
+//   content: {
+//     top: '50%',
+//     left: '50%',
+//     right: 'auto',
+//     bottom: 'auto',
+//     width: '50%', // Set width to 50% of viewport width
+//     marginRight: '-50%',
+//     transform: 'translate(-50%, -50%)',
+//     maxHeight: '90vh', // Set maximum height to 80% of viewport height
+//     overflowY: 'auto', // Add vertical scroll if content overflows
+//   },
+//   overlay: {
+//     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+//   },
+// };
+// const OrderViewModal = ({ isOpen, onRequestClose, order }) => {
+//   return (
+//     <Modal
+//       isOpen={isOpen}
+//       onRequestClose={onRequestClose}
+//       style={customStyles}
+//       contentLabel="Order Details"
+//     >
+//       <div className="flex justify-end">
+//         <button onClick={onRequestClose} className="text-gray-500 text-2xl">
+//           <AiOutlineClose />
+//         </button>
+//       </div>
+//       <div className="flex flex-col items-left justify-center p-4">
+//         <h2 className="text-2xl font-semibold mb-4 text-center">{`Order ID: ${order.id}`}</h2>
+//         <div className="mb-4 flex justify-center">
+//           <img
+//             src={order.image}
+//             alt={`Order ${order.id} Image`}
+//             className="w-48 h-48 object-cover rounded-md shadow-lg"
+//           />
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
+//           <p className="py-2 text-lg font-medium text-blue-800">Design:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.product}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
+//           <p className="py-2 text-lg font-medium text-blue-800">Quantity:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.quantity}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
+//           <p className="py-2 text-lg font-medium text-blue-800">Date and Time:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.date}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Material:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.material}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Color Code:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.colorCode}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Special Note:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.specialNote}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Expected Days:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.expectedDays}</p>
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Logo Image:</p>
+//           <img
+//             src={order.logoImage}
+//             alt={`Order ${order.id} Logo`}
+//             className="ml-2 max-h-24"
+//           />
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">T-Shirt Sizes:</p>
+//           {Object.keys(order.tshirtQuantity).map((size) => (
+//             <p key={size} className="ml-2 text-lg font-medium text-gray-700">
+//               {size.toUpperCase()}: {order.tshirtQuantity[size]}
+//             </p>
+//           ))}
+//         </div>
+//         <div className="bg-blue-50 rounded-md p-2 mb-2">
+//           <p className="py-2 text-lg font-medium text-blue-800">Total Quantity:</p>
+//           <p className="ml-2 text-lg font-medium text-gray-700">{order.totalQuantity}</p>
+//         </div>
+//       </div>
+//     </Modal>
+//   );
+// };
 
 
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
-    zIndex: 1000,
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    borderRadius: "8px",
-    border: "none",
-    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
-    maxWidth: "400px",
-    width: "90%",
-    padding: "24px",
-  },
-};
-
-const OrderViewModal = ({ isOpen, onRequestClose, order }) => {
-    return (
-      <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      style={customStyles}
-      contentLabel="Order Details"
-      >
-        <div className="flex justify-end">
-          <button onClick={onRequestClose} className="text-gray-500 text-2xl">
-            <AiOutlineClose />
-          </button>
-        </div>
-        <div className="flex flex-col items-left justify-center p-4">
-          <h2 className="text-2xl font-semibold mb-4 text-center">{`Order ID: ${order.id}`}</h2>
-          <div className="mb-4 flex justify-center">
-            <img
-              src={order.image}
-              alt={`Order ${order.id} Image`}
-              className="w-48 h-48 object-cover rounded-md shadow-lg"
-            />
-          </div>
-          <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-800">Design:</p>
-            <p className="ml-2 text-lg font-medium text-gray-700">{order.product}</p>
-          </div>
-          <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-800">Quantity:</p>
-            <p className="ml-2 text-lg font-medium text-gray-700">{order.quantity}</p>
-          </div>
-          <div className="bg-blue-50 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-800">Date and Time:</p>
-            <p className="ml-2 text-lg font-medium text-gray-700">{order.date}</p>
-          </div>
-        </div>
-      </Modal>
-    );
-  };
-  
-
-  const OrderModal = ({ isOpen, onRequestClose, order, updateOrderStatus }) => {
-    const acceptOrder = () => {
-      updateOrderStatus(order.id, "Accepted");
-      onRequestClose();
-    };
-  
-    const rejectOrder = () => {
-      updateOrderStatus(order.id, "Rejected");
-      onRequestClose();
-    };
-  
-    return (
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        style={customStyles}
-        contentLabel="Order Details"
-      >
-        <div className="flex justify-end">
-          <button onClick={onRequestClose} className="text-gray-500 text-lg">
-            <AiOutlineClose />
-          </button>
-        </div>
-        <div className="flex flex-col items-left justify-center">
-          <h2 className="text-2xl text-center font-semibold mb-4">{`Order ID: ${order.id}`}</h2>
-          <div className="flex mb-4 justify-center">
-            <img
-              src={order.image}
-              alt={`Order ${order.id} Image`}
-              className="w-48 h-48 object-cover rounded-md"
-            />
-          </div>
-          <div className="bg-gray-100 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-600">Quantity:</p>
-            <p className="ml-2 text-lg font-medium">{order.quantity}</p>
-          </div>
-          <div className="bg-gray-100 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-600">Date and Time:</p>
-            <p className="ml-2 text-lg font-medium">{order.date}</p>
-          </div>
-          <div className="bg-gray-100 rounded-md p-2 mb-2 flex items-center">
-            <p className="py-2 text-lg font-medium text-blue-600">Design:</p>
-            <p className="ml-2 text-lg font-medium">{order.product}</p>
-          </div>
-          <div className="flex space-x-4 mt-4 justify-center">
-            <button
-              onClick={acceptOrder}
-              className="bg-green-500 text-white px-4 py-2 rounded-md"
-            >
-              Accept
-            </button>
-            <button
-              onClick={rejectOrder}
-              className="bg-red-500 text-white px-4 py-2 rounded-md"
-            >
-              Reject
-            </button>
-          </div>
-        </div>
-      </Modal>
-    );
-  };
 const ReviewOrderPage = () => {
-     
+  const snap = useSnapshot(state);
+  state.page = "no-canvas"; 
     
-    
+  const [torders, setTOrders] = useState([]); 
   
-    const [orders, setOrders] = useState([
-        {
-            id: 1,
-            date: "2023-07-01 12:12:00",
-            quantity: 2,
-            product: "Sample Design 1",
-            status: "Pending",
-            image:  des1,
-          },
-          {
-            id: 2,
-            date: "2023-07-02 12:12:00",
-            quantity: 1,
-            product: "Sample Design 2",
-            status: "Rejected",
-            image:  des1,
-          },
-          {
-            id: 3,
-            date: "2023-07-01 12:12:00",
-            quantity: 2,
-            product: "Sample Design 1",
-            status: "Accepted",
-            image:  des1,
-          },
-          {
-            id: 4,
-            date: "2023-07-02 12:12:00",
-            quantity: 8,
-            product: "Sample Design 2",
-            status: "Pending",
-            image:  des1,
-          },
-          {
-            id: 5,
-            date: "2023-07-01 12:12:00",
-            quantity: 10,
-            product: "Sample Design 1",
-            status: "Accepted",
-            image:  des1,
-          },
-          {
-            id: 6,
-            date: "2023-07-02 12:12:00",
-            quantity: 1,
-            product: "Sample Design 2",
-            status: "Pending",
-            image:  des1,
-          },
-          {
-            id: 7,
-            date: "2023-07-02 12:12:00",
-            quantity: 100,
-            product: "Sample Design 2",
-            status: "Accepted",
-            image:  des1,
-          },
-          // Add more orders as needed
-    
-    ]);
-
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8080/viewOrderstpm')
+      .then(response => {
+        setTOrders(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching designs:', error);
+      });
+  }, []);
+  
   const [activeTab, setActiveTab] = useState("Pending");
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const [viewModalIsOpen, setViewModalIsOpen] = useState(false);
@@ -279,41 +140,32 @@ const ReviewOrderPage = () => {
       noOrdersMessage = "No orders to display";
   }
 
-  const updateOrderStatus = (orderId, newStatus) => {
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === orderId ? { ...order, status: newStatus } : order
-      )
-    );
-  };
+  // const updateOrderStatus = (orderId, newStatus) => {
+  //   setOrders((prevOrders) =>
+  //     prevOrders.map((order) =>
+  //       order.id === orderId ? { ...order, status: newStatus } : order
+  //     )
+  //   );
+  // };
 
-  const openViewModal = (order) => {
-    setSelectedViewOrder(order);
-    setViewModalIsOpen(true);
-  };
+  // const openViewModal = (order) => {
+  //   setSelectedViewOrder(order);
+  //   setViewModalIsOpen(true);
+  // };
 
-  const closeViewModal = () => {
-    setViewModalIsOpen(false);
-  };
+  // const closeViewModal = () => {
+  //   setViewModalIsOpen(false);
+  // };
 
-  const filteredOrders = orders.filter((order) => {
+  const filteredOrders = torders.filter((order) => {
     if (activeTab === "Rejected") return order.status === "Rejected";
     if (activeTab === "Accepted") return order.status === "Accepted";
     return order.status === "Pending";
   });
 
-  const openModal = (order) => {
-    setSelectedOrder(order);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
   return (
     <StandardLayout>
-      <div className="container mx-auto p-8 min-h-screen">
+      <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold mb-1">Review Orders</h1>
 
         <div className='px-1'>
@@ -363,7 +215,7 @@ const ReviewOrderPage = () => {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                 >
-                  Date
+                  Date & Time
                 </th>
                 <th
                   scope="col"
@@ -381,12 +233,6 @@ const ReviewOrderPage = () => {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                 >
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
                   Actions
                 </th>
               </tr>
@@ -394,45 +240,33 @@ const ReviewOrderPage = () => {
             <tbody>
               {filteredOrders.map((order, index) => (
                 <tr
-                  key={order.id}
+                  key={order.tshirt_order_id}
                   className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.date}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.product}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span
-                      className={`${
-                        order.status === "Rejected"
-                          ? "text-red-600"
-                          : order.status === "Accepted"
-                          ? "text-green-600"
-                          : "text-gray-600"
-                      } font-medium uppercase`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.tshirt_order_id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(order.ordered_date_and_time).toLocaleString()}
+                 </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.total_quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.design_name}</td>
+                 
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
-                    {order.status === "Pending" ? (
+                  {order.status === "Pending" ? (
                       <div>
-                        <button
-                          onClick={() => openModal(order)}
-                          className="text-blue-500 hover:underline cursor-pointer text-decoration-none"
-                        >
+                        <Link to={`/review-an-ordertpm/${order.tshirt_order_id}`} className="text-blue-500 hover:underline cursor-pointer text-decoration-none">
                           Review
-                        </button>
+                        </Link>
                       </div>
-                    ) : null}
+                    ) : 
                     <div>
                       <button
-                        onClick={() => openViewModal(order)}
+                        onClick={() => openViewModal(torder)}
                         className="text-blue-500 hover:underline cursor-pointer text-decoration-none"
                       >
                         View More
                       </button>
                     </div>
+                  }
                   </td>
                 </tr>
               ))}
@@ -452,15 +286,6 @@ const ReviewOrderPage = () => {
           </div>
         )}
       </div>
-
-      {selectedOrder && (
-        <OrderModal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          order={selectedOrder}
-          updateOrderStatus={updateOrderStatus} 
-        />
-      )}
 
       {selectedViewOrder && (
         <OrderViewModal

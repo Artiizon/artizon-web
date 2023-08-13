@@ -10,7 +10,7 @@ import state from "../store";
 const AddNewDesignPage = () => {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
   const [images, setImages] = useState([]);

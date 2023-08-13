@@ -30,7 +30,8 @@ const Navbar = () => {
         <NavbarItem path='/stock' name="Stock"/>
         <NavbarItem path='/tpm_review_orders' name="Review Orders"/>
         <NavbarItem path='/item' name="Item"/>
-     
+
+        <NavbarItem path='/price' name="Price"/>      
       </div>
 
       <div className="flex items-center gap-5">
@@ -41,7 +42,6 @@ const Navbar = () => {
   );
 };
 
-        {/* <NavbarItem path='/price' name="Price"/> */}
         
 
 const NavbarItem = ({ path, name, isButton = false }) => {

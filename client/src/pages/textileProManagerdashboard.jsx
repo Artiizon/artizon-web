@@ -2,6 +2,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, 
 import StandardLayout from '../components/layout/StandardLayout';
 import { FaCheckCircle, FaTimesCircle, FaClock } from 'react-icons/fa'; // Importing icons
 import { Link } from 'react-router-dom';
+import { useSnapshot } from "valtio";
+import state from "../store";
+
 
 const DashboardCard = ({ title, value }) => {
   return (
@@ -28,16 +31,21 @@ const DashboardCardWithIcon = ({ title, value, icon }) => {
 };
 
 const TextileProductionManagerDashboard = () => {
+  
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+   
+
   const totalStocks = 1500;
   const totalMaterials = 800;
   const totalButtons = 500;
-  const totalLinks = 300;
+  const totalInks = 300;
   const totalThreads = 200;
 
   const stockData = [
     { name: 'Materials', value: totalMaterials },
     { name: 'Buttons', value: totalButtons },
-    { name: 'Links', value: totalLinks },
+    { name: 'Inks', value: totalInks },
     { name: 'Threads', value: totalThreads },
   ];
 
@@ -46,7 +54,7 @@ const TextileProductionManagerDashboard = () => {
   const productionData = [
     { category: 'Materials', quantity: 800 },
     { category: 'Buttons', quantity: 600 },
-    { category: 'Links', quantity: 400 },
+    { category: 'Inks', quantity: 400 },
     { category: 'Threads', quantity: 700 },
   ];
 
@@ -89,7 +97,7 @@ const TextileProductionManagerDashboard = () => {
         <DashboardCard title="Total Stocks" value={totalStocks} />
         <DashboardCard title="Total Materials" value={totalMaterials} />
         <DashboardCard title="Total Buttons" value={totalButtons} />
-        <DashboardCard title="Total Links" value={totalLinks} />
+        <DashboardCard title="Total Inks" value={totalInks} />
         <DashboardCard title="Total Threads" value={totalThreads} />
       </div>
 

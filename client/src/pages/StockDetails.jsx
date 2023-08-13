@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import StandardLayout from "../components/layout/StandardLayout";
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 const fetchStockById = async (id) => {
   try {
@@ -14,6 +16,10 @@ const fetchStockById = async (id) => {
 };
 
 function StockDetailsPage() {
+  
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+
   const { id } = useParams();
   const [stock, setStock] = useState(null);
 

@@ -18,12 +18,10 @@ import CompanyDesViewMore from './pages/CompanyDesViewMore';
 import ArtizonFeedback from './pages/ArtizonFeedback';
 import StylistStatusUpdate from './pages/StylistStatusUpdate';
 import StylistDashboard from './pages/StylistDashboard';
-import StylistReviewOrders from './pages/StylistReviewOrders';
 import DesignerDashboard from './pages/DesignerDashboard';
 import DesignerDesigns from './pages/DesignerDesigns';
 import AddNewDesign from './pages/AddNewDesign';
-import ManagerDashboard from './pages/ManagerDashboard';
-import StylistReviewAnOrder from './pages/StylistReviewAnOrder';
+import ManagerReviewAnOrder from './pages/ManagerReviewAnOrder';
 
 import { Header } from "./components";
 
@@ -54,7 +52,7 @@ function App() {
     <main className="app transition-all ease-in">
  
       <Router>
-        {/* <Header /> */}
+         <Header /> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
@@ -67,12 +65,9 @@ function App() {
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
           <Route exact path="/order-status-update" element={<StylistStatusUpdate/>}/>
           <Route exact path="/stylist-dash" element={<StylistDashboard/>}/>
-          <Route exact path="/review-order" element={<StylistReviewOrders/>}/>
-          <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
-          <Route exact path="/review-an-order" element={<StylistReviewAnOrder/>}/>
+           <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
-          <Route exact path="/manager-dash" element={<ManagerDashboard/>}/>
           <Route exact path="/usermanage" element={<UserManageMain />}/>
           <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
           <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
@@ -80,21 +75,21 @@ function App() {
           <Route exact path="/changePassword" element={<ChangePassword />}/>
           <Route exact path="/addUser" element={<AddUsers />}/>
           <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>
+          <Route exact path="/review-an-ordertpm/:id" element={<ManagerReviewAnOrder/>}/>
+       
 
-
-
-           <Route exact path="/" element={<Home/>}/>
-            <Route exact path="/item" element={<Item/>}/>
-            <Route exact path="/help" element={<Help/>}/>
-            <Route exact path="/stock" element={<Stock/>}/>
-            <Route exact path="/stock/:id" element={<StockDetailsPage/>} />
-            <Route exact path="/stock/:id/update" element={<StockUpdatePage/>} />
-            <Route exact path="/stock/new" element={<StockNew/>} />
-            <Route exact path="/home" element={<Home/>}/>
-            <Route exact path="/tpm_review_orders" element={<Tpm_review_orders/>}/>
-            <Route exact path="/item-types/:item_name_id" element={<Item_Type/>}/>
-            <Route exact path="/item-colors/:item_type_id" element={<Item_Colors/>}/>
-            <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
+          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/item" element={<Item/>}/>
+          <Route exact path="/help" element={<Help/>}/>
+          <Route exact path="/stock" element={<Stock/>}/>
+          <Route exact path="/stock/:id" element={<StockDetailsPage/>} />
+          <Route exact path="/stock/:id/update" element={<StockUpdatePage/>} />
+          <Route exact path="/stock/new" element={<StockNew/>} />
+          <Route exact path="/home" element={<Home/>}/>
+          <Route exact path="/tpm_review_orders" element={<Tpm_review_orders/>}/>
+          <Route exact path="/item-types/:item_name_id" element={<Item_Type/>}/>
+          <Route exact path="/item-colors/:item_type_id" element={<Item_Colors/>}/>
+          <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
     
         </Routes>
       </Router>

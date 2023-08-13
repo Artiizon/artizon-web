@@ -21,6 +21,10 @@ const stockAddNew =async (req, res) => {
           item.color,
           item.quantity,
         ])
+
+        
+
+
       );
   
       await Promise.all(itemPromises);

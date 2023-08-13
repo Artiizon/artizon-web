@@ -35,6 +35,8 @@ import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
 
 // models
 import companydesignModel from './models/companydesign.model.js';     
+import fetchOrderstpmModel from './models/Inventory/fetchOrderstpm.model.js';
+import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model.js';
 
 const allowedOrigins = ['http://localhost:5173'];
 dotenv.config();
@@ -42,7 +44,9 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-   
+  origin: 'http://127.0.0.1:5173',
+  methods: ['GET', 'POST'],
+  credentials: true
 }));
 
 app.use(express.json({ limit: '50mb' }));
@@ -55,6 +59,8 @@ app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
+app.use('/viewOrderstpm', fetchOrderstpmModel)
+app.use('/review_order', managerReviewOrderModel)
 
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here
