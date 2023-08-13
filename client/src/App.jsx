@@ -54,7 +54,7 @@ function App() {
     <main className="app transition-all ease-in">
  
       <Router>
-        {/* <Header /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />

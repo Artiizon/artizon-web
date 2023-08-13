@@ -6,6 +6,10 @@ import cors from 'cors';
 import dalleRoutes from './routes/dalle.routes.js';
 import logoutRoutes from './routes/logout.route.js';
 import verifyCustomer from './routes/verifyCustomer.route.js';
+import verifyAdmin from './routes/verifyAdmin.route.js';
+import verifyDesigner from './routes/verifyDesigner.route.js';
+import verifyManager from './routes/verifyManager.route.js';
+import verifyStylist from './routes/verifyStylist.route.js';
 
 // database
 // import db from './config/database.js';
@@ -14,6 +18,11 @@ import verifyCustomer from './routes/verifyCustomer.route.js';
 import signupModel from './models/signup.model.js';
 import loginModel from './models/login.model.js';
 import getCustomerModel from './models/getCustomer.model.js';
+import getAdminModel from './models/getAdmin.model.js';
+import getDesignerModel from './models/getDesigner.model.js';
+import getManagerModel from './models/getManager.model.js';
+import getStylistModel from './models/getStylist.model.js';
+import makeOrderModel from './models/makeOrder.model.js';
 
 import cookieParser from 'cookie-parser';
 
@@ -54,9 +63,18 @@ app.use(cookieParser());
 
 app.use('/api/v1/dalle', dalleRoutes);
 app.use('/verifyCustomer', verifyCustomer);
+app.use('/verifyAdmin', verifyAdmin);
+app.use('/verifyDesigner', verifyDesigner);
+app.use('/verifyManager', verifyManager);
+app.use('/verifyStylist', verifyStylist);
 app.use('/signup', signupModel);
 app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);
+app.use('/getAdmin', getAdminModel);
+app.use('/getDesigner', getDesignerModel);
+app.use('/getManager', getManagerModel);
+app.use('/getStylist', getStylistModel);
+app.use('/makeOrder', makeOrderModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
 

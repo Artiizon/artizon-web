@@ -27,12 +27,38 @@ router.route('/').post((req, res) => {
                 if (result2) {
                     console.log('Login successful');
 
-                    // Create token
-                    const email = result[0].email;
-                    const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
-                    res.cookie('customer_token', token);
+                    // Create token according to the usertype
+                    if (result[0].usertype === 'customer') {
+                        const email = result[0].email;
+                        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
+                        res.cookie('customer_token', token);
 
-                    return res.json({ Status: "Success_Login", UserType: result[0].usertype });
+                        return res.json({ Status: "Success_Login_Customer", UserType: result[0].usertype });
+                    } else if (result[0].usertype === 'admin') {
+                        const email = result[0].email;
+                        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
+                        res.cookie('admin_token', token);
+
+                        return res.json({ Status: "Success_Login_Admin", UserType: result[0].usertype });
+                    } else if (result[0].usertype === 'designer') {
+                        const email = result[0].email;
+                        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
+                        res.cookie('designer_token', token);
+
+                        return res.json({ Status: "Success_Login_Designer", UserType: result[0].usertype });
+                    } else if (result[0].usertype === 'manager') {
+                        const email = result[0].email;
+                        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
+                        res.cookie('manager_token', token);
+
+                        return res.json({ Status: "Success_Login_Manager", UserType: result[0].usertype });
+                    } else if (result[0].usertype === 'stylist') {
+                        const email = result[0].email;
+                        const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1d' });
+                        res.cookie('stylist_token', token);
+
+                        return res.json({ Status: "Success_Login_Stylist", UserType: result[0].usertype });
+                    }
                 } else {
                     console.log('Wrong password');
                     return res.json({ Error: "Error_Wrong_Password" });

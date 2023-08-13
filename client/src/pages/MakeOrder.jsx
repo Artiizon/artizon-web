@@ -29,6 +29,15 @@ const MakeOrder = () => {
 
     state.page = 'no-canvas';
 
+    if (sessionStorage.getItem('tcolor') ) {
+        const tcolor = sessionStorage.getItem('tcolor');
+        state.tcolor = tcolor;
+    }
+    if (sessionStorage.getItem('file') ) {
+        const file = sessionStorage.getItem('file');
+        state.logoDecal = file;
+    }
+
     const [material, setMaterial] = useState('');
     const [note, setNote] = useState('');
     const [quantities, setQuantities] = useState([0, 0, 0, 0, 0, 0]);
@@ -42,13 +51,23 @@ const MakeOrder = () => {
         setSizes(newSizes);
     }
 
+    const handleQuantities = (e) => {
+        const index = e.target.id;
+        const value = e.target.value;
+        const newQuantities = [...quantities];
+        newQuantities[index] = value;
+        setQuantities(newQuantities);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const color = state.tcolor;
         const logo = state.logoDecal;
 
-        axios.post('http://localhost:8080/makeOrder', {material, color, note}).then(res => {
+        const customerId = sessionStorage.getItem('customer_id');
+
+        axios.post('http://localhost:8080/makeOrder', {material, color, note, logo, customerId, quantities}).then(res => {
             if(res.data.Status === 'Success_Makeorder') {
                 navigate('/');
                 alert('Order Sent Successful');
@@ -86,42 +105,42 @@ const MakeOrder = () => {
                                         <label htmlFor="XS">XS</label>
                                         <input type="checkbox" id="0" checked={sizes[0]} onChange={handleSizes} />
                                         {sizes[0] && (
-                                            <input className="input-text" type="number" name="XS" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="XS" placeholder="Quantity" id="0" onChange={handleQuantities} />
                                         )}
                                     </div>
                                     <div className="quantity-item">
                                         <label htmlFor="S">S</label>
                                         <input type="checkbox" id="1" checked={sizes[1]} onChange={handleSizes} />
                                         {sizes[1] && (
-                                            <input className="input-text" type="number" name="S" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="S" placeholder="Quantity" id="1" onChange={handleQuantities} />
                                         )}
                                     </div>
                                     <div className="quantity-item">
                                         <label htmlFor="M">M</label>
                                         <input type="checkbox" id="2" checked={sizes[2]} onChange={handleSizes} />
                                         {sizes[2] && (
-                                            <input className="input-text" type="number" name="M" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="M" placeholder="Quantity" id="2" onChange={handleQuantities} />
                                         )}
                                     </div>
                                     <div className="quantity-item">
                                         <label htmlFor="L">L</label>
                                         <input type="checkbox" id="3" checked={sizes[3]} onChange={handleSizes} />
                                         {sizes[3] && (
-                                            <input className="input-text" type="number" name="L" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="L" placeholder="Quantity" id="3" onChange={handleQuantities} />
                                         )}
                                     </div>
                                     <div className="quantity-item">
                                         <label htmlFor="XL">XL</label>
                                         <input type="checkbox" id="4" checked={sizes[4]} onChange={handleSizes} />
                                         {sizes[4] && (
-                                            <input className="input-text" type="number" name="XL" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="XL" placeholder="Quantity" id="4" onChange={handleQuantities} />
                                         )}
                                     </div>
                                     <div className="quantity-item">
                                         <label htmlFor="XXL">XXL</label>
                                         <input type="checkbox" id="5" checked={sizes[5]} onChange={handleSizes} />
                                         {sizes[5] && (
-                                            <input className="input-text" type="number" name="XXL" placeholder="Quantity" />
+                                            <input className="input-text" type="number" name="XXL" placeholder="Quantity" id="5" onChange={handleQuantities} />
                                         )}
                                     </div>
                                 </div>
