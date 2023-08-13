@@ -144,7 +144,6 @@ const AddNewDesignPage = () => {
       });
   };
   return (
-    <StandardLayout>
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold text-gray-800">Add New Design</h1>
 
@@ -312,7 +311,6 @@ const AddNewDesignPage = () => {
           </div>
         </div>
       </div>
-    </StandardLayout>
   );
 };
 

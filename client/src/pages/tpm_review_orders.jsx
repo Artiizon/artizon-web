@@ -119,7 +119,7 @@ const ReviewOrderPage = () => {
       });
   }, []);
   
-import alert1 from "../images/alerts/No Data.png";
+
 
 
 const customStyles = {
