@@ -9,11 +9,11 @@ function Price() {
 
   return (
   
-          <StandardLayout>
+          
               <div className="min-h-screen mt-10">
                    Price
               </div>          
-          </StandardLayout>
+          
   
   );
 }

@@ -51,7 +51,7 @@ import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
 
 
 // models
-import companydesignModel from './models/companydesign.model.js';     
+ 
 import fetchOrderstpmModel from './models/Inventory/fetchOrderstpm.model.js';
 import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model.js';
 

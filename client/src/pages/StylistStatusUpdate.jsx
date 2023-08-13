@@ -52,8 +52,7 @@ const OrderUpdate = () => {
   const filteredOrders = selectedTab === "All" ? orderData : orderData.filter(order => order.status === selectedTab);
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto p-8">
+      <div className="container mx-auto p-8 font-sans">
         <h1 className="text-2xl font-bold mb-4 px-3">Order Details</h1>
         <div className="flex items-center mb-4">
           <div className="flex flex-grow px-3">
@@ -114,7 +113,6 @@ const OrderUpdate = () => {
           )}
         </div>
       </div>
-    </StandardLayout>
   );
 };
 

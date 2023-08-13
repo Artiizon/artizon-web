@@ -58,9 +58,8 @@ const OrderCard = ({ status, tags, ims ,style }) => {
 
 export default function CustomerPortfolia() {
   return (
-    <div>
-      <Navbar />
-      <div className="flex">
+    <div className="font-sans">
+      <div className="flex mt-[-40px] font-sans">
         <img
           src={pp1}
           alt="imagce"

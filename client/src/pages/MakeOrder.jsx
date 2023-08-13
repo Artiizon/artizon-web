@@ -5,6 +5,7 @@ import axios from "axios";
 import state from "../store";
 
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer/Footer";
 
 const MakeOrder = () => {
     const navigate = useNavigate();
@@ -80,12 +81,12 @@ const MakeOrder = () => {
     return (
             <>
                 {customerAuth && (
-                    <div className="make-order-page">
+                    <div className="make-order-page font-sans">
                         <div className="make-order-page-left">
                             <form onSubmit={handleSubmit}>
-                                <h1>Make Your T-Shirt Order</h1>
-                                <div>
-                                    <label htmlFor="material">T-Shirt Material</label> <br />
+                                <h1 className="font-[900]">Make Your T-Shirt Order</h1>
+                                <div className="font-[800px]">
+                                    <label htmlFor="material ">T-Shirt Material</label> <br />
                                     <select name="material" className="form-control" onChange={e => setMaterial(e.target.value)}>
                                         <option value="">Select Material</option>
                                         <option value="Cotton">Cotton</option>
@@ -155,14 +156,15 @@ const MakeOrder = () => {
                                 <button className="">Submit</button>
                             </form>
                         </div>
-                        <div className="make-order-page-right">
-                            <h2>Our Procedure</h2>
+                        <div className="make-order-page-right mt-[100px]">
+                            <p>Our Procedure</p>
                             <p>1. You make an order</p>
                             <p>2. We make the T-shirts</p>
                             <p>3. We deliver the T-shirts</p>
                         </div>
                     </div>
                 )}
+                
             </>
     )
 }

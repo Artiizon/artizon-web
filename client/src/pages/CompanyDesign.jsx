@@ -74,18 +74,16 @@ const CompanyDesign = () => {
   }, []);
 
   return (
-    <StandardLayout>
-     
-      <div className="container mx-auto px-4 lg:px-20 py-8">
-      <h1 className="text-4xl py-4 font-bold text-center mb-2">Featured Designs</h1>
+    <div className="font-sans container mx-auto px-4 lg:px-20 py-8">
+      <h1 className="text-4xl py-4 font-bold text-center mb-2">
+        Featured Designs
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
          {designs.map((design) => (
             <CompanyDesignCard key={design.company_design_id} design={design} />
           ))}
       </div>
     </div>
-
-    </StandardLayout>
   );
 };
 

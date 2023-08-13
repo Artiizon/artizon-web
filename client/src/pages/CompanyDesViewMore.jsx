@@ -143,8 +143,7 @@ const CompanyDesViewMore = () => {
   
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto px-4 py-8 mt-8  overflow-hidden">
+      <div className="font-sans container mx-auto px-4 py-8 mt-8  overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="px-4 lg:px-20">
             <img
@@ -228,7 +227,7 @@ const CompanyDesViewMore = () => {
 
             {true && (
               <div className="flex justify-start mt-4 gap-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button className="bg-black  text-white font-bold py-2 px-4 rounded">
                   Order Now
                 </button>
 
@@ -264,7 +263,6 @@ const CompanyDesViewMore = () => {
           </div>
         </div>
       </div>
-    </StandardLayout>
   );
 };
 

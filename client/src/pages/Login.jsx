@@ -6,6 +6,9 @@ import state from "../store";
 
 import { useNavigate, NavLink } from "react-router-dom";
 
+import Tlog from "../images/tlog.png";
+import Footer from "../components/footer/Footer";
+
 const Login = () => {
     const snap = useSnapshot(state)
 
@@ -85,9 +88,12 @@ const Login = () => {
     return (
         <>
             <div className="login-page">
-                <form className="login-form-container" onSubmit={handleSubmit}>
+            <img src={Tlog} alt="imagemm" className=" h-[730px] blur-[4px]" />
+                <form className="login-form-container flex justify-center items-center w-[400px] h-[340px]" onSubmit={handleSubmit}>
+                    
+                    <div className="opacity-[10px]">
                     <h1>LOG IN</h1>
-                    <p>
+                    <p className="mb-[7px]">
                         New user? <NavLink className="signup-link" to="/signup">Signup</NavLink> now.
                     </p>
                     <div>
@@ -101,7 +107,7 @@ const Login = () => {
                     <div>
                         <button type="submit">Login</button>
                     </div>
-
+                    </div>
                 </form>
             </div>
         </>

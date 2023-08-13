@@ -32,16 +32,15 @@ const PasswordValidator = () => {
 
 export default function () {
   return (
-    <div>
-      <Navbar />
+    <div className="min-h-[575.5px]">
       <div className="flex  text-center">
-        <p className="text-[30px]  ml-[285px] mt-[170px] mb-[15px] font-semibold ">
+        <p className="text-[30px]  ml-[285px] mt-[80px] mb-[15px] font-semibold ">
           Change Password
         </p>
       </div>
 
       <div className="flex">
-        <div className="orders ml-[350px] mt-[10px] mb-[5px] ">
+        <div className="orders ml-[350px] mt-[50px] mb-[5px] ">
           <p className=" text-xl w-[280px] mb-[10px]">Password must contain:</p>
           <p className=" text-l ml-[30px] mb-[6px]">At least 6 characters</p>
           <p className=" text-l ml-[30px] mb-[6px]">
@@ -53,7 +52,7 @@ export default function () {
           <p className=" text-l ml-[30px] mb-[6px]">At least 1 number(0-9)</p>
         </div>
 
-        <div className="orders ml-[200px] mt-[10px] mb-[5px]">
+        <div className="orders ml-[200px] mt-[50px] mb-[5px]">
           <input
             type="password"
             placeholder="Enter your old password"

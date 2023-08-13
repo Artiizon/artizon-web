@@ -69,9 +69,9 @@ export default function StylistManage() {
         </div>
         
         <div className="flex flex-row gap-[20px] text-lg ">
-          <div className="w-[195px] pb-2">User ID</div>
-          <div className="w-[270px] pb-2">Name</div>
-          <div className="w-[250px] ">E-Mail</div>
+          <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
+          <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
+          <div className="w-[250px] font-sans font-[700]">E-Mail</div>
         </div>
         {filteredData.map((item) => (
           <div
@@ -87,7 +87,7 @@ export default function StylistManage() {
               trigger={
                 <button>
                   {" "}
-                  <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] ">
+                  <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
                     More
                   </button>
                 </button>
@@ -104,13 +104,13 @@ export default function StylistManage() {
               }}
             >
               {(close) => (
-                <div className="modal flex justify-center items-center ">
+                <div className="modal flex justify-center items-center font-sans ">
                   <div
                     className="content p-4 rounded-[15px] bg-white w-[450px] h-[300px] justify-center items-center "
                     style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
                   >
                     <div className="flex">
-                      <p className="text-2xl font-semibold">
+                      <p className="text-3xl font-bold">
                         Mr. Janod Umayanga
                       </p>
                       <p className="text-sm ml-[20px] mt-[6px]">(admin)</p>
@@ -122,7 +122,7 @@ export default function StylistManage() {
                     <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
                     <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
                     <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px]">
+                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-[600]">
                       DELETE USER
                     </button>
                   </div>

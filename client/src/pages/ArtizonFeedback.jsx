@@ -107,7 +107,7 @@ const ArtizonFeedback = () => {
   });
 
   return (
-    <StandardLayout>
+    <div className="font-sans">
       <h1 className="text-2xl py-6 font-bold text-left px-8 mb-0">Customer Feedbacks</h1>
       
       <div className='px-4'>
@@ -172,7 +172,7 @@ const ArtizonFeedback = () => {
           ))}
         </div>
       </div>
-    </StandardLayout>
+      </div>
   );
 };
 

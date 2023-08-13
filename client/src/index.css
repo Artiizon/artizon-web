@@ -206,9 +206,9 @@ header{
     background-color: var(--hue-background);
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
-    align-items: center;
+    /* justify-content: space-between; */
+    padding: 1px 20px;
+    /* align-items: center; */
 }
 
 header p{
@@ -233,23 +233,21 @@ header p span{
 }
 
 header div{
-    width: 60px;
+    width: 850px;
     height: 60px;
-    border-radius: 50%;
-    border: 2px solid var(--hue-text);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 10px;
+    /* flex-direction: row;
+    gap: 10px; */
     position: relative;
     cursor: pointer;
     transition: 0.3s;
 }
 
-header div:hover{
+/* header div:hover{
     transform: scale(110%);
-}
+} */
 
 header div:hover .inner-circle{
     width: 60px;
@@ -494,14 +492,14 @@ header div span{
 }   
 
 .header-item {
-    font-weight: 400;
-    font-size: 1.35rem;
-    position: relative;
+    /* font-weight: 400; */
+    font-size: 1rem;
+    /* position: relative; */
     opacity: 0;
     animation: reveal-main-icon 6s forwards;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    color: var(--hue-text);
+    /* color: var(--hue-text); */
 }
 
 /* ______________________________________LOGIN PAGE___________________________________________________ */
@@ -516,13 +514,14 @@ header div span{
 
 .login-form-container {
     position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 32%;
-    padding: 1%;
+    top: 20%;
+    left: 35%;
+    
+    
     border-radius: 25px;
     background-color: #d6d6d6;
+    opacity: 0.8;
+    
 }
 
 .login-form-container h1 {
@@ -530,10 +529,11 @@ header div span{
     font-size: 2rem;
     font-weight: bold;
     color: var(--hue-background);
+    margin-bottom: -3px;
 }
 
 .login-form-container p {
-    text-align: center;
+    
     font-size: 1.2rem;
     color: var(--hue-background);
 }
@@ -550,13 +550,12 @@ header div span{
 }
 
 .login-form-container input {
-    margin-top: 5%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: -12%;
+    margin-top: 1%;
     border: 2px solid var(--hue-background);
-    background-color: #f6f6f6;
-    border-radius: 25px;
-    width: 60%;
+    opacity: 0.5;
+    border-radius: 15px;
+    width: 125%;
     padding: 2% 2% 2% 5%;
 }
 
@@ -621,21 +620,23 @@ header div span{
     width: 100%;
     overflow: scroll;
     position: relative;
-    background-color: #f6f6f6;
+    background-color: #ffffff;
 }
 
 .signup-form-container h1 {
     font-size: 2rem;
-    font-weight: bold;
     color: var(--hue-background);
     margin-top: 1%;
     margin-left: 5%;
+    font-weight: 80;
 }
 
 .signup-form-container p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #d6d6d6;
     margin-left: 5%;
+    margin-top: -4%;
+    margin-bottom: 3%;
 }
 
 .signup-form-content {
@@ -645,38 +646,40 @@ header div span{
 }
 
 .signup-form-content label {
-    font-size: 1.2rem;
+    font-size: 16px;
     color: var(--hue-background);
     margin-right: 5%;
 }
 
 .signup-form-content input {
-    background-color: #d6d6d6;
+    background-color: #EFEFEF;
     color: var(--hue-background);
     border-radius: 5px;
-    width: 100%;
+    width: 120%;
     padding: 2%;
     overflow: scroll;
+    opacity: 0.7;
 }
 
 .signup-form-content select {
-    background-color: #d6d6d6;
+    background-color: #EFEFEF;
     color: var(--hue-background);
     border-radius: 5px;
     width: 100%;
     padding: 2%;
+    opacity: 0.7;
 }
 
 .signup-form-content button {
-    margin-top: 15%;
-    margin-right: 5%;
+    margin-top: 55%;
+    margin-left: -55%;
     margin-bottom: 5%;
-    border-radius: 25px;
+    border-radius: 10px;
     width: 90%;
-    padding: 2%;
+    padding: 3%;
     background-color: var(--hue-background);
     color: var(--hue-text);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
 }
 
 .signup-form-content button:hover {
@@ -687,8 +690,7 @@ header div span{
 
 .signup-form-error {
     position: absolute;
-    color: var(--hue-red);
-    font-size: 1.2rem;
+    
 }
 
 /* ______________________________________MAKE ORDER PAGE___________________________________________________ */
@@ -710,7 +712,7 @@ header div span{
 }
 
 .make-order-page-left label {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     color: var(--hue-background);
     margin-right: 5%;
 }
@@ -748,13 +750,13 @@ header div span{
     padding: 1%;
 }
 
-.make-order-page-left p {
+/* .make-order-page-left p {
     background-color: #f4f4f4;
     color: var(--hue-background);
     border-radius: 5px;
     width: 50%;
     padding: 1%;
-}
+} */
 
 .make-order-page-left button {
     margin-top: 2%;

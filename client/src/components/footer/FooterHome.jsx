@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSnapshot } from "valtio";
-import state from "../../store";
+
 
 
 const FooterStandardLink = ({ name, path }) => {
@@ -19,16 +18,14 @@ const FooterLowerLink = ({ name, path }) => {
   );
 };
 
-function Footer() {
-  const snap = useSnapshot(state);
-  state.page = "no-canvas";
+function FooterHome() {
   return (
     <div className="font-sans footer-container bg-black text-xs font-semibold text-white">
       <div className="px-[200px]">  
         <div className="flex flex-row py-2">
-          More ways to Create:
-          <FooterStandardLink name="Design Online" path="/customizor" /> or
-          <FooterStandardLink name="Order Our Designs" path="/company-design" />
+          More ways to shop.
+          <FooterStandardLink name="Find a Store" path="/" /> or
+          <FooterStandardLink name="other retailer" path="/" /> near you.
         </div>
         <div className="flex flex-row justify-between pt-2 pb-2 border-t border-t-gray-400">
           <div>Copyright 2023 Artizon Inc. All rights reserved</div>
@@ -48,4 +45,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterHome;

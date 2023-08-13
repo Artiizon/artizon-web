@@ -71,10 +71,10 @@ export default function DesignerManage() {
         </div>
 
         <div className="flex flex-row gap-[20px] text-lg ">
-          <div className="w-[195px] pb-2">User ID</div>
-          <div className="w-[270px] pb-2">Name</div>
-          <div className="w-[250px] ">E-Mail</div>
-          <div className="w-[160px] ">Design Count</div>
+          <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
+          <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
+          <div className="w-[250px] font-sans font-[700]">E-Mail</div>
+          <div className="w-[160px] font-sans font-[700]">Design Count</div>
         </div>
         {filteredData.map((item) => (
           <div
@@ -91,7 +91,7 @@ export default function DesignerManage() {
               {item.Designs}
             </div>
             <NavLink to="/designerPortfolia ">
-              <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px]">
+              <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
                 More
               </button>
             </NavLink>

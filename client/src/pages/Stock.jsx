@@ -27,33 +27,24 @@ function StockManagementPage() {
     fetchStocks();
   }, []);
 
-
-  
-
   return (
-    <StandardLayout>
-      <div className="px-10 bg-white min-h-screen">
-        <div className="flex justify-between items-center mb-6 m-5">
-          
-          <h1 className="text-3xl font-semibold ">Stock  Management</h1>
+    <div className="px-10 bg-white min-h-screen">
+      <div className="flex justify-between items-center mb-6 m-5 font-sans">
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Stock Management</h1>
 
-          {/* Add New Stock Button */}
-          <div className="mt-5">
-            <Link
-              to="/stock/new" // Replace this with the path to the page where you create a new stock
-              className="text-white bg-blue-500 px-4 py-2 rounded-md"
-            >
-              Add New Stock 
-            </Link>
-          </div>
-
+        {/* Add New Stock Button */}
+        <div className="mt-[80px]">
+          <Link
+            to="/stock/new" // Replace this with the path to the page where you create a new stock
+            className="text-white bg-black font-semibold px-4 pb-[10px] pt-[7px] rounded-md"
+          >
+            Add New Stock
+          </Link>
         </div>
-        
+      </div>
 
-
-
-                {/* Table for stocks */}
-        <div className="w-full overflow-hidden max-h-[508px] overflow-y-scroll">
+      {/* Table for stocks */}
+      <div className="ml-[50px] w-[1370px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
         <table className="w-full table-auto bg-white shadow-md rounded-lg">
           <thead className="bg-black text-white">
             <tr className="bg-black text-white">
@@ -65,42 +56,38 @@ function StockManagementPage() {
           </thead>
 
           <tbody className="">
-          {stockData.map((value) => {
-            
-            return(
-            <tr key={value.id} className="bg-white hover:bg-gray-200 transition-all ease-in-out">
-              <td className="px-4 py-3 w-[100px]">{value.stock_id}</td>
-              <td className="px-4 py-3">
-                  {new Date(value.date_and_time).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short'
-                  })}
-              </td>
+            {stockData.map((value,index) => {
+              return (
+                <tr
+                  key={value.id}
+                  className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}
+                >
+                  <td className="px-4 py-3 w-[100px] font-sans">{value.stock_id}</td>
+                  <td className="px-4 py-3 font-sans">
+                    {new Date(value.date_and_time).toLocaleString("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}
+                  </td>
 
-              <td className="px-4 py-3">{value.total_cost}</td>
-              <td className="px-4 py-3 text-right">
-                <div className="flex justify-end gap-2">
-                  <Link
-                    to={`/stock/${value.stock_id}`}
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                  >
-                    View Details
-                  </Link>
-                
-                </div>
-              </td>
-            </tr>
-          )})}
-
-          
+                  <td className="px-4 py-3">{value.total_cost}</td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex justify-end gap-2 font-sans">
+                      <Link
+                        to={`/stock/${value.stock_id}`}
+                        className="bg-black font-sans text-white py-2 px-4 rounded-md"
+                      >
+                        <p className="font-sans">View Details</p>
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
-
-
-
         </table>
       </div>
-      </div>
-    </StandardLayout>
+    </div>
   );
 }
 

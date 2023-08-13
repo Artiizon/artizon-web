@@ -4,12 +4,16 @@ import circle from "../../images/orders/circle1.png";
 import tick from "../../images/orders/tick2.png";
 import ims from "../../images/portPp/ot1.png";
 import imX from "../../images/orders/x.png";
+import { useSnapshot } from "valtio";
+import state from "../../store";
 
 export default function CustomerOrderDetailsF() {
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+
   const status = "Delivery";
   return (
     <div>
-      <Navbar />
 
       <div>
         <p className="text-[35px]  ml-[50px] mt-[120px] mb-[50px] uppercase">
@@ -332,7 +336,7 @@ export default function CustomerOrderDetailsF() {
           )}
         </div>
       </div>
-      <div className="ml-[13%] h-[10px] w-[67%]  mt-[65px] flex ">
+      <div className="font-sans ml-[13%] h-[10px] w-[67%]  mt-[65px] flex ">
         <label className="text-xl font-semibold  ml-[-6.5%]">Pending</label>
         <label className="text-xl font-semibold  ml-[14.2%] ">Sample fee</label>
         <label className="text-xl font-semibold  ml-[14.5%]">Sample</label>

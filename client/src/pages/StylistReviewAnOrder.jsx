@@ -100,14 +100,13 @@ const StylistReviewOrderForm = () => {
 
 
   return (
-    <StandardLayout>
-      <div className="flex justify-center items-center h-screen ">
-        <div className="w-1/2 p-6 bg-white rounded-lg shadow-md ">
-          <h2 className="text-2xl font-semibold mb-4">Stylist Review Order Form</h2>
-          <div className="overflow-y-auto max-h-96">
+      <div className="flex justify-center items-center mt-[40px] ">
+        <div className="w-1/2 p-6 bg-white font-sans  ">
+          <h2 className="ml-[-100px] mt-[-20px] text-[45px] font-bold mb-4">Stylist Review Order Form</h2>
+          <div className="">
             <form onSubmit={handleSubmit} >
             <div className="mb-4">
-  <label htmlFor="designImage" className="block text-sm font-medium">
+  <label htmlFor="designImage" className="block text-[20px] font-medium">
     Design Images
   </label>
 
@@ -172,7 +171,7 @@ const StylistReviewOrderForm = () => {
 
 
               <div className="mb-4">
-                <label htmlFor="material" className="block text-sm font-medium">
+                <label htmlFor="material" className="block  font-medium">
                   Material
                 </label>
                 <input
@@ -181,12 +180,12 @@ const StylistReviewOrderForm = () => {
                   name="material"
                   value={formData.material}
                   onChange={handleInputChange}
-                  className="mt-1 p-2 w-full border rounded"
+                  className="mt-1 p-2 w-[300px] border rounded"
                   readOnly
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="colorCode" className="block text-sm font-medium">
+                <label htmlFor="colorCode" className="block  font-medium">
                   Color Code
                 </label>
                 <input
@@ -195,7 +194,7 @@ const StylistReviewOrderForm = () => {
                   name="colorCode"
                   value={formData.colorCode}
                   onChange={handleInputChange}
-                  className="mt-1 p-2 w-full border rounded"
+                  className="mt-1 p-2 w-[300px] border rounded"
                   readOnly
                 />
               </div>
@@ -239,8 +238,8 @@ const StylistReviewOrderForm = () => {
                   readOnly
                 />
               </div>
-              <div className="mb-4">
-                <label htmlFor="expectedDays" className="block text-sm font-medium">
+              <div className="mb-4 w-[300px]">
+                <label htmlFor="expectedDays" className="block  font-medium">
                   Expected Days
                 </label>
                 <input
@@ -262,7 +261,7 @@ const StylistReviewOrderForm = () => {
               )}
             </div>
               <div className="mb-4">
-                <label htmlFor="additionalNote" className="block text-sm font-medium">
+                <label htmlFor="additionalNote" className="block  font-medium">
                   Additional Note
                 </label>
                 <textarea
@@ -283,7 +282,7 @@ const StylistReviewOrderForm = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+                  className="bg-black text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
                 >
                   Proceed
                 </button>
@@ -292,7 +291,6 @@ const StylistReviewOrderForm = () => {
           </div>
         </div>
       </div>
-    </StandardLayout>
   );
 };
 
