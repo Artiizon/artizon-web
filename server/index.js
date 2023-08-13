@@ -92,7 +92,7 @@ app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
 app.use('/viewDesigns', fetchDesignerDesignsModel )
 app.use('/review_order', stylistReviewOrderModel)
-app.use('/accept_reject_order', stylistAcceptRejectOrderModel)
+app.use('/proceed_tshirt_order', stylistAcceptRejectOrderModel)
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_order', managerReviewOrderModel)
 

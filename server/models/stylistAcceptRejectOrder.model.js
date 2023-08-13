@@ -3,11 +3,11 @@ import db from '../config/database.js';
 
 const router = express.Router();
 
-router.route('/').post((req, res) => {
-
+router.route('/:id').post((req, res) => {
+    const orderId = req.params.id;
     const updateSql = 'UPDATE tshirt_order SET status = ?, stylist_note = ? WHERE tshirt_order_id = ?;';
 
-    const updateValues = [req.body.status, req.body.stylist_note, req.body.orderId];
+    const updateValues = [req.body.tshirtOrderStatus, req.body.stylistNote, orderId];
 
     db.query(updateSql, updateValues, (err, result) => {
         if (err) {

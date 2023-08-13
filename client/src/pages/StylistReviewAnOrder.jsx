@@ -6,15 +6,28 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useSnapshot } from "valtio";
 import state from "../store";
+import { useNavigate } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 
 const StylistReviewOrderForm = () => {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
+  const navigate = useNavigate();
   const [modalImage, setModalImage] = useState(null);
   
   const { id } = useParams();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+      // ... other properties
+      tshirtQuantity: [
+        { size: 'xs', quantity: 0 },
+        { size: 's', quantity: 0 },
+        { size: 'm', quantity: 0 },
+        { size: 'l', quantity: 0 },
+        { size: 'xl', quantity: 0 },
+        { size: 'xll', quantity: 0 },
+      ],
+  });
   
   const handleImageClick = (image) => {
     setModalImage(image);
@@ -23,7 +36,26 @@ const StylistReviewOrderForm = () => {
   const closeModal = () => {
     setModalImage(null);
   };
+  // const history = useHistory();
 
+  const handleProceed = () => {
+    // Prepare the data to be sent to the server
+    const requestData = {
+      tshirtOrderStatus: 'S Accepted',
+      stylistNote: formData.additionalNote,
+    };
+  
+    // Make an API request to update the database
+    axios.patch(`http://127.0.0.1:8080/proceed_tshirt_order/${id}`, requestData)
+      .then(response => {
+        // Handle success, such as redirecting to another page
+        navigate('/review-order');
+      })
+      .catch(error => {
+        console.error('Error updating database:', error);
+        // Handle the error, show an error message, etc.
+      });
+  };
 
   
  
@@ -52,15 +84,14 @@ const StylistReviewOrderForm = () => {
           // l:response.data.l_quantity,
           // xl:response.data.xl_quantity,
           // xxl:response.data.xll_quantity,
-          tshirtQuantity: {
-            xs: response.data.xs_quantity,
-            s: response.data.s_quantity,
-            m: response.data.m_quantity,
-            l: response.data.l_quantity,
-            xl: response.data.xl_quantity,
-            xll:response.data.xll_quantity,
-          },
-              
+          tshirtQuantity: [
+            { size: 'xs', quantity: response.data.xs_quantity },
+            { size: 's', quantity: response.data.s_quantity },
+            { size: 'm', quantity: response.data.m_quantity },
+            { size: 'l', quantity: response.data.l_quantity },
+            { size: 'xl', quantity: response.data.xl_quantity },
+            { size: 'xll', quantity: response.data.xll_quantity },
+          ],
 
             
 
@@ -72,6 +103,8 @@ const StylistReviewOrderForm = () => {
         // Handle the error, show an error message, etc.
       });
   }, [id]);
+
+  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -179,7 +212,6 @@ const StylistReviewOrderForm = () => {
                   id="material"
                   name="material"
                   value={formData.material}
-                  onChange={handleInputChange}
                   className="mt-1 p-2 w-[300px] border rounded"
                   readOnly
                 />
@@ -193,37 +225,43 @@ const StylistReviewOrderForm = () => {
                   id="colorCode"
                   name="colorCode"
                   value={formData.colorCode}
-                  onChange={handleInputChange}
                   className="mt-1 p-2 w-[300px] border rounded"
                   readOnly
                 />
               </div>
 
-               <div className="mb-4">
-            <label htmlFor="tshirtQuantity" className="block text-sm font-medium">
-                T-Shirt Quantity
-            </label>
-            <div className="w-1/6 flex flex-col gap-2">
-          {Object.keys(formData.tshirtQuantity).map((size) => (
-            <div
-              key={size}
-              className="flex items-center justify-between bg-gray-100 p-2 rounded"
-            >
-              <label htmlFor={size} className="uppercase w-1/2">
-                {size}:
-              </label>
-              <span className="w-1/2 text-right">
-                {formData.tshirtQuantity[size]}
-              </span>
-            </div>
-          ))}
-        </div>
+              <div className="mb-4">
+  <label htmlFor="tshirtQuantity" className="block text-sm font-medium">
+    T-Shirt Quantity
+  </label>
+  <div className="w-1/6 flex flex-col gap-2">
+    {formData.tshirtQuantity.map((item) => (
+      <div
+        key={item.size}
+        className="flex items-center justify-between bg-gray-100 p-2 rounded"
+      >
+        <label htmlFor={item.size} className="uppercase w-1/2">
+          {item.size}:
+        </label>
+        <input
+          type="number"
+          name={`tshirtQuantity.${item.size}`}
+          value={item.quantity}
+          className="w-1/2 p-1 border rounded"
+        />
+      </div>
+    ))}
+  </div>
+
+
+
+         
     
 
            <div className="mt-2">
                 Total Quantity: {formData.totQuantity}
             </div>
-            </div> 
+            </div>  
                
               <div className="mb-4">
                 <label htmlFor="specialNote" className="block text-sm font-medium">
@@ -233,7 +271,6 @@ const StylistReviewOrderForm = () => {
                   id="specialNote"
                   name="specialNote"
                   value={formData.specialNote}
-                  onChange={handleInputChange}
                   className="mt-1 p-2 w-full border rounded"
                   readOnly
                 />
@@ -247,7 +284,6 @@ const StylistReviewOrderForm = () => {
                   id="expectedDays"
                   name="expectedDays"
                   value={formData.expectedDays}
-                  onChange={handleInputChange}
                   className="mt-1 p-2 w-full border rounded"
                   readOnly
                 />
@@ -260,6 +296,7 @@ const StylistReviewOrderForm = () => {
                 <img src={`http://127.0.0.1:8080/uploads/logos/${formData.logoFile}`} alt="Logo" className="mt-2 max-h-40" />
               )}
             </div>
+
               <div className="mb-4">
                 <label htmlFor="additionalNote" className="block  font-medium">
                   Additional Note
@@ -280,13 +317,16 @@ const StylistReviewOrderForm = () => {
                 >
                   Reject
                 </button>
-                <button
-                  type="submit"
-                  className="bg-black text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
-                >
-                  Proceed
-                </button>
+
+               <button
+                type="button"
+                onClick={handleProceed}
+                className="bg-black text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+              >
+                Proceed
+              </button>
               </div>
+
             </form>
           </div>
         </div>
