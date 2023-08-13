@@ -18,12 +18,12 @@ const FooterLowerLink = ({ name, path }) => {
 
 function Footer() {
   return (
-    <div className="footer-container bg-black text-xs font-semibold text-white">
+    <div className="font-sans footer-container bg-black text-xs font-semibold text-white">
       <div className="px-[200px]">  
         <div className="flex flex-row py-2">
-          More ways to shop.
-          <FooterStandardLink name="Find a Store" path="/" /> or
-          <FooterStandardLink name="other retailer" path="/" /> near you.
+          More ways to Create:
+          <FooterStandardLink name="Design Online" path="/customizor" /> or
+          <FooterStandardLink name="Order Our Designs" path="/company-design" />
         </div>
         <div className="flex flex-row justify-between pt-2 pb-6 border-t border-t-gray-400">
           <div>Copyright 2023 Artizon Inc. All rights reserved</div>

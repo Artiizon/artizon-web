@@ -63,13 +63,13 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
-          <Route exact path="/com-design-view-more" element={<CompanyDesViewMore/>}/>
+          <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
           <Route exact path="/order-status-update" element={<StylistStatusUpdate/>}/>
           <Route exact path="/stylist-dash" element={<StylistDashboard/>}/>
           <Route exact path="/review-order" element={<StylistReviewOrders/>}/>
           <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
-          <Route exact path="/review-an-order" element={<StylistReviewAnOrder/>}/>
+          <Route exact path="/review-an-order/:id" element={<StylistReviewAnOrder/>}/>
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
           <Route exact path="/manager-dash" element={<ManagerDashboard/>}/>

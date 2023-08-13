@@ -21,9 +21,8 @@ const storage = multer.diskStorage({
 
  // Endpoint for adding new designs and materials
 router.route('/').post(upload.any(), (req, res) => {
-    console.log(req.file);
-    const { designName, designDescription, designerId, unitPrice } = req.body;
-    console.log("Received body:", req.body);
+    const { designName, designDescription, designerId, unitPrice, color } = req.body;
+    // console.log("Received body:", req.body);
 
     const images = req.files.map((file) => file.filename);
 
@@ -36,8 +35,8 @@ router.route('/').post(upload.any(), (req, res) => {
     }
 
     const insertDesignQuery = `
-      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3, )
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3,material, price, color )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
   
   
@@ -50,6 +49,9 @@ router.route('/').post(upload.any(), (req, res) => {
         images[0],
         images[1],
         images[2],
+        materials[0],
+        unitPrice,
+        color
       ],
       (err, result) => {
         if (err) {
@@ -57,32 +59,8 @@ router.route('/').post(upload.any(), (req, res) => {
           res.status(500).json({ error: "Error adding design" });
         } else {
           const designId = result.insertId; // Get the auto-generated ID of the inserted design
-  
-
-        // Check if 'materials' exists and is an array before inserting into the company_design_materials table
-        if (Array.isArray(materials)) {
-          // Insert materials into the company_design_materials table
-          materials.forEach((material) => {
-            const insertMaterialQuery = `
-              INSERT INTO company_design_material (material, company_design_id)
-              VALUES (?, ?)
-            `;
-
-            db.query(insertMaterialQuery, [material, designId], (err) => {
-              if (err) {
-                console.error('Error inserting material:', err);
-              } else {
-                console.log('Material added successfully!');
-              }
-            });
-          });
-
-          // After inserting all materials, send the response to the client
           res.status(201).json({ message: 'Design and materials added successfully!', designId });
-        } else {
-          console.log('Materials array not found in the request body.');
-          res.status(400).json({ error: 'Materials array not found in the request body.' });
-        }
+          console.log("Design added successfully!");
       }
     }
   );
