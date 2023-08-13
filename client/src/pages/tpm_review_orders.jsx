@@ -119,8 +119,11 @@ const ReviewOrderPage = () => {
       });
   }, []);
   
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 
 const customStyles = {
   overlay: {
