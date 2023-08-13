@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StandardLayout from "../components/layout/StandardLayout";
 import { Link } from "react-router-dom";
-
-
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 function ItemNamePage() {
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+
   const [searchTerm, setSearchTerm] = useState("");
   const [itemNames, setItemNames] = useState([]);
 

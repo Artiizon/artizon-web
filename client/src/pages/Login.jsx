@@ -62,7 +62,7 @@ const Login = () => {
                     location.reload(true);
                     alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Manager') {
-                    navigate('/manager-dashboard');
+                    navigate('/textileProManagerdashboard');
                     location.reload(true);
                     alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Admin') {

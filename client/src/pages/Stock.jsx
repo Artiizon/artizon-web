@@ -3,8 +3,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios"; // Import Axios library
+import { useSnapshot } from "valtio";
+import state from "../store";
+
 
 function StockManagementPage() {
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+
   // Rename the stocks variable used by Axios to avoid conflicts
   const [stockData, setStockData] = useState([]);
 

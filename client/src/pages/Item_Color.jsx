@@ -4,9 +4,13 @@ import StandardLayout from "../components/layout/StandardLayout";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 function ItemColorsPage() {
    
+    const snap = useSnapshot(state);
+    state.page = "no-canvas";
     const { item_type_id } = useParams(['item_type_id']);
     
 

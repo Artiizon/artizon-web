@@ -50,6 +50,10 @@ import { stockItemTypeOptions } from "./models/Inventory/stockItemTypeOptions.mo
 import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
 
 
+// models
+import companydesignModel from './models/companydesign.model.js';     
+import fetchOrderstpmModel from './models/Inventory/fetchOrderstpm.model.js';
+import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model.js';
 
 
 dotenv.config();
@@ -89,6 +93,8 @@ app.use('/viewOrders', fetchOrdersModel)
 app.use('/viewDesigns', fetchDesignerDesignsModel )
 app.use('/review_order', stylistReviewOrderModel)
 app.use('/accept_reject_order', stylistAcceptRejectOrderModel)
+app.use('/viewOrderstpm', fetchOrderstpmModel)
+app.use('/review_order', managerReviewOrderModel)
 
 app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);
