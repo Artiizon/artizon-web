@@ -21,7 +21,7 @@ const DashboardCardWithIcon = ({ title, value, icon }) => {
       <div className="text-center mb-2">{icon}</div>
       <div className="text-center">
         <p className="text-lg font-semibold text-gray-800">{title}</p>
-        <p className="text-4xl font-bold text-blue-500">{value}</p>
+        <p className="text-4xl font-bold text-black">{value}</p>
       </div>
     </div>
   );
@@ -56,14 +56,11 @@ const TextileProductionManagerDashboard = () => {
   
 
   return (
-    <StandardLayout>
-    <div className="container mx-auto px-4 py-8">
+    <div className="font-sans font-bold container mx-auto px-4 py-2">
 
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+        <h1 className=" text-[45px]  text-black mb-[10px] ml-[170px]">Dashboard</h1>
 
-        <div className='px-2'>
-         <hr className="my-4 border-t-2 border-gray-200" />
-        </div>
+       
 
        {/* New section for cards with icons */}
         <div className="flex justify-center mb-8">
@@ -96,7 +93,7 @@ const TextileProductionManagerDashboard = () => {
       {/* Bottom Row - Charts */}
       <div className="grid grid-cols-2 gap-8">
         <div className="bg-white rounded-lg shadow-lg p-4">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Stock Distribution</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 ml-[170px]">Stock Distribution</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie data={stockData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
@@ -125,7 +122,6 @@ const TextileProductionManagerDashboard = () => {
         </div>
       </div>
     </div>
-    </StandardLayout>
   );
 };
 

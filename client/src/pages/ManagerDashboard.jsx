@@ -4,10 +4,11 @@ import StandardLayout from '../components/layout/StandardLayout';
 
 const DashboardCard = ({ title, value }) => {
   return (
-    <div className="flex items-center justify-center h-40 w-48 bg-white rounded-lg shadow-lg mx-4">
+    <div className="flex items-center justify-center h-[110px] w-48 bg-gray-100  rounded-lg shadow-lg mx-4">
       <div className="text-center">
-        <p className="text-lg font-semibold text-gray-800">{title}</p>
-        <p className="text-4xl font-bold text-blue-500">{value}</p>
+        <p className="text-lg font-bold text-gray-800">{title}</p>
+        <div className="bg-black"></div>
+        <p className="text-4xl font-bold text-black">{value}</p>
       </div>
     </div>
   );
@@ -37,14 +38,11 @@ const TextileProductionManagerDashboard = () => {
   ];
 
   return (
-    <StandardLayout>
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto pl-4 py-8 font-sans">
 
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Dashboard</h1>
          
-         <div className='px-2'>
-         <hr className="my-4 border-t-2 border-gray-200" />
-        </div>
+         
       {/* Top Row - Cards */}
       <div className="flex justify-center mb-8">
         <DashboardCard title="Total Stocks" value={totalStocks} />
@@ -55,8 +53,8 @@ const TextileProductionManagerDashboard = () => {
       </div>
 
       {/* Bottom Row - Charts */}
-      <div className="grid grid-cols-2 gap-8">
-        <div className="bg-white rounded-lg shadow-lg p-4">
+      <div className="flex gap-8  justify-center ">
+        <div className="bg-white rounded-lg shadow-lg p-4 w-[45%]">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Stock Distribution</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -71,7 +69,7 @@ const TextileProductionManagerDashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-4">
+        <div className="bg-white rounded-lg shadow-lg p-4 w-[45%]">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Production Quantities</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={productionData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
@@ -86,7 +84,6 @@ const TextileProductionManagerDashboard = () => {
         </div>
       </div>
     </div>
-    </StandardLayout>
   );
 };
 

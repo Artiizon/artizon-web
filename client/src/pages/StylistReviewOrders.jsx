@@ -191,6 +191,90 @@ const ReviewOrderPage = () => {
       totalQuantity: 50,
     },
     {
+      id: 4,
+      date: "2023-07-02 12:12:00",
+      quantity: 8,
+      product: "Sample Design 2",
+      status: "Pending",
+      image: des1,
+      material: "Denim",
+      colorCode: "#228B22",
+      specialNote: "Machine washable",
+      expectedDays: "4 days",
+      logoImage: logoImageFile, // Replace logoImageFile with the actual logo image file
+      tshirtQuantity: {
+        xs: 8,
+        s: 16,
+        m: 12,
+        l: 9,
+        xl: 5,
+      },
+      totalQuantity: 50,
+    },
+    {
+      id: 4,
+      date: "2023-07-02 12:12:00",
+      quantity: 8,
+      product: "Sample Design 2",
+      status: "Pending",
+      image: des1,
+      material: "Denim",
+      colorCode: "#228B22",
+      specialNote: "Machine washable",
+      expectedDays: "4 days",
+      logoImage: logoImageFile, // Replace logoImageFile with the actual logo image file
+      tshirtQuantity: {
+        xs: 8,
+        s: 16,
+        m: 12,
+        l: 9,
+        xl: 5,
+      },
+      totalQuantity: 50,
+    },
+    {
+      id: 4,
+      date: "2023-07-02 12:12:00",
+      quantity: 8,
+      product: "Sample Design 2",
+      status: "Pending",
+      image: des1,
+      material: "Denim",
+      colorCode: "#228B22",
+      specialNote: "Machine washable",
+      expectedDays: "4 days",
+      logoImage: logoImageFile, // Replace logoImageFile with the actual logo image file
+      tshirtQuantity: {
+        xs: 8,
+        s: 16,
+        m: 12,
+        l: 9,
+        xl: 5,
+      },
+      totalQuantity: 50,
+    },
+    {
+      id: 4,
+      date: "2023-07-02 12:12:00",
+      quantity: 8,
+      product: "Sample Design 2",
+      status: "Pending",
+      image: des1,
+      material: "Denim",
+      colorCode: "#228B22",
+      specialNote: "Machine washable",
+      expectedDays: "4 days",
+      logoImage: logoImageFile, // Replace logoImageFile with the actual logo image file
+      tshirtQuantity: {
+        xs: 8,
+        s: 16,
+        m: 12,
+        l: 9,
+        xl: 5,
+      },
+      totalQuantity: 50,
+    },
+    {
       id: 5,
       date: "2023-07-01 12:12:00",
       quantity: 10,
@@ -301,20 +385,18 @@ const ReviewOrderPage = () => {
   });
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-1">Review Orders</h1>
+    <div>
+      <div className="font-sans container mx-auto p-8">
+        <h1 className="text-[45px] font-bold mb-1">Review Orders</h1>
 
-        <div className='px-1'>
-        <hr className="my-4 border-t-2 border-gray-300" />
-       </div>
+        
 
 
         <div className="flex space-x-4 mb-4">
           <button
             onClick={() => setActiveTab("Pending")}
             className={`${
-              activeTab === "Pending" ? "bg-blue-500" : "bg-gray-500"
+              activeTab === "Pending" ? "bg-blue-500" : "bg-black"
             } text-white px-4 py-2 rounded-md`}
           >
             Pending Orders
@@ -322,7 +404,7 @@ const ReviewOrderPage = () => {
           <button
             onClick={() => setActiveTab("Rejected")}
             className={`${
-              activeTab === "Rejected" ? "bg-red-500" : "bg-gray-500"
+              activeTab === "Rejected" ? "bg-red-500" : "bg-black"
             } text-white px-4 py-2 rounded-md`}
           >
             Rejected Orders
@@ -330,7 +412,7 @@ const ReviewOrderPage = () => {
           <button
             onClick={() => setActiveTab("Accepted")}
             className={`${
-              activeTab === "Accepted" ? "bg-green-500" : "bg-gray-500"
+              activeTab === "Accepted" ? "bg-green-500" : "bg-black"
             } text-white px-4 py-2 rounded-md`}
           >
             Accepted Orders
@@ -338,37 +420,37 @@ const ReviewOrderPage = () => {
         </div>
 
         {filteredOrders.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-700">
+        <div className="overflow-x-auto rounded-[10px]">
+          <table className="min-w-full divide-y divide-gray-200 ">
+            <thead className="bg-black font-semibold ">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-[15px]  text-white uppercase tracking-wider"
                 >
                   Order ID
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-[15px]  text-white uppercase tracking-wider"
                 >
                   Date
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-[15px]  text-white uppercase tracking-wider"
                 >
                   Quantity
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  className="px-3 py-2 text-left text-[15px]  text-white uppercase tracking-wider"
                 >
                   Design
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-[15px]  text-white uppercase tracking-wider"
                 >
                   Actions
                 </th>
@@ -378,17 +460,17 @@ const ReviewOrderPage = () => {
               {filteredOrders.map((order, index) => (
                 <tr
                   key={order.id}
-                  className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                  className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.date}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.product}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.date}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.product}</td>
                  
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm  hover:underline">
                   {order.status === "Pending" ? (
                       <div>
-                        <Link to={`/review-an-order`} className="text-blue-500 hover:underline cursor-pointer text-decoration-none">
+                        <Link to={`/review-an-order`} className="text-black font-semibold hover:underline cursor-pointer text-decoration-none">
                           Review
                         </Link>
                       </div>
@@ -396,7 +478,7 @@ const ReviewOrderPage = () => {
                     <div>
                       <button
                         onClick={() => openViewModal(order)}
-                        className="text-blue-500 hover:underline cursor-pointer text-decoration-none"
+                        className="text-black font-semibold hover:underline cursor-pointer text-decoration-none"
                       >
                         View More
                       </button>
@@ -428,7 +510,7 @@ const ReviewOrderPage = () => {
           order={selectedViewOrder}
         />
       )}
-    </StandardLayout>
+      </div>
   );
 };
 

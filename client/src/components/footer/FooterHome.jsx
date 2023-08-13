@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSnapshot } from "valtio";
-import state from "../../store";
+
 
 
 const FooterStandardLink = ({ name, path }) => {
@@ -19,9 +18,7 @@ const FooterLowerLink = ({ name, path }) => {
   );
 };
 
-function Footer() {
-  const snap = useSnapshot(state);
-  state.page = "no-canvas";
+function FooterHome() {
   return (
     <div className="font-sans footer-container bg-black text-xs font-semibold text-white">
       <div className="px-[200px]">  
@@ -48,4 +45,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterHome;

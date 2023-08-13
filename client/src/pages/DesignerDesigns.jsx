@@ -34,7 +34,7 @@ const DesignerDesignPage = () => {
     },
   ]);
   const getRowColor = (index) => {
-    return index % 2 === 0 ? 'bg-gray-100' : 'bg-white';
+    return index % 2 === 0 ? 'bg-[#F1F1F1]' : 'bg-[#D9D9D9]';
   };
 
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -140,13 +140,12 @@ const DesignerDesignPage = () => {
   };
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">My Designs</h1>
+      <div className="container mx-auto p-8 font-sans">
+        <h1 className="text-[45px] font-bold text-black mb-[5px] ml-[170px">My Designs</h1>
         <div className='px-1'>
-          <hr className="my-4 border-t-2 border-gray-300" />
+          <hr className="mb-[6px] border-t-2 border-gray-300" />
         </div>
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end mb-2">
           <Link to="/new-design">
             <button className="bg-black hover:bg-gray-800 text-white font-semibold px-4 py-2 flex items-center rounded-md">
               <AiOutlinePlus className="mr-2" />New Design
@@ -156,9 +155,9 @@ const DesignerDesignPage = () => {
         {designs.length === 0 ? (
           <p className="text-xl text-gray-600">No designs available.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto border-collapse">
-              <thead className='bg-gray-700 text-white'>
+          <div className="overflow-x-auto rounded-[8px]">
+            <table className="w-full table-auto border-collapse rounded-[25px]">
+              <thead className='bg-black text-white'>
                 <tr>
                   <th className="px-6 py-3 text-left">Main Image</th>
                   <th className="px-6 py-3 text-left">Design Name</th>
@@ -172,8 +171,8 @@ const DesignerDesignPage = () => {
                     <td className="px-6 py-4">
                       <img src={design.image} alt={`Design ${design.id}`} className="w-20 h-20 object-cover rounded-lg" />
                     </td>
-                    <td className="px-6 py-4">{design.name}</td>
-                    <td className="px-6 py-4">{design.description}</td>
+                    <td className="px-6 py-4  text-[19px]">{design.name}</td>
+                    <td className="px-6 py-4  text-[19px]">{design.description}</td>
                     <td className="px-6 py-4 space-x-2">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-3 py-2 rounded-lg"
@@ -437,7 +436,6 @@ const DesignerDesignPage = () => {
         )}
 
       </div>
-    </StandardLayout>
   );
 };
 

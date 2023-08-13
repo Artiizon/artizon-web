@@ -8,7 +8,6 @@ export default function DesignerPortfolia() {
   return (
     <div>
       <div>
-        <Navbar />
       </div>
       <div className="w-full h-[500px] p-[50px] flex ">
         

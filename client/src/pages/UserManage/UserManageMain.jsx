@@ -7,12 +7,15 @@ import im3 from "../../images/User/stylist.png";
 import im4 from "../../images/User/admin.png";
 import add from "../../images/User/add.png";
 
+
 const Counts = ({ count, tag, im }) => {
+  
+  
   return (
     <div className="mt-[130px] m-4 p-3 w-[200px] h-[75px] bg-white shadow-xl rounded-md flex  ">
       <div className="w-[140px] ">
-        <p className="  ml-[13px]">{count}</p>
-        <p className="font-normal ">{tag}</p>
+        <p className="  ml-[23px] text-[20px] font-sans font-[700]">{count}</p>
+        <p className="text-[20px] ">{tag}</p>
       </div>
       <img src={im} alt="imagemm" className="rounded-[50%] h-[45px] " />
     </div>
@@ -20,9 +23,9 @@ const Counts = ({ count, tag, im }) => {
 };
 
 export default function UseManageMain() {
+  
   return (
-    <div>
-      <Navbar />
+    <div className="mt-[-40px]">
       {/* <p className="text-[35px]  ml-[35px] pt-[90px] p-9 font-bold">
         USER MANAGEMENT
       </p> */}
@@ -33,7 +36,7 @@ export default function UseManageMain() {
         <Counts count="5" tag="ADMINS" im={im4} />
       </div>
       <p className="mt-[20px]"></p>
-      <button className="w-[130px] h-[32px] bg-black rounded-md text-white text-sm ml-[1218px] mt-[25px] mb-[9px] flex">
+      <button className="w-[130px] h-[32px] bg-black rounded-md text-white text-sm ml-[1218px] mt-[25px] font-sans font-[600] mb-[9px] flex">
           
           <img
             src={add}

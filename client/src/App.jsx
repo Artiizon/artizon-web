@@ -45,16 +45,19 @@ import CustomerDetails from './pages/Portfolia/CustomerDetails';
 import ChangePassword from './pages/ChangePassword';
 import AddUsers from './pages/UserManage/AddUsers';
 import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
+import Footer from "./components/footer/Footer";
+
 
 function App() {
 
   const snap = useSnapshot(state);
+  const excludedRoutes = ['/', '/customizor'];
 
   return (
     <main className="app transition-all ease-in">
  
       <Router>
-        {/* <Header /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
@@ -76,7 +79,7 @@ function App() {
           <Route exact path="/usermanage" element={<UserManageMain />}/>
           <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
           <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
-          <Route exact path="/customerdetails" element={<CustomerDetails />}/>
+          <Route exact path="/profile" element={<CustomerDetails />}/>
           <Route exact path="/changePassword" element={<ChangePassword />}/>
           <Route exact path="/addUser" element={<AddUsers />}/>
           <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>
@@ -97,6 +100,8 @@ function App() {
             <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
     
         </Routes>
+       
+        {excludedRoutes.includes(window.location.pathname) ? null : <Footer />}
       </Router>
       {snap.page === 'no-canvas' ||( <Canvas /> )}
     </main>

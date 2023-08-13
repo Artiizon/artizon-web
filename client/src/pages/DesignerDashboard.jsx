@@ -65,7 +65,7 @@ const DashboardLabel = ({ title, value, color }) => {
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-lg p-8 flex items-center justify-center text-${color}-600`}>
+    <div className={`bg-gray-200 rounded-lg shadow-lg p-8 flex items-center justify-center text-black w-[190px] h-[150px] ml-[50px]`}>
       {getIcon(color)}
       <div className="ml-4">
         <h2 className="text-2xl font-semibold mb-2">{title}</h2>
@@ -88,18 +88,18 @@ const DashboardCard = ({ title, topic, link, value }) => {
   };
 
   return (
-    <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
-      <Link to={link} className="block">
+    <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 mt-[40px]">
+      {/* <Link to={link} className="block">
         <div className="bg-gradient-to-br bg-transparent text-gray-700 p-6 cursor-default">
-          <h2 className="text-2xl font-semibold mb-4">{topic}</h2>
-          <div className="flex items-center justify-end">
+          <h2 className="text-2xl font-semibold mb-4">{topic}</h2> */}
+          {/* <div className="flex items-center justify-end">
             <div className="bg-gray-300 rounded-full p-3 text-blue-600 font-semibold text-sm ">
               {getIcon(value)}
             </div>
           </div>
         </div>
-      </Link>
-      <div className="px-6 py-4 bg-gray-300">
+      </Link> */}
+      <div className="px-6 py-4 bg-black text-white">
         <Link to={link} className="block">
           <div className="flex items-center justify-between">
             <span className="text-xl font-semibold">{title}</span>
@@ -121,9 +121,8 @@ const DashboardPage = () => {
 
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+      <div className="font-sans font-bold container  px-8 py-2">
+        <h1 className="text-[45px]  text-black mb-[10px] ml-[170px">Dashboard</h1>
          
         <div className='px-2'>
         <hr className="my-4 border-t-2 border-gray-200" />
@@ -174,7 +173,6 @@ const DashboardPage = () => {
           </ResponsiveContainer>
         </div>
         </div>
-    </StandardLayout>
   );
 };
 

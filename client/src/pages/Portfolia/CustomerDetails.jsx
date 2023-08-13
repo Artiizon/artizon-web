@@ -6,8 +6,7 @@ import { NavLink } from "react-router-dom";
 
 export default function CustomerDetails() {
   return (
-    <div>
-      <Navbar />
+    <div className="font-sans mt-[-50px] min-h-[625.5px]">
       <div className="flex flex-col text-center">
         <img
           src={pp1}
@@ -19,7 +18,7 @@ export default function CustomerDetails() {
         </p>
       </div>
 
-      <div>
+      <div className="ml-[110px]">
         <div className="orders ml-[300px] mt-[10px] mb-[5px] flex">
           <p className="font-semibold text-xl w-[180px] ">Name</p>
           <p className=" text-l ml-[300px]">Kasun Madhushanka</p>

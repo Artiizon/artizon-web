@@ -194,36 +194,36 @@ const Signup = () => {
                             <div className="signup-form-content-left">
                                 <div>
                                     <label htmlFor="fname">First Name</label><br/>
-                                    <input type="text" name="fname" id="fname" onChange={(e) => setFname(e.target.value)} />
+                                    <input type="text" name="fname" id="fname"  onChange={(e) => setFname(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{fnameError}</span>
-                                <div>
-                                    <label htmlFor="lname">Last Name</label><br/>
+                                <span className="signup-form-error text-[12px] text-red-500">{fnameError}</span>
+                                <div className="mt-[17px]">
+                                    <label htmlFor="lname" >Last Name</label><br/>
                                     <input type="text" name="lname" id="lname" onChange={(e) => setLname(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{lnameError}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{lnameError}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="phone">Phone</label><br/>
                                     <input type="text" name="phone" id="phone" onChange={(e) => setPhone(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{phoneError}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{phoneError}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="email">Email</label><br/>
                                     <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{emailError}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{emailError}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="password">Password</label><br/>
                                     <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{passwordError}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{passwordError}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="passwordConfirm">Confirm Password</label><br/>
                                     <input type="password" name="passwordConfirm" id="passwordConfirm" onChange={(e) => setPasswordConfirm(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{passwordConfirmError}</span>
+                                <span className="signup-form-error text-[12px] text-red-500">{passwordConfirmError}</span>
                             </div>
-                            <div className="signup-form-content-right">
+                            <div className="signup-form-content-right ">
                                 <div>
                                     <label htmlFor="title">Title</label><br/>
                                     <select name="title" id="title" onChange={(e) => setTitle(e.target.value)}>
@@ -232,29 +232,29 @@ const Signup = () => {
                                         <option value="Ms">Ms</option>
                                     </select>
                                 </div>
-                                <span className="signup-form-error">{titleError}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{titleError}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="address1">Address (line 1)</label><br/>
                                     <input type="text" name="address1" id="address1" onChange={(e) => setAddress1(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{address1Error}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{address1Error}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="address2">Address (line 2)</label><br/>
                                     <input type="text" name="address2" id="address2" onChange={(e) => setAddress2(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{address2Error}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{address2Error}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="address3">Address (line 3)</label><br/>
                                     <input type="text" name="address3" id="address3" onChange={(e) => setAddress3(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{address3Error}</span>
-                                <div>
+                                <span className="signup-form-error text-[12px] text-red-500">{address3Error}</span>
+                                <div className="mt-[17px]">
                                     <label htmlFor="address4">Address (line 4)</label><br/>
                                     <input type="text" name="address4" id="address4" onChange={(e) => setAddress4(e.target.value)} />
                                 </div>
-                                <span className="signup-form-error">{address4Error}</span>
-                                <div>
-                                    <button type="submit">Signup</button>
+                                <span className="signup-form-error text-[12px] text-red-500">{address4Error}</span>
+                                <div >
+                                    <button type="submit">CREATE ACCOUNT</button>
                                 </div>
                             </div>
                         </div>

@@ -46,7 +46,7 @@ const DashboardLabel = ({ title, value, color }) => {
 
 const DashboardCard = ({ title, link, icon, value }) => {
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 p-2">
+    <div className="w-[100px] md:w-1/5 lg:w-1/5 p-2">
       <Link to={link}>
         <div className="rounded-lg shadow-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer transition duration-300">
           <div className="p-6">
@@ -55,7 +55,7 @@ const DashboardCard = ({ title, link, icon, value }) => {
             </h2>
             <div className="flex justify-between items-center">
               <div className="text-gray-900 font-bold text-xl">{value}</div>
-              <div className="bg-blue-500 rounded-full p-3 text-white font-semibold text-sm cursor-pointer hover:bg-blue-600 transition duration-300">
+              <div className="bg-black rounded-[10px] p-3 text-white font-semibold text-sm cursor-pointer hover:bg-gray-800 transition duration-300">
                 View Details
               </div>
             </div>
@@ -75,14 +75,13 @@ const DashboardPage = () => {
   const orderReview = 5;
 
   return (
-    <StandardLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+      <div className="font-sans font-bold container  px-8 py-2">
+        <h1 className="text-[45px]  text-black mb-[10px] ml-[170px">Dashboard</h1>
         <div className="px-2">
           <hr className="my-4 border-t-2 border-gray-200" />
         </div>
 
-        <div className="grid grid-cols-1  lg:grid-cols-3 gap-6 mb-8 mt-6">
+        <div className=" justify-center flex gap-[30px] mb-8 mt-6">
           
           <DashboardLabel title="Accepted Orders" value={acceptedOrders} color="blue" />
           <DashboardLabel title="Rejected Orders" value={rejectedOrders} color="red" />
@@ -109,7 +108,6 @@ const DashboardPage = () => {
           </ResponsiveContainer>
         </div>
       </div>
-    </StandardLayout>
   );
 };
 
