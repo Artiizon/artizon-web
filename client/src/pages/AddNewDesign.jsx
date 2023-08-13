@@ -10,20 +10,73 @@ import state from "../store";
 const AddNewDesignPage = () => {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
-   const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [file, setFiles] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  const [newImagePreviews, setNewImagePreviews] = useState([]);
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
     const fileArray = Array.from(files).slice(0, 3);
     const newFiles = fileArray.map((file) => ({ file, name: file.name }));
+  
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
-    setFiles(Array.from(files).slice(0, 3));
+    setFiles((prevFiles) => [...prevFiles, ...fileArray]);
+  
+    const promises = fileArray.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          resolve(event.target.result);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
+  
+    Promise.all(promises).then((results) => {
+      setImagePreviews((prevPreviews) => [...prevPreviews, ...results]);
+    });
+  };
+  
 
+  const handleImageDelete = (index) => {
+    setImages((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+    setImagePreviews((prevPreviews) => {
+      const newPreviews = [...prevPreviews];
+      newPreviews.splice(index, 1);
+      return newPreviews;
+    });
+    
+    setNewImages((prevImages) => {
+      const newImagesArray = [...prevImages];
+      newImagesArray.splice(index, 1);
+      return newImagesArray;
+    });
+    setNewImagePreviews((prevImagePreviews) => {
+      const newImagePreviewsArray = [...prevImagePreviews];
+      newImagePreviewsArray.splice(index, 1);
+      return newImagePreviewsArray;
+    });
+    handleNewImageUpload(newImages);
+  };
+
+  const handleNewImageUpload = (newFiles) => {
+    const fileArray = Array.from(newFiles).slice(0, 3);
+    const newImages = fileArray.map((file) => ({ file, name: file.name }));
+  
+    setImages((prevImages) => [...prevImages, ...newImages]); // Append new images
+    setFiles(Array.from(newFiles).slice(0, 3));
+  
     Promise.all(
       fileArray.map((file) => {
         return new Promise((resolve, reject) => {
@@ -36,20 +89,7 @@ const AddNewDesignPage = () => {
         });
       })
     ).then((results) => {
-      setImagePreviews((prevPreviews) => [...prevPreviews, ...results]);
-    });
-  };
-
-  const handleImageDelete = (index) => {
-    setImages((prevFiles) => {
-      const newFiles = [...prevFiles];
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
-    setImagePreviews((prevPreviews) => {
-      const newPreviews = [...prevPreviews];
-      newPreviews.splice(index, 1);
-      return newPreviews;
+      setImagePreviews((prevPreviews) => [...prevPreviews, ...results]); // Append new previews
     });
   };
 
@@ -203,8 +243,10 @@ const AddNewDesignPage = () => {
                     <button
                       className="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white rounded-full p-2"
                       onClick={() => handleImageDelete(index)}
+                      type="button"
                     >
                       <AiOutlineDelete />
+                     
                     </button>
                   </div>
                 ))}

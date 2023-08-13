@@ -54,7 +54,7 @@ function App() {
     <main className="app transition-all ease-in">
  
       <Router>
-        {/* <Header /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
@@ -63,7 +63,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
-          <Route exact path="/com-design-view-more" element={<CompanyDesViewMore/>}/>
+          <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>
           <Route exact path="/order-status-update" element={<StylistStatusUpdate/>}/>
           <Route exact path="/stylist-dash" element={<StylistDashboard/>}/>

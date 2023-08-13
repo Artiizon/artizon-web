@@ -74,7 +74,7 @@ const Header = () => {
             <NavLink to="/customizor">CUSTOMIZOR</NavLink>
         </p>
         <p className='header-item'>
-            <NavLink to="/designs">DESIGNS</NavLink>
+            <NavLink to="/company-design">DESIGNS</NavLink>
         </p>
         <p className='header-item'>
             <NavLink to="/help">HELP</NavLink>

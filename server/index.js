@@ -1,7 +1,9 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
-
+import path from 'path';
+import { fileURLToPath } from 'url'; 
+import serveStatic from 'serve-static';
 // routes
 import dalleRoutes from './routes/dalle.routes.js';
 import logoutRoutes from './routes/logout.route.js';
@@ -14,9 +16,11 @@ import verifyCustomer from './routes/verifyCustomer.route.js';
 import signupModel from './models/signup.model.js';
 import loginModel from './models/login.model.js';
 import getCustomerModel from './models/getCustomer.model.js';
-
+import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
-
+import companydesignModel from './models/companydesign.model.js';    
+import individualDesignDetailsModel from './models/fetchCompanyDetailsById.model.js'; 
+import fetchOrdersModel from './models/fetchOrders.model.js';
 
 import { fetchStocks } from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -33,16 +37,16 @@ import { stockItemTypeOptions } from "./models/Inventory/stockItemTypeOptions.mo
 import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
 
 
-// models
-import companydesignModel from './models/companydesign.model.js';     
 
-const allowedOrigins = ['http://localhost:5173'];
+
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors({
-   
+  origin: ['http://127.0.0.1:5173'],
+  methods: ['GET', 'POST'],
+  credentials: true
 }));
 
 app.use(express.json({ limit: '50mb' }));
@@ -55,7 +59,9 @@ app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
-
+app.use('/viewCompanyDesigns', companyDesign);
+app.use('/individual_company_design', individualDesignDetailsModel)
+app.use('/viewOrders', fetchOrdersModel)
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here
 app.get("/api/stock/:id",fetchStockDetailsByID);
@@ -71,6 +77,8 @@ app.get("/api/item_options",stockItemItemOptions);
 app.get("/api/type_options",stockItemTypeOptions);
 app.post("/api/stock",stockAddNew);
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Artizon Backend' });
