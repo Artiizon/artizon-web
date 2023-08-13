@@ -1,26 +1,46 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StandardLayout from '../components/layout/StandardLayout';
 import des1 from '../images/designs/design1.jpg';
 import logo1 from '../images/logos/logo1.jpg';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 const StylistReviewOrderForm = () => {
-  const [formData, setFormData] = useState({
-    designImage: des1,
-    material: 'Cotton',
-    colorCode: '#FF0000',
-    tshirtQuantity: {
-        xs: 10,
-        s: 20,
-        m: 30,
-        l: 40,
-        xl: 50,
-        xxl: 60,
-      },
-    specialNote: 'No special notes',
-    logoFile: logo1,
-    expectedDays: '3 days',
-    additionalNote: '',
-  });
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+  
+  const { id } = useParams();
+
+  const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8080/review_order/${id}`)
+      .then(response => {
+        setFormData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching design:', error);
+      });
+  }, [id]);
+  // const [formData, setFormData] = useState({
+  //   designImage: des1,
+  //   material: 'Cotton',
+  //   colorCode: '#FF0000',
+  //   tshirtQuantity: {
+  //       xs: 10,
+  //       s: 20,
+  //       m: 30,
+  //       l: 40,
+  //       xl: 50,
+  //       xxl: 60,
+  //     },
+  //   specialNote: 'No special notes',
+  //   logoFile: logo1,
+  //   expectedDays: '3 days',
+  //   additionalNote: '',
+  // });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -59,7 +79,7 @@ const StylistReviewOrderForm = () => {
             <label htmlFor="designImage" className="block text-sm font-medium">
                 Design Image
             </label>
-            {formData.designImage && (
+            {formData.image_1 && (
                 <img src={formData.designImage} alt="Design" className="mt-2 max-h-40" />
             )}
             </div>

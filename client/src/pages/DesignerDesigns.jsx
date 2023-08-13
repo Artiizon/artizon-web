@@ -1,40 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlinePlus, AiOutlineClose, AiOutlineDelete, AiOutlineEye, AiOutlineEdit } from 'react-icons/ai';
 import StandardLayout from '../components/layout/StandardLayout';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { useSnapshot } from "valtio";
+import state from "../store";
 import des1 from "../images/designs/design1.jpg";
 import des2 from "../images/designs/design2.jpg";
 
 const DesignerDesignPage = () => {
-  const [designs, setDesigns] = useState([
-    {
-      id: 1,
-      image: des1,
-      imageTwo: des2,
-      imageThree: des1,
-      name: 'Design 1',
-      description: 'This is the first design.',
-    },
-    {
-      id: 2,
-      image: des2,
-      imageTwo: des2,
-      imageThree: des1,
-      name: 'Design 2',
-      description: 'This is the second design.',
-    },
-    {
-      id: 3,
-      image: des1,
-      imageTwo: des2,
-      imageThree: des1,
-      name: 'Design 3',
-      description: 'This is the third design.',
-    },
-  ]);
+  const snap = useSnapshot(state);
+  state.page = "no-canvas";
+  
+  const [designs, setDesigns] = useState([]); 
+  
+    useEffect(() => {
+    axios.get('http://127.0.0.1:8080/viewDesigns')
+      .then(response => {
+        setDesigns(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching designs:', error);
+      });
+  }, []);
+
+  
   const getRowColor = (index) => {
     return index % 2 === 0 ? 'bg-gray-100' : 'bg-white';
+  };
+  
+  const splitDescription = (description, maxWords) => {
+    const words = description.split(' ');
+    if (words.length > maxWords) {
+      const shortenedDescription = words.slice(0, maxWords).join(' ');
+      return (
+        <>
+          {shortenedDescription} ... <a href="#">[See More]</a>
+        </>
+      );
+    }
+    return description;
   };
 
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -169,12 +174,15 @@ const DesignerDesignPage = () => {
               <tbody>
                 {designs.map((design, index) => (
                   <tr key={design.id} className={`border-t border-gray-200 ${getRowColor(index)}`}>
-                    <td className="px-6 py-4">
-                      <img src={design.image} alt={`Design ${design.id}`} className="w-20 h-20 object-cover rounded-lg" />
+                    <td className="px-6 py-4 w-2/12">
+                    <img src={`http://127.0.0.1:8080/uploads/company_designs/${design.image_1}`}  alt={design.design_name} className="w-full h-48 object-contain" />
                     </td>
-                    <td className="px-6 py-4">{design.name}</td>
-                    <td className="px-6 py-4">{design.description}</td>
-                    <td className="px-6 py-4 space-x-2">
+                    <td className="px-6 py-4">{design.design_name}</td>
+                    <td className="px-6 py-4">
+                      {splitDescription(design.description, 15)}
+                    </td>
+
+                    <td className="px-6 py-4 space-x-2 w-1/5">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-3 py-2 rounded-lg"
                         onClick={() => handleViewMore(design)}
@@ -386,7 +394,7 @@ const DesignerDesignPage = () => {
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                      Main Image
               </label>
-                <img src={selectedDesign.image} alt={`Design ${selectedDesign.id}`} className="w-20 h-20 object-cover rounded-lg mb-4" />
+                <img src={`http://127.0.0.1:8080/uploads/company_designs/${selectedDesign.image_1}`}  alt={`Design ${selectedDesign.company_design_id}`} className="w-20 h-20 object-contain rounded-lg mb-4" />
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                     Design Name
@@ -395,7 +403,7 @@ const DesignerDesignPage = () => {
                     type="text"
                     name="name"
                     id="name"
-                    value={selectedDesign.name}
+                    value={selectedDesign.design_name}
                     readOnly
                     className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
@@ -417,19 +425,19 @@ const DesignerDesignPage = () => {
                   <label htmlFor="image1" className="block text-sm font-medium text-gray-700">
                     Image 1
                   </label>
-                  <img src={selectedDesign.imageTwo} alt={`Design ${selectedDesign.id} - Image 1`} className="w-20 h-20 object-cover rounded-lg mb-4" />
+                  <img src={`http://127.0.0.1:8080/uploads/company_designs/${selectedDesign.image_1}`} alt={`Design ${selectedDesign.company_design_id} - Image 1`} className="w-20 h-20 object-cover rounded-lg mb-4" />
                 </div>
                 <div className="mt-4">
                   <label htmlFor="image2" className="block text-sm font-medium text-gray-700">
                     Image 2
                   </label>
-                  <img src={selectedDesign.imageTwo} alt={`Design ${selectedDesign.id} - Image 2`} className="w-20 h-20 object-cover rounded-lg mb-4" />
+                  <img src={`http://127.0.0.1:8080/uploads/company_designs/${selectedDesign.image_2}`} alt={`Design ${selectedDesign.company_design_id} - Image 2`} className="w-20 h-20 object-cover rounded-lg mb-4" />
                 </div>
                 <div className="mt-4">
                   <label htmlFor="image3" className="block text-sm font-medium text-gray-700">
                     Image 3
                   </label>
-                  <img src={selectedDesign.imageThree} alt={`Design ${selectedDesign.id} - Image 3`} className="w-20 h-20 object-cover rounded-lg mb-4" />
+                  <img src={`http://127.0.0.1:8080/uploads/company_designs/${selectedDesign.image_3}`} alt={`Design ${selectedDesign.company_design_id} - Image 3`} className="w-20 h-20 object-cover rounded-lg mb-4" />
                 </div>
               </div>
             </div>

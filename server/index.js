@@ -21,6 +21,8 @@ import cookieParser from 'cookie-parser';
 import companydesignModel from './models/companydesign.model.js';    
 import individualDesignDetailsModel from './models/fetchCompanyDetailsById.model.js'; 
 import fetchOrdersModel from './models/fetchOrders.model.js';
+import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
+import stylistReviewOrderModel from './models/stylistReviewOrder.model.js';
 
 import { fetchStocks } from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -62,6 +64,8 @@ app.use('/api/addNewDesign', companydesignModel)
 app.use('/viewCompanyDesigns', companyDesign);
 app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
+app.use('/viewDesigns', fetchDesignerDesignsModel )
+app.use('/review_order', stylistReviewOrderModel)
 
 app.get("/api/stocks", fetchStocks); // Use the imported function here
 app.get("/api/stock/:id",fetchStockDetailsByID);

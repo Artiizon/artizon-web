@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
  // Endpoint for adding new designs and materials
 router.route('/').post(upload.any(), (req, res) => {
-    const { designName, designDescription, designerId, unitPrice } = req.body;
+    const { designName, designDescription, designerId, unitPrice, color } = req.body;
     // console.log("Received body:", req.body);
 
     const images = req.files.map((file) => file.filename);
@@ -35,8 +35,8 @@ router.route('/').post(upload.any(), (req, res) => {
     }
 
     const insertDesignQuery = `
-      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3,material, price )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO company_design (design_name, description, designer_id, image_1, image_2, image_3,material, price, color )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
   
   
@@ -50,7 +50,8 @@ router.route('/').post(upload.any(), (req, res) => {
         images[1],
         images[2],
         materials[0],
-        unitPrice
+        unitPrice,
+        color
       ],
       (err, result) => {
         if (err) {

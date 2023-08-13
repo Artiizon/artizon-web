@@ -215,7 +215,7 @@ const ReviewOrderPage = () => {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                 >
-                  Date
+                  Date & Time
                 </th>
                 <th
                   scope="col"
@@ -247,13 +247,13 @@ const ReviewOrderPage = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(order.ordered_date_and_time).toLocaleString()}
                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.total_quantity}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.design_name}</td>
                  
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:underline">
                   {order.status === "Pending" ? (
                       <div>
-                        <Link to={`/review-an-order`} className="text-blue-500 hover:underline cursor-pointer text-decoration-none">
+                        <Link to={`/review-an-order/${order.tshirt_order_id}`} className="text-blue-500 hover:underline cursor-pointer text-decoration-none">
                           Review
                         </Link>
                       </div>

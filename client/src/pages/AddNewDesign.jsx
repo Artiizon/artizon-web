@@ -19,6 +19,9 @@ const AddNewDesignPage = () => {
   const [file, setFiles] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [newImagePreviews, setNewImagePreviews] = useState([]);
+  const colors = [
+    'Red', 'Green', 'Blue', 'Yellow', 'Orange', 'Purple', 'Pink', 'Brown', 'Black', 'White'
+  ];
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -93,6 +96,13 @@ const AddNewDesignPage = () => {
     });
   };
 
+  const [selectedColor, setSelectedColor] = useState('');
+
+  const handleColorChange = (event) => {
+    setSelectedColor(event.target.value);
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -101,6 +111,7 @@ const AddNewDesignPage = () => {
     formData.append("designDescription", event.target.designDescription.value);
     formData.append("designerId", "1"); // Replace '123' with the actual designer ID
     formData.append("unitPrice", event.target.unitPrice.value);  
+    formData.append("color", event.target.color.value);
     // Remove any empty materials from the formData
     supportingMaterials.forEach((material, index) => {
       formData.append(`materials[${index}].material`, material.material);
@@ -230,6 +241,28 @@ const AddNewDesignPage = () => {
                 ))}
               </div>
             </div>
+
+            <div className="mb-4">
+            <label
+              htmlFor="color"
+              className="block text-gray-800 font-semibold mb-2"
+            >
+              Color
+            </label>
+            <select
+              id="color"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={selectedColor}
+              onChange={handleColorChange}
+            >
+              <option value="">Select a color</option>
+              {colors.map((color, index) => (
+                <option key={index} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
+          </div>
 
 
               <div className="text-gray-800 font-semibold mb-2">

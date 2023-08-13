@@ -69,7 +69,7 @@ function App() {
           <Route exact path="/stylist-dash" element={<StylistDashboard/>}/>
           <Route exact path="/review-order" element={<StylistReviewOrders/>}/>
           <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
-          <Route exact path="/review-an-order" element={<StylistReviewAnOrder/>}/>
+          <Route exact path="/review-an-order/:id" element={<StylistReviewAnOrder/>}/>
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
           <Route exact path="/manager-dash" element={<ManagerDashboard/>}/>
