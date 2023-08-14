@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route('/').post((req, res) => {
 
-    const sql1 = 'INSERT INTO `tshirt_order` (`material`, `color`, `additional_note`, `printing_files`, `status`, `customer_id`) VALUES (?);';
+    const sql1 = 'INSERT INTO `tshirt_order` (`material`, `color`, `additional_note`, `logo_file`, `status`, `customer_id`) VALUES (?);';
 
     const VALUES1 = [req.body.material, req.body.color, req.body.note, req.body.logo, 'pending', req.body.customerId];
 

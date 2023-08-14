@@ -7,6 +7,7 @@ import MakeOrder from "./pages/MakeOrder";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
+import CustomerOrders from "./pages/CustomerOrders";
 
 import UserManageMain from "./pages/UserManage/UserManageMain";
 
@@ -67,6 +68,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
+          <Route path="/customerorders" element={<CustomerOrders />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
           <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>

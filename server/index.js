@@ -25,6 +25,7 @@ import getDesignerModel from './models/getDesigner.model.js';
 import getManagerModel from './models/getManager.model.js';
 import getStylistModel from './models/getStylist.model.js';
 import makeOrderModel from './models/makeOrder.model.js';
+import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
 
 import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
@@ -62,7 +63,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ['http://127.0.0.1:5173'],
+  origin: ['http://localhost:5173'],
   methods: ['GET', 'POST'],
   credentials: true
 }));
@@ -85,6 +86,7 @@ app.use('/getDesigner', getDesignerModel);
 app.use('/getManager', getManagerModel);
 app.use('/getStylist', getStylistModel);
 app.use('/makeOrder', makeOrderModel);
+app.use('/getCustomerOrders', getCustomerOrdersModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
 app.use('/viewCompanyDesigns', companyDesign);

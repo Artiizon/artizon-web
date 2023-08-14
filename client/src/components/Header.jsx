@@ -202,7 +202,7 @@ const Header = () => {
     }
 
   return (
-    <header className=" top-0 left-0 right-0  bg-black text-white flex justify-between items-center shadow-md border-none">
+    <header className=" top-0 left-0 right-0  bg-[#161616] text-white flex justify-between items-center shadow-md border-none">
       <button
         onClick={() => {
           state.page = "home";
@@ -220,9 +220,11 @@ const Header = () => {
         <p className='header-item text-white hover:text-gray-300 transition-colors duration-300'>
             <NavLink to="/company-design">DESIGNS</NavLink>
         </p>
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/customerPortfolia">ORDERS</NavLink>
-        </p>
+        {customerAuth && (
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/customerOrders">ORDERS</NavLink>
+            </p>
+        )}
         <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
           <NavLink to="/about">ABOUT</NavLink>
         </p>
@@ -230,7 +232,7 @@ const Header = () => {
         <div className="w-[300px] justify-end">
         {customerAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{customerTitle} {customerName}</NavLink>
+                <NavLink to="/profile">{customerTitle.toUpperCase()} {customerName.toUpperCase()}</NavLink>
             </p>
         )}
         {designerAuth && (
