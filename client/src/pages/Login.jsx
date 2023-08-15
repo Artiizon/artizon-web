@@ -57,11 +57,11 @@ const Login = () => {
                     location.reload(true);
                     alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Designer') {
-                    navigate('/designer-dashboard');
+                    navigate('/designer-dash');
                     location.reload(true);
                     alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Stylist') {
-                    navigate('/stylist-dashboard');
+                    navigate('/stylist-dash');
                     location.reload(true);
                     alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Manager') {

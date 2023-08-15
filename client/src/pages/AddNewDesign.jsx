@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AiOutlineDelete, AiOutlineUpload } from "react-icons/ai";
-import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -108,7 +107,7 @@ const AddNewDesignPage = () => {
     const formData = new FormData();
     formData.append("designName", event.target.designName.value);
     formData.append("designDescription", event.target.designDescription.value);
-    formData.append("designerId", "1"); // Replace '123' with the actual designer ID
+    formData.append("designerId", sessionStorage.getItem('designer_id')); // Replace '123' with the actual designer ID
     formData.append("unitPrice", event.target.unitPrice.value);  
     formData.append("color", event.target.color.value);
     // Remove any empty materials from the formData
@@ -186,19 +185,25 @@ const AddNewDesignPage = () => {
               </div>
 
               <div className="mb-4">
-                <label
-                  htmlFor="designName"
-                  className="block text-gray-800 font-semibold mb-2"
-                >
-                  Unit Price (Rs.)
-                </label>
-                <input
-                  type="text"
-                  id="unitPrice"
-                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter unit price"
-                />
-              </div>
+              <label
+                htmlFor="unitPrice"
+                className="block text-gray-800 font-semibold mb-2"
+              >
+                Unit Price (Rs.)
+              </label>
+              <input
+                type="text"
+                id="unitPrice"
+                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter unit price"
+                onInput={(e) => {
+                  // Remove any non-numeric characters from the input value
+                  const value = e.target.value.replace(/[^0-9.]/g, '');
+                  // Update the input value with the cleaned value
+                  e.target.value = value;
+                }}
+              />
+            </div>
 
               <div className="mb-4">
               <label

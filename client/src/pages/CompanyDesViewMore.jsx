@@ -207,14 +207,15 @@ const CompanyDesViewMore = () => {
               DESIGN BY ARTIZON
             </p>
             <h1 className="text-3xl font-bold">{design.name}</h1>
-            <div className="flex items-center py-2">
-              <p className="text-gray-400 font-light text-l mr-2">Design Code:</p>
-              <p className="text-black font-light text-l">256AT5</p>
-            </div>
 
             <div className="flex items-center py-2">
               <p className="text-gray-400 font-light text-l mr-2">Material:</p>
               <p className="text-black font-light text-l">{design.material}</p>
+            </div>
+
+            <div className="flex items-center py-2">
+              <p className="text-gray-400 font-light text-l mr-2">Recommended Design Colour:</p>
+              <p className="text-black font-light text-l">{design.color}</p>
             </div>
 
 

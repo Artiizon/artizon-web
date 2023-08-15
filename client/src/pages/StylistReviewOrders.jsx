@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import StandardLayout from "../components/layout/StandardLayout";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { AiOutlineClose } from 'react-icons/ai';
@@ -134,7 +133,7 @@ const ReviewOrderPage = () => {
       noOrdersMessage = "No rejected orders";
       break;
     case "Accepted":
-      noOrdersMessage = "No accepted orders";
+      noOrdersMessage = "No proceed orders";
       break;
     default:
       noOrdersMessage = "No orders to display";
@@ -158,8 +157,8 @@ const ReviewOrderPage = () => {
   // };
 
   const filteredOrders = torders.filter((order) => {
-    if (activeTab === "Rejected") return order.status === "Rejected";
-    if (activeTab === "Accepted") return order.status === "Accepted";
+    if (activeTab === "Rejected") return order.status === "SRejected";
+    if (activeTab === "Accepted") return order.status === "Proceed";
     return order.status === "Pending";
   });
 
@@ -194,7 +193,7 @@ const ReviewOrderPage = () => {
               activeTab === "Accepted" ? "bg-green-500" : "bg-black"
             } text-white px-4 py-2 rounded-md`}
           >
-            Accepted Orders
+            Proceed Orders
           </button>
         </div>
 
@@ -255,15 +254,14 @@ const ReviewOrderPage = () => {
                           Review
                         </Link>
                       </div>
-                    ) : null}
+                    ) : 
                     <div>
-                      <button
-                        onClick={() => openViewModal(torder)}
-                        className="text-black font-semibold hover:underline cursor-pointer text-decoration-none"
-                      >
-                        View More
-                      </button>
+                    <button className="text-black font-semibold hover:underline cursor-pointer text-decoration-none">
+                      <Link to={`/stylist-view-order/${order.tshirt_order_id}`}>View More</Link>
+                    </button>
+
                     </div>
+                    }
                   </td>
                 </tr>
               ))}

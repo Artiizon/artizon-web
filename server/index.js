@@ -35,6 +35,7 @@ import fetchOrdersModel from './models/fetchOrders.model.js';
 import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
 import stylistReviewOrderModel from './models/stylistReviewOrder.model.js';
 import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.model.js';
+import stylistRejectOrderModel from './models/stylistRejectOrder.model.js';
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -64,7 +65,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: ['http://localhost:5173'],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   credentials: true
 }));
 
@@ -94,9 +95,10 @@ app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
 app.use('/viewDesigns', fetchDesignerDesignsModel )
 app.use('/review_order', stylistReviewOrderModel)
-app.use('/accept_reject_order', stylistAcceptRejectOrderModel)
+app.use('/proceed_tshirt_order', stylistAcceptRejectOrderModel)
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_order', managerReviewOrderModel)
+app.use('/stylist_reject_order', stylistRejectOrderModel)
 
 app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);
