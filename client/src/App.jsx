@@ -39,6 +39,7 @@ import './App.css';
 import Tpm_review_orders from './pages/tpm_review_orders';
 import Item_Type from './pages/Item_Type'; 
 import Item_Colors from './pages/Item_Color';
+import StylistViewOrderForm from "./pages/StylistViewMoreOrder";
 
 import DesignerPortfolia from './pages/Portfolia/DesignerPortfolia';
 import CustomerPortfolia from './pages/Portfolia/CustomerPortfolia';
@@ -86,6 +87,8 @@ function App() {
           <Route exact path="/addUser" element={<AddUsers />}/>
           <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>
           <Route exact path="/review-an-ordertpm/:id" element={<ManagerReviewAnOrder/>}/>
+          <Route exact path="/stylist-view-order/:id" element={<StylistViewOrderForm/>}/>
+
        
 
           <Route exact path="/" element={<Home/>}/>

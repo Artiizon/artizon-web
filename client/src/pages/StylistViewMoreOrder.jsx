@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnapshot } from 'valtio';
 import state from '../store';
 
-const StylistReviewOrderForm = () => {
+const StylistViewOrderForm = () => {
   const snap = useSnapshot(state);
   state.page = 'no-canvas';
   const navigate = useNavigate();
@@ -382,4 +382,4 @@ const StylistReviewOrderForm = () => {
   );
 };
 
-export default StylistReviewOrderForm;
+export default StylistViewOrderForm;
