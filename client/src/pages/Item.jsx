@@ -42,23 +42,51 @@ function ItemNamePage() {
              <hr className="my-4 border-t-2 border-gray-200" />
           </div>
       <div className="flex flex-col items-center pl-8 pr-8 pb-8  min-h-screen">
-
-        
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search Item Name"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyPress={handleKeyPress}
-          className="px-4  w-96 py-2 border border-gray-300 rounded-lg mr-2"
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-black text-white px-4 py-2 rounded-md"
-        >
-          Search
-        </button>
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Search Item Name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleKeyPress}
+            className="px-4  w-96 py-2 border border-gray-300 rounded-lg mr-2"
+          />
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg"
+          >
+            Search
+          </button>
+        </div>
+        <div className="w-full ">
+          <table className="w-[1250px] ml-[25px] ">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-black text-white">Item Name</th>
+                <th className="py-2 px-4 bg-black text-white">
+                  Total Quantity
+                </th>
+                <th className="py-2 px-4 bg-black text-white"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {itemNames.map((item,index) => (
+                <tr key={item.item_name_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
+                  <td className="py-2 px-4">{item.item_name}</td>
+                  <td className="py-2 px-4">{item.total_quantity}</td>
+                  <td className="py-2 px-4">
+                    <Link
+                      to={`/item-types/${item.item_name_id}`}
+                      className="bg-black text-white px-4 py-2 rounded-md font-semibold"
+                    >
+                      View Types
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="w-full">
         <table className="w-full border-collapse">
@@ -89,7 +117,7 @@ function ItemNamePage() {
         </table>
       </div>
     </div>
-    </div>
+    
   );
 }
 

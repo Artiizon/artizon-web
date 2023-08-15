@@ -8,6 +8,7 @@ import CustomerManage from './CustomerManage';
 import DesignerManage from './DesignerManage';
 import AdminManage from './AdminManage';
 import StylistManage from './StylistManage';
+import ManagerManage from './ManagerManage';
  
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -68,7 +69,8 @@ export default function TabsFun() {
             <Tab label="Customers" {...a11yProps(0)} />
             <Tab label="Designers" {...a11yProps(1)} />
             <Tab label="Stylist" {...a11yProps(2)} />
-            <Tab label="Admin" {...a11yProps(3)} />
+            <Tab label="Textile Managers" {...a11yProps(3)} />
+            <Tab label="Admin" {...a11yProps(4)} />
           </Tabs>
           
         </Box>
@@ -82,6 +84,9 @@ export default function TabsFun() {
           <StylistManage />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
+          <ManagerManage />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={4}>
           <AdminManage />
         </CustomTabPanel>
       </Box>

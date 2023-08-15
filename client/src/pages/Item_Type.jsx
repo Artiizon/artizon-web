@@ -56,11 +56,9 @@ function ItemTypesPage() {
   };
 
   return (
-    <div>
-        <h1 className="text-3xl mt-10 font-bold text-gray-800  ml-10">Item Types for {itemName}</h1>
-         <div className='px-2'>
-             <hr className="my-4 border-t-2 border-gray-200" />
-          </div>
+    <div className="container mx-auto pl-4 py-8 font-sans">
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Item Types for {itemName}</h1>
+         
       <div className="flex flex-col items-center pl-8 pr-8 pb-8  min-h-screen">
 
         
@@ -76,12 +74,12 @@ function ItemTypesPage() {
         <button
           
           onClick={handleSearch}
-          className="bg-black text-white px-4 py-2 rounded-md"
+          className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg"
         >
           Search
         </button>
       </div>
-      <div className="w-full">
+      <div className="w-[1300px] ml-[-90px]">
         <table className="w-full border-collapse">
           <thead>
             <tr>
@@ -91,15 +89,15 @@ function ItemTypesPage() {
             </tr>
           </thead>
           <tbody>
-            {itemTypes.map((itemType) => (
-              <tr key={itemType.item_type_id} className="text-center">
-                <td className="py-2.5 px-4">{itemType.item_type}</td>
-                <td className="py-2.5 px-4">{itemType.total_quantity}</td>
-                <td className="py-2.5 px-4">
+            {itemTypes.map((itemType,index) => (
+              <tr key={itemType.item_type_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
+                <td className="py-2 px-4">{itemType.item_type}</td>
+                <td className="py-2 px-4">{itemType.total_quantity}</td>
+                <td className="py-2 px-4">
                 <Link
                         to={`/item-colors/${itemType.item_type_id}?itemName=${encodeURIComponent(itemName)}`}
                         
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                        className="bg-black text-white px-4 py-2 rounded-md text-bold"
                     >
                         View Colors
                 </Link>

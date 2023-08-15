@@ -148,11 +148,9 @@ const DesignerDesignPage = () => {
   };
 
   return (
-      <div className="container mx-auto p-8 font-sans">
-        <h1 className="text-[45px] font-bold text-black mb-[5px] ml-[170px">My Designs</h1>
-        <div className='px-1'>
-          <hr className="mb-[6px] border-t-2 border-gray-300" />
-        </div>
+      <div className=" mx-auto p-8 font-sans min-h-[575.8px]">
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">My Designs</h1>
+        
         <div className="flex justify-end mb-2">
           <Link to="/new-design">
             <button className="bg-black hover:bg-gray-800 text-white font-semibold px-4 py-2 flex items-center rounded-md">
@@ -161,7 +159,7 @@ const DesignerDesignPage = () => {
           </Link>
         </div>
         {designs.length === 0 ? (
-          <p className="text-xl text-gray-600">No designs available.</p>
+          <p className="text-xl text-gray-600 ml-[100px]">No designs available.</p>
         ) : (
           <div className="overflow-x-auto rounded-[8px]">
             <table className="w-full table-auto border-collapse rounded-[25px]">

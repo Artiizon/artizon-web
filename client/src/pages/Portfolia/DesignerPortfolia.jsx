@@ -6,10 +6,10 @@ import DesCards from "./DesCards";
 
 export default function DesignerPortfolia() {
   return (
-    <div>
+    <div className="min-h-[800px]">
       <div>
       </div>
-      <div className="w-full h-[500px] p-[50px] flex ">
+      <div className="w-full h-[500px] p-[20px] flex bg-gray-300">
         
 
         <div class="">
@@ -21,11 +21,11 @@ export default function DesignerPortfolia() {
                 className="w-[250px] h-[200px] ml-[620px] mt-[170px] "
               />
             </div> */}
-            <div class="text-slate-700 w-[450px]  mt-[240px] ml-[250px] ">
-              <h2 class="mb-[-10px] text-3xl font-semibold  ">
+            <div class="text-black w-[450px] font-sans mt-[130px] ml-[250px] ">
+              <h2 class="mb-[-10px] text-3xl font-bold  ">
                 Hey, I am <br />
               </h2>
-              <p className="text-[50px] mb-[-28px]">Nuwan Tharanga</p>
+              <p className="text-[50px] font-[700] mb-[-28px]">Nuwan Tharanga</p>
               <br />
               <h2 class=" text-3xl font-semibold  ">Textile Designer</h2>
               {/* border-neutral-50 mt-[15px] px-7 pb-[8px] pt-[10px] text-sm 
@@ -39,9 +39,7 @@ export default function DesignerPortfolia() {
                 type="button"
                 class="rounded border-5 mt-[15px] px-7 pb-[8px] pt-[10px] text-sm 
                 font-medium uppercase leading-normal transition duration-150 
-                ease-in-out hover:border-neutral-100 hover:bg-green-900 
-                hover:bg-opacity-100 hover:text-neutral-100 bg-green-600 text-white
-                focus:text-neutral-800"
+                ease-in-out bg-black text-white"
                 
               >
                 Hire Me
@@ -49,16 +47,16 @@ export default function DesignerPortfolia() {
             </div>
           </div>
         </div>
-        <div className="mt-[70px] ml-[100px]">
+        <div className="mt-[30px] ml-[100px]">
         <img
           src={pp1}
           alt="imagce"
-          className="w-[550px] h-[400px]  overflow-hidden bg-cover bg-no-repeat text-center"
+          className="w-[550px] h-[300px]  overflow-hidden bg-cover bg-no-repeat text-center"
         />
         </div>
       </div>
 
-      <div className="about  mt-[21px] flex justify-center items-center bg-gray-200">
+      <div className="about  mt-[-150px] flex justify-center bg-gray-200">
         <div>
           <h1 className="font-semibold text-4xl mb-5 flex justify-center items-center mt-[30px]">
             My Journey As A Designer

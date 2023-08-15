@@ -1,53 +1,53 @@
 import { useSnapshot } from "valtio";
-import {  useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import state from "../store";
 
 import { useNavigate, NavLink } from "react-router-dom";
 
-import Tlog from "../images/tlog.png";
+import Tlog from "../images/tlog2.png";
 import Footer from "../components/footer/Footer";
 
 const Login = () => {
-    const snap = useSnapshot(state)
+  const snap = useSnapshot(state);
 
-    state.page = 'no-canvas';
+  state.page = "no-canvas";
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-    function validateEmail(email) {
-        if(email === '') {
-            setEmailError('Email required');
-            return false;
-        } else {
-            setEmailError('');
-            return true;
-        }
+  function validateEmail(email) {
+    if (email === "") {
+      setEmailError("Email required");
+      return false;
+    } else {
+      setEmailError("");
+      return true;
     }
+  }
 
-    function validatePassword(password) {
-        if(password === '') {
-            setPasswordError('Password required');
-            return false;
-        } else {
-            setPasswordError('');
-            return true;
-        }
+  function validatePassword(password) {
+    if (password === "") {
+      setPasswordError("Password required");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
     }
+  }
 
-    axios.defaults.withCredentials = true;
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  axios.defaults.withCredentials = true;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const isValidEmail = validateEmail(email);
-        const isValidPassword = validatePassword(password);
+    const isValidEmail = validateEmail(email);
+    const isValidPassword = validatePassword(password);
 
         if(isValidEmail && isValidPassword) {
 
@@ -70,7 +70,7 @@ const Login = () => {
                     
                     //alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Admin') {
-                    navigate('/admin-dashboard');
+                    navigate('/usermanage');
                     location.reload(true);
                     //alert('Login Successful');
                 } else if(res.data.Error === 'Error_No_User') {
@@ -85,34 +85,53 @@ const Login = () => {
             });
         }
     }
+  };
 
-    return (
-        <>
-            <div className="login-page">
-            <img src={Tlog} alt="imagemm" className=" h-[730px] blur-[4px]" />
-                <form className="login-form-container flex justify-center items-center w-[400px] h-[340px]" onSubmit={handleSubmit}>
-                    
-                    <div className="opacity-[10px]">
-                    <h1>LOG IN</h1>
-                    <p className="mb-[7px]">
-                        New user? <NavLink className="signup-link" to="/signup">Signup</NavLink> now.
-                    </p>
-                    <div>
-                        <input type="email" name="email" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <span className="login-form-error">{emailError}</span>
-                    <div>
-                        <input type="password" name="password" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <span className="login-form-error">{passwordError}</span>
-                    <div>
-                        <button type="submit">Login</button>
-                    </div>
-                    </div>
-                </form>
+  return (
+    <>
+      <div className="login-page">
+        <img src={Tlog} alt="imagemm" className=" h-[730px] blur-[4px]" />
+        <form
+          className="login-form-container flex justify-center items-center w-[400px] h-[340px]"
+          onSubmit={handleSubmit}
+        >
+          <div className="opacity-90">
+            <h1>LOG IN</h1>
+            <p className="mb-[7px]">
+              New user?{" "}
+              <NavLink className="signup-link" to="/signup">
+                Signup
+              </NavLink>{" "}
+              now.
+            </p>
+            <div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-        </>
-    )
-}
+            <span className="login-form-error">{emailError}</span>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <span className="login-form-error">{passwordError}</span>
+            <div>
+              <button type="submit">Login</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </>
+  );
 
-export default Login
+
+export default Login;

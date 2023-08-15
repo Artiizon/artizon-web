@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Navbar from "../../components/header/Navbar";
 import pp1 from "../../images/portPp/maleAvatar.png";
 import cmp from "../../images/portPp/complete.png";
 import prc from "../../images/portPp/processing.png";
@@ -9,6 +8,86 @@ import t2 from "../../images/portPp/ot2.png";
 import t3 from "../../images/portPp/ot3.png";
 import t4 from "../../images/portPp/ot4.png";
 import heart from "../../images/portPp/heart.png";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+
+const UName = () => {
+  const navigate = useNavigate();
+
+  const [customerAuth, setCustomerAuth] = useState(false);
+  const [email, setEmail] = useState("");
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setCustomerAuth(true);
+        setEmail(res.data.email);
+      } else {
+        setCustomerAuth(false);
+      }
+    });
+  }, []);
+
+  return (
+    <>
+      <div>
+        {!customerAuth && (
+          <div className=" font-sans ">
+            <p className="text-[35px]  ml-[185px] mt-[20px] font-bold uppercase">
+              <NavLink to="/customerdetails">Kasun Madhushan</NavLink>
+            </p>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+const Block = () => {
+  const navigate = useNavigate();
+
+  const [adminAuth, setAdminAuth] = useState(false);
+  const [email, setEmail] = useState("");
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyAdmin").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setAdminAuth(true);
+        setEmail(res.data.email);
+      } else {
+        setAdminAuth(false);
+      }
+    });
+  }, []);
+
+  return (
+    <>
+      <div>
+        {adminAuth && (
+          <div className=" font-sans ">
+            <button
+          type="button"
+          className="  w-[123px] h-[35px] mt-[30px] ml-[620px]
+                 pb-[8px] pt-[6px] text-sm font-medium uppercase 
+                text-white  shadow shadow-slate-600  bg-red-600 rounded-[20px] flex"
+        >
+          <p className="ml-[21px]">BLOCK USER</p>
+          
+        </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
 
 const Counts = ({ count, tag, im }) => {
   return (
@@ -30,9 +109,11 @@ const Counts = ({ count, tag, im }) => {
   );
 };
 
-const OrderCard = ({ status, tags, ims ,style }) => {
+const OrderCard = ({ status, tags, ims, style }) => {
   return (
-    <div className={`m-4 mt-[20px] p-1 w-[920px] h-[135px] bg-gray-100 shadow-lg rounded-md flex  ${style}`}>
+    <div
+      className={`m-4 mt-[20px] p-1 w-[920px] h-[135px] bg-gray-100 shadow-lg rounded-md flex  ${style}`}
+    >
       <img src={ims} alt="imagemm" className="h-[125px] " />
       <div className="w-[140px] ml-[25px] mt-[40px]">
         <p className=" text-xl font-normal ">{tags}</p>
@@ -58,18 +139,16 @@ const OrderCard = ({ status, tags, ims ,style }) => {
 
 export default function CustomerPortfolia() {
   return (
-    <div className="font-sans">
+    <div className="font-sans mt-[70px]">
       <div className="flex mt-[-40px] font-sans">
-        <img
+        {/* <img
           src={pp1}
           alt="imagce"
           className="w-[150px] h-[150px] ml-[220px] mt-[120px] "
-        />
-        <p className="text-[35px]  ml-[35px] mt-[200px] font-bold uppercase">
-          <NavLink to="/customerdetails">Kasun Madhushan</NavLink>
-        </p>
+        /> */}
+        <UName />
 
-        <button
+        {/* <button
           type="button"
           className="  w-[123px] h-[35px] mt-[203px] ml-[220px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -81,7 +160,8 @@ export default function CustomerPortfolia() {
             alt="imagce"
             className="w-[30px] h-[30px] ml-[6px] mt-[-3px] "
           />
-        </button>
+        </button> */}
+        <Block />
       </div>
 
       <div className="flex flex-row justify-center gap-8 ">
@@ -90,13 +170,33 @@ export default function CustomerPortfolia() {
       </div>
 
       <div className="orders ml-[200px] mt-[10px]">
-        <p className="font-semibold text-xl">ORDERS</p>
+        <p className="font-bold text-2xl">ORDERS</p>
         <hr width="80%" />
         <div className="cards mt-[40px]">
-          <OrderCard status="Processing" tags="Foot ball T shirt" ims={t1} style="bg-[#D9D9D9]" />
-          <OrderCard status="Completed" tags="Long sleves T shirt" ims={t2} style="bg-[#F1F1F1]" />
-          <OrderCard status="Completed" tags="Normal design 01" ims={t3} style="bg-[#D9D9D9]"/>
-          <OrderCard status="Completed" tags="Normal design 02" ims={t4} style="bg-[#F1F1F1]"/>
+          <OrderCard
+            status="Processing"
+            tags="Foot ball T shirt"
+            ims={t1}
+            style="bg-[#D9D9D9]"
+          />
+          <OrderCard
+            status="Completed"
+            tags="Long sleves T shirt"
+            ims={t2}
+            style="bg-[#F1F1F1]"
+          />
+          <OrderCard
+            status="Completed"
+            tags="Normal design 01"
+            ims={t3}
+            style="bg-[#D9D9D9]"
+          />
+          <OrderCard
+            status="Completed"
+            tags="Normal design 02"
+            ims={t4}
+            style="bg-[#F1F1F1]"
+          />
         </div>
       </div>
     </div>

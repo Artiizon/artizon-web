@@ -74,7 +74,7 @@ const CompanyDesign = () => {
   }, []);
 
   return (
-    <div className="font-sans container mx-auto px-4 lg:px-20 py-8">
+    <div className="font-sans container mx-auto px-4 lg:px-20 py-8 min-h-[575.9px]">
       <h1 className="text-4xl py-4 font-bold text-center mb-2">
         Featured Designs
       </h1>

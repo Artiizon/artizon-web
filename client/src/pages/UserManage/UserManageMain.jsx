@@ -30,9 +30,9 @@ export default function UseManageMain() {
         USER MANAGEMENT
       </p> */}
       <div className="flex flex-row justify-center gap-8 ">
-        <Counts count="14258" tag="CUSTOMERS" im={im1} />
-        <Counts count="25" tag="DESIGNERS" im={im2} />
-        <Counts count="10" tag="STYLISTS" im={im3} />
+        <Counts count="10" tag="CUSTOMERS" im={im1} />
+        <Counts count="5" tag="DESIGNERS" im={im2} />
+        <Counts count="1" tag="STYLISTS" im={im3} />
         <Counts count="5" tag="ADMINS" im={im4} />
       </div>
       <p className="mt-[20px]"></p>

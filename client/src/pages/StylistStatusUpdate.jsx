@@ -57,7 +57,7 @@ const OrderUpdate = () => {
   const filteredOrders = selectedTab === "All" ? orderData : orderData.filter(order => order.status === selectedTab);
 
   return (
-      <div className="container mx-auto p-8 font-sans">
+      <div className="container mx-auto p-8 font-sans min-h-[575.6px]">
         <h1 className="text-2xl font-bold mb-4 px-3">Order Details</h1>
         <div className="flex items-center mb-4">
           <div className="flex flex-grow px-3">

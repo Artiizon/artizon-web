@@ -33,18 +33,18 @@ for (let i = 0; i < DATA.length; i += 3) {
 
 export default function DesCards() {
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center mb-[70px]">
       {chunks.map((chunk, index) => (
         <div key={index} className="flex justify-between w-[750px] ">
           {chunk.map((item, itemIndex) => (
-            <div className="rounded-lg border p-[15px] w-[350px] h-[420px] space-x-[45px] mt-[45px] ml-[105px] bg-slate-600 shadow hover:shadow-lg hover:shadow-gray-800">
+            <div className="rounded-lg border pb-[1px]  w-[350px] h-[410px] space-x-[45px] mt-[45px] ml-[105px] bg-black hover:shadow-xl shadow-black shadow-lg hover:shadow-gray-800">
               <img
                 key={itemIndex}
                 src={item.imaget}
                 alt="imaged"
                 className="w-[350px] h-[350px] "
               />
-              <div className="w-[350px] h-[350px] flex ">
+              <div className="w-[350px] h-[10px] flex ">
                 <button
                   type="button"
                   className="rounded border-2  w-[120px] h-[35px] mt-[10px] ml-[-25px]

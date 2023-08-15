@@ -53,21 +53,17 @@ const DATA = [
     email: "kavih96@gmail.com",
     style: "bg-[#F1F1F1]",
   },
-  
-  
 ];
 
 export default function StylistManage() {
   const [filteredData, setFilteredData] = useState(DATA);
   return (
     <div>
-      
       <div className=" ml-[-23px] gap-2 ">
-        
         <div className="mb-[20px]">
           <SearchBar data={DATA} setFilteredData={setFilteredData} />
         </div>
-        
+
         <div className="flex flex-row gap-[20px] text-lg ">
           <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
           <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
@@ -77,12 +73,14 @@ export default function StylistManage() {
           <div
             className={`w-[1050px] flex flex-row gap-[20px] text-slate-600 rounded-md ${item.style}`}
           >
-            <div className="w-[50px] pl-2 pb-1 text-center radius-[15px] ">{item.uId}</div>
+            <div className="w-[50px] pl-2 pb-1 text-center radius-[15px] ">
+              {item.uId}
+            </div>
             <div className="w-[260px] pl-2 ml-[30px] text-center">
               {item.fullName}
             </div>
             <div className=" w-[305px] pl-2 text-center">{item.email}</div>
-            
+
             <Popup
               trigger={
                 <button>
@@ -110,27 +108,27 @@ export default function StylistManage() {
                     style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
                   >
                     <div className="flex">
-                      <p className="text-3xl font-bold">
-                        Mr. Janod Umayanga
-                      </p>
+                      <p className="text-3xl font-bold">Mr. Janod Umayanga</p>
                       <p className="text-sm ml-[20px] mt-[6px]">(admin)</p>
                     </div>
                     <p className="text-xl ml-[20px] mt-[6px]">
                       janodum84@gmail.com
                     </p>
                     <p className="text-l ml-[20px] mt-[6px]">+94 742586134</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-[600]">
-                      DELETE USER
+                    <label className="mt-[10px] p-2 w-[130px] h-[40px] font-[600]">
+                      Reason
+                    </label>
+                    <input
+                      type="text"
+                      className="w-[380px] h-[65px]  bg-[#EFEFEF] border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none"
+                    />
+                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-sans font-[600]">
+                      BLOCK STYLIST
                     </button>
                   </div>
                 </div>
               )}
             </Popup>
-
-
           </div>
         ))}
       </div>
