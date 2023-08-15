@@ -178,7 +178,7 @@ const Customizor = () => {
             />
           </motion.div>
 
-          <motion.div className='absolute z-10 bottom-5 left-5' {...fadeAnimation}>
+          {/* <motion.div className='absolute z-10 bottom-5 left-5' {...fadeAnimation}>
             <button className='download-btn' onClick={downloadCanvasToImage}>
                 <img
                   src={download}
@@ -186,7 +186,7 @@ const Customizor = () => {
                   className='w-3/5 h-3/5 object-contain'
                 />
             </button>
-          </motion.div>
+          </motion.div> */}
         </>
     </AnimatePresence>
   )

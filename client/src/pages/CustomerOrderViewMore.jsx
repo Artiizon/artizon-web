@@ -65,7 +65,7 @@ export default function CustomerOrderViewMore() {
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
                 text-white  shadow-md shadow-slate-900  bg-black"
               >
-                Cancel Order
+                Cancel Orders
               </button>
             </>
           ) : status === "Sample fee" ? (
@@ -107,14 +107,14 @@ export default function CustomerOrderViewMore() {
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
                 />
               </div>
-              <button
+              {/* <button
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
                 text-white  shadow-md shadow-slate-900  bg-black"
               >
                 Cancel Order
-              </button>
+              </button> */}
             </>
           ) : status === "Sample" ? (
             <>
@@ -337,19 +337,19 @@ export default function CustomerOrderViewMore() {
       </div>
       <div className="font-sans ml-[13%] h-[10px] w-[67%]  mt-[65px] flex ">
         <label className="text-xl font-semibold  ml-[-6.5%]">Pending</label>
-        <label className="text-xl font-semibold  ml-[14.2%] ">Sample fee</label>
+        <label className="text-xl font-semibold  ml-[14.2%] ">Accepted</label>
         <label className="text-xl font-semibold  ml-[14.5%]">Sample</label>
         <label className="text-xl font-semibold  ml-[13.5%]">Advance fee</label>
         <label className="text-xl font-semibold  ml-[12%]">FullPayment</label>
         <label className="text-xl font-semibold  ml-[12%]">Delivery</label>
       </div>
       <div className="ml-[13%] h-[10px] w-[76%]  mt-[45px] flex  ">
-        <label className="text-xl  ml-[-8.5%] w-[570px] ">(12-03-2023)</label>
-        <label className="text-xl  ml-[8%] w-[570px]">(12-03-2023)</label>
-        <label className="text-xl ml-[5%] w-[570px]">(12-03-2023)</label>
-        <label className="text-xl ml-[6%] w-[570px]">(12-03-2023)</label>
-        <label className="text-xl  ml-[4%] w-[570px]">(12-03-2023)</label>
-        <label className="text-xl  ml-[8%] w-[570px]">(12-03-2023)</label>
+        <label className="text-xl  ml-[-8.5%] w-[570px] ">(16-08-2023)</label>
+        <label className="text-xl  ml-[8%] w-[570px]">(pending)</label>
+        <label className="text-xl ml-[5%] w-[570px]">(pending)</label>
+        <label className="text-xl ml-[6%] w-[570px]">(pending)</label>
+        <label className="text-xl  ml-[4%] w-[570px]">(pending)</label>
+        <label className="text-xl  ml-[8%] w-[570px]">(pending)</label>
       </div>
       <div className="flex">
         <div>
@@ -398,10 +398,10 @@ export default function CustomerOrderViewMore() {
     </div>
 
           
-          <div className=" ml-[200px]">
+          {/* <div className=" ml-[200px]">
             <p className="mt-[30px]  font-[700]">Full Payment</p>
             <p className="mt-[20px] ml-[60px] ">Rs.30,500.00</p>
-          </div>
+          </div> */}
         </div>
         <div className="mt-[100px] ml-[80px] ">
           <img src={ims} alt="imagemm" className="h-[400px]  " />
