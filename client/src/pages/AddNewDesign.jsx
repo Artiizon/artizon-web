@@ -107,7 +107,7 @@ const AddNewDesignPage = () => {
     const formData = new FormData();
     formData.append("designName", event.target.designName.value);
     formData.append("designDescription", event.target.designDescription.value);
-    formData.append("designerId", "1"); // Replace '123' with the actual designer ID
+    formData.append("designerId", sessionStorage.getItem('designer_id')); // Replace '123' with the actual designer ID
     formData.append("unitPrice", event.target.unitPrice.value);  
     formData.append("color", event.target.color.value);
     // Remove any empty materials from the formData
