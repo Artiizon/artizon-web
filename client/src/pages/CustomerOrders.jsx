@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import t1 from "../images/portPp/ot1.png";
+import t1 from "../images/canvas.png";
 
 import axios from "axios";
 
@@ -9,7 +9,7 @@ import state from "../store";
 
 const OrderCard = ({ status, tags, ims ,style }) => {
   return (
-    <div className={`m-4 mt-[20px] p-1 w-[920px] h-[135px] bg-gray-100 shadow-lg rounded-md flex  ${style}`}>
+    <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[135px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
       <img src={ims} alt="imagemm" className="h-[125px] " />
       <div className="w-[140px] ml-[25px] mt-[40px]">
         <p className=" text-xl font-normal ">{tags}</p>
@@ -18,7 +18,7 @@ const OrderCard = ({ status, tags, ims ,style }) => {
         <p className="font-bold text-xl mt-[15px] ml-[480px] text-center">
           {status}
         </p>
-        <NavLink to="/customerOrderDetailsF">
+        <NavLink to="/customerorder-view-more">
           <button
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
@@ -51,7 +51,7 @@ export default function CustomerOrders() {
     console.log(orders);
 
   return (
-    <div className="font-sans">
+    <div className="font-sans min-h-screen">
 
       <div className="orders ml-[200px] mt-[10px]">
         <p className="font-semibold text-xl">ORDERS</p>

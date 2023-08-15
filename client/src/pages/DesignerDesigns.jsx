@@ -148,7 +148,7 @@ const DesignerDesignPage = () => {
   };
 
   return (
-      <div className=" mx-auto p-8 font-sans min-h-[575.8px]">
+      <div className=" mx-auto p-8 font-sans min-h-[620px]">
         <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">My Designs</h1>
         
         <div className="flex justify-end mb-2">

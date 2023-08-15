@@ -8,6 +8,8 @@ import { AiOutlinePlus, AiOutlineEye } from 'react-icons/ai';
 import StandardLayout from '../components/layout/StandardLayout';
 import { BsArrowRightShort } from 'react-icons/bs';
 
+import { useSnapshot } from "valtio";
+import state from "../store";
 
 const data = [
   { name: 'Jan', orders: 20 },
@@ -114,6 +116,9 @@ const DashboardCard = ({ title, topic, link, value }) => {
 
 
 const DashboardPage = () => {
+  const snap = useSnapshot(state);
+
+  state.page = 'no-canvas'
   // Define your orders and other data here...
   const acceptedOrders = 25;
   const rejectedOrders = 5;

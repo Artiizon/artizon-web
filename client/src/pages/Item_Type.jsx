@@ -56,9 +56,11 @@ function ItemTypesPage() {
   };
 
   return (
-    <div className="container mx-auto pl-4 py-8 font-sans">
-        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Item Types for {itemName}</h1>
-         
+    <div>
+        <h1 className="text-3xl mt-10 font-bold text-gray-800  ml-10">Item Types for {itemName}</h1>
+         <div className='px-2'>
+             <hr className="my-4 border-t-2 border-gray-200" />
+          </div>
       <div className="flex flex-col items-center pl-8 pr-8 pb-8  min-h-screen">
 
         
@@ -74,13 +76,14 @@ function ItemTypesPage() {
         <button
           
           onClick={handleSearch}
-          className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg"
+          className="bg-black text-white px-4 py-2 rounded-md"
         >
           Search
         </button>
       </div>
-      <div className="w-[1300px] ml-[-90px]">
-        <table className="w-full border-collapse">
+      <div className=" w-[1200px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
+        <table className="w-full table-auto bg-white shadow-md rounded-lg">
+      
           <thead>
             <tr>
               <th className="py-2 px-4 bg-black text-white">Item Type</th>
@@ -91,13 +94,13 @@ function ItemTypesPage() {
           <tbody>
             {itemTypes.map((itemType,index) => (
               <tr key={itemType.item_type_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
-                <td className="py-2 px-4">{itemType.item_type}</td>
-                <td className="py-2 px-4">{itemType.total_quantity}</td>
-                <td className="py-2 px-4">
+                <td className="py-2.5 px-4">{itemType.item_type}</td>
+                <td className="py-2.5 px-4">{itemType.total_quantity}</td>
+                <td className="py-2.5 px-4">
                 <Link
                         to={`/item-colors/${itemType.item_type_id}?itemName=${encodeURIComponent(itemName)}`}
                         
-                        className="bg-black text-white px-4 py-2 rounded-md text-bold"
+                        className="bg-black text-white px-4 py-2 rounded-md "
                     >
                         View Colors
                 </Link>

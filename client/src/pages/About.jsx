@@ -1,7 +1,13 @@
 import React from "react";
 import Abt from "../images/abtt.jpg";
 
+import { useSnapshot } from "valtio";
+import state from "../store";
+
 export default function About() {
+  const snap = useSnapshot(state);
+
+  state.page = 'no-canvas';
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto ">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaStar, FaStarHalfAlt, FaTimes } from 'react-icons/fa'; 
 import StandardLayout from '../components/layout/StandardLayout';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useParams  } from 'react-router-dom';
+import { Link, useParams, NavLink  } from 'react-router-dom';
 import axios from 'axios';
 import { useSnapshot } from "valtio";
 import state from "../store";
@@ -228,9 +228,11 @@ const CompanyDesViewMore = () => {
 
             {true && (
               <div className="flex justify-start mt-4 gap-4">
+                <NavLink to="/makeOrder">
                 <button className="bg-black  text-white font-bold py-2 px-4 rounded">
                   Order Now
                 </button>
+                </NavLink>
 
                 <div className="flex items-center py-2">
                   <p className="text-gray-400 font-light text-l mr-2">Unit Price:</p>

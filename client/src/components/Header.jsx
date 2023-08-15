@@ -213,17 +213,26 @@ const Header = () => {
 
   return (
     <header className=" top-0 left-0 right-0  bg-[#161616] text-white flex justify-between items-center shadow-md border-none">
-      <button
-        onClick={() => {
-          state.page = "home";
-          navigate("/");
-        }}
-      >
-        <p data-text="arTizon" className="example-one">
-          ar<span>T</span>izon
-        </p>
-      </button>
-
+      {(adminAuth || designerAuth || stylistAuth || managerAuth) && (
+        <button
+        >
+          <p data-text="arTizon" className="example-one">
+            ar<span>T</span>izon
+          </p>
+        </button>
+      )}
+      {!(adminAuth || designerAuth || stylistAuth || managerAuth) && (
+        <button
+          onClick={() => {
+            state.page = "home";
+            navigate("/");
+          }}
+        >
+          <p data-text="arTizon" className="example-one">
+            ar<span>T</span>izon
+          </p>
+        </button>
+      )}
       <div className="flex flex-row border-none gap-[45px] ml-[170px] ">
         {!(adminAuth || designerAuth || stylistAuth || managerAuth) && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
@@ -239,26 +248,6 @@ const Header = () => {
         {customerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
             <NavLink to="/customerOrders">ORDERS</NavLink>
-          </p>
-        )}
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/about">ABOUT</NavLink>
-        </p>
-
-        {!(
-          customerAuth ||
-          adminAuth ||
-          designerAuth ||
-          stylistAuth ||
-          managerAuth
-        ) && (
-          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/about">ABOUT</NavLink>
-          </p>
-        )}
-        {customerAuth && (
-          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/about">ABOUT</NavLink>
           </p>
         )}
 
@@ -286,6 +275,18 @@ const Header = () => {
           </p>
         )}
 
+        {stylistAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/review-order">ORDERS</NavLink>
+          </p>
+        )}
+
+        {designerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/des-design">DESIGNS</NavLink>
+          </p>
+        )}
+
         {managerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
             <NavLink to="/stock">Stocks</NavLink>
@@ -304,6 +305,10 @@ const Header = () => {
           </p>
         )}
 
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/about">ABOUT</NavLink>
+          </p>
+
         {/* {managerAuth &&(
             <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
               <NavLink to="/price">Price</NavLink>
@@ -314,7 +319,7 @@ const Header = () => {
       <div className="w-[300px] justify-end">
         {customerAuth && (
           <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
-            <NavLink to="/profile">
+            <NavLink to="/customerProfile">
               {customerTitle.toUpperCase()} {customerName.toUpperCase()}
             </NavLink>
           </p>
