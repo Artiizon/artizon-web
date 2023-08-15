@@ -241,9 +241,9 @@ const Header = () => {
             <NavLink to="/customerOrders">ORDERS</NavLink>
           </p>
         )}
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+        {/* <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
           <NavLink to="/about">ABOUT</NavLink>
-        </p>
+        </p> */}
 
         {!(
           customerAuth ||
@@ -288,19 +288,19 @@ const Header = () => {
 
         {managerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/stock">Stocks</NavLink>
+            <NavLink to="/stock">STOCKS</NavLink>
           </p>
         )}
 
         {managerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/tpm_review_orders">Review Orders</NavLink>
+            <NavLink to="/tpm_review_orders">REVIEW ORDERS</NavLink>
           </p>
         )}
 
         {managerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/item">Item</NavLink>
+            <NavLink to="/item">ITEM</NavLink>
           </p>
         )}
 

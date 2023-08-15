@@ -58,9 +58,11 @@ function ItemNamePage() {
             Search
           </button>
         </div>
-        <div className="w-full ">
-          <table className="w-[1250px] ml-[25px] ">
-            <thead>
+
+
+        <div className=" w-[1200px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
+          <table className="w-full table-auto bg-white shadow-md rounded-lg">
+           <thead>
               <tr>
                 <th className="py-2 px-4 bg-black text-white">Item Name</th>
                 <th className="py-2 px-4 bg-black text-white">
@@ -72,12 +74,12 @@ function ItemNamePage() {
             <tbody>
               {itemNames.map((item,index) => (
                 <tr key={item.item_name_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
-                  <td className="py-2 px-4">{item.item_name}</td>
-                  <td className="py-2 px-4">{item.total_quantity}</td>
-                  <td className="py-2 px-4">
+                  <td className="py-2.5 px-4">{item.item_name}</td>
+                  <td className="py-2.5 px-4">{item.total_quantity} {item.quantityLabel}</td>
+                  <td className="py-2.5 px-4">
                     <Link
                       to={`/item-types/${item.item_name_id}`}
-                      className="bg-black text-white px-4 py-2 rounded-md font-semibold"
+                      className="bg-black text-white px-4 py-2 rounded-md "
                     >
                       View Types
                     </Link>
@@ -88,7 +90,8 @@ function ItemNamePage() {
           </table>
         </div>
       </div>
-      <div className="w-full">
+
+      {/* <div className="w-full">
         <table className="w-full border-collapse">
           <thead>
             <tr>
@@ -115,7 +118,9 @@ function ItemNamePage() {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
+
+
     </div>
     
   );
