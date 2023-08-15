@@ -257,42 +257,49 @@ const ManagerViewOrderForm = () => {
               )}
             </div>
 
-              <div className="mb-4">
+             <div className="mb-4">
+           
               {formData.status === "Accepted" ? (
                 <label htmlFor="additionalNote" className="block  font-medium">
-                  Additional Note
+                  Manager Note
                 </label>
                ) 
                           
-         : 
+            : 
               <label htmlFor="additionalNote" className="block  font-medium">
                   Rejected Note
              </label>
               }
+
                 <input
                   id="additionalNote"
                   name="additionalNote"
-                  value={formData.manager_note}
+                  value={formData.managerNote}
                   className="mt-1 p-2 w-full border rounded"
                   readOnly
                 />
               </div> 
-              
-              {/* {formData.status === "SRejected" ? (
+
+
+              {formData.status === "Accepted" ? (
               <div className="mb-4">
                 <label htmlFor="additionalNote" className="block  font-medium">
-                  Rejected Reason
+                  Stylist Note
                 </label>
                 <input
                   id="additionalNote"
                   name="additionalNote"
-                  value={formData.rejectedReason}
+                  value={formData.stylistNote}
                   className="mt-1 p-2 w-full border rounded"
                   readOnly
                 />
               </div> 
-              ) : null} */}
+              ) : null}
 
+           
+
+
+           
             {formData.status === "MRejected" ? (
               <div className="mb-4">
                 <label htmlFor="additionalNote" className="block  font-medium">
