@@ -354,22 +354,26 @@ export default function CustomerOrderViewMore() {
       <div className="flex">
         <div>
           <div className="flex mt-[20px]">
-            <div className="mt-[60px] ml-[200px]">
+            {/* <div className="mt-[60px] ml-[200px]">
               <p className=" font-semibold">Contact Details</p>
               <p className="mt-[17px]  ">Hasitha Sawan Wijewardana</p>
               <p className="mt-[17px]  ">No:65,</p>
               <p className="mt-[3px]  ">Gunawardana Road,</p>
               <p className="mt-[3px]  ">Colombo 06.</p>
-            </div>
+            </div> */}
             <div>
               <p className="mt-[60px] ml-[120px] font-semibold">Material</p>
               <p className="mt-[17px] ml-[120px] ">Cotton</p>
+            </div>
+            <div>
+              <p className="mt-[60px] ml-[120px] font-semibold">Color</p>
+              <p className="mt-[17px] ml-[120px] ">#ffffff</p>
             </div>
             <div className="ml-[130px]">
               <p className="mt-[60px]  font-semibold">Quantities</p>
               <p className="mt-[17px]  ">M : 20</p>
               <p className="mt-[10px]  ">L : 10</p>
-              <p className="mt-[10px]  ">XL : 30</p>
+              <p className="mt-[10px]  ">XL : 3</p>
             </div>
           </div>
           <hr class="border-2 ml-[200px] mt-[45px] w-[650px]" />
