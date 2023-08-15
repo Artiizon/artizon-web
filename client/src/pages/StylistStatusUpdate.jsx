@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import StandardLayout from "../components/layout/StandardLayout";
 import { FaPencilAlt } from 'react-icons/fa';
 
+import des1 from '../images/designs/design5.jpg';
+import des2 from '../images/designs/design2.jpg';
+import des3 from '../images/designs/design3.jpg';
+import des4 from '../images/designs/design4.jpg';
+
 const orders = [
-  { id: 1, date: "2023-07-01 12:12:00", quantity: "1", status: "Processing" },
-  { id: 2, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Processing" },
-  { id: 3, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Ready" },
-  { id: 4, date: "2023-07-02 12:12:00", quantity: "99", status: "Delivered" }
+  { id: 1, img: des1, date: "2023-07-01 12:12:00", quantity: "1", status: "Processing" },
+  { id: 2, img: des2, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Processing" },
+  { id: 3, img: des3, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Ready" },
+  { id: 4, img: des4, date: "2023-07-02 12:12:00", quantity: "99", status: "Delivered" }
 ];
 
 const tabs = ["All", "Sample Processing", "Sample Ready", "50% of Payment", "Processing", "Final Payment", "Order Ready", "Delivered", "Completed"];
@@ -75,7 +80,8 @@ const OrderUpdate = () => {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-gray-300">
-                    <th className="px-4 py-2 text-center">Order</th>
+                    <th className="px-4 py-2 text-center">Order Id</th>
+                    <th className="px-4 py-2 text-left">Image</th>
                     <th className="px-4 py-2 text-center">Date & Time</th>
                     <th className="px-4 py-2 text-center">Quantity</th>
                     <th className="px-4 py-2 text-center">Status</th>
@@ -86,6 +92,9 @@ const OrderUpdate = () => {
                   {filteredOrders.map(order => (
                     <tr key={order.id} className="border-t border-gray-300">
                       <td className="px-4 py-2 text-center">{order.id}</td>
+                      <td className="px-4 py-2 text-center align-center">
+                        <img src={order.img} alt={`Design ${order.id}`} className="w-16 h-16 object-cover rounded-lg" />
+                      </td>
                       <td className="px-4 py-2 text-center">{order.date}</td>
                       <td className="px-4 py-2 text-center">{order.quantity}</td>
                       <td className={`px-4 py-2 ${getStatusTextColorClass(order.status)} text-center`}>{order.status}</td>
