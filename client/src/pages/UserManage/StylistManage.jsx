@@ -109,20 +109,24 @@ export default function StylistManage() {
                     style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
                   >
                     <div className="flex">
-                      <p className="text-3xl font-bold">
-                        Mr. Janod Umayanga
-                      </p>
+                      <p className="text-3xl font-bold">Mr. Janod Umayanga</p>
                       <p className="text-sm ml-[20px] mt-[6px]">(stylist)</p>
                     </div>
                     <p className="text-xl ml-[20px] mt-[6px]">
                       janodum84@gmail.com
                     </p>
-                    <p className="text-l ml-[20px] mt-[6px]">+94 742586134</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
-                    <p className="text-l ml-[20px] mt-[6px]">xxxxxxxxxxxxx</p>
+                    <p className="text mb-[10px]-l ml-[20px] mt-[6px]">
+                      +94 742586134
+                    </p>
+                    <label className="mt-[10px] p-2 w-[130px] h-[40px] font-[600]">
+                      Reason
+                    </label>
+                    <input
+                      type="text"
+                      className="w-[380px] h-[65px]  bg-[#EFEFEF] border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none"
+                    />
                     <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-sans font-[600]">
-                      DELETE USER
+                      BLOCK STYLIST
                     </button>
                   </div>
                 </div>

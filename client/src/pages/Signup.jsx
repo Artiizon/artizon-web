@@ -3,7 +3,7 @@ import {  useState } from "react";
 import axios from "axios";
 
 import state from "../store";
-
+import Tlog from "../images/tlog2.png";
 import { useNavigate, NavLink } from "react-router-dom";
 
 const Signup = () => {
@@ -184,7 +184,7 @@ const Signup = () => {
         <>
             <div className="signup-page">
                 <div className="signup-left">
-                    <img src="./canvas.png" alt="canvas" />
+                    <img src={Tlog} alt="canvas" />
                 </div>
                 <div className="signup-right">
                     <form className="signup-form-container" onSubmit={handleSubmit}>
@@ -226,10 +226,10 @@ const Signup = () => {
                             <div className="signup-form-content-right ">
                                 <div>
                                     <label htmlFor="title">Title</label><br/>
-                                    <select name="title" id="title" onChange={(e) => setTitle(e.target.value)}>
-                                        <option value="">Select Title</option>
-                                        <option value="Mr">Mr</option>
-                                        <option value="Ms">Ms</option>
+                                    <select name="title"  id="title"  onChange={(e) => setTitle(e.target.value)}>
+                                        <option value="" className="w-[300px]">Select Title</option>
+                                        <option value="Mr" className="w-[300px]">Mr</option>
+                                        <option value="Ms" className="w-[300px]">Ms</option>
                                     </select>
                                 </div>
                                 <span className="signup-form-error text-[12px] text-red-500">{titleError}</span>

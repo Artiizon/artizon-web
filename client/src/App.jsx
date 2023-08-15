@@ -47,6 +47,7 @@ import ChangePassword from './pages/ChangePassword';
 import AddUsers from './pages/UserManage/AddUsers';
 import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
 import Footer from "./components/footer/Footer";
+import LoginError from "./pages/LoginError";
 
 
 function App() {
@@ -75,7 +76,7 @@ function App() {
           <Route exact path="/review-order" element={<StylistReviewOrders/>}/>
           <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
           <Route exact path="/review-an-order/:id" element={<StylistReviewAnOrder/>}/>
-           <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
+          <Route exact path="/designer-dash" element={<DesignerDashboard/>}/>
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
           <Route exact path="/usermanage" element={<UserManageMain />}/>
@@ -100,6 +101,7 @@ function App() {
           <Route exact path="/item-types/:item_name_id" element={<Item_Type/>}/>
           <Route exact path="/item-colors/:item_type_id" element={<Item_Colors/>}/>
           <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
+          <Route exact path="/login-error" element={<LoginError/>}/>
     
         </Routes>
        

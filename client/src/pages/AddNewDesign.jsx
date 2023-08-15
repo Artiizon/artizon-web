@@ -144,12 +144,10 @@ const AddNewDesignPage = () => {
       });
   };
   return (
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold text-gray-800">Add New Design</h1>
+      <div className="container mx-auto pl-4 py-5 font-sans">
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Add New Design</h1>
 
-        <div className="px-1">
-          <hr className="my-4 border-t-2 border-gray-300" />
-        </div>
+        
 
         <div className="flex justify-center">
           <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
@@ -157,7 +155,7 @@ const AddNewDesignPage = () => {
               <div className="mb-4">
                 <label
                   htmlFor="designName"
-                  className="block text-gray-800 font-semibold mb-2"
+                  className="block text-gray-800 text-[16px] font-bold mb-2"
                 >
                   Design Name
                 </label>
@@ -173,7 +171,7 @@ const AddNewDesignPage = () => {
             <div className="mb-4">
                 <label
                   htmlFor="designDescription"
-                  className="block text-gray-800 font-semibold mb-2"
+                  className="block text-gray-800 text-[16px] font-bold mb-2"
                 >
                   Design Description
                 </label>
@@ -188,7 +186,7 @@ const AddNewDesignPage = () => {
               <div className="mb-4">
                 <label
                   htmlFor="designName"
-                  className="block text-gray-800 font-semibold mb-2"
+                  className="block text-gray-800 text-[16px] font-bold mb-2"
                 >
                   Unit Price (Rs.)
                 </label>
@@ -203,7 +201,7 @@ const AddNewDesignPage = () => {
               <div className="mb-4">
               <label
                 htmlFor="designMaterials"
-                className="block text-gray-800 font-semibold mb-2"
+                className="block text-gray-800 text-[16px] font-bold mb-2"
               >
                 Supporting Material
               </label>
@@ -243,7 +241,7 @@ const AddNewDesignPage = () => {
             <div className="mb-4">
             <label
               htmlFor="color"
-              className="block text-gray-800 font-semibold mb-2"
+              className="block text-gray-800 text-[16px] font-bold mb-2"
             >
               Color
             </label>
@@ -263,7 +261,7 @@ const AddNewDesignPage = () => {
           </div>
 
 
-              <div className="text-gray-800 font-semibold mb-2">
+              <div className="text-gray-800 text-[16px] font-bold mb-2">
                 Upload Images (Up to 3)
               </div>
 
@@ -301,7 +299,7 @@ const AddNewDesignPage = () => {
 
               <div className="flex justify-end">
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg mt-4"
+                  className="bg-black hover:bg-gray-800 text-white font-semibold px-4 py-3 rounded-lg mt-4"
                   type="submit"
                 >
                   Submit Design

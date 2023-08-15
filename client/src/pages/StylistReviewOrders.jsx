@@ -164,7 +164,7 @@ const ReviewOrderPage = () => {
   });
 
   return (
-    <div>
+    <div className="min-h-[575.9px]">
       <div className="font-sans container mx-auto p-8">
         <h1 className="text-[45px] font-bold mb-1">Review Orders</h1>
 

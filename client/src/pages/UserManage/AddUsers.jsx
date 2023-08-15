@@ -4,8 +4,8 @@ import Navbar from '../../components/header/Navbar'
 
 export default function AddUsers() {
   return (
-    <div>
-    <p className="font-sans text-[35px]  ml-[35px] pt-[90px] p-9 font-bold">
+    <div className="min-h-[575.6px]">
+    <p className=" font-sans text-[35px]  ml-[35px] pt-[50px] p-7 font-bold">
       ADD USER
     </p>
     

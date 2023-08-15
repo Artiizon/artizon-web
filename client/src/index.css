@@ -520,7 +520,7 @@ header div span{
     
     border-radius: 25px;
     background-color: #d6d6d6;
-    opacity: 0.8;
+    opacity: 0.9;
     
 }
 
@@ -553,7 +553,7 @@ header div span{
     margin-left: -12%;
     margin-top: 1%;
     border: 2px solid var(--hue-background);
-    opacity: 0.5;
+    opacity: 0.7;
     border-radius: 15px;
     width: 125%;
     padding: 2% 2% 2% 5%;
@@ -578,15 +578,15 @@ header div span{
 }
 
 .login-form-container button:hover {
-    background-color: var(--hue-red);
+    
     color: var(--hue-text);
     transition: 150ms;
 }
 
 .login-form-error {
-    margin-left: 25%;
+    margin-left: -13px;
     color: var(--hue-red);
-    font-size: 1rem;
+    font-size: 13px;
 }
 
 /* ______________________________________SIGNUP PAGE___________________________________________________ */
@@ -665,7 +665,7 @@ header div span{
     background-color: #EFEFEF;
     color: var(--hue-background);
     border-radius: 5px;
-    width: 100%;
+    width: 110%;
     padding: 2%;
     opacity: 0.7;
 }
@@ -717,17 +717,19 @@ header div span{
     margin-right: 5%;
 }
 
-.make-order-page-left .input-text {
+
+.make-order-page-left .check {
     background-color: #f4f4f4;
     color: var(--hue-background);
-    border-radius: 5px;
-    width: 100%;
-    padding: 2%;
+    
+    width: 50px;
+    height: 20px;
+    margin-top: 10px;
 }
 
 .quantity-item {
     display: grid;
-    grid-template-columns: 100px 100px 100px;
+    grid-template-columns: 100px 60px 80px ;
 }
 
 .quantity-item div input{
@@ -762,7 +764,7 @@ header div span{
     margin-top: 2%;
     margin-right: 20%;
     margin-bottom: 5%;
-    border-radius: 25px;
+    border-radius: 12px;
     width: 20%;
     padding: 1%;
     background-color: var(--hue-background);
@@ -771,7 +773,7 @@ header div span{
 }
 
 .make-order-page-left button:hover {
-    background-color: var(--hue-red);
+    background-color: black;
     color: var(--hue-text);
     transition: 150ms;
 }

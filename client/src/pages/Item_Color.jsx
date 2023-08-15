@@ -60,8 +60,8 @@ function ItemColorsPage() {
   };
 
   return (
-    <StandardLayout>
-        <h1 className="text-3xl mt-10 font-bold text-gray-800  ml-10">Item Colors for {itemName} {itemType}</h1>
+    <div className="container mx-auto pl-4 py-8 font-sans">
+        <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Item Colors for {itemName} {itemType}</h1>
          <div className='px-2'>
              <hr className="my-4 border-t-2 border-gray-200" />
           </div>
@@ -82,7 +82,7 @@ function ItemColorsPage() {
         <button
           
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-lg"
         >
           Search
         </button>
@@ -96,8 +96,8 @@ function ItemColorsPage() {
             </tr>
           </thead>
           <tbody>
-            {itemColors.map((itemColor) => (
-              <tr key={itemColor.item_color_id} className="text-center">
+            {itemColors.map((itemColor,index) => (
+              <tr key={itemColor.item_color_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
                 <td className="py-2 px-4">{itemColor.item_color}</td>
                 <td className="py-2 px-4">{itemColor.quantity}</td>
               </tr>
@@ -106,7 +106,7 @@ function ItemColorsPage() {
         </table>
       </div>
     </div>
-    </StandardLayout>
+    </div>
   );
 }
 

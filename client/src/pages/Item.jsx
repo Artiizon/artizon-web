@@ -54,13 +54,13 @@ function ItemNamePage() {
           />
           <button
             onClick={handleSearch}
-            className="px-4 py-2 bg-black hover:bg-gray-700 text-white rounded-lg"
+            className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg"
           >
             Search
           </button>
         </div>
-        <div className="w-full">
-          <table className="w-full border-collapse">
+        <div className="w-full ">
+          <table className="w-[1250px] ml-[25px] ">
             <thead>
               <tr>
                 <th className="py-2 px-4 bg-black text-white">Item Name</th>
@@ -71,14 +71,14 @@ function ItemNamePage() {
               </tr>
             </thead>
             <tbody>
-              {itemNames.map((item) => (
-                <tr key={item.item_name_id} className="text-center">
+              {itemNames.map((item,index) => (
+                <tr key={item.item_name_id} className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}>
                   <td className="py-2 px-4">{item.item_name}</td>
                   <td className="py-2 px-4">{item.total_quantity}</td>
                   <td className="py-2 px-4">
                     <Link
                       to={`/item-types/${item.item_name_id}`}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                      className="bg-black text-white px-4 py-2 rounded-md font-semibold"
                     >
                       View Types
                     </Link>

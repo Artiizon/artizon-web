@@ -18,39 +18,38 @@ const Header = () => {
   const [customerName, setCustomerName] = useState("");
 
   const [designerAuth, setDesignerAuth] = useState(false);
-  const [designerEmail, setDesignerEmail] = useState('');
-  const [designerTitle, setDesignerTitle] = useState('');
-  const [designerName, setDesignerName] = useState('');
+  const [designerEmail, setDesignerEmail] = useState("");
+  const [designerTitle, setDesignerTitle] = useState("");
+  const [designerName, setDesignerName] = useState("");
 
   const [stylistAuth, setStylistAuth] = useState(false);
-  const [stylistEmail, setStylistEmail] = useState('');
-  const [stylistTitle, setStylistTitle] = useState('');
-  const [stylistName, setStylistName] = useState('');
+  const [stylistEmail, setStylistEmail] = useState("");
+  const [stylistTitle, setStylistTitle] = useState("");
+  const [stylistName, setStylistName] = useState("");
 
   const [managerAuth, setManagerAuth] = useState(false);
-  const [managerEmail, setManagerEmail] = useState('');
-  const [managerTitle, setManagerTitle] = useState('');
-  const [managerName, setManagerName] = useState('');
+  const [managerEmail, setManagerEmail] = useState("");
+  const [managerTitle, setManagerTitle] = useState("");
+  const [managerName, setManagerName] = useState("");
 
   const [adminAuth, setAdminAuth] = useState(false);
-  const [adminEmail, setAdminEmail] = useState('');
-  const [adminTitle, setAdminTitle] = useState('');
-  const [adminName, setAdminName] = useState('');
-
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminTitle, setAdminTitle] = useState("");
+  const [adminName, setAdminName] = useState("");
 
   axios.defaults.withCredentials = true;
 
-    // Authorize Customer
-    useEffect(() => {
-        axios.get('http://localhost:8080/verifyCustomer').then(res => {
-            if(res.data.Status === 'Success_Authentication') {
-                setCustomerAuth(true);
-                setCustomerEmail(res.data.email);
-            } else {
-                setCustomerAuth(false);
-            }
-        })
-    }, [])
+  // Authorize Customer
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setCustomerAuth(true);
+        setCustomerEmail(res.data.email);
+      } else {
+        setCustomerAuth(false);
+      }
+    });
+  }, []);
 
   // Get Customer details
   if (customerAuth) {
@@ -72,134 +71,144 @@ const Header = () => {
     sessionStorage.removeItem("customer_name");
   }
 
-    // Authorize Designer
-    useEffect(() => {
-        axios.get('http://localhost:8080/verifyDesigner').then(res => {
-            if(res.data.Status === 'Success_Authentication') {
-                setDesignerAuth(true);
-                setDesignerEmail(res.data.email);
-            } else {
-                setDesignerAuth(false);
-            }
-        })
-    }, [])
+  // Authorize Designer
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyDesigner").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setDesignerAuth(true);
+        setDesignerEmail(res.data.email);
+      } else {
+        setDesignerAuth(false);
+      }
+    });
+  }, []);
 
-    // Get Designer details
-        if (designerAuth) {
-            axios.post('http://localhost:8080/getDesigner', {designerEmail}).then(res => {
-                if(res.data.Status === 'Success') {
-                    sessionStorage.setItem('designer_id', res.data.designer_id);
-                    sessionStorage.setItem('designer_title', res.data.designer_title);
-                    sessionStorage.setItem('designer_name', res.data.designer_name);
+  // Get Designer details
+  if (designerAuth) {
+    axios
+      .post("http://localhost:8080/getDesigner", { designerEmail })
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          sessionStorage.setItem("designer_id", res.data.designer_id);
+          sessionStorage.setItem("designer_title", res.data.designer_title);
+          sessionStorage.setItem("designer_name", res.data.designer_name);
 
-                    setDesignerTitle(res.data.designer_title);
-                    setDesignerName(res.data.designer_name);
-                }
-            });
-        } else {
-            sessionStorage.removeItem('designer_id');
-            sessionStorage.removeItem('designer_title');
-            sessionStorage.removeItem('designer_name');
+          setDesignerTitle(res.data.designer_title);
+          setDesignerName(res.data.designer_name);
         }
+      });
+  } else {
+    sessionStorage.removeItem("designer_id");
+    sessionStorage.removeItem("designer_title");
+    sessionStorage.removeItem("designer_name");
+  }
 
-    // Authorize Stylist
-    useEffect(() => {
-        axios.get('http://localhost:8080/verifyStylist').then(res => {
-            if(res.data.Status === 'Success_Authentication') {
-                setStylistAuth(true);
-                setStylistEmail(res.data.email);
-            } else {
-                setStylistAuth(false);
-            }
-        })
-    }, [])
+  // Authorize Stylist
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyStylist").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setStylistAuth(true);
+        setStylistEmail(res.data.email);
+      } else {
+        setStylistAuth(false);
+      }
+    });
+  }, []);
 
-    // Get Stylist details
-        if (stylistAuth) {
-            axios.post('http://localhost:8080/getStylist', {stylistEmail}).then(res => {
-                if(res.data.Status === 'Success') {
-                    sessionStorage.setItem('stylist_id', res.data.stylist_id);
-                    sessionStorage.setItem('stylist_title', res.data.stylist_title);
-                    sessionStorage.setItem('stylist_name', res.data.stylist_name);
+  // Get Stylist details
+  if (stylistAuth) {
+    axios
+      .post("http://localhost:8080/getStylist", { stylistEmail })
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          sessionStorage.setItem("stylist_id", res.data.stylist_id);
+          sessionStorage.setItem("stylist_title", res.data.stylist_title);
+          sessionStorage.setItem("stylist_name", res.data.stylist_name);
 
-                    setStylistTitle(res.data.stylist_title);
-                    setStylistName(res.data.stylist_name);
-                }
-            });
-        } else {
-            sessionStorage.removeItem('stylist_id');
-            sessionStorage.removeItem('stylist_title');
-            sessionStorage.removeItem('stylist_name');
+          setStylistTitle(res.data.stylist_title);
+          setStylistName(res.data.stylist_name);
         }
+      });
+  } else {
+    sessionStorage.removeItem("stylist_id");
+    sessionStorage.removeItem("stylist_title");
+    sessionStorage.removeItem("stylist_name");
+  }
 
-    // Authorize Manager
-    useEffect(() => {
-        axios.get('http://localhost:8080/verifyManager').then(res => {
-            if(res.data.Status === 'Success_Authentication') {
-                setManagerAuth(true);
-                setManagerEmail(res.data.email);
-            } else {
-                setManagerAuth(false);
-            }
-        })
-    }, [])
+  // Authorize Manager
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyManager").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setManagerAuth(true);
+        setManagerEmail(res.data.email);
+      } else {
+        setManagerAuth(false);
+      }
+    });
+  }, []);
 
-    // Get Manager details
-        if (managerAuth) {
-            axios.post('http://localhost:8080/getManager', {managerEmail}).then(res => {
-                if(res.data.Status === 'Success') {
-                    sessionStorage.setItem('manager_id', res.data.manager_id);
-                    sessionStorage.setItem('manager_title', res.data.manager_title);
-                    sessionStorage.setItem('manager_name', res.data.manager_name);
+  // Get Manager details
+  if (managerAuth) {
+    axios
+      .post("http://localhost:8080/getManager", { managerEmail })
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          sessionStorage.setItem("manager_id", res.data.manager_id);
+          sessionStorage.setItem("manager_title", res.data.manager_title);
+          sessionStorage.setItem("manager_name", res.data.manager_name);
 
-                    setManagerTitle(res.data.manager_title);
-                    setManagerName(res.data.manager_name);
-                }
-            });
-        } else {
-            sessionStorage.removeItem('manager_id');
-            sessionStorage.removeItem('manager_title');
-            sessionStorage.removeItem('manager_name');
+          setManagerTitle(res.data.manager_title);
+          setManagerName(res.data.manager_name);
         }
+      });
+  } else {
+    sessionStorage.removeItem("manager_id");
+    sessionStorage.removeItem("manager_title");
+    sessionStorage.removeItem("manager_name");
+  }
 
-    // Authorize Admin
-    useEffect(() => {
-        axios.get('http://localhost:8080/verifyAdmin').then(res => {
-            if(res.data.Status === 'Success_Authentication') {
-                setAdminAuth(true);
-                setAdminEmail(res.data.email);
-            } else {
-                setAdminAuth(false);
-            }
-        })
-    }, [])
+  // Authorize Admin
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyAdmin").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setAdminAuth(true);
+        setAdminEmail(res.data.email);
+      } else {
+        setAdminAuth(false);
+      }
+    });
+  }, []);
 
-    // Get Admin details
-        if (adminAuth) {
-            axios.post('http://localhost:8080/getAdmin', {adminEmail}).then(res => {
-                if(res.data.Status === 'Success') {
-                    sessionStorage.setItem('admin_id', res.data.admin_id);
-                    sessionStorage.setItem('admin_title', res.data.admin_title);
-                    sessionStorage.setItem('admin_name', res.data.admin_name);
+  // Get Admin details
+  if (adminAuth) {
+    axios.post("http://localhost:8080/getAdmin", { adminEmail }).then((res) => {
+      if (res.data.Status === "Success") {
+        sessionStorage.setItem("admin_id", res.data.admin_id);
+        sessionStorage.setItem("admin_title", res.data.admin_title);
+        sessionStorage.setItem("admin_name", res.data.admin_name);
 
-                    setAdminTitle(res.data.admin_title);
-                    setAdminName(res.data.admin_name);
-                }
-            });
-        } else {
-            sessionStorage.removeItem('admin_id');
-            sessionStorage.removeItem('admin_title');
-            sessionStorage.removeItem('admin_name');
-        }
+        setAdminTitle(res.data.admin_title);
+        setAdminName(res.data.admin_name);
+      }
+    });
+  } else {
+    sessionStorage.removeItem("admin_id");
+    sessionStorage.removeItem("admin_title");
+    sessionStorage.removeItem("admin_name");
+  }
 
-    const handleLogout = () => {
-        axios.get('http://localhost:8080/logout').then(res => {
-            location.reload(true);
-            alert("Log out successful");
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+  const handleLogout = () => {
+    axios
+      .get("http://localhost:8080/logout")
+      .then((res) => {
+        navigate("/");
+        location.reload(true);
+        alert("Log out successful");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <header className=" top-0 left-0 right-0  bg-black text-white flex justify-between items-center shadow-md border-none">
@@ -213,58 +222,199 @@ const Header = () => {
           ar<span>T</span>izon
         </p>
       </button>
+
       <div className="flex flex-row border-none gap-[45px] ml-[170px] ">
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/customizor">CUSTOMIZOR</NavLink>
-        </p>
-        <p className='header-item text-white hover:text-gray-300 transition-colors duration-300'>
-            <NavLink to="/company-design">DESIGNS</NavLink>
-        </p>
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/customerPortfolia">ORDERS</NavLink>
-        </p>
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/about">ABOUT</NavLink>
-        </p>
-        </div>
-        <div className="w-[300px] justify-end">
+        {/* ---------------CUSTOMIZOR---------------------------- */}
+
+        {!(
+          customerAuth ||
+          adminAuth ||
+          designerAuth ||
+          stylistAuth ||
+          managerAuth
+        ) && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/customizor">CUSTOMIZOR</NavLink>
+          </p>
+        )}
         {customerAuth && (
-            <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{customerTitle} {customerName}</NavLink>
-            </p>
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/customizor">CUSTOMIZOR</NavLink>
+          </p>
+        )}
+
+        {/* ---------------CUSTOMIZOR---------------------------- */}
+
+        {/* ---------------DASHBOARD---------------------------- */}
+
+        {designerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/designer-dash">DASHBOARD</NavLink>
+          </p>
+        )}
+
+        {stylistAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/stylist-dash">DASHBOARD</NavLink>
+          </p>
+        )}
+
+        {managerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/textileProManagerdashboard">DASHBOARD</NavLink>
+          </p>
+        )}
+
+        {adminAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/usermanage">DASHBOARD</NavLink>
+          </p>
+        )}
+
+        {/* ---------------DASHBOARD---------------------------- */}
+
+
+{/* ---------------STOCK---------------------------- */}
+
+{managerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/stock">STOCK</NavLink>
+          </p>
+        )}
+
+        {/* ---------------STOCK---------------------------- */}
+
+
+{/* ---------------ITEM---------------------------- */}
+
+{managerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/item">ITEM</NavLink>
+          </p>
+        )}
+
+        {/* ---------------ITEM---------------------------- */}
+
+
+        {/* ---------------DESIGNS---------------------------- */}
+
+        {(customerAuth || designerAuth || stylistAuth ) && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/company-design">DESIGNS</NavLink>
+          </p>
+        )}
+        {!(
+          customerAuth ||
+          adminAuth ||
+          designerAuth ||
+          stylistAuth ||
+          managerAuth
+        ) && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/company-design">DESIGNS</NavLink>
+          </p>
+        )}
+
+        {/* ---------------DESIGNS---------------------------- */}
+
+        
+
+        {/* ---------------ORDERS---------------------------- */}
+
+        {customerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/customerPortfolia">ORDERS</NavLink>
+          </p>
+        )}
+
+        {/* ---------------ORDERS---------------------------- */}
+
+        {/* ---------------ABOUT---------------------------- */}
+
+        
+        {!(
+          customerAuth ||
+          adminAuth ||
+          designerAuth ||
+          stylistAuth ||
+          managerAuth
+        ) && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/about">ABOUT</NavLink>
+          </p>
+        )}
+        {customerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/about">ABOUT</NavLink>
+          </p>
+        )}
+
+        {/* ---------------ABOUT---------------------------- */}
+
+
+
+
+
+      </div>
+
+      <div className="w-[300px] justify-end">
+        {customerAuth && (
+          <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
+            <NavLink to="/profile">
+              {customerTitle} {customerName}
+            </NavLink>
+          </p>
         )}
         {designerAuth && (
-            <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{designerTitle} {designerName}</NavLink>
-            </p>
+          <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
+            <NavLink to="/profile">
+              {designerTitle} {designerName}
+            </NavLink>
+          </p>
         )}
         {stylistAuth && (
-            <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{stylistTitle} {stylistName}</NavLink>
-            </p>
+          <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
+            <NavLink to="/profile">
+              {stylistTitle} {stylistName}
+            </NavLink>
+          </p>
         )}
         {managerAuth && (
-            <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{managerTitle} {managerName}</NavLink>
-            </p>
+          <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
+            <NavLink to="/profile">
+              {managerTitle} {managerName}
+            </NavLink>
+          </p>
         )}
         {adminAuth && (
-            <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{adminTitle} {adminName}</NavLink>
-            </p>
+          <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
+            <NavLink to="/profile">
+              {adminTitle} {adminName}
+            </NavLink>
+          </p>
         )}
-        {(customerAuth || adminAuth || designerAuth || stylistAuth || managerAuth) && (
-            <p className='header-item' onClick={handleLogout}>
-                LOGOUT
-            </p>
+        {(customerAuth ||
+          adminAuth ||
+          designerAuth ||
+          stylistAuth ||
+          managerAuth) && (
+          <p className="header-item" onClick={handleLogout}>
+            LOGOUT
+          </p>
         )}
-        {!(customerAuth || adminAuth || designerAuth || stylistAuth || managerAuth) && (
-            <p className='header-item'>
-                <NavLink to="/login">LOGIN</NavLink>
-            </p>
+        {!(
+          customerAuth ||
+          adminAuth ||
+          designerAuth ||
+          stylistAuth ||
+          managerAuth
+        ) && (
+          <p className="header-item">
+            <NavLink to="/login">LOGIN</NavLink>
+          </p>
         )}
-        </div>
-        {/* <div>
+      </div>
+      {/* <div>
             <span></span>
             <span></span>
             <div className="inner-circle"></div>
