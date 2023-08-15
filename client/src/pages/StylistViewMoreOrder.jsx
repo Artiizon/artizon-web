@@ -10,47 +10,10 @@ const StylistViewOrderForm = () => {
   state.page = 'no-canvas';
   const navigate = useNavigate();
   const [modalImage, setModalImage] = useState(null);
-  const [showRejectPopup, setShowRejectPopup] = useState(false);
-  const [rejectMainReason, setRejectMainReason] = useState('');
-  const [rejectAdditionalNote, setRejectAdditionalNote] = useState('');
-
-  const openRejectPopup = () => {
-    setShowRejectPopup(true);
-  };
-
-  const closeRejectPopup = () => {
-    setShowRejectPopup(false);
-    setRejectMainReason('');
-    setRejectAdditionalNote('');
-  };
-
-  const handleReject = () => {
-    // Send reject reason and additional note to the server
-    const requestData = {
-      tshirtOrderStatus: 'S Rejected', // Update status accordingly
-      stylistNote: rejectAdditionalNote,
-      rejectReason: rejectMainReason,
-    };
-
-    axios
-      .patch(`http://127.0.0.1:8080/stylist_reject_order/${id}`, requestData)
-      .then((response) => {
-        console.log(response.data);
-        // Handle success, close popup, update UI, etc.
-        closeRejectPopup();
-        navigate('/review-order');
-      })
-      .catch((error) => {
-        console.error('Error updating tshirt order:', error);
-        // Handle error, show error message, etc.
-      });
-  };
-
 
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
-    additionalNote: '',
     tshirtQuantity: [
       { size: 'xs', quantity: 0 },
       { size: 's', quantity: 0 },
@@ -69,23 +32,6 @@ const StylistViewOrderForm = () => {
     setModalImage(null);
   };
 
-  const handleProceed = () => {
-    const requestData = {
-      tshirtOrderStatus: 'Proceed',
-      stylistNote: formData.additionalNote,
-    };
-
-    axios
-      .patch(`http://127.0.0.1:8080/proceed_tshirt_order/${id}`, requestData)
-      .then((response) => {
-        console.log(response.data);
-        navigate('/review-order');
-      })
-      .catch((error) => {
-        console.error('Error updating database:', error);
-      });
-  };
-
   useEffect(() => {
     axios.get(`http://127.0.0.1:8080/review_order/${id}`)
       .then(response => {
@@ -99,9 +45,11 @@ const StylistViewOrderForm = () => {
           colorCode: response.data.color,
           specialNote:response.data.additional_note,
           expectedDays: response.data.expected_days,
-          additionalNote: '',
           logoFile:response.data.logo_file,  
           totQuantity:response.data.total_quantity,
+          additionalNote:response.data.stylist_note,
+          rejectedReason:response.data.reject_reason,
+          status:response.data.status,
           // xs: response.data.xs_quantity,
           // s:response.data.s_quantity,
           // m:response.data.m_quantity,
@@ -146,7 +94,7 @@ const StylistViewOrderForm = () => {
   return (
       <div className="flex justify-center items-center mt-[40px] ">
         <div className="w-1/2 p-6 bg-white font-sans  ">
-          <h2 className="ml-[-100px] mt-[-20px] text-[45px] font-bold mb-4">Stylist Review Order Form</h2>
+          <h2 className="ml-[-100px] mt-[-20px] text-[45px] font-bold mb-4">Stylist View Order Details</h2>
           <div className="">
             <form onSubmit={handleSubmit} >
             <div className="mb-4">
@@ -309,72 +257,38 @@ const StylistViewOrderForm = () => {
             </div>
 
               <div className="mb-4">
+              {formData.status === "Proceed" ? (
                 <label htmlFor="additionalNote" className="block  font-medium">
                   Additional Note
                 </label>
-                <textarea
+              ) : 
+              <label htmlFor="additionalNote" className="block  font-medium">
+                  Rejected Note
+             </label>
+              }
+                <input
                   id="additionalNote"
                   name="additionalNote"
                   value={formData.additionalNote}
-                  onChange={handleInputChange}
                   className="mt-1 p-2 w-full border rounded"
+                  readOnly
                 />
               </div> 
               
-              <div className="flex justify-between">
-              <button
-                type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
-                onClick={openRejectPopup}
-              >
-                Reject
-              </button>
-
-               <button
-                type="button"
-                onClick={handleProceed}
-                className="bg-black text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
-              >
-                Proceed
-              </button>
-              </div>
-
-              {showRejectPopup && (
-        <div className="modal-review">
-          <div className="modal-content-wrapper-review">
-            <span className="close" onClick={closeRejectPopup}>
-              &times;
-            </span>
-            <div className="reject-popup">
-              <h3 className="modal-title">Rejected Reason</h3>
-              <div className="modal-content-review">
-                <label className="popup-label">Main Reason:</label>
-                <select
-                  className="popup-select"
-                  value={rejectMainReason}
-                  onChange={(e) => setRejectMainReason(e.target.value)}
-                >
-              <option value="">Select Main Reason</option>
-              <option value="design">Issues with the design</option>
-              <option value="quantity">Quantity is too high</option>
-              <option value="color">Color mismatch</option>
-                </select>
-                <label className="popup-label">Additional Note:</label>
-                <textarea
-                  className="popup-textarea"
-                  value={rejectAdditionalNote}
-                  onChange={(e) => setRejectAdditionalNote(e.target.value)}
+              {formData.status === "SRejected" ? (
+              <div className="mb-4">
+                <label htmlFor="additionalNote" className="block  font-medium">
+                  Rejected Reason
+                </label>
+                <input
+                  id="additionalNote"
+                  name="additionalNote"
+                  value={formData.rejectedReason}
+                  className="mt-1 p-2 w-full border rounded"
+                  readOnly
                 />
-                <button className="popup-button" onClick={handleReject}>
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-
+              </div> 
+              ) : null}
             </form>
           </div>
         </div>

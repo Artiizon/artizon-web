@@ -254,13 +254,14 @@ const ReviewOrderPage = () => {
                           Review
                         </Link>
                       </div>
-                    ) : null}
+                    ) : 
                     <div>
                     <button className="text-black font-semibold hover:underline cursor-pointer text-decoration-none">
-                      <Link to={`/stylist-view-more//${order.tshirt_order_id}`}>View More</Link>
+                      <Link to={`/stylist-view-order/${order.tshirt_order_id}`}>View More</Link>
                     </button>
 
                     </div>
+                    }
                   </td>
                 </tr>
               ))}
