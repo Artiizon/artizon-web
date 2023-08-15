@@ -25,7 +25,7 @@ const Counts = ({ count, tag, im }) => {
 export default function UseManageMain() {
   
   return (
-    <div className="mt-[-40px]">
+    <div className="mt-[-40px] min-h-screen">
       {/* <p className="text-[35px]  ml-[35px] pt-[90px] p-9 font-bold">
         USER MANAGEMENT
       </p> */}
@@ -33,7 +33,7 @@ export default function UseManageMain() {
         <Counts count="10" tag="CUSTOMERS" im={im1} />
         <Counts count="5" tag="DESIGNERS" im={im2} />
         <Counts count="1" tag="STYLISTS" im={im3} />
-        <Counts count="5" tag="ADMINS" im={im4} />
+        <Counts count="1" tag="ADMINS" im={im4} />
       </div>
       <p className="mt-[20px]"></p>
       <button className="w-[130px] h-[32px] bg-black rounded-md text-white text-sm ml-[1218px] mt-[25px] font-sans font-[600] mb-[9px] flex">

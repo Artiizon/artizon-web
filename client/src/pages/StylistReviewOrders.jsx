@@ -157,7 +157,7 @@ const ReviewOrderPage = () => {
   // };
 
   const filteredOrders = torders.filter((order) => {
-    if (activeTab === "Rejected") return order.status === "SRejected";
+    if (activeTab === "Rejected") return order.status === "S Rejected";
     if (activeTab === "Accepted") return order.status === "Proceed";
     return order.status === "Pending";
   });
@@ -193,7 +193,7 @@ const ReviewOrderPage = () => {
               activeTab === "Accepted" ? "bg-green-500" : "bg-black"
             } text-white px-4 py-2 rounded-md`}
           >
-            Proceed Orders
+            Proceeded Orders
           </button>
         </div>
 

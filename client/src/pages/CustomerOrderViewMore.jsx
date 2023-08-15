@@ -1,13 +1,12 @@
 import React from "react";
-import Navbar from "../../components/header/Navbar";
-import circle from "../../images/orders/circle1.png";
-import tick from "../../images/orders/tick2.png";
-import ims from "../../images/portPp/ot1.png";
-import imX from "../../images/orders/x.png";
+import circle from "../images/orders/circle1.png";
+import tick from "../images/orders/tick2.png";
+import ims from "../images/canvas.png";
+import imX from "../images/orders/x.png";
 import { useSnapshot } from "valtio";
-import state from "../../store";
+import state from "../store";
 
-export default function CustomerOrderDetailsF() {
+export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
 
@@ -17,7 +16,7 @@ export default function CustomerOrderDetailsF() {
 
       <div>
         <p className="text-[35px]  ml-[50px] mt-[120px] mb-[50px] uppercase">
-          ORDER NO : #45823
+          ORDER NO : 1
         </p>
         <div className="status bar ml-[23%] h-[10px] w-[67%]  mt-[20px] flex ">
           {/* Using ternary operator for conditional rendering */}

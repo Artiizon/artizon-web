@@ -46,7 +46,7 @@ function StockManagementPage() {
       </div>
 
       {/* Table for stocks */}
-      <div className="ml-[50px] w-[1200px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
+      <div className="ml-[50px] w-[1370px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
         <table className="w-full table-auto bg-white shadow-md rounded-lg">
           <thead className="bg-black text-white">
             <tr className="bg-black text-white">

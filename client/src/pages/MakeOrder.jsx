@@ -2,6 +2,8 @@ import { useSnapshot } from "valtio";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import LoginError from "./LoginError";
+
 import state from "../store";
 
 import { useNavigate } from "react-router-dom";
@@ -43,6 +45,7 @@ const MakeOrder = () => {
 
   const [material, setMaterial] = useState("");
   const [note, setNote] = useState("");
+  const [days, setDays] = useState(0);
   const [quantities, setQuantities] = useState([0, 0, 0, 0, 0, 0]);
   const [sizes, setSizes] = useState([
     false,
@@ -83,6 +86,7 @@ const MakeOrder = () => {
         color,
         note,
         logo,
+        days,
         customerId,
         quantities,
       })
@@ -273,8 +277,13 @@ const MakeOrder = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="printing_files">Printing Files</label> <br />
-                <input type="file" name="printing_files" />
+                <label htmlFor="days">Expected Days</label> <br />
+                <input
+                  className="text-area"
+                  type="number"
+                  name="days"
+                  onChange={(e) => setDays(e.target.value)}
+                />
               </div>
               <div>
                 <label htmlFor="additional_note">Additional Note</label> <br />
@@ -313,6 +322,7 @@ const MakeOrder = () => {
           </div>
         </div>
       )}
+      {!customerAuth && <LoginError />}
     </>
   );
 };

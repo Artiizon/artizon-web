@@ -4,27 +4,6 @@ import React, { useState } from "react";
 
 const DATA = [
   {
-    uId: "07",
-    fullName: "Nuwan Tharanga",
-    email: "nuwan44@gmail.com",
-    Designs: "16",
-    style: "bg-[#D9D9D9]",
-  },
-  {
-    uId: "08",
-    fullName: "Kusal Chathuranga",
-    email: "ktharanga15@gmail.com",
-    Designs: "18",
-    style: "bg-[#F1F1F1]",
-  },
-  {
-    uId: "10",
-    fullName: "Nirmal ravindu",
-    email: "Nimravi78@gmail.com",
-    Designs: "14",
-    style: "bg-[#D9D9D9]",
-  },
-  {
     uId: "14",
     fullName: "Kavindi imasha",
     email: "kavih96@gmail.com",

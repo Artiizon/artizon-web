@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
 import CustomerOrders from "./pages/CustomerOrders";
+import CustomerOrderViewMore from "./pages/CustomerOrderViewMore";
+import CustomerProfile from "./pages/CustomerProfile";
 
 import UserManageMain from "./pages/UserManage/UserManageMain";
 
@@ -75,6 +77,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/customerorders" element={<CustomerOrders />} />
+          <Route path="/customerorder-view-more" element={<CustomerOrderViewMore />} />
+          <Route path="/customerprofile" element={<CustomerProfile />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
           <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>

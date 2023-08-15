@@ -26,6 +26,7 @@ import getManagerModel from './models/getManager.model.js';
 import getStylistModel from './models/getStylist.model.js';
 import makeOrderModel from './models/makeOrder.model.js';
 import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
+import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 
 import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
@@ -90,6 +91,7 @@ app.use('/getManager', getManagerModel);
 app.use('/getStylist', getStylistModel);
 app.use('/makeOrder', makeOrderModel);
 app.use('/getCustomerOrders', getCustomerOrdersModel);
+app.use('/getCustomerDetails', getCustomerDetailsModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)
 app.use('/viewCompanyDesigns', companyDesign);

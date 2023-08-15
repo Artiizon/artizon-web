@@ -95,8 +95,8 @@ const StylistReviewOrderForm = () => {
           designImage: image_1,
           designImage2: response.data.image_2,
           designImage3: response.data.image_3,
-          material: response.data.material,
-          colorCode: response.data.color,
+          material: response.data.tmaterial,
+          colorCode: response.data.tcolor,
           specialNote:response.data.additional_note,
           expectedDays: response.data.expected_days,
           additionalNote: '',
@@ -229,7 +229,7 @@ const StylistReviewOrderForm = () => {
               </div>
               <div className="mb-4">
                 <label htmlFor="colorCode" className="block  font-medium">
-                  Color Code
+                  Color
                 </label>
                 <input
                   type="text"
