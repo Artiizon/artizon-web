@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.route('/').post((req, res) => {
 
-    const sql1 = 'INSERT INTO `customer` (`first_name`, `last_name`, `title`, `email`, `contact_number`, `adress_liine_1`, `adress_liine_2`, `adress_liine_3`, `adress_liine_4`) VALUES (?);';
+    const sql1 = 'INSERT INTO `customer` (`first_name`, `last_name`, `title`, `email`, `contact_number`, `address_line_1`, `address_line_2`, `address_line_3`, `address_line_4`) VALUES (?);';
 
     const VALUES1 = [req.body.fname, req.body.lname, req.body.title, req.body.email, req.body.phone, req.body.address1, req.body.address2, req.body.address3, req.body.address4];
 

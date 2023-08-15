@@ -16,7 +16,8 @@ function ItemTypesPage() {
     const [itemName, setItemName] = useState("");
     const [itemTypes, setItemTypes] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-   
+
+    
 
     useEffect(() => {
       axios
@@ -55,7 +56,7 @@ function ItemTypesPage() {
   };
 
   return (
-    <StandardLayout>
+    <div>
         <h1 className="text-3xl mt-10 font-bold text-gray-800  ml-10">Item Types for {itemName}</h1>
          <div className='px-2'>
              <hr className="my-4 border-t-2 border-gray-200" />
@@ -75,7 +76,7 @@ function ItemTypesPage() {
         <button
           
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          className="bg-black text-white px-4 py-2 rounded-md"
         >
           Search
         </button>
@@ -92,9 +93,9 @@ function ItemTypesPage() {
           <tbody>
             {itemTypes.map((itemType) => (
               <tr key={itemType.item_type_id} className="text-center">
-                <td className="py-2 px-4">{itemType.item_type}</td>
-                <td className="py-2 px-4">{itemType.total_quantity}</td>
-                <td className="py-2 px-4">
+                <td className="py-2.5 px-4">{itemType.item_type}</td>
+                <td className="py-2.5 px-4">{itemType.total_quantity}</td>
+                <td className="py-2.5 px-4">
                 <Link
                         to={`/item-colors/${itemType.item_type_id}?itemName=${encodeURIComponent(itemName)}`}
                         
@@ -110,7 +111,7 @@ function ItemTypesPage() {
         </table>
       </div>
     </div>
-    </StandardLayout>
+    </div>
   );
 }
 

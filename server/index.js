@@ -33,7 +33,8 @@ import individualDesignDetailsModel from './models/fetchCompanyDetailsById.model
 import fetchOrdersModel from './models/fetchOrders.model.js';
 import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
 import stylistReviewOrderModel from './models/stylistReviewOrder.model.js';
-import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.model.js';
+import managerAcceptRejectOrderModel from './models/Inventory/managerReviewAcceptReject.model.js';
+import managerRejectOrderModel from './models/Inventory/managerRejectOrder.model.js';
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -62,8 +63,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ['http://127.0.0.1:5173'],
-  methods: ['GET', 'POST'],
+  origin: ['http://localhost:5173'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   credentials: true
 }));
 
@@ -92,9 +93,12 @@ app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
 app.use('/viewDesigns', fetchDesignerDesignsModel )
 app.use('/review_order', stylistReviewOrderModel)
-app.use('/accept_reject_order', stylistAcceptRejectOrderModel)
+app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
+
+
 app.use('/viewOrderstpm', fetchOrderstpmModel)
-app.use('/review_order', managerReviewOrderModel)
+app.use('/review_ordertpm', managerReviewOrderModel)
+app.use('/manager_reject_order', managerRejectOrderModel)
 
 app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);

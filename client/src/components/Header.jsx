@@ -154,6 +154,7 @@ const Header = () => {
 
                     setManagerTitle(res.data.manager_title);
                     setManagerName(res.data.manager_name);
+                    console.log("GG");
                 }
             });
         } else {
@@ -194,8 +195,9 @@ const Header = () => {
 
     const handleLogout = () => {
         axios.get('http://localhost:8080/logout').then(res => {
+            navigate('/login');
             location.reload(true);
-            alert("Log out successful");
+           // alert("Log out successful");
         }).catch(err => {
             console.log(err);
         })
@@ -214,43 +216,91 @@ const Header = () => {
         </p>
       </button>
       <div className="flex flex-row border-none gap-[45px] ml-[170px] ">
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/customizor">CUSTOMIZOR</NavLink>
-        </p>
-        <p className='header-item text-white hover:text-gray-300 transition-colors duration-300'>
-            <NavLink to="/company-design">DESIGNS</NavLink>
-        </p>
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/customerPortfolia">ORDERS</NavLink>
-        </p>
-        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/about">ABOUT</NavLink>
-        </p>
+        
+      {!(adminAuth || designerAuth || stylistAuth || managerAuth) &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+               <NavLink to="/customizor">CUSTOMIZOR</NavLink>
+            </p>
+       )}  
+
+       {!(adminAuth || designerAuth || stylistAuth || managerAuth) &&(
+            <p className='header-item text-white hover:text-gray-300 transition-colors duration-300'>
+                <NavLink to="/company-design">DESIGNS</NavLink>
+            </p>
+       )}  
+
+       {(customerAuth) &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+               <NavLink to="/customerPortfolia">ORDERS</NavLink>
+            </p>
+       )}  
+
+      
+       {!(adminAuth || designerAuth || stylistAuth || managerAuth) &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+               <NavLink to="/about">ABOUT</NavLink>
+            </p>
+       )}  
+       
+
+
+        {managerAuth &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+               <NavLink to="/textileProManagerdashboard">Dashboard</NavLink>
+            </p>
+        )}  
+
+        {managerAuth &&(
+            <p className='header-item text-white hover:text-gray-300 transition-colors duration-300'>
+               <NavLink to="/stock">Stocks</NavLink>
+            </p>
+        )}  
+
+       {managerAuth &&(
+           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+             <NavLink to="/tpm_review_orders">Review Orders</NavLink>
+            </p>
+        )}  
+  
+       {managerAuth &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+              <NavLink to="/item">Item</NavLink>
+            </p>
+        )}  
+  
+       {/* {managerAuth &&(
+            <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+              <NavLink to="/price">Price</NavLink>
+            </p>
+       )}   */}
+
         </div>
+
+
         <div className="w-[300px] justify-end">
         {customerAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{customerTitle} {customerName}</NavLink>
+                <NavLink to="/profile">{customerTitle.toUpperCase()}. {customerName.toUpperCase()}</NavLink>
             </p>
         )}
         {designerAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{designerTitle} {designerName}</NavLink>
+                <NavLink to="/profile">{designerTitle.toUpperCase()}. {designerName.toUpperCase()}</NavLink>
             </p>
         )}
         {stylistAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{stylistTitle} {stylistName}</NavLink>
+                <NavLink to="/profile">{stylistTitle.toUpperCase()}. {stylistName.toUpperCase()}</NavLink>
             </p>
         )}
         {managerAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{managerTitle} {managerName}</NavLink>
+                <NavLink to="/profile">{managerTitle.toUpperCase()}. {managerName.toUpperCase()}</NavLink>
             </p>
         )}
         {adminAuth && (
             <p className='header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]'>
-                <NavLink to="/profile">{adminTitle} {adminName}</NavLink>
+                <NavLink to="/profile">{adminTitle.toUpperCase()}. {adminName.toUpperCase()}</NavLink>
             </p>
         )}
         {(customerAuth || adminAuth || designerAuth || stylistAuth || managerAuth) && (

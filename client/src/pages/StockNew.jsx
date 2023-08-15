@@ -8,7 +8,7 @@ import state from "../store";
 
 const quantityInputTypes = [
   { itemvalue: "Material", quantityType: "number", quantitylabel: "Meters" },
-  { itemvalue: "Button", quantityType: "number", quantitylabel: "Count" },
+  { itemvalue: "Button", quantityType: "number", quantitylabel: "pieces" },
 ];
 
 function AddNewStockPage() {
@@ -105,18 +105,27 @@ function AddNewStockPage() {
 
   return (
       <div className="px-10 py-6 mt-3 bg-white rounded-lg shadow-md min-h-screen">
-        <div className="flex items-center justify-between pb-3">
-          <h1 className="text-3xl font-semibold">Add New Stock</h1>
-             <div className="">
-                <Link
-                  to="/stock/new" 
-                  className="text-white bg-blue-500 px-4 py-2 rounded-md"
-                >
-                  Create New Item 
-                </Link>
-              </div>
+       <div className="flex items-center justify-between pb-3">
+  <h1 className="text-3xl font-semibold">Add New Stock</h1>
 
-        </div>
+  <div className="">
+    {/* Add New Supplier Button */}
+    {/* <Link
+      to="/supplier/new" 
+      className="bg-black text-white px-4 py-2 mr-3  rounded-md"
+    >
+      Add New Supplier
+    </Link>
+
+    <Link
+      to="/stock/new" 
+      className="bg-black text-white px-4 py-2 rounded-md" 
+    >
+      Create New Item 
+    </Link> */}
+  </div>
+</div>
+
         <div className='px-2'>
          <hr className=" border-t-2 border-gray-200" />
         </div>
