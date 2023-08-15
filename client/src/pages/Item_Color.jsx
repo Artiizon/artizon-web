@@ -60,7 +60,7 @@ function ItemColorsPage() {
   };
 
   return (
-    <StandardLayout>
+    <div>
         <h1 className="text-3xl mt-10 font-bold text-gray-800  ml-10">Item Colors for {itemName} {itemType}</h1>
          <div className='px-2'>
              <hr className="my-4 border-t-2 border-gray-200" />
@@ -82,7 +82,7 @@ function ItemColorsPage() {
         <button
           
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          className="bg-black text-white px-4 py-2 rounded-md"
         >
           Search
         </button>
@@ -106,7 +106,7 @@ function ItemColorsPage() {
         </table>
       </div>
     </div>
-    </StandardLayout>
+    </div>
   );
 }
 

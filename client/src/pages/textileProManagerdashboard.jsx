@@ -66,7 +66,7 @@ const TextileProductionManagerDashboard = () => {
   return (
     <div className="font-sans font-bold container mx-auto px-4 py-2">
 
-        <h1 className=" text-[45px]  text-black mb-[10px] ml-[170px]">Dashboard</h1>
+        <h1 className=" text-[45px]  text-black mb-[10px] ml-[50px]">Dashboard</h1>
 
        
 

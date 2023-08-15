@@ -55,23 +55,24 @@ const Login = () => {
                 if(res.data.Status === 'Success_Login_Customer') {
                     navigate('/');
                     location.reload(true);
-                    alert('Login Successful');
+                    // alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Designer') {
                     navigate('/designer-dash');
                     location.reload(true);
-                    alert('Login Successful');
+                   // alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Stylist') {
                     navigate('/stylist-dash');
                     location.reload(true);
-                    alert('Login Successful');
+                    //alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Manager') {
                     navigate('/textileProManagerdashboard');
                     location.reload(true);
-                    alert('Login Successful');
+                    
+                    //alert('Login Successful');
                 }else if(res.data.Status === 'Success_Login_Admin') {
                     navigate('/admin-dashboard');
                     location.reload(true);
-                    alert('Login Successful');
+                    //alert('Login Successful');
                 } else if(res.data.Error === 'Error_No_User') {
                     setEmailError('Email or password incorrect');
                     setPasswordError('Email or password incorrect');

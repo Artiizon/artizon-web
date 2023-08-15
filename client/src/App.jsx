@@ -42,6 +42,8 @@ import Item_Type from './pages/Item_Type';
 import Item_Colors from './pages/Item_Color';
 import StylistViewOrderForm from "./pages/StylistViewMoreOrder";
 
+import ManagerViewOrderForm from "./pages/ManagerViewMoreOrder";
+
 import DesignerPortfolia from './pages/Portfolia/DesignerPortfolia';
 import CustomerPortfolia from './pages/Portfolia/CustomerPortfolia';
 import CustomerDetails from './pages/Portfolia/CustomerDetails';
@@ -50,6 +52,8 @@ import AddUsers from './pages/UserManage/AddUsers';
 import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
 import Footer from "./components/footer/Footer";
 
+
+import AddNewSupplier from "./pages/AddNewSupplier";
 
 function App() {
 
@@ -92,6 +96,7 @@ function App() {
           <Route exact path="/stylist-view-order/:id" element={<StylistViewOrderForm/>}/>
 
        
+          <Route exact path="/manager-view-order/:id" element={<ManagerViewOrderForm/>}/>
 
           <Route exact path="/" element={<Home/>}/>
           <Route exact path="/item" element={<Item/>}/>
@@ -106,6 +111,11 @@ function App() {
           <Route exact path="/item-colors/:item_type_id" element={<Item_Colors/>}/>
           <Route exact path="/textileProManagerdashboard" element={<TextileProManagerdashboard/>}/>
     
+                  
+          <Route exact path="/supplier/new" element={<AddNewSupplier/>}/>
+          
+
+
         </Routes>
        
         {excludedRoutes.includes(window.location.pathname) ? null : <Footer />}

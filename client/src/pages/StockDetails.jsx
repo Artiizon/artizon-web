@@ -68,7 +68,7 @@ function StockDetailsPage() {
         </div>
       </div>
 
-      <div className="ml-[240px] shadow-lg  hover:shadow-xl w-[1040px] rounded-lg p-6 mt-4 ">
+      <div className="ml-[240px] shadow-lg  hover:shadow-xl w-[875px] rounded-lg p-6 mt-4 ">
         <p className="text-gray-500 text-[20px] font-[700]">Description</p>
         <p className="text-2xl font-semibold">{stock.description}</p>
       </div>

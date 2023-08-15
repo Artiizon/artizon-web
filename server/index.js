@@ -36,6 +36,8 @@ import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
 import stylistReviewOrderModel from './models/stylistReviewOrder.model.js';
 import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.model.js';
 import stylistRejectOrderModel from './models/stylistRejectOrder.model.js';
+import managerAcceptRejectOrderModel from './models/Inventory/managerReviewAcceptReject.model.js';
+import managerRejectOrderModel from './models/Inventory/managerRejectOrder.model.js';
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -99,6 +101,12 @@ app.use('/proceed_tshirt_order', stylistAcceptRejectOrderModel)
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_order', managerReviewOrderModel)
 app.use('/stylist_reject_order', stylistRejectOrderModel)
+app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
+
+
+app.use('/viewOrderstpm', fetchOrderstpmModel)
+app.use('/review_ordertpm', managerReviewOrderModel)
+app.use('/manager_reject_order', managerRejectOrderModel)
 
 app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);

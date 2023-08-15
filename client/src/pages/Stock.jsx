@@ -29,11 +29,12 @@ function StockManagementPage() {
 
   return (
     <div className="px-10 bg-white min-h-screen">
+      
       <div className="flex justify-between items-center mb-6 m-5 font-sans">
         <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Stock Management</h1>
 
         {/* Add New Stock Button */}
-        <div className="mt-[80px]">
+        <div className="mt-40px]">
           <Link
             to="/stock/new" // Replace this with the path to the page where you create a new stock
             className="text-white bg-black font-semibold px-4 pb-[10px] pt-[7px] rounded-md"
@@ -41,10 +42,11 @@ function StockManagementPage() {
             Add New Stock
           </Link>
         </div>
+      
       </div>
 
       {/* Table for stocks */}
-      <div className="ml-[50px] w-[1370px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
+      <div className="ml-[50px] w-[1200px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
         <table className="w-full table-auto bg-white shadow-md rounded-lg">
           <thead className="bg-black text-white">
             <tr className="bg-black text-white">
