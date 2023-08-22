@@ -153,6 +153,11 @@
   background-color: #d32f2f;
 }
 
+/* Add this CSS to your stylesheet */
+.select-container select {
+  max-height: 250px; /* Adjust this value to your preference */
+  overflow-y: auto;
+}
 
   
   

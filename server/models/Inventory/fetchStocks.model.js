@@ -13,7 +13,7 @@ router.route('/')
           console.error("Error fetching stocks:", error);
           res.status(500).json({ message: "Server error" });
         } else {
-          console.log(results);
+         
           res.status(200).json(results);
         }
       });

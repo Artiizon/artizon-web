@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import StandardLayout from "../components/layout/StandardLayout";
 import { useSnapshot } from "valtio";
 import state from "../store";
-
-const quantityInputTypes = [
-  { itemvalue: "Material", quantityType: "number", quantitylabel: "Meters" },
-  { itemvalue: "Button", quantityType: "number", quantitylabel: "pieces" },
-];
+import Select from "react-select";
 
 function AddNewStockPage() {
   const snap = useSnapshot(state);
@@ -20,6 +16,8 @@ function AddNewStockPage() {
   const [colorOptions, setColorOptions] = useState({});
   const [typeOptions, setTypeOptions] = useState({});
   const [itemOptions, setItemOptions] = useState([]);
+  const [supplierOptions, setSupplierOptions] = useState([]);
+  const [quantityInputTypes, setQuantityInputTypes] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/color_options").then((response) => {
@@ -33,25 +31,62 @@ function AddNewStockPage() {
     axios.get("http://localhost:8080/api/item_options").then((response) => {
       setItemOptions(response.data);
     });
-  }, []);
 
-  console.log("Success", itemOptions);
+    axios.get("http://localhost:8080/api/supplier_options").then((response) => {
+      setSupplierOptions(response.data);
+    });
+
+    axios
+      .get("http://localhost:8080/api/quantityInputTypes")
+      .then((response) => {
+        setQuantityInputTypes(response.data);
+      });
+  }, []);
 
   const [stockData, setStockData] = useState({
     items: [],
     description: "",
+    supplier_id: "",
     totalCost: "",
   });
 
+  // Inside the handleItemChange function
   const handleItemChange = (index, field, value) => {
-    setStockData((prevStockData) => {
-      const updatedItems = [...prevStockData.items];
-      updatedItems[index][field] = value;
-      return {
+    // Clear selected type and color when item name changes
+    if (field === "itemName") {
+      value = value || ""; // Ensure value is not null or undefined
+      setStockData((prevStockData) => ({
         ...prevStockData,
-        items: updatedItems,
-      };
-    });
+        items: prevStockData.items.map((item, idx) =>
+          idx === index
+            ? { ...item, [field]: value, type: "", color: "" }
+            : item
+        ),
+      }));
+    } else if (field === "type") {
+      setStockData((prevStockData) => {
+        const updatedItems = [...prevStockData.items];
+        // Clear the color when type changes
+        updatedItems[index] = {
+          ...updatedItems[index],
+          [field]: value,
+          color: "",
+        };
+        return {
+          ...prevStockData,
+          items: updatedItems,
+        };
+      });
+    } else {
+      setStockData((prevStockData) => {
+        const updatedItems = [...prevStockData.items];
+        updatedItems[index][field] = value;
+        return {
+          ...prevStockData,
+          items: updatedItems,
+        };
+      });
+    }
   };
 
   const handleAddItem = () => {
@@ -104,32 +139,32 @@ function AddNewStockPage() {
   }, [stockData.items]);
 
   return (
-      <div className="px-10 py-6 mt-3 bg-white rounded-lg shadow-md min-h-screen">
-       <div className="flex items-center justify-between pb-3">
-  <h1 className="text-3xl font-semibold">Add New Stock</h1>
+    <div className="px-10 py-6 mt-3 bg-white rounded-lg shadow-md min-h-screen">
+      <div className="flex items-center justify-between pb-3">
+        <h1 className="text-3xl font-semibold">Add New Stock</h1>
 
-  <div className="">
-    {/* Add New Supplier Button */}
-    {/* <Link
-      to="/supplier/new" 
-      className="bg-black text-white px-4 py-2 mr-3  rounded-md"
-    >
-      Add New Supplier
-    </Link>
+        <div className="">
+          {/* Add New Supplier Button */}
+          <Link
+            to="/supplier/new"
+            className="bg-black text-white px-4 py-2 mr-3  rounded-md"
+          >
+            Add New Supplier
+          </Link>
 
-    <Link
-      to="/stock/new" 
-      className="bg-black text-white px-4 py-2 rounded-md" 
-    >
-      Create New Item 
-    </Link> */}
-  </div>
-</div>
-
-        <div className='px-2'>
-         <hr className=" border-t-2 border-gray-200" />
+          <Link
+            to="/Item/new"
+            className="bg-black text-white px-4 py-2 rounded-md"
+          >
+            Create New Item
+          </Link>
         </div>
-        
+      </div>
+
+      <div className="px-2">
+        <hr className=" border-t-2 border-gray-200" />
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="p-[20px] mt-[-25px]">
           {stockData.items.map((item, index) => (
@@ -148,97 +183,113 @@ function AddNewStockPage() {
                   </button>
                 )}
               </div>
+
               <div className="flex gap-4 mt-4">
                 <div className="w-1/3">
-                  <label className="block  font-medium text-black">
+                  <label className="block font-medium text-black">
                     Item Name <span className="text-red-500">*</span>
                   </label>
-                  <select
-                    name="itemName"
-                    value={item.itemName}
-                    onChange={(e) =>
-                      handleItemChange(index, "itemName", e.target.value)
+
+                  <Select
+                    options={[
+                      { value: "", label: "Select Item Name", disabled: true },
+                      ...itemOptions.map((itemOption) => ({
+                        value: itemOption.value,
+                        label: itemOption.value,
+                      })),
+                    ]}
+                    value={{
+                      value: item.itemName,
+                      label: item.itemName,
+                    }}
+                    onChange={(selectedOption) =>
+                      handleItemChange(index, "itemName", selectedOption.value)
                     }
                     className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                    isSearchable={true}
+                    placeholder="Select Item Name"
                     required
-                  >
-                    <option value="" disabled>
-                      Select Item Name
-                    </option>
-                    {itemOptions.map((itemOption) => (
-                      <option key={itemOption.value} value={itemOption.value}>
-                        {itemOption.value}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div className="w-1/3">
-                  <label className="block  font-medium text-black">
+                  <label className="block font-medium text-black">
                     Item Type <span className="text-red-500">*</span>
                   </label>
-                  <select
-                    name="type"
-                    value={item.type}
-                    onChange={(e) =>
-                      handleItemChange(index, "type", e.target.value)
+
+                  <Select
+                    options={[
+                      { value: "", label: "Select Item Type", disabled: true }, // Added disabled option
+                      ...(typeOptions[item.itemName] || []).map(
+                        (typeOption) => ({
+                          value: typeOption.value,
+                          label: typeOption.label,
+                        })
+                      ),
+                    ]}
+                    value={{
+                      value: item.type,
+                      label: item.type,
+                    }}
+                    onChange={(selectedOption) =>
+                      handleItemChange(index, "type", selectedOption.value)
                     }
                     className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                    isSearchable={true}
+                    placeholder="Select Type"
                     required
-                  >
-                    <option value="" disabled>
-                      Select Type
-                    </option>
-                    {typeOptions[item.itemName]?.map((typeOption) => (
-                      <option key={typeOption.value} value={typeOption.value}>
-                        {typeOption.label}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
 
                 <div className="w-1/3">
-                  <label className="block  font-medium text-black">
+                  <label className="block font-medium text-black">
                     Item Color <span className="text-red-500">*</span>
                   </label>
-                  <select
-                    name="color"
-                    value={item.color}
-                    onChange={(e) =>
-                      handleItemChange(index, "color", e.target.value)
+
+                  <Select
+                    options={[
+                      { value: "", label: "Select a color", disabled: true },
+                      ...(colorOptions[item.itemName]?.[item.type] || []).map(
+                        (colorOption) => ({
+                          value: colorOption.value,
+                          label: colorOption.value,
+                        })
+                      ),
+                    ]}
+                    value={{
+                      value: item.color,
+                      label: item.color,
+                    }}
+                    onChange={(selectedOption) =>
+                      handleItemChange(index, "color", selectedOption.value)
                     }
                     className="mt-1 p-2 border border-gray-300 rounded-md w-80"
+                    isSearchable={true}
+                    placeholder="Select a color"
                     required
-                  >
-                    <option value="" disabled>
-                      Select a color
-                    </option>
-                    {colorOptions[item.itemName]?.[item.type]?.map(
-                      (colorOption) => (
-                        <option
-                          key={colorOption.value}
-                          value={colorOption.value}
-                        >
-                          {colorOption.value}
-                        </option>
-                      )
-                    )}
-                  </select>
+                  />
                 </div>
               </div>
+
               <div className="flex gap-4 mt-4">
                 <div className="w-1/3">
                   <label className="block  font-medium text-black">
-                    Item Quantity{" "}
-                    {quantityInputTypes.find(
-                      (itemObj) => itemObj.itemvalue === item.itemName
-                    )?.quantitylabel || ""}{" "}
-                    <span className="text-red-500">*</span>
+                    {quantityInputTypes.map(
+                      (itemObj) =>
+                        itemObj.itemValue === item.itemName && (
+                          <span key={itemObj.itemValue}>
+                            Item Quantity{" "}
+                            <span className="text-red-500">*</span> ({" "}
+                            {itemObj.quantityLabel} )
+                          </span>
+                        )
+                    )}
                   </label>
+
                   <input
                     type={
                       quantityInputTypes.find(
-                        (itemObj) => itemObj.itemvalue === item.itemName
+                        (itemObj) => itemObj.itemValue === item.itemName
                       )?.quantityType || "text"
                     }
                     name="quantity"
@@ -263,9 +314,7 @@ function AddNewStockPage() {
         </div>
 
         <div className="px-4 py-2">
-          <label className="block  font-medium text-black">
-            Special Note <span className="text-red-500">*</span>
-          </label>
+          <label className="block  font-medium text-black">Special Note</label>
           <textarea
             name="description"
             value={stockData.description}
@@ -276,6 +325,38 @@ function AddNewStockPage() {
             required
           />
         </div>
+
+        <div className="px-4 py-2">
+          <label className="block font-medium text-black">
+            Select Supplier <span className="text-red-500">*</span>
+          </label>
+
+          <Select
+            options={[
+              { value: "", label: "Select Supplier", disabled: true },
+              ...supplierOptions.map((option) => ({
+                value: option.value,
+                label: option.value,
+              })),
+            ]}
+            value={{
+              value: stockData.supplier_id,
+              label: stockData.supplier_id,
+            }}
+            onChange={(selectedOption) =>
+              setStockData({
+                ...stockData,
+                supplier_id: selectedOption.value, // Change 'id' to 'value'
+              })
+            }
+            className="mt-1 mb-4 p-2 border border-gray-300 rounded-md w-full"
+            isSearchable={true}
+            placeholder="Select Supplier"
+            maxMenuHeight={170}
+            required
+          />
+        </div>
+
         <div className="px-4 py-2">
           <label className="block   font-medium text-black">
             Total Cost (Rs.) <span className="text-red-500">*</span>

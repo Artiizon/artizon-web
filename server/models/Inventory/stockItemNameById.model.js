@@ -5,10 +5,9 @@ const stockItemNameById = async (req, res) => {
   
       const { id } = req.params.id;
   
-        console.log("items_name_id",req.params.id)
        
         const item_name = await db.query("SELECT * FROM item_name WHERE item_name_id = ?", [req.params.id]);
-        console.log("items_name",item_name[0][0].item_name)
+     
         res.status(200).json(item_name[0][0].item_name);
   
       

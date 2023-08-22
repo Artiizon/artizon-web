@@ -56,7 +56,9 @@ import Footer from "./components/footer/Footer";
 import LoginError from "./pages/LoginError";
 
 
+
 import AddNewSupplier from "./pages/AddNewSupplier";
+import AddNewItem from "./pages/AddNewItem";
 
 function App() {
 
@@ -119,6 +121,7 @@ function App() {
     
                   
           <Route exact path="/supplier/new" element={<AddNewSupplier/>}/>
+          <Route exact path="/Item/new" element={<AddNewItem/>}/>
           
 
 

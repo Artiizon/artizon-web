@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddSupplierForm = () => {
+  
+  const navigate = useNavigate();
+
   const [supplierInfo, setSupplierInfo] = useState({
     supplier_name: '',
     contact_name: '',
     email: '',
     phone_number: '',
     address: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    country: '',
+    city: ''
   });
 
   const handleInputChange = (e) => {
@@ -23,7 +25,18 @@ const AddSupplierForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send supplierInfo to your backend or perform necessary actions
+
+   
+    axios
+      .post("http://localhost:8080/api/supplier", supplierInfo)
+      .then((response) => {
+        console.log(response.data);
+        navigate("/stock/new");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   };
 
   return (
@@ -75,7 +88,24 @@ const AddSupplierForm = () => {
           />
         </div>
 
-       
+
+        <div className="mb-4">
+          <label className="block font-medium mb-1" htmlFor="phone_number">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            id="phone_number"
+            name="phone_number"
+            value={supplierInfo.phone_number}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+            required
+          />
+        </div>
+
+
+
 
         <div className="mb-4">
           <label className="block font-medium mb-1" htmlFor="address">
