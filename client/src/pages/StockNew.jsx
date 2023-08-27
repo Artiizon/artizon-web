@@ -112,12 +112,40 @@ function AddNewStockPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (stockData.items.length === 0) {
-      setShowPopup(true);
+  
+    // if (stockData.items.length === 0) {
+    //   setShowPopup("Please add at least one item.");
+    //   return;
+    // }
+  
+    const hasEmptyItems = stockData.items.some(
+      (item) =>
+        !item.itemName || !item.type || !item.color || !item.quantity
+    );
+    if (hasEmptyItems) {
+      setShowPopup("Please fill in all item details.");
+      return;
+    }
+  
+    if (!stockData.description) {
+      setShowPopup("Please insert a Note.");
+      return;
+    }
+  
+    if (!stockData.totalCost) {
+      setShowPopup("Please insert the total cost.");
       return;
     }
 
+    if (!stockData.supplier_id) {
+      setShowPopup("Please select the supplier.");
+      return;
+    }
+
+  
+    // All validations passed, proceed with submitting the form
+    setShowPopup(null);
+  
     axios
       .post("http://localhost:8080/api/stock", stockData)
       .then((response) => {
@@ -128,6 +156,7 @@ function AddNewStockPage() {
         console.error(error);
       });
   };
+  
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -273,13 +302,13 @@ function AddNewStockPage() {
 
               <div className="flex gap-4 mt-4">
                 <div className="w-1/3">
-                  <label className="block  font-medium text-black">
+                  <label className="block  font-medium text-black">Item Quantity{" "} <span className="text-red-500">*</span>
                     {quantityInputTypes.map(
                       (itemObj) =>
                         itemObj.itemValue === item.itemName && (
                           <span key={itemObj.itemValue}>
-                            Item Quantity{" "}
-                            <span className="text-red-500">*</span> ({" "}
+                            
+                            ({" "}
                             {itemObj.quantityLabel} )
                           </span>
                         )
@@ -313,8 +342,11 @@ function AddNewStockPage() {
           </button>
         </div>
 
+
+
+
         <div className="px-4 py-2">
-          <label className="block  font-medium text-black">Special Note</label>
+          <label className="block  font-medium text-black"> Note<span className="text-red-500">*</span></label>
           <textarea
             name="description"
             value={stockData.description}
@@ -322,9 +354,14 @@ function AddNewStockPage() {
               setStockData({ ...stockData, description: e.target.value })
             }
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            style={{ height: "75px", resize: "none" }} // Disable resizing
             required
           />
         </div>
+
+
+
+
 
         <div className="px-4 py-2">
           <label className="block font-medium text-black">
@@ -335,18 +372,21 @@ function AddNewStockPage() {
             options={[
               { value: "", label: "Select Supplier", disabled: true },
               ...supplierOptions.map((option) => ({
-                value: option.value,
-                label: option.value,
+                value: option.id,
+                label: option.value, // Display supplier name
               })),
             ]}
             value={{
               value: stockData.supplier_id,
-              label: stockData.supplier_id,
+              label:
+                supplierOptions.find(
+                  (option) => option.id === stockData.supplier_id
+                )?.value || "Select Supplier",
             }}
             onChange={(selectedOption) =>
               setStockData({
                 ...stockData,
-                supplier_id: selectedOption.value, // Change 'id' to 'value'
+                supplier_id: selectedOption.value,
               })
             }
             className="mt-1 mb-4 p-2 border border-gray-300 rounded-md w-full"
@@ -378,15 +418,15 @@ function AddNewStockPage() {
             type="submit"
             onClick={handleSubmit}
             className="bg-black text-white px-4 py-2 rounded-md"
-            disabled={
-              stockData.items.length === 0 ||
-              stockData.items.some(
-                (item) =>
-                  !item.itemName || !item.type || !item.color || !item.quantity
-              ) ||
-              !stockData.description ||
-              !stockData.totalCost
-            }
+            // disabled={
+            //   stockData.items.length === 0 ||
+            //   stockData.items.some(
+            //     (item) =>
+            //       !item.itemName || !item.type || !item.color || !item.quantity
+            //   ) ||
+            //   !stockData.description ||
+            //   !stockData.totalCost
+            // }
           >
             Add Stock
           </button>
@@ -402,12 +442,12 @@ function AddNewStockPage() {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md shadow-md">
-            <p className="text-xl font-semibold mb-4">
-              Please add at least one item to save the stock.
+            <p className="text-2xl font-semibold mb-4">
+                {showPopup}
             </p>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => setShowPopup(false)}
+              className="bg-blue-500 text-white px-4  py-2 rounded-md"
+              onClick={() => setShowPopup(null)}
             >
               OK
             </button>

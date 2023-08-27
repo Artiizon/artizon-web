@@ -45,50 +45,52 @@ function StockManagementPage() {
       
       </div>
 
-      {/* Table for stocks */}
-      <div className="ml-[50px] w-[1200px] overflow-hidden max-h-[508px]  font-sans font-[700] rounded-[10px]">
-        <table className="w-full table-auto bg-white shadow-md rounded-lg">
-          <thead className="bg-black text-white">
-            <tr className="bg-black text-white">
-              <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
-              <th className="px-4 py-3 text-left">Date and Time</th>
-              <th className="px-4 py-3 text-left">Total Cost (Rs.)</th>
-              <th className="px-4 py-3 text-right"></th>
-            </tr>
-          </thead>
-
-          <tbody className="">
-            {stockData.map((value,index) => {
-              return (
-                <tr
-                  key={value.id}
-                  className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}
+      <div className="ml-[50px] w-[1200px] overflow-hidden max-h-[508px] font-sans font-[700] rounded-[10px]">
+  <div className="table-header bg-black text-white">
+    <table className="w-full">
+      <thead>
+        <tr>
+          <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
+          <th className="px-4 py-3 text-left">Date and Time</th>
+          <th className="px-4 py-3  text-left ">Supplier Name</th>
+          <th className="px-4 pr-10 py-3 text-left">Total Cost (Rs.)</th>
+          <th className="px-4 py-3  text-right"></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  
+  <div className="table-body overflow-y-auto max-h-[434px]">
+    <table className="w-full">
+      <tbody>
+        {stockData.map((value, index) => (
+          <tr key={value.id} className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}>
+            <td className="px-4 py-3 w-[100px] font-sans">{value.stock_id}</td>
+            <td className="px-3 py-3 font-sans">
+              {new Date(value.date_and_time).toLocaleString("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              })}
+            </td>
+            <td className="px-[20px] pr-20 py-3">{value.supplier_name}</td>
+            <td className="px-[40px] py-3">{value.total_cost}</td>
+            <td className="px-4 py-3  text-right">
+              <div className="flex justify-end gap-2 font-sans">
+                <Link
+                  to={`/stock/${value.stock_id}`}
+                  className="bg-black font-sans text-white py-2 px-4 rounded-md"
                 >
-                  <td className="px-4 py-3 w-[100px] font-sans">{value.stock_id}</td>
-                  <td className="px-4 py-3 font-sans">
-                    {new Date(value.date_and_time).toLocaleString("en-US", {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    })}
-                  </td>
+                  <p className="font-sans">View Details</p>
+                </Link>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-                  <td className="px-4 py-3">{value.total_cost}</td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex justify-end gap-2 font-sans">
-                      <Link
-                        to={`/stock/${value.stock_id}`}
-                        className="bg-black font-sans text-white py-2 px-4 rounded-md"
-                      >
-                        <p className="font-sans">View Details</p>
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }
