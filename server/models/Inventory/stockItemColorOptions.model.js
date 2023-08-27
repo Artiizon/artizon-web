@@ -9,7 +9,7 @@ const stockItemColorOptions =async (req, res) => {
       INNER JOIN item_name iname ON itype.item_name_id = iname.item_name_id
     `;
 
-    console.log("Jaliyaranketh");
+   
 
     // Use the `execute` method to execute the query
     const [rows, fields] = await db.execute(query);
@@ -26,7 +26,6 @@ const stockItemColorOptions =async (req, res) => {
       colorOptions[row.item_name][row.item_type].push({ value: row.item_color });
     });
 
-    console.log("LLLLL", colorOptions['Material']['Silk']);
     res.json(colorOptions);
 
 

@@ -39,7 +39,7 @@ router.route('/:id').get((req, res) => {
         res.status(500).json({ error: 'Error fetching order details' });
       } else {
         res.status(200).json(results[0]);
-        console.log(results[0]);
+        
       }
     });
   });

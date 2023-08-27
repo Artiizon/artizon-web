@@ -52,14 +52,18 @@ import { stockItemColorsByItemTypeId} from "./models/Inventory/stockItemColorsBy
 import { stockItemColorOptions} from "./models/Inventory/stockItemColorOptions.model.js";
 import { stockItemItemOptions } from "./models/Inventory/stockItemItemOptions.model.js";
 import { stockItemTypeOptions } from "./models/Inventory/stockItemTypeOptions.model.js";
-import { stockAddNew } from "./models/Inventory/stockAddNew.model.js";
-
+import stockAddNew  from "./models/Inventory/stockAddNew.model.js";
+import supplierAddNew from "./models/Inventory/supplierAddNew.model.js";
+import supplierOptions from "./models/Inventory/supplierOptions.model.js";
+import itemAddNew from "./models/Inventory/itemAddNew.model.js";
 
 // models
  
 import fetchOrderstpmModel from './models/Inventory/fetchOrderstpm.model.js';
 import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model.js';
-
+import itemexistCheck from './models/Inventory/itemexistCheck.model.js';
+import itemtypeexistCheck from './models/Inventory/itemtypeexistCheck.model.js'; 
+import quantityInputTypes from './models/Inventory/quantityInputTypesOptions.model.js';
 
 dotenv.config();
 
@@ -122,7 +126,16 @@ app.get("/api/item-colors/:item_type_id",stockItemColorsByItemTypeId);
 app.get("/api/color_options",stockItemColorOptions);
 app.get("/api/item_options",stockItemItemOptions);
 app.get("/api/type_options",stockItemTypeOptions);
-app.post("/api/stock",stockAddNew);
+app.use("/api/stock",stockAddNew);
+
+app.use("/api/supplier",supplierAddNew);
+app.use("/api/supplier_options",supplierOptions);
+app.use("/api/item/check",itemexistCheck);
+app.use("/api/item",itemAddNew);
+app.use("/api/item/checkItemType",itemtypeexistCheck);
+app.use("/api/quantityInputTypes",quantityInputTypes);
+
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));

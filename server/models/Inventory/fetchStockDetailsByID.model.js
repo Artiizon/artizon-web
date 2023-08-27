@@ -19,7 +19,7 @@ const fetchStockDetailsByID= async (req, res) => {
       // Add the items array to the stock object
       stock[0][0].items = items[0];
        
-      console.log(stock[0][0]);
+     
   
       res.status(200).json(stock[0][0]);
       

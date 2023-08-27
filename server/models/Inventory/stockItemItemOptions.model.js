@@ -15,7 +15,7 @@ const stockItemItemOptions =async (req, res) => {
         label: row.item_name,
       }));
   
-      console.log("itemOptions\n",itemOptions);
+     
       res.json(itemOptions);
   
     } catch (error) {

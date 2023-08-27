@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddSupplierForm = () => {
+  const navigate = useNavigate();
+
   const [supplierInfo, setSupplierInfo] = useState({
-    supplier_name: '',
-    contact_name: '',
-    email: '',
-    phone_number: '',
-    address: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    country: '',
+    supplier_name: "",
+    contact_name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    city: "",
+  });
+
+  const [errors, setErrors] = useState({
+    supplier_name: "",
+    contact_name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    city: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,9 +31,67 @@ const AddSupplierForm = () => {
     }));
   };
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!supplierInfo.supplier_name) {
+      isValid = false;
+      newErrors.supplier_name = "Supplier Name is required";
+    }
+
+    if (!supplierInfo.contact_name) {
+      isValid = false;
+      newErrors.contact_name = "Contact Name is required";
+    }
+
+    if (!supplierInfo.email) {
+      isValid = false;
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(supplierInfo.email)) {
+      isValid = false;
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!supplierInfo.phone_number) {
+      isValid = false;
+      newErrors.phone_number = "Phone Number is required";
+    } else if (!/^\d+$/.test(supplierInfo.phone_number)) {
+      isValid = false;
+      newErrors.phone_number = "Phone Number must contain only digits";
+    } else if (supplierInfo.phone_number.length !== 10) {
+      isValid = false;
+      newErrors.phone_number = "Phone Number must be 10 digits long";
+    }
+
+    if (!supplierInfo.address) {
+      isValid = false;
+      newErrors.address = "Address is required";
+    }
+
+    if (!supplierInfo.city) {
+      isValid = false;
+      newErrors.city = "City is required";
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send supplierInfo to your backend or perform necessary actions
+
+    if (validateForm()) {
+      axios
+        .post("http://localhost:8080/api/supplier", supplierInfo)
+        .then((response) => {
+          console.log(response.data);
+          navigate("/stock/new");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
@@ -38,11 +106,12 @@ const AddSupplierForm = () => {
             type="text"
             id="supplier_name"
             name="supplier_name"
+            placeholder="Gamage supplier"
             value={supplierInfo.supplier_name}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            required
           />
+          <div className="text-red-500">{errors.supplier_name}</div>
         </div>
 
         <div className="mb-4">
@@ -53,11 +122,12 @@ const AddSupplierForm = () => {
             type="text"
             id="contact_name"
             name="contact_name"
+            placeholder="Sanath Gamage"
             value={supplierInfo.contact_name}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            required
           />
+          <div className="text-red-500">{errors.contact_name}</div>
         </div>
 
         <div className="mb-4">
@@ -68,14 +138,29 @@ const AddSupplierForm = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="sanath1G@gmail.com"
             value={supplierInfo.email}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            required
           />
+          <div className="text-red-500">{errors.email}</div>
         </div>
 
-       
+        <div className="mb-4">
+          <label className="block font-medium mb-1" htmlFor="phone_number">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            id="phone_number"
+            name="phone_number"
+            placeholder="041-2235485"
+            value={supplierInfo.phone_number}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+          <div className="text-red-500">{errors.phone_number}</div>
+        </div>
 
         <div className="mb-4">
           <label className="block font-medium mb-1" htmlFor="address">
@@ -85,11 +170,12 @@ const AddSupplierForm = () => {
             type="text"
             id="address"
             name="address"
+            placeholder="123 Main Street"
             value={supplierInfo.address}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            required
           />
+          <div className="text-red-500">{errors.address}</div>
         </div>
 
         <div className="mb-4">
@@ -100,14 +186,13 @@ const AddSupplierForm = () => {
             type="text"
             id="city"
             name="city"
+            placeholder="Colombo"
             value={supplierInfo.city}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            required
           />
+          <div className="text-red-500">{errors.city}</div>
         </div>
-
-        
 
         <div className="mt-6">
           <button
