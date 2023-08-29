@@ -98,11 +98,19 @@ const Customizor = () => {
       case 'logoShirt':
         state.isLogoTexture = !activeFilterTab[tabName];
         break;
+      case 'logoShirt1':
+        state.isLogoTexture1 = !activeFilterTab[tabName];
+        break;
+      case 'logoShirt2':
+        state.isLogoTexture2 = !activeFilterTab[tabName];
+        break;
       case 'stylishShirt':
         state.isFullTexture = !activeFilterTab[tabName];
         break;
       default:
         state.isLogoTexture = true;
+        state.isLogoTexture1 = true;
+        state.isLogoTexture2 = true;
         state.isFullTexture = false;
         break;
     }
@@ -120,7 +128,7 @@ const Customizor = () => {
     reader(file)
       .then((result) => {
         handleDecals(type, result);
-        sessionStorage.setItem('file', result);
+        sessionStorage.setItem(type, result);
         setActiveEditorTab('');
       })
   }

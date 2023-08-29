@@ -7,8 +7,12 @@ const state = proxy({
     color: '#3d3d3d',
     tcolor: '#cf1f1f',
     isLogoTexture: true,
+    isLogoTexture1: false,
+    isLogoTexture2: false,
     isFullTexture: false,
     logoDecal: './Logo.png',
+    logoDecal1: './Logo.png',
+    logoDecal2: './Logo.png',
     fullDecal: './Logo.png',
 });
 

@@ -8,7 +8,7 @@ router.route('/').post((req, res) => {
 
     const sql1 = 'INSERT INTO `tshirt_order` (`tmaterial`, `tcolor`, `additional_note`, `logo_file`, `expected_days`, `status`, `customer_id`) VALUES (?);';
 
-    const VALUES1 = [req.body.material, req.body.color, req.body.note, 'UCSC.png', req.body.days, 'Pending', req.body.customerId];
+    const VALUES1 = [req.body.material, req.body.color, req.body.note, req.body.logo, req.body.days, 'Pending', req.body.customerId];
 
     db.query(sql1, [VALUES1], (err, result) => {
         if (err) {

@@ -76,7 +76,12 @@ const MakeOrder = () => {
     e.preventDefault();
 
     const color = state.tcolor;
-    const logo = state.logoDecal;
+    let logo = "";
+    if(state.isLogoTexture){
+      logo = state.logoDecal;
+    }else {
+      logo = "";
+    }
 
     const customerId = sessionStorage.getItem("customer_id");
 

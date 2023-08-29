@@ -16,12 +16,22 @@ const Shirt = () => {
     const tcolor = sessionStorage.getItem('tcolor');
     state.tcolor = tcolor;
   }
-  if (sessionStorage.getItem('file') ) {
-    const file = sessionStorage.getItem('file');
+  if (sessionStorage.getItem('logo') ) {
+    const file = sessionStorage.getItem('logo');
     state.logoDecal = file;
+  }
+  if (sessionStorage.getItem('logo1') ) {
+    const file1 = sessionStorage.getItem('logo1');
+    state.logoDecal1 = file1;
+  }
+  if (sessionStorage.getItem('logo2') ) {
+    const file2 = sessionStorage.getItem('logo2');
+    state.logoDecal2 = file2;
   }
 
   const logoTexture = useTexture(snap.logoDecal);
+  const logoTexture1 = useTexture(snap.logoDecal1);
+  const logoTexture2 = useTexture(snap.logoDecal2);
   const fullTexture = useTexture(snap.fullDecal);
 
   useFrame((state, delta) => easing.dampC(materials.lambert1.color, snap.tcolor, 0.25, delta));
@@ -51,6 +61,28 @@ const Shirt = () => {
             rotation={[0, 0, 0]}
             scale={0.15}
             map={logoTexture}
+            // map-anisotropy={16}
+            depthTest={false}
+            depthWrite={true}
+          />
+        )}
+        {snap.isLogoTexture1 && (
+          <Decal
+            position={[-0.06, 0.06, 0.15]}
+            rotation={[0, 0, 0]}
+            scale={0.06}
+            map={logoTexture1}
+            // map-anisotropy={16}
+            depthTest={false}
+            depthWrite={true}
+          />
+        )}
+        {snap.isLogoTexture2 && (
+          <Decal
+            position={[0.06, 0.06, 0.15]}
+            rotation={[0, 0, 0]}
+            scale={0.06}
+            map={logoTexture2}
             // map-anisotropy={16}
             depthTest={false}
             depthWrite={true}
