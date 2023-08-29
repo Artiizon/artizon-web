@@ -28,6 +28,7 @@ import makeOrderModel from './models/makeOrder.model.js';
 import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
 import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 
+import fetchOngoingOrdersModel from './models/fetchOngoingOrders.model.js';
 import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
 import companydesignModel from './models/companydesign.model.js';    
@@ -108,7 +109,7 @@ app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_order', managerReviewOrderModel)
 app.use('/stylist_reject_order', stylistRejectOrderModel)
 app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
-
+app.use('/stylistViewOrders', fetchOngoingOrdersModel)  
 
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)

@@ -1,5 +1,4 @@
-import StandardLayout from "../components/layout/StandardLayout";
-import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaStar} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
