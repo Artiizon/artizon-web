@@ -15,7 +15,7 @@ LEFT JOIN (
   FROM order_quantity
   GROUP BY tshirt_order_id
 ) AS oq ON t.tshirt_order_id = oq.tshirt_order_id
-WHERE t.status IN ('OrderReady', 'SampleReady');
+WHERE t.status IN ('Accepted', 'SampleProcessing','SampleReady', 'HalfPayment', 'Processing', 'FinalPayment', 'Completed'  );
 
 
 

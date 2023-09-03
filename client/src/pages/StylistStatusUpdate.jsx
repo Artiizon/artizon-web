@@ -4,33 +4,17 @@ import { FaPencilAlt } from 'react-icons/fa';
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-// import des1 from '../images/designs/design5.jpg';
-// import des2 from '../images/designs/design2.jpg';
-// import des3 from '../images/designs/design3.jpg';
-// import des4 from '../images/designs/design4.jpg';
-
-// const orders = [
-//   { id: 1, img: des1, date: "2023-07-01 12:12:00", quantity: "1", status: "Accepted" },
-//   { id: 2, img: des2, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Processing" },
-//   { id: 3, img: des3, date: "2023-07-02 12:12:00", quantity: "1", status: "Sample Ready" },
-//   { id: 4, img: des4, date: "2023-07-02 12:12:00", quantity: "99", status: "Delivered" }
-// ];
-
-const tabs = ["All", "Accepted", "Sample Processing", "Sample Ready", "50% of Payment", "Processing", "Final Payment", "Order Ready", "Delivered", "Completed"];
+const tabs = ["All", "Accepted", "Sample Processing", "Sample Ready", "Half Payment", "Processing", "Final Payment","Completed"];
 
 const getStatusText = (status) => {
   switch (status) {
     case "Processing": return "Processing";
     case "Accepted": return "Accepted";
-    case "Delivered": return "Delivered";
     case "SampleReady": return "Sample Ready"; // Format "SampleReady" as "Sample Ready"
-    case "PaymentNeed": return "Payment Need"; // Format "PaymentNeed" as "Payment Need"
-    case "Processed": return "Processed";
     case "Completed": return "Completed";
     case "SampleProcessing": return "Sample Processing"; // Format "SampleProcessing" as "Sample Processing"
-    case "50%ofPayment": return "50% of Payment"; // Format "50%ofPayment" as "50% of Payment"
+    case "HalfPayment": return "Half Payment"; // Format "50%ofPayment" as "50% of Payment"
     case "FinalPayment": return "Final Payment"; // Format "FinalPayment" as "Final Payment"
-    case "OrderReady": return "Order Ready";
     default: return "Unknown";
   }
 };
@@ -39,15 +23,12 @@ const getStatusTextColorClass = (status) => {
   switch (status) {
     case "Processing": return "text-blue-500";
     case "Accepted": return "text-blue-500";
-    case "Delivered": return "text-green-500";
     case "SampleReady": return "text-yellow-400";
-    case "Payment Need": return "text-red-500";
     case "Processed": return "text-purple-500";
     case "Completed": return "text-indigo-500";
-    case "Sample Processing": return "text-pink-500";
-    case "50% of Payment": return "text-orange-500";
-    case "Final Payment": return "text-teal-500";
-    case "OrderReady": return "text-blue-700";
+    case "SampleProcessing": return "text-pink-500";
+    case "HalfPayment": return "text-orange-500";
+    case "FinalPayment": return "text-teal-500";
     default: return "text-gray-500";
   }
 };
@@ -65,6 +46,7 @@ const OrderUpdate = () => {
     axios.get('http://localhost:8080/stylistViewOrders')
       .then(response => {
         setOrderData(response.data);
+        console.log('Fetched orders data:', response.data);
       })
       .catch(error => {
         console.error('Error fetching orders:', error);
@@ -82,6 +64,7 @@ const OrderUpdate = () => {
   };
 
   const handleTabClick = (tab) => {
+    console.log("Selected Tab:", tab);
     setSelectedTab(tab);
   };
 
@@ -89,7 +72,13 @@ const OrderUpdate = () => {
     setSelectedStatus(e.target.value);
   };
 
-  const filteredOrders = selectedTab === "All" ? orderData : orderData.filter(order => order.status === selectedTab);
+  const filteredOrders = selectedTab === "All"
+  ? orderData
+  : orderData.filter(order => order.status.replace(/\s/g, '').toLowerCase() === selectedTab.replace(/\s/g, '').toLowerCase());
+
+
+
+  console.log("Filtered Orders:", filteredOrders);
 
   return (
       <div className="container mx-auto p-8 font-sans min-h-screen">
