@@ -3,8 +3,13 @@ import axios from 'axios';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useSnapshot } from "valtio";
 import state from "../store";
+import Alert from "../components/popups/Alert"
+
+
 
 const tabs = ["All", "Accepted", "Sample Processing", "Sample Ready", "Half Payment", "Processing", "Final Payment","Completed"];
+
+
 
 const getStatusText = (status) => {
   switch (status) {
@@ -40,6 +45,9 @@ const OrderUpdate = () => {
   const [selectedTab, setSelectedTab] = useState("All");
   const [updatingOrderId, setUpdatingOrderId] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  
 
 
   useEffect(() => {
@@ -53,15 +61,44 @@ const OrderUpdate = () => {
       });
   }, []);
 
-  
+  const canChangeStatus = ["SampleProcessing", "Processing"].includes(selectedStatus);
+  // const handleUpdateStatus = (orderId) => {
+  //   const updatedOrders = orderData.map(order =>
+  //     order.id === orderId ? { ...order, status: selectedStatus } : order
+  //   );
+  //   setOrderData(updatedOrders);
+  //   setUpdatingOrderId(null);
+  //   setSelectedStatus("");
+  // };
+
   const handleUpdateStatus = (orderId) => {
-    const updatedOrders = orderData.map(order =>
-      order.id === orderId ? { ...order, status: selectedStatus } : order
-    );
-    setOrderData(updatedOrders);
-    setUpdatingOrderId(null);
-    setSelectedStatus("");
+    const orderToUpdate = orderData.find((order) => order.tshirt_order_id === orderId);
+    
+    if (!["SampleProcessing", "Processing"].includes(orderToUpdate.status)) {
+      setPopupMessage('Access Denied: You can only change the status for "Sample Processing" and "Processing" orders.');
+      setIsPopupOpen(true);
+      return;
+    }
+    console.log("Selected Status:", selectedStatus);
+    axios.patch(`http://localhost:8080/stylistUpdateOrderStatus/${orderId}`, { status: selectedStatus })
+   
+    .then(response => {
+      // Handle successful response here
+      console.log('Order status updated successfully:', response.data);
+      // Update the orderData state with the new status
+      setOrderData(prevOrderData => prevOrderData.map(order =>
+        order.tshirt_order_id === orderId ? { ...order, status: selectedStatus } : order
+      ));
+      // Clear the selectedStatus and updatingOrderId
+      setSelectedStatus("");
+      setUpdatingOrderId(null);
+    })
+    .catch(error => {
+      console.error('Error updating order status:', error);
+      // Handle error here
+    });
   };
+  
 
   const handleTabClick = (tab) => {
     console.log("Selected Tab:", tab);
@@ -82,6 +119,7 @@ const OrderUpdate = () => {
 
   return (
       <div className="container mx-auto p-8 font-sans min-h-screen">
+         <Alert isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} message={popupMessage} />
         <h1 className="text-2xl font-bold mb-4 px-3">Order Details</h1>
         <div className="flex items-center mb-4">
           <div className="flex flex-grow px-3">
@@ -124,21 +162,24 @@ const OrderUpdate = () => {
                       <td className="px-4 py-2 text-center">{order.total_quantity}</td>
                       <td className={`px-4 py-2 ${getStatusTextColorClass(order.status)} text-center`}>{getStatusText(order.status)}</td>
                       <td className="px-4 py-2 text-center">
-                        {updatingOrderId === order.tshirt_order_id ? (
-                          <>
-                            <select className="mr-2 p-2 rounded-lg border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none" value={selectedStatus} onChange={handleStatusChange}>
-                              {tabs.slice(1).map(status => (<option key={status} value={status}>{status}</option>))}
-                            </select>
-                            <button onClick={() => handleUpdateStatus(order.tshirt_order_id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
-                              <FaPencilAlt />
-                            </button>
-                          </>
-                        ) : (
-                          <button onClick={() => setUpdatingOrderId(order.tshirt_order_id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
-                            <FaPencilAlt />
-                          </button>
-                        )}
-                      </td>
+                            {updatingOrderId === order.tshirt_order_id ? (
+                              <>
+                                <select className="mr-2 p-2 rounded-lg border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none" value={selectedStatus} onChange={handleStatusChange}>
+                                  <option value="" disabled>Select the Order Status</option>
+                                  <option value="SampleReady">Sample Ready</option>
+                                  <option value="FinalPayment">Pay final payment</option>
+                                </select>
+                                <button onClick={() => handleUpdateStatus(order.tshirt_order_id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+                                  <FaPencilAlt />
+                                </button>
+                              </>
+                            ) : (
+                              <button onClick={() => setUpdatingOrderId(order.tshirt_order_id)} className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+                                <FaPencilAlt />
+                              </button>
+                            )}
+                          </td>
+
                     </tr>
                   ))}
                 </tbody>
