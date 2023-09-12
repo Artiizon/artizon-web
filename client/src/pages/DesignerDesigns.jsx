@@ -54,7 +54,7 @@ const DesignerDesignPage = () => {
   };
 
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-  const [selectedDesign, setSelectedDesign] = useState(null);
+  const [selectedDesign, setSelectedDesign] = useState({});
   const [selectedImage1, setSelectedImage1] = useState(null);
   const [selectedImage2, setSelectedImage2] = useState(null);
   const [selectedImage3, setSelectedImage3] = useState(null);
@@ -62,6 +62,8 @@ const DesignerDesignPage = () => {
   const [previewImage2, setPreviewImage2] = useState(null);
   const [previewImage3, setPreviewImage3] = useState(null);
   const [previewNewImage1, setPreviewNewImage1] = useState(null);
+  const [previewNewImage2, setPreviewNewImage2] = useState(null);
+  const [previewNewImage3, setPreviewNewImage3] = useState(null);
 
   const handleImage1Change = (e) => {
     const file = e.target.files[0];
@@ -81,82 +83,90 @@ const DesignerDesignPage = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage2(file);
-      setPreviewImage2(URL.createObjectURL(file));
+      setPreviewNewImage2(URL.createObjectURL(file)); // Update the preview for image 2
     } else {
       setSelectedImage2(null);
-      setPreviewImage2(null);
+      setPreviewImage2(null); // Clear the preview for image 2
     }
+    e.target.value = "";
   };
-
+  
   const handleImage3Change = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage3(file);
-      setPreviewImage3(URL.createObjectURL(file));
+      setPreviewNewImage3(URL.createObjectURL(file)); // Update the preview for image 3
     } else {
       setSelectedImage3(null);
-      setPreviewImage3(null);
+      setPreviewImage3(null); // Clear the preview for image 3
     }
+    e.target.value = "";
   };
+  
 
   const handleUpdateConfirm = () => {
-    // Create a FormData object to send the updated design data, including images
     const formData = new FormData();
     formData.append("design_name", selectedDesign.design_name);
-    formData.append("description", selectedDesign.description);
+    formData.append("design_des", selectedDesign.description);
     formData.append("price", selectedDesign.price);
-    formData.append("material", selectedDesign.material);
     formData.append("color", selectedDesign.color);
-    formData.append("image1", selectedImage1); // Image 1
-    formData.append("image2", selectedImage2); // Image 2
-    formData.append("image3", selectedImage3); // Image 3
+
+    if (selectedImage1) {
+      formData.append("image1", selectedImage1);
+    }
+    if (selectedImage2) {
+      formData.append("image2", selectedImage2);
+    }
+    if (selectedImage3) {
+      formData.append("image3", selectedImage3);
+    }
+  
   
     axios
-      .patch(`http://127.0.0.1:8080/update_design/${selectedDesign.id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        // Handle a successful response (e.g., show a success message)
-        console.log("Design updated successfully:", response.data);
-  
-        // Find the index of the design being updated
-        const designIndex = designs.findIndex(
-          (design) => design.company_design_id === selectedDesign.id
-        );
-  
-        if (designIndex !== -1) {
-          // Create a new array with the updated design data
-          const updatedDesigns = [...designs];
-          updatedDesigns[designIndex] = {
-            ...selectedDesign,
-            image: previewImage1,
-            imageTwo: previewImage2,
-            imageThree: previewImage3,
-          };
-  
-          // Update the state with the new designs array
-          setDesigns(updatedDesigns);
+      .patch(
+        `http://127.0.0.1:8080/update_design/${selectedDesign.company_design_id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
+      )
+      .then((response) => {
+        window.location.reload();
+        if (response.data.success) {
+          // Update the designs list in the component's state
+          const updatedDesigns = designs.map((design) =>
+            design.company_design_id === selectedDesign.company_design_id
+              ? response.data.updatedDesign
+              : design
+          );
+          setDesigns(updatedDesigns);
   
-        // Close the update pop-up and reset states
-        setShowUpdatePopup(false);
-        setSelectedDesign(null);
-        setSelectedImage1(null);
-        setSelectedImage2(null);
-        setSelectedImage3(null);
-        setPreviewImage1(null);
-        setPreviewImage2(null);
-        setPreviewImage3(null);
+          // Close the update pop-up and reset states
+          setShowUpdatePopup(false);
+          setSelectedDesign(null);
+          setSelectedImage1(null);
+          setSelectedImage2(null);
+          setSelectedImage3(null);
+          setShowUpdatePopup(false);
+          setSelectedDesign(null);
+          setPreviewImage1(null);
+          setPreviewImage2(null);
+          setPreviewImage3(null);
+          setPreviewNewImage1(null); // Reset preview new image 1
+          setPreviewNewImage2(null); // Reset preview new image 2
+          setPreviewNewImage3(null); // Reset preview new image 3
+        } else {
+          console.error("Design update failed:", response.data.error);
+        }
       })
       .catch((error) => {
-        // Handle errors (e.g., show an error message)
         console.error("Error updating design:", error);
       });
   };
   
-
+  
   const handleUpdateCancel = () => {
     setShowUpdatePopup(false);
     setSelectedDesign(null);
@@ -362,7 +372,7 @@ const DesignerDesignPage = () => {
                   onChange={(e) =>
                     setSelectedDesign({
                       ...selectedDesign,
-                      name: e.target.value,
+                      design_name: e.target.value,
                     })
                   }
                   className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -391,197 +401,226 @@ const DesignerDesignPage = () => {
               </div>
 
               <div className="flex justify-between">
-                <div className="mt-4">
-                  <label
-                    htmlFor="image1"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Image 1
-                  </label>
-                  {selectedImage1 || previewImage1 ? (
-                    <div className="flex items-center">
-                      {previewImage1 ? (
-                        <img
-                          src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage1}`}
-                          alt={`Design ${selectedDesign.id} - Image 1`}
-                          className="w-16 h-16 object-cover rounded-lg mr-2"
-                        />
-                      ) : (
-                        <img
-                          src={previewNewImage1}
-                          alt="Preview"
-                          className="w-16 h-16 object-cover rounded-lg mr-2"
-                        />
-                      )}
-                      <button
-                        className="text-red-600"
-                        onClick={() => {
-                          setSelectedImage1(null);
-                          setPreviewImage1(null);
-                        }}
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <input
-                        type="file"
-                        name="image1"
-                        id="image1"
-                        accept="image/*"
-                        onChange={handleImage1Change}
-                        className="hidden"
+              <div className="mt-4">
+                <label
+                  htmlFor="image1"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Image 1
+                </label>
+                {selectedImage1 || previewImage1 ? (
+                  <div className="flex items-center">
+                    {previewImage1 ? (
+                      <img
+                        src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage1}`}
+                        alt={`Design ${selectedDesign.id} - Image 1`}
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
                       />
-                      <label
-                        htmlFor="image1"
-                        className="cursor-pointer text-[10px] border px-2 py-1 mt-2 rounded-lg"
-                      >
-                        Choose File
-                      </label>
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-4">
-                  <label
-                    htmlFor="image2"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Image 2
-                  </label>
-                  {selectedImage2 || previewImage2 ? (
-                    <div className="flex items-center">
-                      {previewImage2 && (
-                        <img
-                          src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage2}`}
-                          alt={`Design ${selectedDesign.id} - Image 2`}
-                          className="w-16 h-16 object-cover rounded-lg mr-2"
-                        />
-                      )}
-                      <button
-                        className="text-red-600"
-                        onClick={() => {
-                          setSelectedImage2(null);
-                          setPreviewImage2(null);
-                        }}
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <input
-                        type="file"
-                        name="image2"
-                        id="image2"
-                        accept="image/*"
-                        onChange={handleImage2Change}
-                        className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    ) : (
+                      <img
+                        src={previewNewImage1}
+                        alt="Preview"
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
                       />
-                      <label
-                        htmlFor="image2"
-                        className="cursor-pointer font-sm border  px-2 mt-2 rounded-lg"
-                      >
-                        Choose File
-                      </label>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-4">
-                  <label
-                    htmlFor="image3"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Image 3
-                  </label>
-                  {selectedImage3 || previewImage3 ? (
-                    <div className="flex items-center">
-                      {previewImage3 && (
-                        <img
-                          src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage3}`}
-                          alt={`Design ${selectedDesign.id} - Image 3`}
-                          className="w-16 h-16 object-cover rounded-lg mr-2"
-                        />
-                      )}
-                      <button
-                        className="text-red-600"
-                        onClick={() => {
-                          setSelectedImage3(null);
-                          setPreviewImage3(null);
-                        }}
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <input
-                        type="file"
-                        name="image3"
-                        id="image3"
-                        accept="image/*"
-                        onChange={handleImage3Change}
-                        className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      />
-                      <label
-                        htmlFor="image3"
-                        className="cursor-pointer font-sm border  px-2 mt-2 rounded-lg"
-                      >
-                        Choose File
-                      </label>
-                    </div>
-                  )}
-                </div>
+                    )}
+                    <button
+                      className="text-red-600"
+                      onClick={() => {
+                        setSelectedImage1(null);
+                        setPreviewImage1(null);
+                      }}
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      name="image1"
+                      id="image1"
+                      accept="image/*"
+                      onChange={handleImage1Change}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="image1"
+                      className="cursor-pointer text-[10px] border px-2 py-1 mt-2 rounded-lg"
+                    >
+                      Choose File
+                    </label>
+                  </div>
+                )}
               </div>
+
+              <div className="mt-4">
+                <label
+                  htmlFor="image2"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Image 2
+                </label>
+                {selectedImage2 || previewImage2 ? (
+                  <div className="flex items-center">
+                    {previewImage2 ? (
+                      <img
+                        src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage2}`}
+                        alt={`Design ${selectedDesign.id} - Image 2`}
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
+                      />
+                    ) : (
+                      <img
+                        src={previewNewImage2}
+                        alt="Preview"
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
+                      />
+                    )}
+                    <button
+                      className="text-red-600"
+                      onClick={() => {
+                        setSelectedImage2(null);
+                        setPreviewImage2(null);
+                      }}
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      name="image2"
+                      id="image2"
+                      accept="image/*"
+                      onChange={handleImage2Change}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="image2"
+                      className="cursor-pointer text-[10px] border px-2 py-1 mt-2 rounded-lg"
+                    >
+                      Choose File
+                    </label>
+                  </div>
+                )}
+              </div>
+              
+              <div className="mt-4">
+                <label
+                  htmlFor="image3"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Image 3
+                </label>
+                {selectedImage3 || previewImage3 ? (
+                  <div className="flex items-center">
+                    {previewImage3 ? (
+                      <img
+                        src={`http://127.0.0.1:8080/uploads/company_designs/${previewImage3}`}
+                        alt={`Design ${selectedDesign.id} - Image 3`}
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
+                      />
+                    ) : (
+                      <img
+                        src={previewNewImage3}
+                        alt="Preview"
+                        className="w-16 h-16 object-cover rounded-lg mr-2"
+                      />
+                    )}
+                    <button
+                      className="text-red-600"
+                      onClick={() => {
+                        setSelectedImage3(null);
+                        setPreviewImage3(null);
+                      }}
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      name="image3"
+                      id="image3"
+                      accept="image/*"
+                      onChange={handleImage3Change}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="image3"
+                      className="cursor-pointer text-[10px] border px-2 py-1 mt-2 rounded-lg"
+                    >
+                      Choose File
+                    </label>
+                  </div>
+                )}
+              </div>
+            </div>
 
               <div className="mb-4">
                 <label
-                  htmlFor="name"
+                  htmlFor="unitPrice"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Unit Price(Rs.)
                 </label>
                 <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={selectedDesign.price}
-                  className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
+                    type="text"
+                    name="unitPrice"
+                    id="unitPrice"
+                    value={selectedDesign.price}
+                    onChange={(e) =>
+                      setSelectedDesign({
+                        ...selectedDesign,
+                        price: e.target.value, // Update 'price' property
+                      })
+                    }
+                    className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  />
+
               </div>
 
-              <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Supporting Material
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={selectedDesign.material}
-                  className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
-              </div>
 
               <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Recommended Color
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={selectedDesign.color}
-                  className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
-              </div>
+              <label
+                htmlFor="material"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Supporting Material
+              </label>
+              <input
+                type="text"
+                name="material"
+                id="material"
+                value={selectedDesign.material}
+                readOnly // Add the 'readOnly' attribute
+                className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="color" // Change the 'htmlFor' attribute to 'color'
+                className="block text-sm font-medium text-gray-700"
+              >
+                Recommended Color
+              </label>
+              <input
+                type="text"
+                name="color" // Keep the 'name' attribute as 'color'
+                id="color"   // Keep the 'id' attribute as 'color'
+                value={selectedDesign.color}
+                onChange={(e) =>
+                  setSelectedDesign({
+                    ...selectedDesign,
+                    color: e.target.value, // Update 'color' property
+                  })
+                }
+                className="mt-1 bg-gray-100 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+
 
               <div className="mt-6 flex justify-center space-x-4">
                 <button
