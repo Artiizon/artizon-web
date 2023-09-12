@@ -41,6 +41,8 @@ import stylistRejectOrderModel from './models/stylistRejectOrder.model.js';
 import managerAcceptRejectOrderModel from './models/Inventory/managerReviewAcceptReject.model.js';
 import managerRejectOrderModel from './models/Inventory/managerRejectOrder.model.js';
 import sylistUpdateOrderStatusModel from './models/stylistUpdateOrderStatus.model.js';
+import designerDeleteDesign from './models/designerDeleteDesign.model.js'
+import designerUpdateDesign from './models/designerUpdateDesign.model.js'
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -112,6 +114,8 @@ app.use('/stylist_reject_order', stylistRejectOrderModel)
 app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
 app.use('/stylistViewOrders', fetchOngoingOrdersModel) 
 app.use('/stylistUpdateOrderStatus', sylistUpdateOrderStatusModel) 
+app.use('/delete_design', designerDeleteDesign)
+app.use('/update_design', designerUpdateDesign)
 
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)

@@ -7,6 +7,8 @@ router.route('/').get((req, res) => {
   SELECT cd.*, CONCAT(d.first_name, ' ', d.last_name) AS designer_full_name
   FROM company_design AS cd
   INNER JOIN designer AS d ON cd.designer_id = d.designer_id
+  WHERE cd.active_status = 1;
+  
 `;
   
     db.query(query, (err, results) => {

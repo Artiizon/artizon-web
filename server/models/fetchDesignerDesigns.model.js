@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.route('/').get((req, res) => {
   const query = `
-  SELECT * from company_design where designer_id = 1
+  SELECT * from company_design where designer_id = 1 and active_status = 1
 `;
   
     db.query(query, (err, results) => {
