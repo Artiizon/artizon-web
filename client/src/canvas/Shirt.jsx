@@ -10,9 +10,9 @@ const Shirt = () => {
   const snap = useSnapshot(state);
 
   if (state.tstyle === 'standard') {
-    var { nodes, materials } = useGLTF('/shirt_baked.glb');
+    var { nodes, materials } = useGLTF('/standard.glb');
   } else if (state.tstyle === 'collar') {
-    var { nodes, materials } = useGLTF('/untitled.glb');
+    var { nodes, materials } = useGLTF('/collar.glb');
   }
 
   // console.log(nodes, materials);
@@ -39,7 +39,7 @@ const Shirt = () => {
   const logoTexture2 = useTexture(snap.logoDecal2);
   const fullTexture = useTexture(snap.fullDecal);
 
-  useFrame((state, delta) => easing.dampC(materials.lambert1.color, snap.tcolor, 0.25, delta));
+  useFrame((state, delta) => easing.dampC(materials.Material.color, snap.tcolor, 0.25, delta));
 
   const stateString = JSON.stringify(snap);
 
@@ -48,7 +48,7 @@ const Shirt = () => {
       <mesh
         castShadow
         geometry={nodes.T_Shirt_male.geometry}
-        material={materials.lambert1}
+        material={materials.Material}
         material-roughness={1}
         dispose={null}
       >
