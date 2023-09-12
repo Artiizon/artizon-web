@@ -6,6 +6,7 @@ const state = proxy({
     page: 'home',
     color: '#3d3d3d',
     tcolor: '#cf1f1f',
+    tstyle: 'standard',
     isLogoTexture: true,
     isLogoTexture1: false,
     isLogoTexture2: false,

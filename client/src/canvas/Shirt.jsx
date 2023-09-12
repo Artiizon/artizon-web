@@ -8,7 +8,12 @@ import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('/shirt_baked.glb');
+
+  if (state.tstyle === 'standard') {
+    var { nodes, materials } = useGLTF('/shirt_baked.glb');
+  } else if (state.tstyle === 'collar') {
+    var { nodes, materials } = useGLTF('/untitled.glb');
+  }
 
   // console.log(nodes, materials);
 

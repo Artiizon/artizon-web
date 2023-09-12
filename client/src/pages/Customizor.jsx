@@ -22,6 +22,7 @@ const Customizor = () => {
   const navigate = useNavigate();
 
   const [file, setFile] = useState('');
+  const [style, setStyle] = useState('');
   
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
@@ -74,7 +75,7 @@ const Customizor = () => {
 
       const data = await response.json();
 
-      // handleDecals(type, `data:image/png;base64,${data.photo}`);
+      handleDecals(type, `data:image/png;base64,${data.photo}`);
     } catch (err) {
       alert(err)
     } finally {
@@ -140,6 +141,18 @@ const Customizor = () => {
   return (
     <AnimatePresence>
         <>
+          <select
+            name="style"
+            className="form-control"
+            onChange={(e) => {
+              setStyle(e.target.value)
+              state.tstyle = e.target.value
+            }}
+          >
+            <option value="">Select Style</option>
+            <option value="standard">Standard</option>
+            <option value="collar">Collar</option>
+          </select>
           <motion.div key="custom" className='absolute top-0 left-0 z-10' {...slideAnimation('left')}>
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>
