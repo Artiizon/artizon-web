@@ -54,7 +54,7 @@ import AddUsers from './pages/UserManage/AddUsers';
 import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
 import Footer from "./components/footer/Footer";
 import LoginError from "./pages/LoginError";
-
+import PricePage from "./pages/Price";
 
 
 import AddNewSupplier from "./pages/AddNewSupplier";
@@ -122,8 +122,9 @@ function App() {
                   
           <Route exact path="/supplier/new" element={<AddNewSupplier/>}/>
           <Route exact path="/Item/new" element={<AddNewItem/>}/>
+          <Route exact path="/price" element={<PricePage/>}/>
           
-
+       
 
         </Routes>
        

@@ -56,6 +56,8 @@ import stockAddNew  from "./models/Inventory/stockAddNew.model.js";
 import supplierAddNew from "./models/Inventory/supplierAddNew.model.js";
 import supplierOptions from "./models/Inventory/supplierOptions.model.js";
 import itemAddNew from "./models/Inventory/itemAddNew.model.js";
+import stockReportModel from "./models/Inventory/stockReport.model.js";
+import fetchStockPriceModel from "./models/Inventory/fetchStockPrice.model.js";
 
 // models
  
@@ -134,8 +136,8 @@ app.use("/api/item/check",itemexistCheck);
 app.use("/api/item",itemAddNew);
 app.use("/api/item/checkItemType",itemtypeexistCheck);
 app.use("/api/quantityInputTypes",quantityInputTypes);
-
-
+app.use("/api/stockReport",stockReportModel);
+app.use("/api/prices",fetchStockPriceModel);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));

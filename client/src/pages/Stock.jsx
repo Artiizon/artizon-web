@@ -1,10 +1,11 @@
 // StockManagementPage.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios"; // Import Axios library
 import { useSnapshot } from "valtio";
 import state from "../store";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function StockManagementPage() {
   const snap = useSnapshot(state);
@@ -18,20 +19,42 @@ function StockManagementPage() {
   const [toDate, setToDate] = useState("");
   const [fromDateError, setFromDateError] = useState("");
   const [toDateError, setToDateError] = useState("");
-
+  const [stockDataReport, setStockDataReport] = useState({});
 
   useEffect(() => {
-    const fetchStocks = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/stocks");
-        setStockData(response.data);
+        const responseStock = await axios.get(
+          "http://localhost:8080/api/stocks"
+        );
+        setStockData(responseStock.data); // Update one state variable with the fetched data from the first Axios request
+
+        // const GfromDate = fromDate; // Replace with your desired date
+        // const GtoDate = toDate; // Replace with your desired date
+
+        // const responseReport = await axios.get(`http://localhost:8080/api/stockReport?fromDate=${GfromDate}&toDate=${GtoDate}`);
+        // setStockDataReport(responseReport.data); // Update the other state variable with the fetched data from the second Axios request
       } catch (error) {
-        console.error("Error fetching stocks:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchStocks();
+    fetchData();
   }, []);
+
+  const handleReport = async () => {
+    try {
+      const GfromDate = fromDate; // Replace with your desired date
+      const GtoDate = toDate; // Replace with your desired date
+
+      const responseReport = await axios.get(
+        `http://localhost:8080/api/stockReport?fromDate=${GfromDate}&toDate=${GtoDate}`
+      );
+      setStockDataReport(responseReport.data); // Update the other state variable with the fetched data from the second Axios request
+    } catch (error) {
+      console.error("Error searching stocks:", error);
+    }
+  };
 
   const handleSearch = async () => {
     try {
@@ -46,7 +69,7 @@ function StockManagementPage() {
 
   const handleGenerateReport = () => {
     // Validate the input fields
-    if (!fromDate ) {
+    if (!fromDate) {
       setFromDateError("Please select a From date.");
     } else {
       setFromDateError("");
@@ -58,10 +81,153 @@ function StockManagementPage() {
       setToDateError("");
     }
 
+    if (fromDate > toDate) {
+      setFromDateError("From date should be earlier than To date.");
+      return;
+    }
+
     // If both dates are selected, proceed with report generation
     if (fromDate && toDate) {
-      // Generate the report logic here
+      handleReport();
+      generatePDFReport();
     }
+  };
+
+  const generatePDFReport = () => {
+    // Create a new jsPDF instance
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+    });
+
+    // Sample data representing multiple stocks and items
+    const stocksData = stockDataReport;
+
+    // Set initial y-coordinate for the table
+    let y = 20;
+    let currentPage = 1;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const addPageHeader = (fromDate, toDate, totalStocks, pageNumber) => {
+      if (pageNumber === 1) {
+        doc.setFontSize(16);
+        doc.setFont("bold");
+        doc.setTextColor(0, 0, 0);
+        const headerText = `Stock Report From ${fromDate} To ${toDate}`;
+        const totalStocksText = `Total Stocks: ${totalStocks}`;
+        const headerX = pageWidth / 2;
+
+         // Add horizontal line below "Total Stocks"
+      const lineY = 30; // Adjust the Y-coordinate as needed
+      const lineWidth = pageWidth / 2; // Half of the page width
+      doc.setDrawColor(0); // Black color
+      doc.setLineWidth(1); // Line width
+
+      doc.text(headerText, headerX, 15, "center");
+      doc.text(totalStocksText, headerX, 25, "center");
+      doc.line(pageWidth / 4, lineY, (pageWidth / 4) * 3, lineY); // Draw the line
+
+      y += 20;
+      }
+
+      const pageNumberText = `Page ${pageNumber}`;
+      doc.text(pageNumberText, pageWidth / 2, pageHeight - 10, "center");
+    };
+
+    // Loop through each stock and create a table for it
+    stocksData.forEach((stock, index) => {
+      doc.rect(5, 5, pageWidth - 10, pageHeight - 10);
+
+      const originalDate = new Date(stock.date);
+      const options = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true, // Use 12-hour format
+      };
+
+      const formattedDate = originalDate.toLocaleDateString("en-US", options);
+
+      addPageHeader(fromDate, toDate, stocksData.length, currentPage);
+
+      // Check if there's enough space for the stock's details, if not, create a new page
+      const spaceNeeded = 10 + 10 * 4 + stock.items.length * 20;
+      if (y + spaceNeeded > pageHeight - 10) {
+        doc.addPage();
+        currentPage++;
+        y = 20; // Reset y-coordinate for the new page
+        addPageHeader(fromDate, toDate, stocksData.length, currentPage);
+      }
+
+      // Create a table header
+      doc.text(`Stock ID: ${stock.stockId}`, 10, y);
+      doc.text(`Date and Time: ${formattedDate}`, 70, y);
+      y += 10; // Move down a bit
+
+      doc.text(`Total Cost: Rs. ${stock.totalCost}`, 10, y);
+      y += 10; // Move down a bit
+
+      doc.text(`Supplier Name: ${stock.suppliername}`, 10, y);
+      y += 10; // Move down a bit
+
+      doc.text(`Description: ${stock.description}`, 10, y);
+      y += 10; // Move down a bit
+
+      // Create a table for items
+      const tableData = stock.items.map((item) => [
+        item.itemName,
+        item.itemType,
+        item.itemColor,
+        item.quantity.toString(),
+      ]);
+
+      // Define the table columns and their widths
+      const tableHeaders = ["Item Name", "Item Type", "Item Color", "Quantity"];
+      const tableWidths = [50, 40, 40, 30];
+
+      // Create the table
+      doc.autoTable({
+        startY: y,
+        head: [tableHeaders],
+        body: tableData,
+        columnStyles: {
+          0: { cellWidth: 50 },
+          1: { cellWidth: 40 },
+          2: { cellWidth: 40 },
+          3: { cellWidth: 30 },
+        },
+        margin: { left: 10, right: 10 },
+      });
+
+      // y += doc.previousAutoTable.finalY + 1; // Move down after the table
+      y += 30; // Move down for the next stock
+    });
+
+    // Draw a border on the last page
+  doc.rect(5, 5, pageWidth - 10, pageHeight - 10);
+
+  // Reset font to desired style
+  doc.setFontSize(12); // Change to your desired font size
+  doc.setFont("normal"); // Change to your desired font style
+  doc.setTextColor(0, 0, 0); // Change to your desired text color
+
+    // Generate the PDF data URL
+    const dataURL = doc.output("datauristring");
+
+    // Define the desired file name for the downloaded PDF
+    const fileName = "Stock_Report.pdf";
+
+    // Create a new tab and display the PDF with a download attribute
+    const newTab = window.open();
+    newTab.document.open();
+    newTab.document.title = "Stock Report"; // Set a custom tab title
+    newTab.document.write(`
+      <iframe width="100%" height="100%" src="${dataURL}"></iframe>
+      <a href="${dataURL}" download="${fileName}">${fileName}</a>
+    `);
   };
 
   const handleKeyPress = (e) => {
@@ -107,8 +273,7 @@ function StockManagementPage() {
                 onChange={(e) => setFromDate(e.target.value)}
                 className="border rounded-md p-2 ml-2 mb-1 focus:outline-none focus:ring focus:border-blue-500"
               />
-                  <p className="text-red-500 text-sm">{fromDateError}</p>
-        
+              <p className="text-red-500 text-sm">{fromDateError}</p>
             </label>
             <label className="mt-4">
               To:
@@ -118,7 +283,7 @@ function StockManagementPage() {
                 onChange={(e) => setToDate(e.target.value)}
                 className="border rounded-md p-2 ml-2 focus:outline-none focus:ring focus:border-blue-500"
               />
-               <p className="text-red-500 text-sm">{toDateError}</p>
+              <p className="text-red-500 text-sm">{toDateError}</p>
             </label>
 
             <div className="mt-4">
@@ -171,10 +336,12 @@ function StockManagementPage() {
           </table>
         </div>
 
-        <div className="table-body overflow-y-auto max-h-[434px]">
+        <div className="table-body overflow-y-auto max-h-[350px]">
           <table className="w-full">
             <tbody>
               {stockData.map((value, index) => (
+                
+                
                 <tr
                   key={value.id}
                   className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}

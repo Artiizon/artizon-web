@@ -308,15 +308,16 @@ const Header = () => {
           </p>
         )}
 
-          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/about">ABOUT</NavLink>
-          </p>
-
-        {/* {managerAuth &&(
+        {managerAuth &&(
             <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-              <NavLink to="/price">Price</NavLink>
+              <NavLink to="/price">PRICE</NavLink>
             </p>
-       )}   */}
+       )}   
+
+        <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+           <NavLink to="/about">ABOUT</NavLink>
+        </p>
+
       </div>
 
       <div className="w-[300px] justify-end">
