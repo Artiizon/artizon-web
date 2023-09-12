@@ -22,7 +22,6 @@ const Customizor = () => {
   const navigate = useNavigate();
 
   const [file, setFile] = useState('');
-  const [style, setStyle] = useState('');
   
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
@@ -145,7 +144,6 @@ const Customizor = () => {
             name="style"
             className="form-control"
             onChange={(e) => {
-              setStyle(e.target.value)
               state.tstyle = e.target.value
             }}
           >
