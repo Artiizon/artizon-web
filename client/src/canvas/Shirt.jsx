@@ -2,7 +2,7 @@ import React from 'react'
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { useFrame } from '@react-three/fiber';
-import { Decal, useGLTF, useTexture } from '@react-three/drei';
+import { Decal, useGLTF, useTexture, Text } from '@react-three/drei';
 
 import state from '../store';
 
@@ -93,6 +93,18 @@ const Shirt = () => {
             depthWrite={true}
           />
         )}
+
+      <Text
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        font='Poppins'
+        position={[0, 0.1, -0.125]}
+        rotation={[0, Math.PI, 0]}
+        scale={0.03}
+      >
+        {state.text}
+      </Text>
 
       </mesh>
     </group>
