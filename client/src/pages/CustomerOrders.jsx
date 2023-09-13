@@ -7,6 +7,8 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
+const customerId = sessionStorage.getItem('customer_id');
+
 const OrderCard = ({ status, tags, ims ,style }) => {
   return (
     <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[135px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
@@ -39,8 +41,6 @@ export default function CustomerOrders() {
     state.page = 'no-canvas';
 
     const [orders, setOrders] = useState([]);
-
-    const customerId = sessionStorage.getItem('customer_id');
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerOrders', {customerId}).then(res => {

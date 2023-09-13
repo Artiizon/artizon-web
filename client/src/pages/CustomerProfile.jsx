@@ -10,13 +10,13 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
+const customerId = sessionStorage.getItem('customer_id');
+
 export default function CustomerProfile() {
     const snap = useSnapshot(state);
     state.page = "no-canvas";
 
     const [customer, setCustomer] = useState([]);
-
-    const customerId = sessionStorage.getItem('customer_id');
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerDetails', {customerId}).then(res => {
@@ -25,6 +25,7 @@ export default function CustomerProfile() {
     }, [])
 
     console.log(customer);
+    console.log(customerId);
   return (
     <div className="min-h-screen">
     <div className="font-sans mt-[-50px] min-h-[625.5px]">
