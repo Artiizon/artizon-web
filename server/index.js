@@ -26,6 +26,7 @@ import getManagerModel from './models/getManager.model.js';
 import getStylistModel from './models/getStylist.model.js';
 import makeOrderModel from './models/makeOrder.model.js';
 import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
+import getCustomerOrderQuantitiesModel from './models/getCustomerOrderQuantities.model.js';
 import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 
 import companyDesign from './models/fetchCompanyDesigns.model.js';
@@ -95,6 +96,7 @@ app.use('/getManager', getManagerModel);
 app.use('/getStylist', getStylistModel);
 app.use('/makeOrder', makeOrderModel);
 app.use('/getCustomerOrders', getCustomerOrdersModel);
+app.use('/getCustomerOrderQuantities', getCustomerOrderQuantitiesModel);
 app.use('/getCustomerDetails', getCustomerDetailsModel);
 app.use('/logout', logoutRoutes);
 app.use('/api/addNewDesign', companydesignModel)

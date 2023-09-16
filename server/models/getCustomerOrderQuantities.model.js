@@ -5,11 +5,9 @@ import db from '../config/database.js';
 const router = express.Router();
 
 router.route('/').post((req, res) => {
-    const sql = 'SELECT * FROM `tshirt_order` WHERE `customer_id` = ?;';
+    const sql = 'SELECT * FROM `order_quantity` WHERE `tshirt_order_id` = ?;';
 
-    // console.log(req.body.customerId);
-
-    db.query(sql, [req.body.customerId], (err, result) => {
+    db.query(sql, [req.body.id], (err, result) => {
         if (err) {
             console.error(err);
             return res.json({ Error: "Error_Select_Data" });

@@ -18,7 +18,7 @@ const CameraRig = ({ children }) => {
     if (snap.page == 'home') {
       if (isBreakpoint) targetPosition = [0, -0.025, 2];
       if (isMobile) targetPosition = [0, 0.2, 2.5];
-    } else if (snap.page == 'customizor') {
+    } else if (snap.page == 'customizor' || snap.page == 'no-canvas') {
       if (isMobile) targetPosition = [0, 0.2, 2.5];
       else targetPosition = [0, -0.025, 2];
     } else if (snap.page == 'makeorder') {

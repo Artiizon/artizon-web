@@ -38,8 +38,8 @@ const MakeOrder = () => {
     const tcolor = sessionStorage.getItem("tcolor");
     state.tcolor = tcolor;
   }
-  if (sessionStorage.getItem("file")) {
-    const file = sessionStorage.getItem("file");
+  if (sessionStorage.getItem("logo")) {
+    const file = sessionStorage.getItem("logo");
     state.logoDecal = file;
   }
 

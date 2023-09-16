@@ -9,6 +9,11 @@ import state from '../store';
 const Shirt = () => {
   const snap = useSnapshot(state);
 
+  if (sessionStorage.getItem('tstyle') ) {
+    const tstyle = sessionStorage.getItem('tstyle');
+    state.tstyle = tstyle;
+  }
+
   if (state.tstyle === 'standard') {
     var { nodes, materials } = useGLTF('/standard.glb');
   } else if (state.tstyle === 'collar') {
@@ -32,6 +37,10 @@ const Shirt = () => {
   if (sessionStorage.getItem('logo2') ) {
     const file2 = sessionStorage.getItem('logo2');
     state.logoDecal2 = file2;
+  }
+  if (sessionStorage.getItem('text') ) {
+    const text = sessionStorage.getItem('text');
+    state.text = text;
   }
 
   const logoTexture = useTexture(snap.logoDecal);
@@ -94,7 +103,7 @@ const Shirt = () => {
           />
         )}
 
-      <Text
+      <Text className="max-w-xs"
         color="white"
         anchorX="center"
         anchorY="middle"

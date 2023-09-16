@@ -84,6 +84,7 @@ const Customizor = () => {
 
     try {
       state.text = prompt;
+      sessionStorage.setItem('text', state.text)
     } catch (err) {
       alert(err)
     } finally {
@@ -154,9 +155,10 @@ const Customizor = () => {
             className="form-control"
             onChange={(e) => {
               state.tstyle = e.target.value
+              sessionStorage.setItem('tstyle', state.tstyle)
             }}
           >
-            <option value="">Select Style</option>
+            <option value={state.tstyle}>Select Style</option>
             <option value="standard">Standard</option>
             <option value="collar">Collar</option>
           </select>
