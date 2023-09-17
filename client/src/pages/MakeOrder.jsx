@@ -56,6 +56,39 @@ const MakeOrder = () => {
     false,
   ]);
 
+  const [materialError, setMaterialError] = useState("");
+  const [quantityError, setQuantityError] = useState("");
+
+  function validateMaterial(material) {
+    if (material === "") {
+      setMaterialError("Material required");
+      return false;
+    }
+    else {
+      setMaterialError("");
+      return true;
+    }
+  }
+
+  function validateQuantity() {
+    var count = 0;
+    for (let i = 0; i < quantities.length; i++) {
+      count += quantities[i];
+      if (quantities[i] < 0) {
+        setQuantityError("Quantity must be a positive number");
+        return false;
+      }
+    }
+    if (count === 0) {
+      setQuantityError("Quantity required");
+      return false;
+    }
+    else {
+      setQuantityError("");
+      return true;
+    }
+  }
+
   const handleSizes = (e) => {
     const index = e.target.id;
     const value = e.target.checked;
@@ -85,24 +118,29 @@ const MakeOrder = () => {
 
     const customerId = sessionStorage.getItem("customer_id");
 
-    axios
-      .post("http://localhost:8080/makeOrder", {
-        material,
-        color,
-        note,
-        logo,
-        days,
-        customerId,
-        quantities,
-      })
-      .then((res) => {
-        if (res.data.Status === "Success_Makeorder") {
-          navigate("/");
-          alert("Order Sent Successful");
-        } else {
-          alert("Order Sent Failed");
-        }
-      });
+    const isValidMaterial = validateMaterial(material);
+    const isValidateQuantity = validateQuantity();
+
+    if (isValidMaterial && isValidateQuantity) {
+      axios
+        .post("http://localhost:8080/makeOrder", {
+          material,
+          color,
+          note,
+          logo,
+          days,
+          customerId,
+          quantities,
+        })
+        .then((res) => {
+          if (res.data.Status === "Success_Makeorder") {
+            navigate("/");
+            alert("Order Sent Successful");
+          } else {
+            alert("Order Sent Failed");
+          }
+        });
+    }
   };
 
   return (
@@ -133,6 +171,7 @@ const MakeOrder = () => {
                   <option value="Linen">Linen</option>
                 </select>
               </div>
+              <span className="signup-form-error text-[12px] text-red-500">{materialError}</span>
               <div className="mb-[10px] mt-[10px]">
                 <label
                   htmlFor="tcolor"
@@ -145,9 +184,10 @@ const MakeOrder = () => {
               </div>
               <div>
                 <label htmlFor="quantities" className="font-[700] text-[20px] ">
-                  Quantities
+                  Quantity
                 </label>{" "}
                 <br />
+                <span className="signup-form-error text-[12px] text-red-500">{quantityError}</span>
                 <div className="quantity-item mt-[10px]">
                   <label htmlFor="XS" className="font-[700]">
                     XS
