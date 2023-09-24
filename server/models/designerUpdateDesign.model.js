@@ -10,7 +10,13 @@ const storage = multer.diskStorage({
     cb(null, './uploads/company_designs');
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    // Check if the uploaded file starts with "image1-"
+    if (file.originalname.startsWith('image1-')) {
+      cb(null, 'image1-' + Date.now() + path.extname(file.originalname));
+    } else {
+      // For other images, generate filenames as needed
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
   },
 });
 
@@ -18,7 +24,7 @@ const upload = multer({
   storage: storage
 });
 
-router.patch('/:id', upload.array('images', 3), (req, res) => {
+router.patch('/:id', upload.any(), (req, res) => {
   const designId = req.params.id;
   const { design_name, design_des, price, color } = req.body;
 
@@ -31,26 +37,26 @@ router.patch('/:id', upload.array('images', 3), (req, res) => {
   }
 
   try {
-    // Check which images were uploaded and update the corresponding fields
-    let updateFields = ['design_name = ?, description = ?, price = ?, color = ?'];
+    // Build the update query dynamically based on uploaded images
+    const updateFields = ['design_name = ?, description = ?, price = ?, color = ?'];
     const queryParams = [design_name, design_des, price, color];
 
-    if (imageNames.length > 0) {
-      // If at least one image was uploaded, update the image fields
-      if (imageNames.length >= 1) {
-        updateFields.push('image_1 = ?');
-        queryParams.push(imageNames[0]);
-      }
+    // Check if "image1-" was uploaded and update image_1 field
+    if (imageNames.some((name) => name.startsWith('image1-'))) {
+      updateFields.push('image_1 = ?');
+      queryParams.push(imageNames.find((name) => name.startsWith('image1-')));
+    }
 
-      if (imageNames.length >= 2) {
-        updateFields.push('image_2 = ?');
-        queryParams.push(imageNames[1]);
-      }
+    // Check if "image2-" was uploaded and update image_2 field
+    if (imageNames.some((name) => name.startsWith('image2-'))) {
+      updateFields.push('image_2 = ?');
+      queryParams.push(imageNames.find((name) => name.startsWith('image2-')));
+    }
 
-      if (imageNames.length >= 3) {
-        updateFields.push('image_3 = ?');
-        queryParams.push(imageNames[2]);
-      }
+    // Check if "image3-" was uploaded and update image_3 field
+    if (imageNames.some((name) => name.startsWith('image3-'))) {
+      updateFields.push('image_3 = ?');
+      queryParams.push(imageNames.find((name) => name.startsWith('image3-')));
     }
 
     const updateQuery = `UPDATE company_design SET ${updateFields.join(', ')} WHERE company_design_id = ?`;

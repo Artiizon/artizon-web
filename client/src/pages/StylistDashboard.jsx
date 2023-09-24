@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { FaCheckCircle, FaTimesCircle, FaClipboardCheck } from 'react-icons/fa';
-import StandardLayout from '../components/layout/StandardLayout';
+
 
 const data = [
   { name: 'Jan', orders: 20 },

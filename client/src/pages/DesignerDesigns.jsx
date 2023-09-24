@@ -74,8 +74,6 @@ const DesignerDesignPage = () => {
       setSelectedImage1(null);
       setPreviewImage1(null);
     }
-
-    // Reset the input value to clear the selected file
     e.target.value = "";
   };
 
@@ -83,25 +81,26 @@ const DesignerDesignPage = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage2(file);
-      setPreviewNewImage2(URL.createObjectURL(file)); // Update the preview for image 2
+      setPreviewNewImage2(URL.createObjectURL(file));
     } else {
       setSelectedImage2(null);
-      setPreviewImage2(null); // Clear the preview for image 2
+      setPreviewImage2(null);
     }
     e.target.value = "";
   };
-  
+
   const handleImage3Change = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage3(file);
-      setPreviewNewImage3(URL.createObjectURL(file)); // Update the preview for image 3
+      setPreviewNewImage3(URL.createObjectURL(file));
     } else {
       setSelectedImage3(null);
-      setPreviewImage3(null); // Clear the preview for image 3
+      setPreviewImage3(null);
     }
     e.target.value = "";
   };
+
   
 
   const handleUpdateConfirm = () => {
