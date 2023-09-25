@@ -45,6 +45,8 @@ import designerDeleteDesign from './models/designerDeleteDesign.model.js'
 import designerUpdateDesign from './models/designerUpdateDesign.model.js'
 import companyFeedbacks from './models/fetchCompanyFeedback.model.js';
 import designerFeedbacks from './models/fetchDesignerRatings.model.js';
+import stylishDashboardDataModel from './models/fetchStylishDashboardData.model.js';
+import designerDashboardDataModel from './models/fetchDesignerDashData.model.js';
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -120,6 +122,8 @@ app.use('/delete_design', designerDeleteDesign)
 app.use('/update_design', designerUpdateDesign)
 app.use('/getCompanyFeedback', companyFeedbacks)
 app.use('/getDesignerFeedback', designerFeedbacks)
+app.use('/getStylishDashboardData', stylishDashboardDataModel)
+app.use('/getDesignerDashboardData', designerDashboardDataModel)
 
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)

@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { MdFeedback } from 'react-icons/md';
 import { SiAffinitydesigner } from 'react-icons/si';
 import {BiSolidNote} from 'react-icons/bi'
 import { AiOutlinePlus, AiOutlineEye } from 'react-icons/ai';
-import StandardLayout from '../components/layout/StandardLayout';
 import { BsArrowRightShort } from 'react-icons/bs';
 
 import { useSnapshot } from "valtio";
