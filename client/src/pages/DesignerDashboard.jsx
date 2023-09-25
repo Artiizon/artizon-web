@@ -5,24 +5,30 @@ import { SiAffinitydesigner } from 'react-icons/si';
 import {BiSolidNote} from 'react-icons/bi'
 import { AiOutlinePlus, AiOutlineEye } from 'react-icons/ai';
 import { BsArrowRightShort } from 'react-icons/bs';
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const data = [
-  { name: 'Jan', orders: 20 },
-  { name: 'Feb', orders: 30 },
-  { name: 'Mar', orders: 25 },
-  { name: 'Apr', orders: 40 },
-  { name: 'May', orders: 35 },
-  { name: 'Jun', orders: 50 },
-  { name: 'Jul', orders: 45 },
-  { name: 'Aug', orders: 55 },
-  { name: 'Sep', orders: 60 },
-  { name: 'Oct', orders: 70 },
-  { name: 'Nov', orders: 65 },
-  { name: 'Dec', orders: 72 },
+const blackGradient = (
+  <linearGradient id="blackGradient" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stopColor="#000000" stopOpacity="0.9" />
+    <stop offset="30%" stopColor="#0a0a0a" stopOpacity="0.8" />
+    <stop offset="70%" stopColor="#050505" stopOpacity="0.8" />
+    <stop offset="100%" stopColor="#000000" stopOpacity="0.8" />
+  </linearGradient>
+);
+
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth() + 1; // Add 1 to make it 1-based
+
+const months = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
+
+const getFormattedMonth = (year, month) => `${year}-${month < 10 ? '0' : ''}${month}`;
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -117,10 +123,64 @@ const DashboardPage = () => {
   const snap = useSnapshot(state);
 
   state.page = 'no-canvas'
+
+  const [feedbackCount, setFeedbackCount] = useState(0);
+  const [designCount, setDesignCount] = useState(0);
+  const [orderCount, setOrderCount] = useState(0);
+  const [monthlyOrderCounts, setMonthlyOrderCounts] = useState([]);
   // Define your orders and other data here...
-  const acceptedOrders = 25;
-  const rejectedOrders = 5;
-  const ordersInApproval = 10;
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8080/getDesignerDashboardData')
+      .then(response => {
+        console.log(response.data);
+        const responseData = response.data; // Use the entire response data
+        // console.log(responseData)
+        setFeedbackCount(responseData[0].feedback_count);
+        setDesignCount(responseData[0].active_design_count);
+        setOrderCount(responseData[0].order_count);
+     
+   // Create an object to track orders for each month
+   const ordersByMonth = {};
+
+   // Initialize the object with 0 orders for the current month and the previous 11 months
+   for (let i = 0; i < 12; i++) {
+     let monthIndex = currentMonth - i;
+     let year = currentYear;
+     
+     // Adjust the year if the month index is less than 1 (e.g., January)
+     if (monthIndex < 1) {
+       monthIndex += 12; // Wrap around to December
+       year--;
+     }
+     
+     const formattedMonth = getFormattedMonth(year, monthIndex);
+     ordersByMonth[formattedMonth] = 0;
+   }
+
+   // Populate the orders for the available months from the backend
+   responseData.forEach(item => {
+     const formattedMonth = item.order_month; // Assuming the format is 'YYYY-MM'
+     ordersByMonth[formattedMonth] = item.completed_order_count;
+   });
+
+   // Transform the data to match the format expected by Recharts
+   const data = Object.keys(ordersByMonth).map(name => ({
+     name,
+     orders: ordersByMonth[name],
+   }));
+
+   // Reverse the order of the data to display the latest month on the right
+   const reversedData = data.reverse();
+
+   // Do something with the reversed data, e.g., set it in a state variable
+   setMonthlyOrderCounts(reversedData);
+ })
+              .catch(error => {
+                console.error('Error fetching orders summary:', error);
+              });
+          }, []);
+          
 
 
   return (
@@ -133,9 +193,9 @@ const DashboardPage = () => {
        
        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-6">
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <DashboardLabel title="Total Designs" value={rejectedOrders} color="blue" />
-    <DashboardLabel title="Total Orders" value={ordersInApproval} color="yellow" />
-    <DashboardLabel title="Total Feedbacks" value={acceptedOrders} color="green" />
+    <DashboardLabel title="Total Designs" value={designCount} color="blue" />
+    <DashboardLabel title="Total Orders" value={orderCount} color="yellow" />
+    <DashboardLabel title="Total Feedbacks" value={feedbackCount} color="green" />
   </div>
 
   <div className="flex justify-end gap-4">
@@ -166,14 +226,21 @@ const DashboardPage = () => {
 <div className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Company Designs Orders (Past 12 Months)</h2>
           <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="orders" fill="#3B82F6" barSize={30} radius={[10, 10, 0, 0]} shape={<CustomBar />} />
-            </BarChart>
-          </ResponsiveContainer>
+          <BarChart data={monthlyOrderCounts}>
+            <defs>{blackGradient}</defs>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="name"
+              domain={['dataMax', 'dataMin']}
+            />
+            <YAxis
+              allowDecimals={false} // Ensure whole numbers are displayed
+            />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="orders" fill="url(#blackGradient)" />
+          </BarChart>
+        </ResponsiveContainer>
         </div>
         </div>
   );
