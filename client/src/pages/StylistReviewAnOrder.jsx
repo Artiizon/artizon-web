@@ -43,7 +43,7 @@ const StylistReviewOrderForm = () => {
   
         // Now, send an email to the customer
         const customerMessage = generateCustomerEmailMessage(rejectMainReason, rejectAdditionalNote);
-        console.log(formData.cusEmail);
+
         axios
           .post('http://127.0.0.1:8080/send-customer-email', {
             customerId: id, // Replace with the actual customer ID or email address

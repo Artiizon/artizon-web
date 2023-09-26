@@ -10,8 +10,9 @@ import About from "./pages/About";
 import CustomerOrders from "./pages/CustomerOrders";
 import CustomerOrderViewMore from "./pages/CustomerOrderViewMore";
 import CustomerProfile from "./pages/CustomerProfile";
-
+import ForgotPassword from "./pages/ForgotPassword";
 import UserManageMain from "./pages/UserManage/UserManageMain";
+import ForgotPasswordChange from "./pages/ForgotPasswordChange";
 
 import { useSnapshot } from "valtio";
 import state from "./store";
@@ -101,6 +102,7 @@ function App() {
           <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>
           <Route exact path="/review-an-ordertpm/:id" element={<ManagerReviewAnOrder/>}/>
           <Route exact path="/stylist-view-order/:id" element={<StylistViewOrderForm/>}/>
+          <Route exact path="/forgot-password-change/:email" element={<ForgotPasswordChange />} />
 
        
           <Route exact path="/manager-view-order/:id" element={<ManagerViewOrderForm/>}/>
@@ -122,6 +124,7 @@ function App() {
                   
           <Route exact path="/supplier/new" element={<AddNewSupplier/>}/>
           <Route exact path="/Item/new" element={<AddNewItem/>}/>
+          <Route exact path="/forgot-password" element={<ForgotPassword />} />
           
 
 

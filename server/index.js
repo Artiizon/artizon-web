@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url'; 
-import nodemailer from 'nodemailer';
 import serveStatic from 'serve-static';
 // routes
 import dalleRoutes from './routes/dalle.routes.js';
@@ -78,6 +77,8 @@ import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model
 import itemexistCheck from './models/Inventory/itemexistCheck.model.js';
 import itemtypeexistCheck from './models/Inventory/itemtypeexistCheck.model.js'; 
 import quantityInputTypes from './models/Inventory/quantityInputTypesOptions.model.js';
+import forgotPassword from './models/forgotPassword.model.js';
+import changePasswordForgot from './models/changePasswordForgot.model.js';
 
 dotenv.config();
 
@@ -146,6 +147,8 @@ app.use('/getCompanyFeedback', companyFeedbacks)
 app.use('/getDesignerFeedback', designerFeedbacks)
 app.use('/getStylishDashboardData', stylishDashboardDataModel)
 app.use('/getDesignerDashboardData', designerDashboardDataModel)
+app.use('/forgot-password', forgotPassword)
+app.use('/change-password-forgot', changePasswordForgot)
 
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)
