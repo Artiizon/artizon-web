@@ -14,7 +14,12 @@ import verifyManager from './routes/verifyManager.route.js';
 import verifyStylist from './routes/verifyStylist.route.js';
 
 // database
-// import db from './config/database.js';
+// import db from './config/database.js'; 
+
+// email
+import transporter from './config/emailService.js'; // Adjust the path if needed
+import { sendEmailWithSubject } from './config/emailUtils.js';
+
 
 // models
 import signupModel from './models/signup.model.js';
@@ -29,6 +34,7 @@ import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
 import getCustomerOrderQuantitiesModel from './models/getCustomerOrderQuantities.model.js';
 import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 
+import fetchOngoingOrdersModel from './models/fetchOngoingOrders.model.js';
 import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
 import companydesignModel from './models/companydesign.model.js';  
@@ -48,6 +54,13 @@ import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.mod
 import stylistRejectOrderModel from './models/stylistRejectOrder.model.js';
 import managerAcceptRejectOrderModel from './models/Inventory/managerReviewAcceptReject.model.js';
 import managerRejectOrderModel from './models/Inventory/managerRejectOrder.model.js';
+import sylistUpdateOrderStatusModel from './models/stylistUpdateOrderStatus.model.js';
+import designerDeleteDesign from './models/designerDeleteDesign.model.js'
+import designerUpdateDesign from './models/designerUpdateDesign.model.js'
+import companyFeedbacks from './models/fetchCompanyFeedback.model.js';
+import designerFeedbacks from './models/fetchDesignerRatings.model.js';
+import stylishDashboardDataModel from './models/fetchStylishDashboardData.model.js';
+import designerDashboardDataModel from './models/fetchDesignerDashData.model.js';
 
 import fetchCustomers from "./models/Users/fetchCustomers.model.js";
 import fetchDesigners from "./models/Users/fetchDesigners.model.js";
@@ -81,6 +94,8 @@ import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model
 import itemexistCheck from './models/Inventory/itemexistCheck.model.js';
 import itemtypeexistCheck from './models/Inventory/itemtypeexistCheck.model.js'; 
 import quantityInputTypes from './models/Inventory/quantityInputTypesOptions.model.js';
+import forgotPassword from './models/forgotPassword.model.js';
+import changePasswordForgot from './models/changePasswordForgot.model.js';
 
 dotenv.config();
 
@@ -89,10 +104,26 @@ app.use(express.json());
 
 app.use(cors({
   origin: ['http://localhost:5173'],
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE' , 'PUT'],
   credentials: true
 }));
 
+// Add a new route to send a message to the customer via email with a custom subject
+app.post('/send-customer-email', (req, res) => {
+  // Get data from the request body
+  const { recipientEmail, customerId, subject, message } = req.body;
+
+  // Call the utility function to send the email
+  sendEmailWithSubject(recipientEmail, subject, message, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ error: 'Error sending email' });
+    } else {
+      console.log('Email sent:', info.response);
+      res.json({ message: 'Email sent Successfully' });
+    }
+  });
+});
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
@@ -135,7 +166,16 @@ app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_order', managerReviewOrderModel)
 app.use('/stylist_reject_order', stylistRejectOrderModel)
 app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
-
+app.use('/stylistViewOrders', fetchOngoingOrdersModel) 
+app.use('/stylistUpdateOrderStatus', sylistUpdateOrderStatusModel) 
+app.use('/delete_design', designerDeleteDesign)
+app.use('/update_design', designerUpdateDesign)
+app.use('/getCompanyFeedback', companyFeedbacks)
+app.use('/getDesignerFeedback', designerFeedbacks)
+app.use('/getStylishDashboardData', stylishDashboardDataModel)
+app.use('/getDesignerDashboardData', designerDashboardDataModel)
+app.use('/forgot-password', forgotPassword)
+app.use('/change-password-forgot', changePasswordForgot)
 
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)
@@ -149,6 +189,7 @@ app.use("/api/managers", fetchManagers);
 app.use("/api/admins", fetchAdmins);
 
 app.use("/api/stocks", fetchStocks); 
+
 app.get("/api/stock/:id",fetchStockDetailsByID);
 app.get("/api/item-names",stockItemNames);
 app.get("/api/item-nameByID/:id",stockItemNameById);

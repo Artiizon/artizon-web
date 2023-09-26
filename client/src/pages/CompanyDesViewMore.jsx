@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaStarHalfAlt, FaTimes } from 'react-icons/fa'; 
-import StandardLayout from '../components/layout/StandardLayout';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useParams, NavLink  } from 'react-router-dom';
 import axios from 'axios';
 import { useSnapshot } from "valtio";
 import state from "../store";
-
-import des1 from "../images/designs/design1.jpg";
-import des2 from "../images/designs/design2.jpg";
-import des3 from "../images/designs/design3.jpg";
-
 
 
 const CompanyDesViewMore = () => {
@@ -51,26 +45,7 @@ const CompanyDesViewMore = () => {
     setIsModalOpen(false);
   };
 
-  const product = {
-    name: '"Awesome" Design',
-    description: (
-      <>
-        <p className='py-2'>Get ready to turn heads with our "Awesome" design t-shirt! This captivating and vibrant t-shirt is a must-have for those who want to make a bold statement. Designed with creativity and style in mind, the "Awesome" design features a stunning combination of eye-catching colors and captivating graphics that instantly grab attention. The bold typography and artistic elements showcase a sense of confidence and individuality, making it a perfect choice for those who dare to stand out from the crowd.</p>
-        <p className='py-2'>Crafted with the utmost care and using high-quality materials, this t-shirt ensures both comfort and durability. The soft and breathable fabric will keep you cool and comfortable all day long, while the precise stitching guarantees long-lasting wear.</p>
-      </>
-    ),
-    rating: 4.5,
-    reviewCount: 10,
-    price: '$99.99',
-    available: true,
-    material: 'Cotton',
-    images: [
-      des1,
-      des2,
-      des3
-    ]
-  };
-  
+ 
   const splitDescription = (description) => {
     const words = description.split(' ');
     if (words.length > 75) {
@@ -86,29 +61,32 @@ const CompanyDesViewMore = () => {
 
   const [descriptionPara1, descriptionPara2] = splitDescription(design.description);
 
-  const renderStarRating = (rating, reviewCount) => {
+  const renderStarRating = (rating, reviewCount, oneStar, twoStar, threeStar, fourStar, fiveStar) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
     const starIcons = [];
   
-    for (let i = 0; i < fullStars; i++) {
-      starIcons.push(<FaStar key={i} className="text-yellow-500" />);
-    }
-  
-    if (hasHalfStar) {
-      starIcons.push(<FaStarHalfAlt key="half" className="text-yellow-500" />);
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        starIcons.push(<FaStar key={i} className="text-yellow-500" />);
+      } else if (i === fullStars && hasHalfStar) {
+        starIcons.push(<FaStarHalfAlt key="half" className="text-yellow-500" />);
+      } else {
+        starIcons.push(<FaStar key={i} className="text-yellow-200" />);
+      }
     }
   
     const starRatingCounts = [
-      { stars: 5, count: 2 },
-      { stars: 4, count: 5 },
-      { stars: 3, count: 8 },
-      { stars: 2, count: 3 },
-      { stars: 1, count: 2 },
+      { stars: 5, count: fiveStar },
+      { stars: 4, count: fourStar },
+      { stars: 3, count: threeStar },
+      { stars: 2, count: twoStar },
+      { stars: 1, count: oneStar },
     ];
   
     const ratingElements = starRatingCounts.map((item) => {
-      const percentage = (item.count / reviewCount) * 100;
+      const percentage = reviewCount > 0 ? (item.count / reviewCount) * 100 : 0;
+    
       return (
         <div key={item.stars} className="grid grid-cols-3 items-center">
           <div className="flex items-center mr-2">
@@ -116,7 +94,12 @@ const CompanyDesViewMore = () => {
           </div>
           <div className="flex flex-grow">
             <div className="w-full h-2 bg-gray-300 rounded-md">
-              <div className="h-full bg-yellow-300" style={{ width: `${percentage}%`, borderRadius: 'inherit' }}></div>
+              {reviewCount > 0 && (
+                <div
+                  className="h-full bg-yellow-300"
+                  style={{ width: `${percentage}%`, borderRadius: 'inherit' }}
+                ></div>
+              )}
             </div>
           </div>
           <div className="ml-2 text-gray-700">
@@ -125,6 +108,7 @@ const CompanyDesViewMore = () => {
         </div>
       );
     });
+    
   
     return (
       <div>
@@ -140,6 +124,7 @@ const CompanyDesViewMore = () => {
       </div>
     );
   };
+  
   
 
   return (
@@ -222,7 +207,7 @@ const CompanyDesViewMore = () => {
             <div className="flex flex-col mb-2">
               <p className="text-brown">Designer Rating:</p>
               <div className="flex items-center">
-                {renderStarRating(product.rating, product.reviewCount)}
+                {renderStarRating(design.average_rating, design.num_reviews, design.num_1_star, design.num_2_star, design.num_3_star, design.num_4_star, design.num_5_star)}
               </div>
             </div>
 

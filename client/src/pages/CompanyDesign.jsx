@@ -1,5 +1,4 @@
-import StandardLayout from "../components/layout/StandardLayout";
-import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -7,34 +6,36 @@ import { useSnapshot } from "valtio";
 import state from "../store";
 
 const CompanyDesignCard = ({ design }) => {
-  // const renderStarRating = (rating, reviewCount) => {
-  //   const fullStars = Math.floor(rating);
-  //   const hasHalfStar = rating % 1 !== 0;
-  //   const starIcons = [];
 
-  //   for (let i = 0; i < fullStars; i++) {
-  //     starIcons.push(<FaStar key={i} className="text-yellow-500" />);
-  //   }
+  const renderStarRating = (rating, reviewCount) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const starIcons = [];
+  
+    for (let i = 0; i < fullStars; i++) {
+      starIcons.push(<FaStar key={i} className="text-yellow-500" />);
+    }
+  
+    if (hasHalfStar) {
+      starIcons.push(<FaStarHalfAlt key="half" className="text-yellow-500" />);
+    } else if (fullStars < 5) {
+      // If there are less than 5 full stars, add one unshaded star.
+      starIcons.push(<FaStar key="unshaded" className="text-yellow-200" />);
+    }
+  
+    // Add additional empty stars to reach a total of 5 stars.
+    while (starIcons.length < 5) {
+      starIcons.push(<FaStar key={`empty-${starIcons.length}`} className="text-yellow-200" />);
+    }
+  
+    return (
+      <div className="flex items-center mb-2 py-1">
+        {starIcons}
+        <span className="ml-2 text-gray-700">{rating} rating based on {reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}</span>
+      </div>
+    );
+  };
 
-  //   if (hasHalfStar) {
-  //     starIcons.push(<FaStarHalfAlt key="half" className="text-yellow-500" />);
-  //   }
-
-  //   return (
-  //     <div className="flex items-center mb-2 py-1">
-  //       {starIcons}
-  //       <span className="ml-2 text-gray-700">{rating} rating based on {reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}</span>
-  //     </div>
-  //   );
-  // };
-  const starIcons = [
-    <FaStar key={1} className="text-yellow-500" />,
-    <FaStar key={2} className="text-yellow-500" />,
-    <FaStar key={3} className="text-yellow-500" />,
-    <FaStar key={3} className="text-yellow-200" />,
-    <FaStar key={3} className="text-yellow-200" />,
-    // Add more star icons as needed
-  ];
 
   return (
     <div className="w-81 h-100 rounded overflow-hidden shadow-lg">
@@ -44,8 +45,9 @@ const CompanyDesignCard = ({ design }) => {
         <p className="text-gray-700 text-base">Design by: {design.designer_full_name}</p>
         {/* {renderStarRating(product.rating, product.reviewCount)} */}
         <div className="flex items-center mb-2 py-1">
-          {starIcons}
-          <span className="ml-2 text-gray-700">4.5 rating based on 6 reviews</span>
+          
+          {renderStarRating(design.average_rating, design.num_reviews)}
+         
         </div>
       </div>
       <div className="px-6 py-4">

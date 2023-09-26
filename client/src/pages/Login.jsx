@@ -1,11 +1,8 @@
 import { useSnapshot } from "valtio";
 import { useState } from "react";
 import axios from "axios";
-
 import state from "../store";
-
 import { useNavigate, NavLink } from "react-router-dom";
-
 import Tlog from "../images/tlog2.png";
 import Footer from "../components/footer/Footer";
 
@@ -124,6 +121,9 @@ const Login = () => {
               />
             </div>
             <span className="login-form-error">{passwordError}</span>
+            <div className="forgot-password">
+              <NavLink to="/forgot-password">Forgot password?</NavLink>
+            </div>
             <div>
               <button type="submit">Login</button>
             </div>
