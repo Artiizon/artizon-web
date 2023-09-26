@@ -83,11 +83,11 @@ function ItemTypesPage() {
   <table className="w-full table-auto bg-white shadow-md rounded-lg">
     <thead>
       <tr>
-        <th className="py-2 px-12 bg-black text-white">Item Type</th>
-        <th className="py-2 pr-48 bg-black text-white">
+        <th className="py-2 px-4 bg-black text-white" style={{ width: "400px" }}>Item Type</th>
+        <th className="py-2 px-4 bg-black text-white" style={{ width: "400px" }}>
           Total Quantity
         </th>
-        <th className="py-2 px-20 bg-black text-white"></th>
+        <th className="py-2 px-4 bg-black text-white" style={{ width: "400px" }}></th>
       </tr>
     </thead>
   </table>
@@ -100,9 +100,9 @@ function ItemTypesPage() {
             key={itemType.item_type_id}
             className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}
           >
-            <td className="py-2.5 px-4">{itemType.item_type}</td>
-            <td className="py-2.5 px-4">{itemType.total_quantity}</td>
-            <td className="py-2.5 px-4">
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>{itemType.item_type}</td>
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>{itemType.total_quantity}</td>
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>
               <Link
                 to={`/item-colors/${itemType.item_type_id}?itemName=${encodeURIComponent(itemName)}`}
                 className="bg-black text-white px-4 py-2 rounded-md"

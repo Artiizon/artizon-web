@@ -326,11 +326,12 @@ function StockManagementPage() {
           <table className="w-full">
             <thead>
               <tr>
-                <th className="px-4 py-3 text-left w-[100px]">Stock ID</th>
-                <th className="px-4 py-3 text-left">Date and Time</th>
-                <th className="px-4 pr-25 py-3  text-left ">Supplier Name</th>
-                <th className="px-6 pr-10 py-3 text-left">Total Cost (Rs.)</th>
-                <th className="px-4 py-3  text-right"></th>
+                <th className="px-4 py-3  text-left"  style={{ width: "100px" }}>Stock ID</th>
+                <th className="px-4 py-3  text-left" style={{ width: "300px" }}>Date and Time</th>
+                <th className="px-4 py-3  text-left" style={{ width: "200px" }}>Supplier Name</th>
+                <th className="px-4 py-3  text-left" style={{ width: "200px" }}>Item Names</th>
+                <th className="px-4 py-3  text-left" style={{ width: "200px" }}>Total Cost (Rs.)</th>
+                <th className="px-4 py-3  text-left" style={{ width: "200px" }}></th>
               </tr>
             </thead>
           </table>
@@ -346,20 +347,24 @@ function StockManagementPage() {
                   key={value.id}
                   className={index % 2 === 0 ? "bg-[#F1F1F1]" : "bg-[#D9D9D9]"}
                 >
-                  <td className="px-4 py-3 w-[100px] font-sans">
+                  <td className="px-4 py-3 font-sans" style={{ width: "100px" }}>
                     {value.stock_id}
                   </td>
-                  <td className="px-3 py-3 font-sans">
+                  <td className="px-4 py-3 font-sans" style={{ width: "300px" }}>
                     {new Date(value.date_and_time).toLocaleString("en-US", {
                       dateStyle: "medium",
                       timeStyle: "short",
                     })}
                   </td>
-                  <td className="px-[20px] pr-20 py-3">
+                  <td className="px-4 py-3" style={{ width: "200px" }}>
                     {value.supplier_name}
                   </td>
-                  <td className="px-[40px] py-3">{value.total_cost}</td>
-                  <td className="px-4 py-3  text-right">
+                  <td className="px-4 py-3" style={{ width: "200px" }}>
+                    {value.item_names}
+                  </td>
+               
+                  <td className="px-4 py-3" style={{ width: "200px" }}>{value.total_cost}</td>
+                  <td className="px-4 py-3 text-right" style={{ width: "200px" }}>
                     <div className="flex justify-end gap-2 font-sans">
                       <Link
                         to={`/stock/${value.stock_id}`}

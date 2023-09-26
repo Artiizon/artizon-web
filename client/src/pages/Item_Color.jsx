@@ -91,8 +91,9 @@ function ItemColorsPage() {
   <table className="w-full table-auto bg-white shadow-md rounded-lg">
     <thead>
       <tr>
-        <th className="py-2 px-8 bg-black text-white">Item Color</th>
-        <th className="py-2 bg-black text-white">Total Quantity</th>
+        <th className="py-2 px-8 bg-black text-white" style={{ width: "400px" }}>Item Color</th>
+        <th className="py-2 bg-black text-white" style={{ width: "400px" }}>Re Order Level</th>
+        <th className="py-2 bg-black text-white" style={{ width: "400px" }}>Total Quantity</th>
        
       </tr>
     </thead>
@@ -106,8 +107,9 @@ function ItemColorsPage() {
             key={itemColor.item_color_id}
             className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}
           >
-            <td className="py-2.5 px-4">{itemColor.item_color}</td>
-            <td className="py-2.5 px-4">{itemColor.quantity}</td>
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>{itemColor.item_color}</td>
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>{itemColor.reorder_level}</td>
+            <td className="py-2.5 px-4" style={{ width: "400px" }}>{itemColor.quantity}</td>
            
           </tr>
         ))}

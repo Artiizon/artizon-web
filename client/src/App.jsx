@@ -59,6 +59,8 @@ import PricePage from "./pages/Price";
 
 import AddNewSupplier from "./pages/AddNewSupplier";
 import AddNewItem from "./pages/AddNewItem";
+import StockLevel from "./pages/StockLevel";
+import ViewSupplier from "./pages/ViewSupplier";
 
 function App() {
 
@@ -123,8 +125,11 @@ function App() {
           <Route exact path="/supplier/new" element={<AddNewSupplier/>}/>
           <Route exact path="/Item/new" element={<AddNewItem/>}/>
           <Route exact path="/price" element={<PricePage/>}/>
+          <Route exact path="/stocklevel" element={<StockLevel/>}/>
+          <Route exact path="/supplier/view" element={<ViewSupplier/>}/>
           
-       
+        
+        
 
         </Routes>
        

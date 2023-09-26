@@ -4,7 +4,7 @@ import db from "../../config/database.js";
 const router = express.Router();
 
 router.route("/").post((req, res) => {
-  const { item_name, item_type, item_color, quantity_label, quantity_type } =
+  const { item_name, item_type, item_color,reorder_level, quantity_label, quantity_type } =
     req.body;
 
   // Convert attributes to uppercase
@@ -57,7 +57,7 @@ router.route("/").post((req, res) => {
           // Step 2.2: Insert into item_name table
           const insertItemNameSql =
             "INSERT INTO `item_name` (`item_name`, `total_quantity`, `quantityType`, `quantityLabel`) VALUES (?, ?, ?, ?);";
-           console.log("ZASZAZA",quantity_type);
+          // console.log("ZASZAZA",quantity_type);
             const insertItemNameValues = [
             upperCaseItemName,
             0,
@@ -106,8 +106,8 @@ router.route("/").post((req, res) => {
                 itemTypeId = itemTypeResult[0].item_type_id;
             
                 const insertItemColorSql =
-                "INSERT INTO `item_color` (`item_color`, `quantity`, `item_type_id`) VALUES (?, ?, ?);";
-              const insertItemColorValues = [upperCaseItemColor, 0, itemTypeId];
+                "INSERT INTO `item_color` (`item_color`, `quantity`,`reorder_level`,item_type_id`) VALUES (?, ?, ?, ?);";
+              const insertItemColorValues = [upperCaseItemColor, 0, reorder_level, itemTypeId];
   
               db.query(
                 insertItemColorSql,
@@ -140,8 +140,8 @@ router.route("/").post((req, res) => {
                   itemTypeId = typeResult.insertId;
 
                   const insertItemColorSql =
-                  "INSERT INTO `item_color` (`item_color`, `quantity`, `item_type_id`) VALUES (?, ?, ?);";
-                const insertItemColorValues = [upperCaseItemColor, 0, itemTypeId];
+                  "INSERT INTO `item_color` (`item_color`, `quantity`,`reorder_level`, `item_type_id`) VALUES (?, ?, ?,?);";
+                const insertItemColorValues = [upperCaseItemColor, 0, reorder_level, itemTypeId];
     
                 db.query(
                   insertItemColorSql,

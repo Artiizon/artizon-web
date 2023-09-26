@@ -8,15 +8,16 @@ router.route('/').get(async (req, res) => {
   try {
     const { search } = req.query;
 
-    let sql = "SELECT item_id, item_name, item_type, item_color, price FROM Item";
+    let sql = "SELECT i.item_id, i.item_name, i.item_type, i.item_color, i.last_update, i.price, inm.quantityLabel FROM Item i LEFT JOIN item_name inm ON UPPER(i.item_name) = UPPER(inm.item_name)";
+   
 
     if (search) {
       // If search query is provided, add conditions to the SQL query
       sql += ` WHERE 
-        item_name LIKE '%${search}%' OR 
-        item_type LIKE '%${search}%' OR 
-        item_color LIKE '%${search}%' OR 
-        price LIKE '%${search}%'`;
+        i.item_name LIKE '%${search}%' OR 
+        i.item_type LIKE '%${search}%' OR 
+        i.item_color LIKE '%${search}%' OR 
+        i.price LIKE '%${search}%'`;
     }
 
     db.query(sql, (error, results) => {

@@ -66,6 +66,10 @@ import managerReviewOrderModel from './models/Inventory/managerReviewOrder.model
 import itemexistCheck from './models/Inventory/itemexistCheck.model.js';
 import itemtypeexistCheck from './models/Inventory/itemtypeexistCheck.model.js'; 
 import quantityInputTypes from './models/Inventory/quantityInputTypesOptions.model.js';
+import addPriceModel from  './models/Inventory/addPrice.model.js';
+import dashboardModel from './models/Inventory/dashboard.model.js'; 
+import stockLevelModel from './models/Inventory/stocklevel.model.js';
+import fetchSuppliers from './models/Inventory/fetchSuppliers.model.js';
 
 dotenv.config();
 
@@ -74,7 +78,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: ['http://localhost:5173'],
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE','PUT'],
   credentials: true
 }));
 
@@ -138,6 +142,10 @@ app.use("/api/item/checkItemType",itemtypeexistCheck);
 app.use("/api/quantityInputTypes",quantityInputTypes);
 app.use("/api/stockReport",stockReportModel);
 app.use("/api/prices",fetchStockPriceModel);
+app.use("/api/add-price",addPriceModel);
+app.use("/api/dashboard",dashboardModel);
+app.use("/api/stockLevel",stockLevelModel);
+app.use("/api/suppliers",fetchSuppliers);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));

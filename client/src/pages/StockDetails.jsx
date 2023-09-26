@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import StandardLayout from "../components/layout/StandardLayout";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
@@ -85,6 +84,9 @@ function StockDetailsPage() {
                     <th className="px-2 py-3 text-left w-1/5">Item Type</th>
                     <th className="px-2 py-3 text-left w-1/5">Item Color</th>
                     <th className="px-2 py-3 text-left w-1/5">Quantity</th>
+                    <th className="px-2 py-3 text-left w-1/5">Unit</th>
+                 
+                    
                   </tr>
                 </thead>
               </table>
@@ -107,6 +109,11 @@ function StockDetailsPage() {
                       <td className="px-4 py-3 w-1/5 font-[600] text-[17px]">
                         {item.quantity}
                       </td>
+                      <td className="px-4 py-3 w-1/5 font-[600] text-[17px]">
+                        {item.quantityLabel}
+                      </td>
+             
+
                     </tr>
                   ))}
                 </tbody>

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import StandardLayout from "../components/layout/StandardLayout";
 import { Link } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import state from "../store";
@@ -66,11 +65,13 @@ function ItemNamePage() {
           <table className="w-full table-auto bg-white shadow-md rounded-lg">
             <thead>
               <tr>
-                <th className="py-2 px-8   bg-black text-white">Item Name</th>
-                <th className="py-2  pr-44 bg-black text-white">
+                <th className="py-2 px-4   bg-black text-white"  style={{ width: "300px" }}>Item Name</th>
+                <th className="py-2  pr-4 bg-black text-white" style={{ width: "300px" }}>
                   Total Quantity
                 </th>
-                <th className="py-2 px-10 bg-black text-white"></th>
+                <th className="py-2 px-4 bg-black text-white" style={{ width: "300px" }}>Unit</th>
+                
+                <th className="py-2 px-4 bg-black text-white" style={{ width: "300px" }}></th>
               </tr>
             </thead>
           </table>
@@ -90,11 +91,14 @@ function ItemNamePage() {
                         : "bg-[#D9D9D9] text-center"
                     }
                   >
-                    <td className="py-2.5 px-4">{item.item_name}</td>
-                    <td className="py-2.5 px-4">
-                      {item.total_quantity} {item.quantityLabel}
+                    <td className="py-2.5 px-4" style={{ width: "300px" }}>{item.item_name}</td>
+                    <td className="py-2.5 px-4" style={{ width: "300px" }}>
+                      {item.total_quantity} 
                     </td>
-                    <td className="py-2.5 px-4">
+                    <td className="py-2.5 px-4" style={{ width: "300px" }}>
+                      {item.quantityLabel}
+                    </td>
+                    <td className="py-2.5 px-4" style={{ width: "300px" }}>
                       <Link
                         to={`/item-types/${item.item_name_id}`}
                         className="bg-black text-white px-4 py-2 rounded-md"

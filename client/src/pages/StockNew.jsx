@@ -175,6 +175,13 @@ function AddNewStockPage() {
         <div className="">
           {/* Add New Supplier Button */}
           <Link
+            to="/supplier/view"
+            className="bg-black text-white px-4 py-2 mr-3  rounded-md"
+          >
+            View Suppliers
+          </Link>
+          
+          <Link
             to="/supplier/new"
             className="bg-black text-white px-4 py-2 mr-3  rounded-md"
           >
