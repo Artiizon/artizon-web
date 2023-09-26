@@ -277,6 +277,11 @@ const Header = () => {
             <NavLink to="/usermanage">DASHBOARD</NavLink>
           </p>
         )}
+        {adminAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to="/blockusermanage">BLOCKED USERS</NavLink>
+          </p>
+        )}
 
         {stylistAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">

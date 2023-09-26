@@ -30,7 +30,15 @@ import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 
 import companyDesign from './models/fetchCompanyDesigns.model.js';
 import cookieParser from 'cookie-parser';
-import companydesignModel from './models/companydesign.model.js';    
+import companydesignModel from './models/companydesign.model.js';  
+
+import addDesignerModel from './models/adddesigner.model.js'; 
+import addStylistModel from './models/addstylist.model.js'; 
+import addManagerModel from './models/addmanager.model.js'; 
+import addAdminModel from './models/addadmin.model.js';
+
+import addblockStylistModel from './models/addblockstylist.model.js'; 
+
 import individualDesignDetailsModel from './models/fetchCompanyDetailsById.model.js'; 
 import fetchOrdersModel from './models/fetchOrders.model.js';
 import fetchDesignerDesignsModel from './models/fetchDesignerDesigns.model.js';
@@ -39,6 +47,14 @@ import stylistAcceptRejectOrderModel from './models/stylistAcceptRejectOrder.mod
 import stylistRejectOrderModel from './models/stylistRejectOrder.model.js';
 import managerAcceptRejectOrderModel from './models/Inventory/managerReviewAcceptReject.model.js';
 import managerRejectOrderModel from './models/Inventory/managerRejectOrder.model.js';
+
+import fetchCustomers from "./models/Users/fetchCustomers.model.js";
+import fetchDesigners from "./models/Users/fetchDesigners.model.js";
+import fetchStylists from "./models/Users/fetchStylists.model.js";
+import fetchManagers from "./models/Users/fetchManagers.model.js";
+import fetchAdmins from "./models/Users/fetchAdmins.model.js";
+
+import fetchBStylists from "./models/Users/fetchBStylists.model.js";
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -97,7 +113,16 @@ app.use('/makeOrder', makeOrderModel);
 app.use('/getCustomerOrders', getCustomerOrdersModel);
 app.use('/getCustomerDetails', getCustomerDetailsModel);
 app.use('/logout', logoutRoutes);
-app.use('/api/addNewDesign', companydesignModel)
+
+app.use('/api/addNewDesign', companydesignModel);
+app.use('/api/addNewDesigner', addDesignerModel);
+app.use('/api/addNewStylist', addStylistModel);
+app.use('/api/addNewManager', addManagerModel);
+app.use('/api/addNewAdmin', addAdminModel);
+
+app.use('/api/addBlockStylist', addblockStylistModel);
+
+
 app.use('/viewCompanyDesigns', companyDesign);
 app.use('/individual_company_design', individualDesignDetailsModel)
 app.use('/viewOrders', fetchOrdersModel)
@@ -113,6 +138,13 @@ app.use('/accepted_tshirt_order', managerAcceptRejectOrderModel)
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)
 app.use('/manager_reject_order', managerRejectOrderModel)
+
+app.use("/api/customers", fetchCustomers); 
+app.use("/api/designers", fetchDesigners);
+app.use("/api/stylists", fetchStylists);
+app.use("/api/bstylists", fetchBStylists);
+app.use("/api/managers", fetchManagers);
+app.use("/api/admins", fetchAdmins);
 
 app.use("/api/stocks", fetchStocks); 
 app.get("/api/stock/:id",fetchStockDetailsByID);

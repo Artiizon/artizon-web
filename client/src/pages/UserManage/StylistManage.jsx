@@ -1,45 +1,82 @@
-import React, { useState } from "react";
-import SearchBar from "../../components/searchbars/searchbar";
 import { NavLink } from "react-router-dom";
+import SearchBar from "../../components/searchbars/searchbar";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-const DATA = [
-  {
-    uId: "07",
-    fullName: "Nuwan Tharanga",
-    email: "nuwan44@gmail.com",
-    style: "bg-[#D9D9D9]",
-  }
-];
-
 export default function StylistManage() {
-  const [filteredData, setFilteredData] = useState(DATA);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSubmit = (event,stylistId) => {
+    const formData = new FormData();
+    formData.append("user", "stylist");
+    formData.append("reason", event.target.reason.value);
+    formData.append("astatus", "0");
+    formData.append("userid", "stylist_id");
+    formData.append("stylist_id", stylistId);
+    
+    
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post("http://localhost:8080/api/addBlockStylist", formData, config)
+      .then((response) => {
+        navigate("/");
+        console.log("successfully!", response.data);
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+      });
+  };
+    
+  const [stylistData, setStylistData] = useState([]);
+
+  useEffect(() => {
+    const fetchStylists = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/stylists");
+        setStylistData(response.data);
+      } catch (error) {
+        console.error("Error fetching stylist:", error);
+      }
+    };
+
+    fetchStylists();
+  }, []);
+
+
   return (
     <div>
       <div className=" ml-[-23px] gap-2 ">
-        <div className="mb-[20px]">
+        {/* <div className="mb-[20px] ">
           <SearchBar data={DATA} setFilteredData={setFilteredData} />
-        </div>
-
-        <div className="flex flex-row gap-[20px] text-lg ">
+        </div> */}
+        <div className="flex flex-row gap-[20px] text-lg text-black pt-[5px] w-[1185px]">
           <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
           <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
           <div className="w-[250px] font-sans font-[700]">E-Mail</div>
+          <div className="w-[160px] font-sans font-[700]">Orders</div>
         </div>
-        {filteredData.map((item) => (
+        {stylistData.map((item,index) => (
           <div
-            className={`w-[1050px] flex flex-row gap-[20px] text-slate-600 rounded-md ${item.style}`}
-          >
-            <div className="w-[50px] pl-2 pb-1 text-center radius-[15px] ">
-              {item.uId}
+            
+          key={item.stylist_id}
+                className={index % 2 === 0 ? "bg-[#F1F1F1] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md" : "bg-[#D9D9D9] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md"}
+        >
+            <div className=" w-[50px] pl-2 pb-1  text-center radius-[15px]">
+              {item.stylist_id}
             </div>
             <div className="w-[260px] pl-2 ml-[30px] text-center">
-              {item.fullName}
+              {item.first_name+" "+ item.last_name}
             </div>
-            <div className=" w-[305px] pl-2 text-center">{item.email}</div>
-
+            <div className="w-[305px] pl-2 text-center">{item.email}</div>
+            {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
+              {item.orders}
+            </div> */}
             <Popup
               trigger={
                 <button>
@@ -67,25 +104,31 @@ export default function StylistManage() {
                     style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
                   >
                     <div className="flex">
-                      <p className="text-3xl font-bold">Mr. Janod Umayanga</p>
+                      <p className="text-3xl font-bold">{item.first_name+" "+ item.last_name}</p>
                       <p className="text-sm ml-[20px] mt-[6px]">(stylist)</p>
                     </div>
                     <p className="text-xl ml-[20px] mt-[6px]">
-                      janodum84@gmail.com
+                    {item.email}
                     </p>
                     <p className="text mb-[10px]-l ml-[20px] mt-[6px]">
-                      +94 742586134
+                    {item.contact_number}
                     </p>
+                    <form onSubmit={(event) => handleSubmit(event, item.stylist_id)}>
                     <label className="mt-[10px] p-2 w-[130px] h-[40px] font-[600]">
                       Reason
                     </label>
                     <input
                       type="text"
+                      id="reason"
                       className="w-[380px] h-[65px]  bg-[#EFEFEF] border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none"
+                      
                     />
-                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-sans font-[600]">
+                    
+                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-sans font-[600]"
+                    type="submit">
                       BLOCK STYLIST
                     </button>
+                    </form>
                   </div>
                 </div>
               )}
