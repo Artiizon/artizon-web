@@ -57,6 +57,7 @@ import LoginError from "./pages/LoginError";
 
 
 import AddNewSupplier from "./pages/AddNewSupplier";
+import BlockUserManageMain from "./pages/UserManage/BlockUserManageMain";
 
 function App() {
 
@@ -91,6 +92,7 @@ function App() {
           <Route exact path="/des-design" element={<DesignerDesigns/>}/>
           <Route exact path="/new-design" element={<AddNewDesign/>}/>
           <Route exact path="/usermanage" element={<UserManageMain />}/>
+          <Route exact path="/blockusermanage" element={<BlockUserManageMain />}/>
           <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
           <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
           <Route exact path="/profile" element={<CustomerDetails />}/>

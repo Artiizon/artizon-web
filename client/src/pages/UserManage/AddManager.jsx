@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AddNewAdminPage = () => {
+const AddNewManagerPage = () => {
   const handleSubmit = (event) => {
     const formData = new FormData();
     formData.append("firstName", event.target.firstName.value);
@@ -16,7 +16,7 @@ const AddNewAdminPage = () => {
     };
 
     axios
-      .post("http://localhost:8080/api/addNewAdmin", formData, config)
+      .post("http://localhost:8080/api/addNewManager", formData, config)
       .then((response) => {
         navigate("/des-designrr");
         console.log("Design and materials added successfully!", response.data);
@@ -81,4 +81,4 @@ const AddNewAdminPage = () => {
   );
 };
 
-export default AddNewAdminPage;
+export default AddNewManagerPage;

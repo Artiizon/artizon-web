@@ -60,7 +60,7 @@ router.route('/').post(upload.any(), (req, res) => {
         } else {
           const designId = result.insertId; // Get the auto-generated ID of the inserted design
           res.status(201).json({ message: 'Design and materials added successfully!', designId });
-          console.log("Design added successfully!");
+          console.log("Design added successfully!");z
       }
     }
   );

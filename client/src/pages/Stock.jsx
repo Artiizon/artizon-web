@@ -1,7 +1,6 @@
 // StockManagementPage.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import StandardLayout from "../components/layout/StandardLayout";
 import axios from "axios"; // Import Axios library
 import { useSnapshot } from "valtio";
 import state from "../store";
