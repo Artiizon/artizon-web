@@ -14,7 +14,11 @@ const fetchStockDetailsByID= async (req, res) => {
       }
   
       // Query the database to get the items for the stock
-      const items = await db.query("SELECT * FROM stock_items WHERE stock_id = ?", [stockId]);
+      const items = await db.query(`SELECT si.*, itt.quantityLabel
+      FROM stock_items si
+      JOIN item_name itt ON si.item_name = itt.item_name
+      WHERE si.stock_id = ?;
+      `, [stockId]);
   
       // Add the items array to the stock object
       stock[0][0].items = items[0];

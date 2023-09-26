@@ -18,6 +18,7 @@ const AddNewItemForm = () => {
     item_name: "",
     item_type: "",
     item_color: "",
+    reorder_level:"",
     quantity_label: "",
     quantity_type: "",
   });
@@ -41,6 +42,11 @@ const AddNewItemForm = () => {
       newErrors.item_color = "Item Color is required";
     }
 
+    if (!itemInfo.reorder_level) {
+      isValid = false;
+      newErrors.reorder_level = "Item Reorder level is required";
+    }
+
     if (!itemInfo.quantity_label) {
       isValid = false;
       newErrors.quantity_label = "Quantity Label is required";
@@ -59,6 +65,7 @@ const AddNewItemForm = () => {
     item_name: "",
     item_type: "",
     item_color: "",
+    reorder_level:"",
     quantity_label: "",
     quantity_type: "", // Default value for quantity type
   });
@@ -165,7 +172,7 @@ const AddNewItemForm = () => {
           <input
             type="text"
             id="item_color"
-            placeholder="#ff0002"
+            placeholder="#ff0002-DARK-BLUE"
             name="item_color"
             value={itemInfo.item_color}
             onChange={handleInputChange}
@@ -173,6 +180,25 @@ const AddNewItemForm = () => {
           />
           <div className="text-red-500">{errors.item_color}</div>
         </div>
+
+        <div className="mb-4">
+          <label className="block font-medium mb-1" htmlFor="reorder_level">
+            Reorder Level
+          </label>
+          <input
+            type="number"
+            id="reorder_level"
+            placeholder="1000"
+            name="reorder_level"
+            value={itemInfo.reorder_level}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+          <div className="text-red-500">{errors.reorder_level}</div>
+        </div>
+
+
+
 
         <div className="mb-4">
           <label className="block font-medium mb-1" htmlFor="quantity_label">

@@ -86,6 +86,8 @@ import stockAddNew  from "./models/Inventory/stockAddNew.model.js";
 import supplierAddNew from "./models/Inventory/supplierAddNew.model.js";
 import supplierOptions from "./models/Inventory/supplierOptions.model.js";
 import itemAddNew from "./models/Inventory/itemAddNew.model.js";
+import stockReportModel from "./models/Inventory/stockReport.model.js";
+import fetchStockPriceModel from "./models/Inventory/fetchStockPrice.model.js";
 
 // models
  
@@ -96,6 +98,10 @@ import itemtypeexistCheck from './models/Inventory/itemtypeexistCheck.model.js';
 import quantityInputTypes from './models/Inventory/quantityInputTypesOptions.model.js';
 import forgotPassword from './models/forgotPassword.model.js';
 import changePasswordForgot from './models/changePasswordForgot.model.js';
+import addPriceModel from  './models/Inventory/addPrice.model.js';
+import dashboardModel from './models/Inventory/dashboard.model.js'; 
+import stockLevelModel from './models/Inventory/stocklevel.model.js';
+import fetchSuppliers from './models/Inventory/fetchSuppliers.model.js';
 
 dotenv.config();
 
@@ -209,8 +215,12 @@ app.use("/api/item/check",itemexistCheck);
 app.use("/api/item",itemAddNew);
 app.use("/api/item/checkItemType",itemtypeexistCheck);
 app.use("/api/quantityInputTypes",quantityInputTypes);
-
-
+app.use("/api/stockReport",stockReportModel);
+app.use("/api/prices",fetchStockPriceModel);
+app.use("/api/add-price",addPriceModel);
+app.use("/api/dashboard",dashboardModel);
+app.use("/api/stockLevel",stockLevelModel);
+app.use("/api/suppliers",fetchSuppliers);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));
