@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { generateCustomerEmailMessage } from '../components/emails/OrderRejection';
 import { useSnapshot } from 'valtio';
 import state from '../store';
+
 
 const StylistReviewOrderForm = () => {
   const snap = useSnapshot(state);
@@ -13,7 +15,7 @@ const StylistReviewOrderForm = () => {
   const [showRejectPopup, setShowRejectPopup] = useState(false);
   const [rejectMainReason, setRejectMainReason] = useState('');
   const [rejectAdditionalNote, setRejectAdditionalNote] = useState('');
-
+  
   const openRejectPopup = () => {
     setShowRejectPopup(true);
   };
@@ -26,8 +28,10 @@ const StylistReviewOrderForm = () => {
 
   const handleReject = () => {
     // Send reject reason and additional note to the server
+      
+
     const requestData = {
-      tshirtOrderStatus: 'S Rejected', // Update status accordingly
+      tshirtOrderStatus: 'SRejected', // Update status accordingly
       stylistNote: rejectAdditionalNote,
       rejectReason: rejectMainReason,
     };
@@ -35,11 +39,33 @@ const StylistReviewOrderForm = () => {
     axios
       .patch(`http://127.0.0.1:8080/stylist_reject_order/${id}`, requestData)
       .then((response) => {
-        console.log(response.data);
-        // Handle success, close popup, update UI, etc.
-        closeRejectPopup();
-        navigate('/review-order');
+        // Handle success for updating the order status
+  
+        // Now, send an email to the customer
+        const customerMessage = generateCustomerEmailMessage(rejectMainReason, rejectAdditionalNote);
+        console.log(formData.cusEmail);
+        axios
+          .post('http://127.0.0.1:8080/send-customer-email', {
+            customerId: id, // Replace with the actual customer ID or email address
+            message: customerMessage,
+            subject: 'Order Rejection',
+            recipientEmail: formData.cusEmail
+            
+          })
+          .then((messageResponse) => {
+            console.log(messageResponse.data);
+            // Handle success for sending the email
+  
+            // Close the reject popup and navigate to the desired page
+            closeRejectPopup();
+            navigate('/review-order');
+          })
+          .catch((messageError) => {
+            console.error('Error sending email to customer:', messageError);
+            // Handle error sending the email
+          });
       })
+ 
       .catch((error) => {
         console.error('Error updating tshirt order:', error);
         // Handle error, show error message, etc.
@@ -102,12 +128,8 @@ const StylistReviewOrderForm = () => {
           additionalNote: '',
           logoFile:response.data.logo_file,  
           totQuantity:response.data.total_quantity,
-          // xs: response.data.xs_quantity,
-          // s:response.data.s_quantity,
-          // m:response.data.m_quantity,
-          // l:response.data.l_quantity,
-          // xl:response.data.xl_quantity,
-          // xxl:response.data.xll_quantity,
+          cusEmail:response.data.email,
+    
           tshirtQuantity: [
             { size: 'xs', quantity: response.data.xs_quantity },
             { size: 's', quantity: response.data.s_quantity },
@@ -117,9 +139,7 @@ const StylistReviewOrderForm = () => {
             { size: 'xll', quantity: response.data.xll_quantity },
           ],
 
-            
-
-          // ... rest of your properties
+        
         });
       })
       .catch(error => {

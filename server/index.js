@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url'; 
+import nodemailer from 'nodemailer';
 import serveStatic from 'serve-static';
 // routes
 import dalleRoutes from './routes/dalle.routes.js';
@@ -14,7 +15,12 @@ import verifyManager from './routes/verifyManager.route.js';
 import verifyStylist from './routes/verifyStylist.route.js';
 
 // database
-// import db from './config/database.js';
+// import db from './config/database.js'; 
+
+// email
+import transporter from './config/emailService.js'; // Adjust the path if needed
+import { sendEmailWithSubject } from './config/emailUtils.js';
+
 
 // models
 import signupModel from './models/signup.model.js';
@@ -84,6 +90,22 @@ app.use(cors({
   credentials: true
 }));
 
+// Add a new route to send a message to the customer via email with a custom subject
+app.post('/send-customer-email', (req, res) => {
+  // Get data from the request body
+  const { recipientEmail, customerId, subject, message } = req.body;
+
+  // Call the utility function to send the email
+  sendEmailWithSubject(recipientEmail, subject, message, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ error: 'Error sending email' });
+    } else {
+      console.log('Email sent:', info.response);
+      res.json({ message: 'Email sent Successfully' });
+    }
+  });
+});
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
@@ -130,6 +152,7 @@ app.use('/review_ordertpm', managerReviewOrderModel)
 app.use('/manager_reject_order', managerRejectOrderModel)
 
 app.use("/api/stocks", fetchStocks); 
+
 app.get("/api/stock/:id",fetchStockDetailsByID);
 app.get("/api/item-names",stockItemNames);
 app.get("/api/item-nameByID/:id",stockItemNameById);

@@ -12,6 +12,7 @@ router.route('/:id').get((req, res) => {
     company_design.image_3,
     company_design.material,
     company_design.color,
+    customer.email,
     SUM(COALESCE(order_quantity.quantity, 0)) AS total_quantity,
     COALESCE(SUM(CASE WHEN size = 'xs' THEN quantity ELSE 0 END), 0) AS xs_quantity,
     COALESCE(SUM(CASE WHEN size = 's' THEN quantity ELSE 0 END), 0) AS s_quantity,
@@ -19,17 +20,20 @@ router.route('/:id').get((req, res) => {
     COALESCE(SUM(CASE WHEN size = 'l' THEN quantity ELSE 0 END), 0) AS l_quantity,
     COALESCE(SUM(CASE WHEN size = 'xl' THEN quantity ELSE 0 END), 0) AS xl_quantity,
     COALESCE(SUM(CASE WHEN size = 'xll' THEN quantity ELSE 0 END), 0) AS xll_quantity
-  FROM tshirt_order
-  LEFT JOIN company_design ON tshirt_order.company_design_id = company_design.company_design_id
-  LEFT JOIN order_quantity ON tshirt_order.tshirt_order_id = order_quantity.tshirt_order_id
-  WHERE tshirt_order.tshirt_order_id = ?
-  GROUP BY
+    FROM tshirt_order
+    LEFT JOIN company_design ON tshirt_order.company_design_id = company_design.company_design_id
+    LEFT JOIN order_quantity ON tshirt_order.tshirt_order_id = order_quantity.tshirt_order_id
+    LEFT JOIN customer ON tshirt_order.customer_id = customer.customer_id -- Add the JOIN with the customer table
+    WHERE tshirt_order.tshirt_order_id = ?
+    GROUP BY
     tshirt_order.tshirt_order_id,
     company_design.image_1,
     company_design.image_2,
     company_design.image_3,
     company_design.material,
-    company_design.color;
+    company_design.color,
+    customer.email; 
+
   
     `;
   
