@@ -4,23 +4,37 @@ import tick from "../images/orders/tick2.png";
 import ims from "../images/canvas.png";
 import imX from "../images/orders/x.png";
 import { useSnapshot } from "valtio";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import state from "../store";
+
+import axios from "axios";
 
 export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
 
-  const status = "Sample fee";
+  const { id, status, color, material } = useParams();
+
+  const [quantities, setQuantities] = useState([]);
+
+    useEffect(() => {
+        axios.post('http://localhost:8080/getCustomerOrderQuantities', {id}).then(res => {
+          setQuantities(res.data);
+        })
+    }, [])
+
+  // const status = "Sample fee";
   return (
     <div>
 
       <div>
         <p className="text-[35px]  ml-[50px] mt-[120px] mb-[50px] uppercase">
-          ORDER NO : 1
+          ORDER NO : {id}
         </p>
         <div className="status bar ml-[23%] h-[10px] w-[67%]  mt-[20px] flex ">
           {/* Using ternary operator for conditional rendering */}
-          {status === "Pending" ? (
+          {status === "Pending1" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -68,7 +82,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Orders
               </button>
             </>
-          ) : status === "Sample fee" ? (
+          ) : status === "Pending" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -363,17 +377,17 @@ export default function CustomerOrderViewMore() {
             </div> */}
             <div>
               <p className="mt-[60px] ml-[120px] font-semibold">Material</p>
-              <p className="mt-[17px] ml-[120px] ">Cotton</p>
+              <p className="mt-[17px] ml-[120px] ">{material}</p>
             </div>
             <div>
               <p className="mt-[60px] ml-[120px] font-semibold">Color</p>
-              <p className="mt-[17px] ml-[120px] ">#ffffff</p>
+              <p className="mt-[17px] ml-[120px] ">{color}</p>
             </div>
             <div className="ml-[130px]">
               <p className="mt-[60px]  font-semibold">Quantities</p>
-              <p className="mt-[17px]  ">M : 20</p>
-              <p className="mt-[10px]  ">L : 10</p>
-              <p className="mt-[10px]  ">XL : 3</p>
+              {quantities.map(quantity => (
+              <p className="mt-[17px]  ">{quantity.size} : {quantity.quantity}</p>
+              ))}
             </div>
           </div>
           <hr class="border-2 ml-[200px] mt-[45px] w-[650px]" />

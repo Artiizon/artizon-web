@@ -2,13 +2,23 @@ import React from 'react'
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { useFrame } from '@react-three/fiber';
-import { Decal, useGLTF, useTexture } from '@react-three/drei';
+import { Decal, useGLTF, useTexture, Text } from '@react-three/drei';
 
 import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('/shirt_baked.glb');
+
+  if (sessionStorage.getItem('tstyle') ) {
+    const tstyle = sessionStorage.getItem('tstyle');
+    state.tstyle = tstyle;
+  }
+
+  if (state.tstyle === 'standard') {
+    var { nodes, materials } = useGLTF('/standard.glb');
+  } else if (state.tstyle === 'collar') {
+    var { nodes, materials } = useGLTF('/collar.glb');
+  }
 
   // console.log(nodes, materials);
 
@@ -16,15 +26,29 @@ const Shirt = () => {
     const tcolor = sessionStorage.getItem('tcolor');
     state.tcolor = tcolor;
   }
-  if (sessionStorage.getItem('file') ) {
-    const file = sessionStorage.getItem('file');
+  if (sessionStorage.getItem('logo') ) {
+    const file = sessionStorage.getItem('logo');
     state.logoDecal = file;
+  }
+  if (sessionStorage.getItem('logo1') ) {
+    const file1 = sessionStorage.getItem('logo1');
+    state.logoDecal1 = file1;
+  }
+  if (sessionStorage.getItem('logo2') ) {
+    const file2 = sessionStorage.getItem('logo2');
+    state.logoDecal2 = file2;
+  }
+  if (sessionStorage.getItem('text') ) {
+    const text = sessionStorage.getItem('text');
+    state.text = text;
   }
 
   const logoTexture = useTexture(snap.logoDecal);
+  const logoTexture1 = useTexture(snap.logoDecal1);
+  const logoTexture2 = useTexture(snap.logoDecal2);
   const fullTexture = useTexture(snap.fullDecal);
 
-  useFrame((state, delta) => easing.dampC(materials.lambert1.color, snap.tcolor, 0.25, delta));
+  useFrame((state, delta) => easing.dampC(materials.Material.color, snap.tcolor, 0.25, delta));
 
   const stateString = JSON.stringify(snap);
 
@@ -33,7 +57,7 @@ const Shirt = () => {
       <mesh
         castShadow
         geometry={nodes.T_Shirt_male.geometry}
-        material={materials.lambert1}
+        material={materials.Material}
         material-roughness={1}
         dispose={null}
       >
@@ -56,6 +80,40 @@ const Shirt = () => {
             depthWrite={true}
           />
         )}
+        {snap.isLogoTexture1 && (
+          <Decal
+            position={[-0.06, 0.06, 0.15]}
+            rotation={[0, 0, 0]}
+            scale={0.06}
+            map={logoTexture1}
+            // map-anisotropy={16}
+            depthTest={false}
+            depthWrite={true}
+          />
+        )}
+        {snap.isLogoTexture2 && (
+          <Decal
+            position={[0.06, 0.06, 0.15]}
+            rotation={[0, 0, 0]}
+            scale={0.06}
+            map={logoTexture2}
+            // map-anisotropy={16}
+            depthTest={false}
+            depthWrite={true}
+          />
+        )}
+
+      <Text className="max-w-xs"
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        font='Poppins'
+        position={[0, 0.1, -0.125]}
+        rotation={[0, Math.PI, 0]}
+        scale={0.03}
+      >
+        {state.text}
+      </Text>
 
       </mesh>
     </group>

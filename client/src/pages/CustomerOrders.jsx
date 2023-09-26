@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import t1 from "../images/canvas.png";
 
 import axios from "axios";
@@ -7,18 +7,21 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const OrderCard = ({ status, tags, ims ,style }) => {
+const customerId = sessionStorage.getItem('customer_id');
+
+const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
+  const snap = useSnapshot(state);
   return (
-    <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[135px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
+    <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[185px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
       <img src={ims} alt="imagemm" className="h-[125px] " />
       <div className="w-[140px] ml-[25px] mt-[40px]">
-        <p className=" text-xl font-normal ">{tags}</p>
+        <p className=" text-l font-normal ">{tags}</p>
       </div>
       <div>
-        <p className="font-bold text-xl mt-[15px] ml-[480px] text-center">
+        <p className="font-bold text-xl mt-[15px] ml-[400px] text-center">
           {status}
         </p>
-        <NavLink to="/customerorder-view-more">
+        <Link to={`/customerorder-view-more/${id}/${status}/${encodeURIComponent(color)}/${material}`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
@@ -27,7 +30,17 @@ const OrderCard = ({ status, tags, ims ,style }) => {
           >
             Order details
           </button>
-        </NavLink>
+        </Link>
+        <Link to={`/customerorder-view-tshirt/${color}`}>
+          <button
+            type="button"
+            className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
+                 pb-[8px] pt-[6px] text-sm font-medium uppercase 
+                text-white  shadow-md shadow-slate-900  bg-black"
+          >
+            View T-Shirt
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -39,8 +52,6 @@ export default function CustomerOrders() {
     state.page = 'no-canvas';
 
     const [orders, setOrders] = useState([]);
-
-    const customerId = sessionStorage.getItem('customer_id');
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerOrders', {customerId}).then(res => {
@@ -58,7 +69,7 @@ export default function CustomerOrders() {
         <hr width="80%" />
         {orders.map(order => (
             <div className="cards mt-[40px]">
-            <OrderCard status={order.status} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
+            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
             </div>
         ))}
       </div>

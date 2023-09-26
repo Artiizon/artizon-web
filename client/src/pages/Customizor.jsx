@@ -58,23 +58,33 @@ const Customizor = () => {
   const handleSubmit = async (type) => {
     if (!prompt) return alert('Please enter a prompt');
 
+    // try {
+    //   // call our backend to generate an ai image
+    //   setGeneratingImg(true);
+
+    //   const response = await fetch('http://localhost:8080/api/v1/dalle', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       prompt,
+    //     })
+    //   })
+
+    //   const data = await response.json();
+
+    //   handleDecals(type, `data:image/png;base64,${data.photo}`);
+    // } catch (err) {
+    //   alert(err)
+    // } finally {
+    //   setGeneratingImg(false);
+    //   setActiveEditorTab('');
+    // }
+
     try {
-      // call our backend to generate an ai image
-      setGeneratingImg(true);
-
-      const response = await fetch('http://localhost:8080/api/v1/dalle', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt,
-        })
-      })
-
-      const data = await response.json();
-
-      // handleDecals(type, `data:image/png;base64,${data.photo}`);
+      state.text = prompt;
+      sessionStorage.setItem('text', state.text)
     } catch (err) {
       alert(err)
     } finally {
@@ -98,11 +108,19 @@ const Customizor = () => {
       case 'logoShirt':
         state.isLogoTexture = !activeFilterTab[tabName];
         break;
+      case 'logoShirt1':
+        state.isLogoTexture1 = !activeFilterTab[tabName];
+        break;
+      case 'logoShirt2':
+        state.isLogoTexture2 = !activeFilterTab[tabName];
+        break;
       case 'stylishShirt':
         state.isFullTexture = !activeFilterTab[tabName];
         break;
       default:
         state.isLogoTexture = true;
+        state.isLogoTexture1 = true;
+        state.isLogoTexture2 = true;
         state.isFullTexture = false;
         break;
     }
@@ -120,7 +138,7 @@ const Customizor = () => {
     reader(file)
       .then((result) => {
         handleDecals(type, result);
-        sessionStorage.setItem('file', result);
+        sessionStorage.setItem(type, result);
         setActiveEditorTab('');
       })
   }
@@ -132,6 +150,18 @@ const Customizor = () => {
   return (
     <AnimatePresence>
         <>
+          <select
+            name="style"
+            className="form-control"
+            onChange={(e) => {
+              state.tstyle = e.target.value
+              sessionStorage.setItem('tstyle', state.tstyle)
+            }}
+          >
+            <option value={state.tstyle}>Select Style</option>
+            <option value="standard">Standard</option>
+            <option value="collar">Collar</option>
+          </select>
           <motion.div key="custom" className='absolute top-0 left-0 z-10' {...slideAnimation('left')}>
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>

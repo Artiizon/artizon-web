@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/').post((req, res) => {
     const sql = 'SELECT * FROM `customer` WHERE `customer_id` = ?;';
 
-    console.log(req.body.customerId);
+    // console.log(req.body.customerId);
 
     db.query(sql, [req.body.customerId], (err, result) => {
         if (err) {
