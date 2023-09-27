@@ -85,7 +85,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/customerorders" element={<CustomerOrders />} />
           <Route path="/customerorder-view-more/:id/:status/:color/:material" element={<CustomerOrderViewMore />} />
-          <Route path="/customerorder-view-tshirt/" element={<CustomerViewTshirt />} />
+          <Route path="/customerorder-view-tshirt/:color" element={<CustomerViewTshirt />} />
           <Route path="/customerprofile" element={<CustomerProfile />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
           <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>

@@ -8,6 +8,8 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import state from "../store";
 
+import Canvas from "../canvas";
+
 import axios from "axios";
 
 export default function CustomerOrderViewMore() {
@@ -15,6 +17,9 @@ export default function CustomerOrderViewMore() {
   state.page = "no-canvas";
 
   const { id, status, color, material } = useParams();
+
+  sessionStorage.setItem('tcolor', color)
+  // sessionStorage.setItem('logo', logo)
 
   const [quantities, setQuantities] = useState([]);
 
@@ -34,55 +39,7 @@ export default function CustomerOrderViewMore() {
         </p>
         <div className="status bar ml-[23%] h-[10px] w-[67%]  mt-[20px] flex ">
           {/* Using ternary operator for conditional rendering */}
-          {status === "Pending1" ? (
-            <>
-              <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-                <div className="status bar h-[10px] w-[20.7%] bg-black "></div>
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
-                <img
-                  src={circle}
-                  alt="imagemm"
-                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
-                />
-              </div>
-              <button
-                type="button"
-                className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
-                 pb-[8px] pt-[6px] text-sm font-medium uppercase 
-                text-white  shadow-md shadow-slate-900  bg-black"
-              >
-                Cancel Orders
-              </button>
-            </>
-          ) : status === "Pending" ? (
+          {status === "Pending" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -120,17 +77,23 @@ export default function CustomerOrderViewMore() {
                   alt="imagemm"
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
                 />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
               </div>
-              {/* <button
+              <button
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
                 text-white  shadow-md shadow-slate-900  bg-black"
               >
                 Cancel Order
-              </button> */}
+              </button>
             </>
-          ) : status === "Sample" ? (
+          ) : status === "Accepted" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -168,6 +131,12 @@ export default function CustomerOrderViewMore() {
                   alt="imagemm"
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
                 />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
               </div>
               <button
                 type="button"
@@ -178,7 +147,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Order
               </button>
             </>
-          ) : status === "Advance fee" ? (
+          ) : status === "Sample Processing" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -216,6 +185,12 @@ export default function CustomerOrderViewMore() {
                   alt="imagemm"
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
                 />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
               </div>
               <button
                 type="button"
@@ -226,7 +201,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Order
               </button>
             </>
-          ) : status === "FullPayment" ? (
+          ) : status === "Sample Ready" ? (
             <>
               <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -264,9 +239,23 @@ export default function CustomerOrderViewMore() {
                   alt="imagemm"
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
                 />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
               </div>
+              <button
+                type="button"
+                className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
+                 pb-[8px] pt-[6px] text-sm font-medium uppercase 
+                text-white  shadow-md shadow-slate-900  bg-black"
+              >
+                Cancel Order
+              </button>
             </>
-          ) : status === "Delivery" ? (
+          ) : status === "Order Processing" ? (
             <>
               <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -303,6 +292,104 @@ export default function CustomerOrderViewMore() {
                   src={circle}
                   alt="imagemm"
                   className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
+              </div>
+            </>
+          ) : status === "Order Ready" ? (
+            <>
+              <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500 "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-black  "></div>
+                <img
+                  src={circle}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[440%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-18.6px] z-40 "
+                />
+              </div>
+            </>
+          ) : status === "Completed" ? (
+            <>
+              <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500 "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
+                <div className="status bar h-[10px] w-[20.7%] bg-green-500  "></div>
+                <img
+                  src={tick}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
                 />
               </div>
             </>
@@ -344,27 +431,34 @@ export default function CustomerOrderViewMore() {
                   alt="imagemm"
                   className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
                 />
+                <div className="status bar h-[10px] w-[20.7%] bg-red-500  "></div>
+                <img
+                  src={imX}
+                  alt="imagemm"
+                  className="rounded-[50%] h-[320%] w-[3.2%] ml-[-2%] mr-[-2%] mt-[-10.6px] z-40 "
+                />
               </div>
             </>
           )}
         </div>
       </div>
-      <div className="font-sans ml-[13%] h-[10px] w-[67%]  mt-[65px] flex ">
-        <label className="text-xl font-semibold  ml-[-6.5%]">Pending</label>
-        <label className="text-xl font-semibold  ml-[14.2%] ">Accepted</label>
-        <label className="text-xl font-semibold  ml-[14.5%]">Sample</label>
-        <label className="text-xl font-semibold  ml-[13.5%]">Advance fee</label>
-        <label className="text-xl font-semibold  ml-[12%]">FullPayment</label>
-        <label className="text-xl font-semibold  ml-[12%]">Delivery</label>
+      <div className="font-sans ml-[13%] h-[10px] w-[55%]  mt-[65px] flex ">
+        <label className="text-l font-semibold  ml-[-6.5%]">Pending</label>
+        <label className="text-l font-semibold  ml-[14.2%] ">Accepted</label> {/*pay button */}
+        <label className="text-l font-semibold  ml-[14.5%]">Sample Processing</label>
+        <label className="text-l font-semibold  ml-[13.5%]">Sample Ready</label> {/*pay button */}
+        <label className="text-l font-semibold  ml-[12%]">Order Processing</label>
+        <label className="text-l font-semibold  ml-[12%]">Order Ready</label> {/*pay button */}
+        <label className="text-l font-semibold  ml-[12%]">Completed</label>
       </div>
-      <div className="ml-[13%] h-[10px] w-[76%]  mt-[45px] flex  ">
+      {/* <div className="ml-[13%] h-[10px] w-[76%]  mt-[45px] flex  ">
         <label className="text-xl  ml-[-8.5%] w-[570px] ">(16-08-2023)</label>
         <label className="text-xl  ml-[8%] w-[570px]">(pending)</label>
         <label className="text-xl ml-[5%] w-[570px]">(pending)</label>
         <label className="text-xl ml-[6%] w-[570px]">(pending)</label>
         <label className="text-xl  ml-[4%] w-[570px]">(pending)</label>
         <label className="text-xl  ml-[8%] w-[570px]">(pending)</label>
-      </div>
+      </div> */}
       <div className="flex">
         <div>
           <div className="flex mt-[20px]">
@@ -393,7 +487,7 @@ export default function CustomerOrderViewMore() {
           <hr class="border-2 ml-[200px] mt-[45px] w-[650px]" />
 
           <div>
-      {status === "Sample fee" || status === "Advance fee" || status === "FullPayment" ? (
+      {status === "Accepted" ? (
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Sample Fee</p>
@@ -402,7 +496,41 @@ export default function CustomerOrderViewMore() {
         <div>
           <button
             type="button"
-            className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px]
+            className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
+             pb-[8px] pt-[6px] text-sm font-medium uppercase 
+            text-white  shadow-md shadow-slate-900  bg-black"
+          >
+            Pay Now
+          </button>
+        </div>
+      </div>
+      ) : status === "Sample Ready" ? (
+        <div className="flex ml-[200px]">
+        <div>
+          <p className="mt-[60px]  font-[700]">Advance Fee</p>
+          <p className="mt-[20px] ml-[60px] ">Rs.10,000.00</p>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
+             pb-[8px] pt-[6px] text-sm font-medium uppercase 
+            text-white  shadow-md shadow-slate-900  bg-black"
+          >
+            Pay Now
+          </button>
+        </div>
+      </div>
+      ) : status === "Order Ready" ? (
+        <div className="flex ml-[200px]">
+        <div>
+          <p className="mt-[60px]  font-[700]">Complete Fee</p>
+          <p className="mt-[20px] ml-[60px] ">Rs.20,000.00</p>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
              pb-[8px] pt-[6px] text-sm font-medium uppercase 
             text-white  shadow-md shadow-slate-900  bg-black"
           >
@@ -422,7 +550,7 @@ export default function CustomerOrderViewMore() {
           </div> */}
         </div>
         <div className="mt-[100px] ml-[80px] ">
-          <img src={ims} alt="imagemm" className="h-[400px]  " />
+          {/* <Canvas /> */}
         </div>
       </div>
     </div>

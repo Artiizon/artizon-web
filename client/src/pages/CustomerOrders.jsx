@@ -31,7 +31,7 @@ const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
             Order details
           </button>
         </Link>
-        <Link to={`/customerorder-view-tshirt/${color}`}>
+        <Link to={`/customerorder-view-tshirt/${encodeURIComponent(color)}`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
