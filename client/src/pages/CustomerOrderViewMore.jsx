@@ -6,6 +6,7 @@ import imX from "../images/orders/x.png";
 import { useSnapshot } from "valtio";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import state from "../store";
 
 import Canvas from "../canvas";
@@ -17,9 +18,6 @@ export default function CustomerOrderViewMore() {
   state.page = "no-canvas";
 
   const { id, status, color, material } = useParams();
-
-  sessionStorage.setItem('tcolor', color)
-  // sessionStorage.setItem('logo', logo)
 
   const [quantities, setQuantities] = useState([]);
 
@@ -551,6 +549,16 @@ export default function CustomerOrderViewMore() {
         </div>
         <div className="mt-[100px] ml-[80px] ">
           {/* <Canvas /> */}
+          <Link to={`/customerorder-view-tshirt`}>
+            <button
+              type="button"
+              className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
+              pb-[8px] pt-[6px] text-sm font-medium uppercase 
+              text-white  shadow-md shadow-slate-900  bg-black"
+            >
+              View T-shirt
+            </button>
+          </Link>
         </div>
       </div>
     </div>

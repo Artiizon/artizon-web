@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import t1 from "../images/canvas.png";
 
+import Canvas from "../canvas";
+
 import axios from "axios";
 
 import { useSnapshot } from "valtio";
@@ -10,6 +12,12 @@ import state from "../store";
 const customerId = sessionStorage.getItem('customer_id');
 
 const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
+
+  function handleClick() {
+    sessionStorage.setItem('logo', logo)
+    sessionStorage.setItem('tcolor', color)
+  }
+
   const snap = useSnapshot(state);
   return (
     <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[185px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
@@ -23,6 +31,7 @@ const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
         </p>
         <Link to={`/customerorder-view-more/${id}/${status}/${encodeURIComponent(color)}/${material}`}>
           <button
+            onClick={handleClick}
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -31,8 +40,9 @@ const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
             Order details
           </button>
         </Link>
-        <Link to={`/customerorder-view-tshirt/${encodeURIComponent(color)}`}>
+        <Link to={`/customerorder-view-tshirt`}>
           <button
+          onClick={handleClick}
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
