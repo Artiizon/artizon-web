@@ -9,7 +9,8 @@ import Signup from "./pages/Signup";
 import About from "./pages/About";
 import CustomerOrders from "./pages/CustomerOrders";
 import CustomerOrderViewMore from "./pages/CustomerOrderViewMore";
-import CustomerViewTshirt from "./pages/CustomerViewTshirt"
+import CustomerViewTshirt from "./pages/CustomerViewTshirt";
+import PaymentForm from "./pages/PaymentForm";
 import CustomerProfile from "./pages/CustomerProfile";
 import ForgotPassword from "./pages/ForgotPassword";
 import UserManageMain from "./pages/UserManage/UserManageMain";
@@ -65,12 +66,19 @@ import BlockUserManageMain from "./pages/UserManage/BlockUserManageMain";
 import StockLevel from "./pages/StockLevel";
 import ViewSupplier from "./pages/ViewSupplier";
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51MxM0YFreLlEoqoAeH0F3pkVu0M9OKo55p00CZCuYgAeVjMrPs55JVL40UZTPNeapYuzxAn50uH67VpbdkBpobpt00nHKcySE9');
+
+
 function App() {
 
   const snap = useSnapshot(state);
   const excludedRoutes = ['/', '/customizor'];
 
   return (
+    <Elements stripe={stripePromise}>
     <main className="app transition-all ease-in">
  
       <Router>
@@ -86,6 +94,7 @@ function App() {
           <Route path="/customerorders" element={<CustomerOrders />} />
           <Route path="/customerorder-view-more/:id/:status/:color/:material" element={<CustomerOrderViewMore />} />
           <Route path="/customerorder-view-tshirt" element={<CustomerViewTshirt />} />
+          <Route path="/payment-form/:fee" element={<PaymentForm />} />
           <Route path="/customerprofile" element={<CustomerProfile />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
           <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
@@ -144,6 +153,7 @@ function App() {
       </Router>
       {snap.page === 'no-canvas' ||( <Canvas /> )}
     </main>
+    </Elements>
   )
   }
 

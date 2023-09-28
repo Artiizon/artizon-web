@@ -29,6 +29,7 @@
     "openai": "^3.3.0",
     "path": "^0.12.7",
     "serve-static": "^1.15.0",
+    "stripe": "^13.7.0",
     "url": "^0.11.1"
   },
   "devDependencies": {

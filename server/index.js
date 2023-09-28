@@ -12,6 +12,7 @@ import verifyAdmin from './routes/verifyAdmin.route.js';
 import verifyDesigner from './routes/verifyDesigner.route.js';
 import verifyManager from './routes/verifyManager.route.js';
 import verifyStylist from './routes/verifyStylist.route.js';
+import paymentRoutes from './routes/payment.routes.js';
 
 // database
 // import db from './config/database.js'; 
@@ -140,6 +141,7 @@ app.use('/verifyAdmin', verifyAdmin);
 app.use('/verifyDesigner', verifyDesigner);
 app.use('/verifyManager', verifyManager);
 app.use('/verifyStylist', verifyStylist);
+app.use('/api/payment', paymentRoutes);
 app.use('/signup', signupModel);
 app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);

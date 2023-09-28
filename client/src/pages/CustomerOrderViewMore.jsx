@@ -492,6 +492,7 @@ export default function CustomerOrderViewMore() {
           <p className="mt-[20px] ml-[60px] ">Rs.1,500.00</p>
         </div>
         <div>
+        <Link to={`/payment-form/1500`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
@@ -500,6 +501,7 @@ export default function CustomerOrderViewMore() {
           >
             Pay Now
           </button>
+        </Link>
         </div>
       </div>
       ) : status === "Sample Ready" ? (
