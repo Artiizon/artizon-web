@@ -6,7 +6,7 @@ import imX from "../images/orders/x.png";
 import { useSnapshot } from "valtio";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import state from "../store";
 
 import Canvas from "../canvas";
@@ -17,6 +17,8 @@ export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
 
+  const navigate = useNavigate();
+
   const { id, status, color, material } = useParams();
 
   const [quantities, setQuantities] = useState([]);
@@ -26,6 +28,26 @@ export default function CustomerOrderViewMore() {
           setQuantities(res.data);
         })
     }, [])
+
+    function showPopup() {
+      document.getElementById('popup').classList.remove('hidden');
+    }
+
+    function handleNo() {
+      document.getElementById('popup').classList.add('hidden');
+    }
+
+    const handleYes = (e) => {
+      e.preventDefault();
+
+      axios.post('http://localhost:8080/cancelOrder', {id}).then((res) => {
+                if(res.data.Status === 'Success') {
+                    navigate('/');
+                } else {
+                    alert('Error');
+                }
+            })
+    };
 
   // const status = "Sample fee";
   return (
@@ -83,6 +105,7 @@ export default function CustomerOrderViewMore() {
                 />
               </div>
               <button
+                onClick={showPopup}
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -137,6 +160,7 @@ export default function CustomerOrderViewMore() {
                 />
               </div>
               <button
+                onClick={showPopup}
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -191,6 +215,7 @@ export default function CustomerOrderViewMore() {
                 />
               </div>
               <button
+                onClick={showPopup}
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -245,6 +270,7 @@ export default function CustomerOrderViewMore() {
                 />
               </div>
               <button
+                onClick={showPopup}
                 type="button"
                 className="rounded   w-[120px] h-[35px] mt-[-83px] ml-[18px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -440,8 +466,25 @@ export default function CustomerOrderViewMore() {
           )}
         </div>
       </div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center hidden" id="popup">
+          <div className="bg-white p-4 rounded shadow-md max-w-md w-full">
+            <p className="mb-4">Do you want to proceed?</p>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+              onClick={handleYes}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={handleNo}
+            >
+              No
+            </button>
+          </div>
+        </div>
       <div className="font-sans ml-[13%] h-[10px] w-[55%]  mt-[65px] flex ">
-        <label className="text-l font-semibold  ml-[-6.5%]">Pending</label>
+        <label className="text-l font-semibold  ml-[-6.5%] ">Pending</label>
         <label className="text-l font-semibold  ml-[14.2%] ">Accepted</label> {/*pay button */}
         <label className="text-l font-semibold  ml-[14.5%]">Sample Processing</label>
         <label className="text-l font-semibold  ml-[13.5%]">Sample Ready</label> {/*pay button */}
