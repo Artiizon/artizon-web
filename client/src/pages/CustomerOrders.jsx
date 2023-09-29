@@ -11,11 +11,18 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
+const OrderCard = ({id, status, color, material, logo, text, tags, ims ,style }) => {
 
   function handleClick() {
-    sessionStorage.setItem('logo', logo)
-    sessionStorage.setItem('tcolor', color)
+    sessionStorage.setItem('logo', logo);
+    sessionStorage.setItem('tcolor', color);
+    sessionStorage.setItem('text', text);
+    if (text == '') {
+      sessionStorage.setItem('text', ' ');
+    }
+    if (logo == '') {
+      state.isLogoTexture = false;
+    }
   }
 
   const snap = useSnapshot(state);
@@ -84,7 +91,7 @@ export default function CustomerOrders() {
         <hr width="80%" />
         {orders.map(order => (
             <div className="cards mt-[40px]">
-            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
+            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} text={order.text} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
             </div>
         ))}
       </div>
