@@ -5,7 +5,7 @@ import db from '../config/database.js';
 const router = express.Router();
 
 router.route('/').post((req, res) => {
-    const sql = 'SELECT * FROM `tshirt_order` WHERE `customer_id` = ?;';
+    const sql = 'SELECT * FROM `tshirt_order` WHERE `customer_id` = ? ORDER BY `tshirt_order`.`ordered_date_and_time` DESC;';
 
     // console.log(req.body.customerId);
 
