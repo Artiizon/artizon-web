@@ -91,11 +91,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
-          <Route path="/customerorders" element={<CustomerOrders />} />
+          <Route path="/customerorders/:customerId" element={<CustomerOrders />} />
           <Route path="/customerorder-view-more/:id/:status/:color/:material" element={<CustomerOrderViewMore />} />
           <Route path="/customerorder-view-tshirt" element={<CustomerViewTshirt />} />
           <Route path="/payment-form/:fee" element={<PaymentForm />} />
-          <Route path="/customerprofile" element={<CustomerProfile />} />
+          <Route path="/customerprofile/:customerId" element={<CustomerProfile />} />
           <Route exact path="/company-design" element={<CompanyDesign/>}/>
           <Route exact path="/com-design-view-more/:id" element={<CompanyDesViewMore/>}/>
           <Route exact path="/company-feedback" element={<ArtizonFeedback/>}/>

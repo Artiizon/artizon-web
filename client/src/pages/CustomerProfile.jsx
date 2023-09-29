@@ -2,7 +2,7 @@ import React from "react";
 import pp1 from "../images/portPp/maleAvatar.png";
 import Navbar from "../components/header/Navbar";
 // import heart from "../../images/portPp/heart.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -10,13 +10,12 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const customerId = sessionStorage.getItem('customer_id');
-
 export default function CustomerProfile() {
     const snap = useSnapshot(state);
     state.page = "no-canvas";
 
     const [customer, setCustomer] = useState([]);
+    const { customerId } = useParams();
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerDetails', {customerId}).then(res => {

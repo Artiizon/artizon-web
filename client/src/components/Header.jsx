@@ -247,7 +247,7 @@ const Header = () => {
 
         {customerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-            <NavLink to="/customerOrders">ORDERS</NavLink>
+            <NavLink to={`/customerOrders/${sessionStorage.getItem('customer_id')}`}>ORDERS</NavLink>
           </p>
         )}
         {/* <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
@@ -331,7 +331,7 @@ const Header = () => {
       <div className="w-[300px] justify-end">
         {customerAuth && (
           <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
-            <NavLink to="/customerProfile">
+            <NavLink to={`/customerProfile/${sessionStorage.getItem('customer_id')}`}>
               {customerTitle.toUpperCase()} {customerName.toUpperCase()}
             </NavLink>
           </p>

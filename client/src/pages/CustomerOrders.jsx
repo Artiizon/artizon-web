@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import t1 from "../images/canvas.png";
 
+import { useParams } from "react-router-dom";
+
 import Canvas from "../canvas";
 
 import axios from "axios";
 
 import { useSnapshot } from "valtio";
 import state from "../store";
-
-const customerId = sessionStorage.getItem('customer_id');
 
 const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
 
@@ -62,6 +62,7 @@ export default function CustomerOrders() {
     state.page = 'no-canvas';
 
     const [orders, setOrders] = useState([]);
+    const { customerId } = useParams();
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerOrders', {customerId}).then(res => {
@@ -69,7 +70,11 @@ export default function CustomerOrders() {
         })
     }, [])
 
-    console.log(orders);
+    if (!orders) {
+      return (
+        <p>Loading...</p>
+      );
+    }
 
   return (
     <div className="font-sans min-h-screen">
