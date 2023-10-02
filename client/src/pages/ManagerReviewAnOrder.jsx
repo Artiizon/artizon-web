@@ -33,7 +33,7 @@ const ManagerReviewOrderForm = () => {
     };
 
     axios
-      .patch(`http://127.0.0.1:8080/manager_reject_order/${id}`, requestData)
+      .patch(`http://localhost:8080/manager_reject_order/${id}`, requestData)
       .then((response) => {
         console.log(response.data);
         // Handle success, close popup, update UI, etc.
@@ -69,25 +69,10 @@ const ManagerReviewOrderForm = () => {
     setModalImage(null);
   };
 
-  const handleAccepted = () => {
-    const requestData = {
-      tshirtOrderStatus: 'Accepted',
-      managerNote: formData.additionalNote,
-    };
-
-    axios
-      .patch(`http://127.0.0.1:8080/accepted_tshirt_order/${id}`, requestData)
-      .then((response) => {
-        console.log(response.data);
-        navigate('/tpm_review_orders');
-      })
-      .catch((error) => {
-        console.error('Error updating database:', error);
-      });
-  };
+  
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8080/review_ordertpm/${id}`)
+    axios.get(`http://localhost:8080/review_ordertpm/${id}`)
       .then(response => {
         const image_1 = response.data.image_1;
         console.log(image_1);
@@ -95,8 +80,8 @@ const ManagerReviewOrderForm = () => {
           designImage: image_1,
           designImage2: response.data.image_2,
           designImage3: response.data.image_3,
-          material: response.data.tmaterial,
-          colorCode: response.data.tcolor,
+          material: response.data.material,
+          colorCode: response.data.color,
           specialNote:response.data.additional_note,
           expectedDays: response.data.expected_days,
           additionalNote: '',
@@ -141,7 +126,26 @@ const ManagerReviewOrderForm = () => {
     console.log(formData);
   };
 
+  const handleAccepted = () => {
+    const requestData = {
+      tshirtOrderStatus: 'Accepted',
+      managerNote: formData.additionalNote,
+      material: formData.material,
+      colorCode: formData.colorCode,
+      totalQuantity: formData.totQuantity,   
+      ...(formData.collar ? { collar: formData.collar } : {}),
+    };
 
+    axios
+      .patch(`http://localhost:8080/accepted_tshirt_order/${id}`, requestData)
+      .then((response) => {
+        console.log(response.data);
+        navigate('/tpm_review_orders');
+      })
+      .catch((error) => {
+        console.error('Error updating database:', error);
+      });
+  };
 
   return (
       <div className="flex justify-center items-center mt-[40px] min-h-screen">
@@ -157,12 +161,12 @@ const ManagerReviewOrderForm = () => {
   <div className="image-container">
     {formData.designImage && (
       <img
-        src={`http://127.0.0.1:8080/uploads/company_designs/${formData.designImage}`}
+        src={`http://localhost:8080/uploads/company_designs/${formData.designImage}`}
         alt="Design 1"
         className="design-image-small"
         onClick={() =>
           handleImageClick(
-            `http://127.0.0.1:8080/uploads/company_designs/${formData.designImage}`
+            `http://localhost:8080/uploads/company_designs/${formData.designImage}`
           )
         }
       />
@@ -170,12 +174,12 @@ const ManagerReviewOrderForm = () => {
 
     {formData.designImage2 && (
       <img
-        src={`http://127.0.0.1:8080/uploads/company_designs/${formData.designImage2}`}
+        src={`http://localhost:8080/uploads/company_designs/${formData.designImage2}`}
         alt="Design 2"
         className="design-image-small"
         onClick={() =>
           handleImageClick(
-            `http://127.0.0.1:8080/uploads/company_designs/${formData.designImage2}`
+            `http://localhost:8080/uploads/company_designs/${formData.designImage2}`
           )
         }
       />
@@ -183,12 +187,12 @@ const ManagerReviewOrderForm = () => {
 
     {formData.designImage3 && (
       <img
-        src={`http://127.0.0.1:8080/uploads/company_designs/${formData.designImage3}`}
+        src={`http://localhost:8080/uploads/company_designs/${formData.designImage3}`}
         alt="Design 3"
         className="design-image-small"
         onClick={() =>
           handleImageClick(
-            `http://127.0.0.1:8080/uploads/company_designs/${formData.designImage3}`
+            `http://localhost:8080/uploads/company_designs/${formData.designImage3}`
           )
         }
       />
@@ -304,7 +308,7 @@ const ManagerReviewOrderForm = () => {
                 Logo File
               </label>
               {formData.logoFile && (
-                <img src={`http://127.0.0.1:8080/uploads/logos/${formData.logoFile}`} alt="Logo" className="mt-2 max-h-40" />
+                <img src={`http://localhost:8080/uploads/logos/${formData.logoFile}`} alt="Logo" className="mt-2 max-h-40" />
               )}
             </div>
 

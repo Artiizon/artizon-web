@@ -5,7 +5,7 @@ const pool = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",
-  database: "artizon",
+  database: "artizon_tmp",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

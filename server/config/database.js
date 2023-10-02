@@ -6,7 +6,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'artizon'
+    database: 'artizon_tmp'
 });
 
 db.connect((err) => {
