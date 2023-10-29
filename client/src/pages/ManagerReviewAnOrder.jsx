@@ -13,6 +13,8 @@ const ManagerReviewOrderForm = () => {
   const [showRejectPopup, setShowRejectPopup] = useState(false);
   const [rejectMainReason, setRejectMainReason] = useState('');
   const [rejectAdditionalNote, setRejectAdditionalNote] = useState('');
+  const [status, setstatus] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const openRejectPopup = () => {
     setShowRejectPopup(true);
@@ -127,6 +129,7 @@ const ManagerReviewOrderForm = () => {
   };
 
   const handleAccepted = () => {
+
     const requestData = {
       tshirtOrderStatus: 'Accepted',
       managerNote: formData.additionalNote,
@@ -136,7 +139,53 @@ const ManagerReviewOrderForm = () => {
       ...(formData.collar ? { collar: formData.collar } : {}),
     };
 
+    const queryParams = new URLSearchParams(requestData);
+    const url = `http://localhost:8080/checkQuantity?${queryParams.toString()}`;
+
     axios
+    .get(url, requestData)
+    .then((response) => {
+      console.log(response.data);
+      setstatus(response.data);
+
+      console.log("response.data",response.data);
+      console.log("status",status);
+
+      if(response.data!="Success"){
+        setShowPopup(response.data);
+  
+      }
+      
+    })
+    .catch(error => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Server responded with error data:', error.response.data);
+        console.error('Status code:', error.response.status);
+        console.log(error.response.data);
+        setstatus(error.response.data);
+  
+        console.log("error.response.data",error.response.data);
+        console.log("status",status);
+  
+        if(error.response.data!="Success"){
+          setShowPopup(error.response.data);
+    
+        }
+        
+
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received from server');
+      } else {
+        // Something happened in setting up the request
+        console.error('Error during request setup:', error.message);
+      }
+    });
+
+     if(status=="Success"){
+      axios
       .patch(`http://localhost:8080/accepted_tshirt_order/${id}`, requestData)
       .then((response) => {
         console.log(response.data);
@@ -145,7 +194,13 @@ const ManagerReviewOrderForm = () => {
       .catch((error) => {
         console.error('Error updating database:', error);
       });
+
+     }
+   
+  
+
   };
+
 
   return (
       <div className="flex justify-center items-center mt-[40px] min-h-screen">
@@ -377,6 +432,23 @@ const ManagerReviewOrderForm = () => {
           </div>
         </div>
       )}
+
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-md shadow-md">
+            <p className="text-2xl font-semibold mb-4">
+                {showPopup}
+            </p>
+            <button
+              className="bg-blue-500 text-white px-4  py-2 rounded-md"
+              onClick={() => setShowPopup(null)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
 
 
             </form>

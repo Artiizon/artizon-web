@@ -106,7 +106,7 @@ router.route("/").post((req, res) => {
                 itemTypeId = itemTypeResult[0].item_type_id;
             
                 const insertItemColorSql =
-                "INSERT INTO `item_color` (`item_color`, `quantity`,`reorder_level`,item_type_id`) VALUES (?, ?, ?, ?);";
+                "INSERT INTO `item_color` (`item_color`, `quantity`,`reorder_level`,`item_type_id`) VALUES (?, ?, ?, ?);";
               const insertItemColorValues = [upperCaseItemColor, 0, reorder_level, itemTypeId];
   
               db.query(

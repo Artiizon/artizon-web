@@ -13,13 +13,18 @@ router.route("/:id").patch((req, res) => {
     totalQuantity,
     collar,
   } = req.body;
-  console.log(
-    tshirtOrderStatus,
+ 
+  console.log(  tshirtOrderStatus,
     managerNote,
     material,
     colorCode,
-    totalQuantity
-  );
+    totalQuantity,
+    collar,);
+
+const uppercaseMaterial = material.toUpperCase();
+
+
+
 
   const updateQuery =
     "UPDATE tshirt_order SET status = ?, manager_note = ? WHERE tshirt_order_id = ?";
@@ -38,7 +43,7 @@ router.route("/:id").patch((req, res) => {
   // Step 1: Update item_name table
   const updateItemNameQuery =
     "UPDATE item_name SET total_quantity = total_quantity - ? WHERE item_name = ?";
-  const itemName = "Material";
+  const itemName = "MATERIAL";
 
   db.query(
     updateItemNameQuery,
@@ -52,7 +57,7 @@ router.route("/:id").patch((req, res) => {
       // Step 2: Update item_type table
       const updateItemTypeQuery =
         "UPDATE item_type SET total_quantity = total_quantity - ? WHERE item_type = ?";
-      const itemType = material;
+      const itemType = uppercaseMaterial;
 
       db.query(
         updateItemTypeQuery,
@@ -113,14 +118,14 @@ router.route("/:id").patch((req, res) => {
     }
   );
 
-  if (collar !== null) {
+  if (collar != null) {
     const collarUpdateQuery =
       "UPDATE item_name SET total_quantity = total_quantity - ? WHERE item_name = ?";
-    const collarItemName = "Collar";
+    const collarItemName = "COLLAR";
 
     db.query(
       collarUpdateQuery,
-      [70 * totalQuantity, collarItemName],
+      [0.8* totalQuantity, collarItemName],
       (collarError) => {
         if (collarError) {
           console.error("Error updating collar item_name:", collarError);
@@ -130,11 +135,11 @@ router.route("/:id").patch((req, res) => {
         // Step 2: Update item_type table for Collar
         const collarItemTypeQuery =
           "UPDATE item_type SET total_quantity = total_quantity - ? WHERE item_type = ?";
-        const collarItemType = `${material}_Collar`;
+        const collarItemType = `${uppercaseMaterial}_COLLAR`;
 
         db.query(
           collarItemTypeQuery,
-          [70 * totalQuantity, collarItemType],
+          [0.8* totalQuantity, collarItemType],
           (collarItemTypeError) => {
             if (collarItemTypeError) {
               console.error(
@@ -178,7 +183,7 @@ router.route("/:id").patch((req, res) => {
 
                 db.query(
                   collarItemColorQuery,
-                  [70 * totalQuantity, colorCode, collarItemTypeId],
+                  [0.8* totalQuantity, colorCode, collarItemTypeId],
                   (collarItemColorError) => {
                     if (collarItemColorError) {
                       console.error(

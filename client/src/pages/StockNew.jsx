@@ -13,7 +13,7 @@ function AddNewStockPage() {
 
   const navigate = useNavigate();
 
-  const [colorOptions, setColorOptions] = useState({});
+  const [colorOptions, setColorOptions] = useState({}); 
   const [typeOptions, setTypeOptions] = useState({});
   const [itemOptions, setItemOptions] = useState([]);
   const [supplierOptions, setSupplierOptions] = useState([]);

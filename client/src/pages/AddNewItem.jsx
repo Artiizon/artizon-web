@@ -65,7 +65,7 @@ const AddNewItemForm = () => {
     item_name: "",
     item_type: "",
     item_color: "",
-    reorder_level:"",
+    reorder_level:1000,
     quantity_label: "",
     quantity_type: "", // Default value for quantity type
   });
@@ -172,7 +172,7 @@ const AddNewItemForm = () => {
           <input
             type="text"
             id="item_color"
-            placeholder="#ff0002-DARK-BLUE"
+            placeholder="#00008B-DARK-BLUE"
             name="item_color"
             value={itemInfo.item_color}
             onChange={handleInputChange}

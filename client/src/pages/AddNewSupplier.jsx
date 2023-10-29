@@ -154,7 +154,7 @@ const AddSupplierForm = () => {
             type="text"
             id="phone_number"
             name="phone_number"
-            placeholder="041-2235485"
+            placeholder="0412235485"
             value={supplierInfo.phone_number}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"

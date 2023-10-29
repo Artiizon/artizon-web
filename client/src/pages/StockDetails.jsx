@@ -91,7 +91,7 @@ function StockDetailsPage() {
                 </thead>
               </table>
             </div>
-            <div className="table-body max-h-96 overflow-y-auto">
+            <div className="table-body max-h-96 overflow-y-auto mb-10">
               <table className="w-full  table-auto border border-gray-300">
                 <tbody>
                   {stock.items.map((item, index) => (
