@@ -42,7 +42,8 @@ router.route("/").get((req, res) => {
       if (itemTypeIdResults.length === 0) {
         console.error("No matching item_type found for Material.");
         
-        return res.status(400).send("No matching item_type found for Material.");
+        return res.status(400).send(`Material '${material}' not found in the stock.`);
+
       }
   
       const materialItemTypeId = itemTypeIdResults[0].item_type_id;
@@ -59,7 +60,8 @@ router.route("/").get((req, res) => {
   
         if (itemColorResults.length === 0) {
           console.error("No matching item_color found for Material.");
-          return res.status(400).send("No matching item_color found for Material.");
+          return res.status(400).send(`Material '${material} ${colorCode}' color not found in the stock.`);
+
         }
   
         const materialQuantity = itemColorResults[0].quantity;
@@ -67,7 +69,8 @@ router.route("/").get((req, res) => {
   
         if (updatedMaterialQuantity < 0) {
           console.error("Insufficient quantity for Material.");
-          return res.status(400).send("Insufficient quantity for Material.");
+          return res.status(400).send(`Insufficient quantity for Material '${material}'`);
+   
         }
   
 
