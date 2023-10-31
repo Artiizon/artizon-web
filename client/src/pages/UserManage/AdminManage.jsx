@@ -60,7 +60,7 @@ export default function AdminManage() {
             <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
             <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
             <div className="w-[250px] font-sans font-[700]">E-Mail</div>
-            <div className="w-[160px] font-sans font-[700]">Orders</div>
+            {/* <div className="w-[160px] font-sans font-[700]">Orders</div> */}
           </div>
           {adminData.map((item,index) => (
             <div
@@ -74,7 +74,7 @@ export default function AdminManage() {
               <div className="w-[260px] pl-2 ml-[30px] text-center">
                 {item.first_name+" "+ item.last_name}
               </div>
-              <div className="w-[305px] pl-2 text-center">{item.email}</div>
+              <div className="w-[305px] mr-[190px] pl-2 text-center">{item.email}</div>
               {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
                 {item.orders}
               </div> */}

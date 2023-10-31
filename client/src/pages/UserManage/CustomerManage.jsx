@@ -5,6 +5,31 @@ import { useState, useEffect } from "react";
 
 function CustomerManagementPage() {
   
+  const handleSubmit = (event,customerId) => {
+    const formData = new FormData();
+    formData.append("user", "customer");
+    formData.append("reason", event.target.reason.value);
+    formData.append("astatus", "0");
+    formData.append("userid", "customer_id");
+    formData.append("customer_id", customerId);
+    
+    
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post("http://localhost:8080/api/addBlockStylist", formData, config)
+      .then((response) => {
+        navigate("/");
+        console.log("successfully!", response.data);
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+      });
+  };
   // Rename the stocks variable used by Axios to avoid conflicts
   const [customerData, setCustomerData] = useState([]);
 
@@ -30,9 +55,9 @@ function CustomerManagementPage() {
         </div> */}
         <div className="flex flex-row gap-[20px] text-lg text-black pt-[5px] w-[1185px]">
           <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
-          <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
-          <div className="w-[250px] font-sans font-[700]">E-Mail</div>
-          <div className="w-[160px] font-sans font-[700]">Orders</div>
+          <div className="w-[310px] pb-2 font-sans font-[700]">Name</div>
+          <div className="w-[350px] mr-[200px] font-sans font-[700]">E-Mail</div>
+          {/* <div className="w-[160px] font-sans font-[700]">Orders</div> */}
         </div>
         {customerData.map((item,index) => (
           <div
@@ -46,11 +71,11 @@ function CustomerManagementPage() {
             <div className="w-[260px] pl-2 ml-[30px] text-center">
               {item.first_name+" "+ item.last_name}
             </div>
-            <div className="w-[305px] pl-2 text-center">{item.email}</div>
+            <div className="w-[385px] mr-[100px] pl-2 text-center">{item.email}</div>
             {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
               {item.orders}
             </div> */}
-            <NavLink to="/customerPortfolia">
+            <NavLink to={`/customerPortfolia/${item.customer_id}`}>
               <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
                 More
               </button>

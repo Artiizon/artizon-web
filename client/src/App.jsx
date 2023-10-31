@@ -101,7 +101,7 @@ function App() {
           <Route exact path="/usermanage" element={<UserManageMain />}/>
           <Route exact path="/blockusermanage" element={<BlockUserManageMain />}/>
           <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
-          <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
+          <Route exact path="/customerPortfolia/:id" element={<CustomerPortfolia />}/>
           <Route exact path="/profile" element={<CustomerDetails />}/>
           <Route exact path="/changePassword" element={<ChangePassword />}/>
           <Route exact path="/addUser" element={<AddUsers />}/>
@@ -136,7 +136,7 @@ function App() {
           <Route exact path="/supplier/view" element={<ViewSupplier/>}/>
           
         
-        
+          <Route path="/customerPortfolia/:customerId" element={<CustomerPortfolia />} />
 
         </Routes>
        
