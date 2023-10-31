@@ -10,7 +10,7 @@ const Counts = ({ count, tag, im }) => {
   
   
     return (
-      <div className="mt-[130px] m-4 p-3 w-[200px] h-[75px] bg-white shadow-xl rounded-md flex  ">
+      <div className="mt-[30px] m-4 p-3 w-[200px] h-[75px] bg-white shadow-xl rounded-md flex  ">
         <div className="w-[140px] ">
           <p className="  ml-[23px] text-[20px] font-sans font-[700]">{count}</p>
           <p className="text-[20px] ">{tag}</p>
@@ -23,15 +23,15 @@ const Counts = ({ count, tag, im }) => {
 
 export default function BlockUserManageMain() {
     return (
-        <div className="mt-[-40px] min-h-screen">
-          {/* <p className="text-[35px]  ml-[35px] pt-[90px] p-9 font-bold">
-            USER MANAGEMENT
-          </p> */}
+        <div className="mt-[-40px] min-h-[700px]">
+          <p className="text-[35px]  ml-[155px] pt-[90px]  font-bold">
+            BLOCKED USERS
+          </p>
           <div className="flex flex-row justify-center gap-8 ">
-            <Counts count="10" tag="CUSTOMERS" im={im1} />
-            <Counts count="5" tag="DESIGNERS" im={im2} />
-            <Counts count="1" tag="STYLISTS" im={im3} />
-            <Counts count="1" tag="ADMINS" im={im4} />
+            <Counts count="5" tag="CUSTOMERS" im={im1} />
+            <Counts count="4" tag="DESIGNERS" im={im2} />
+            <Counts count="3" tag="STYLISTS" im={im3} />
+            <Counts count="2" tag="T P Managers" im={im4} />
           </div>
           <p className="mt-[20px]"></p>
           
