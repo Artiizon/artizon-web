@@ -3,7 +3,7 @@ import db from '../config/database.js';
 const router = express.Router();
 
 router.route('/').get((req, res) => {
-    // Query to get total orders by status
+  s
     const totalOrdersQuery = `
     SELECT
         SUM(CASE WHEN status = 'Proceed' THEN 1 ELSE 0 END) AS tot_proceeded_orders,
@@ -14,7 +14,7 @@ router.route('/').get((req, res) => {
         tshirt_order;
     `;
   
-    // Query to get monthly order counts for the last 12 months
+   
     const monthlyOrdersQuery = `
     WITH MonthGenerator AS (
         SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL n MONTH), '%Y-%m') AS month
@@ -58,13 +58,13 @@ router.route('/').get((req, res) => {
         console.error('Error fetching total orders:', err);
         res.status(500).json({ error: 'Error fetching total orders' });
       } else {
-        // Execute the second query after the first one
+        
         db.query(monthlyOrdersQuery, (err, monthlyOrdersResults) => {
           if (err) {
             console.error('Error fetching monthly order counts:', err);
             res.status(500).json({ error: 'Error fetching monthly order counts' });
           } else {
-            // Combine results and send as JSON
+   
             const combinedResults = {
               totalOrders: totalOrdersResults[0],
               monthlyOrders: monthlyOrdersResults,

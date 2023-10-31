@@ -50,12 +50,6 @@ const StylistViewOrderForm = () => {
           additionalNote:response.data.stylist_note,
           rejectedReason:response.data.reject_reason,
           status:response.data.status,
-          // xs: response.data.xs_quantity,
-          // s:response.data.s_quantity,
-          // m:response.data.m_quantity,
-          // l:response.data.l_quantity,
-          // xl:response.data.xl_quantity,
-          // xxl:response.data.xll_quantity,
           tshirtQuantity: [
             { size: 'xs', quantity: response.data.xs_quantity },
             { size: 's', quantity: response.data.s_quantity },
@@ -65,14 +59,11 @@ const StylistViewOrderForm = () => {
             { size: 'xll', quantity: response.data.xll_quantity },
           ],
 
-            
-
-          // ... rest of your properties
         });
       })
       .catch(error => {
         console.error('Error fetching form data:', error);
-        // Handle the error, show an error message, etc.
+        
       });
   }, [id]);
 

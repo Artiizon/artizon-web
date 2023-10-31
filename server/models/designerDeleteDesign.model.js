@@ -6,7 +6,6 @@ const router = express.Router();
 router.route('/:id').patch((req, res) => {
     const des_id = req.params.id;
 
-    // Assuming you have a field named "active_status" in your database table
     const updateQuery = 'UPDATE company_design SET active_status = 0 WHERE company_design_id = ?';
 
     db.query(updateQuery, [des_id], (error, updateResult) => {
