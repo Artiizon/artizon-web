@@ -31,6 +31,7 @@ import getDesignerModel from './models/getDesigner.model.js';
 import getManagerModel from './models/getManager.model.js';
 import getStylistModel from './models/getStylist.model.js';
 import makeOrderModel from './models/makeOrder.model.js';
+import makeOrderDesignModel from './models/makeOrderDesign.model.js';
 import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
 import getCustomerOrderQuantitiesModel from './models/getCustomerOrderQuantities.model.js';
 import cancelOrderModel from './models/cancelOrder.model.js'
@@ -160,6 +161,7 @@ app.use('/getDesigner', getDesignerModel);
 app.use('/getManager', getManagerModel);
 app.use('/getStylist', getStylistModel);
 app.use('/makeOrder', makeOrderModel);
+app.use('/makeOrderDesign', makeOrderDesignModel);
 app.use('/getCustomerOrders', getCustomerOrdersModel);
 app.use('/getCustomerOrderQuantities', getCustomerOrderQuantitiesModel);
 app.use('/cancelOrder', cancelOrderModel);

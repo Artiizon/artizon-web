@@ -15,7 +15,7 @@ const OrderCard = ({id, status, color, material, logo, text, textColor, tstyle, 
 
   function handleClick() {
     sessionStorage.setItem('logo', logo);
-    sessionStorage.setItem('tcolor', color);
+    sessionStorage.setItem('tcolor', color.slice(0,7));
     sessionStorage.setItem('text', text);
     sessionStorage.setItem('textcolor', textColor);
     sessionStorage.setItem('tstyle', tstyle);

@@ -213,7 +213,7 @@ const CompanyDesViewMore = () => {
 
             {true && (
               <div className="flex justify-start mt-4 gap-4">
-                <NavLink to="/makeOrder">
+                <NavLink to={`/makeOrderDesign/${id}`}>
                 <button className="bg-black  text-white font-bold py-2 px-4 rounded">
                   Order Now
                 </button>

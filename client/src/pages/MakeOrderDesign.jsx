@@ -6,13 +6,14 @@ import LoginError from "./LoginError";
 
 import state from "../store";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 
 import Schart from "../images/Schart.png";
 
 const MakeOrder = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [customerAuth, setCustomerAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -191,17 +192,15 @@ const MakeOrder = () => {
 
     if (isValidMaterial && isValidateQuantity) {
       axios
-        .post("http://localhost:8080/makeOrder", {
+        .post("http://localhost:8080/makeOrderDesign", {
           material,
           color,
           note,
-          logo,
-          text,
-          textColor,
           tstyle,
           days,
           customerId,
           quantities,
+          id,
         })
         .then((res) => {
           if (res.data.Status === "Success_Makeorder") {

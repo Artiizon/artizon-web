@@ -4,6 +4,7 @@ import Canvas from "./canvas";
 import Customizor from "./pages/Customizor";
 import Home from "./pages/Home";
 import MakeOrder from "./pages/MakeOrder";
+import MakeOrderDesign from "./pages/MakeOrderDesign";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
@@ -88,6 +89,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
           <Route path="/makeorder" element={<MakeOrder />} />
+          <Route path="//makeOrderDesign/:id" element={<MakeOrderDesign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
