@@ -15,7 +15,8 @@ const state = proxy({
     logoDecal1: './Logo.png',
     logoDecal2: './Logo.png',
     fullDecal: './Logo.png',
-    text: 'I love Artizon'
+    text: 'I love Artizon',
+    textColor: '#ffffff'
 });
 
 export default state;

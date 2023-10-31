@@ -115,6 +115,9 @@ const MakeOrder = () => {
     }else {
       logo = "";
     }
+    const text = state.text;
+    const textColor = state.textColor;
+    const tstyle = state.tstyle;
 
     const customerId = sessionStorage.getItem("customer_id");
 
@@ -128,6 +131,9 @@ const MakeOrder = () => {
           color,
           note,
           logo,
+          text,
+          textColor,
+          tstyle,
           days,
           customerId,
           quantities,

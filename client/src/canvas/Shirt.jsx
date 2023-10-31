@@ -42,6 +42,10 @@ const Shirt = () => {
     const text = sessionStorage.getItem('text');
     state.text = text;
   }
+  if (sessionStorage.getItem('textcolor') ) {
+    const textColor = sessionStorage.getItem('textcolor');
+    state.textColor = textColor;
+  }
 
   const logoTexture = useTexture(snap.logoDecal);
   const logoTexture1 = useTexture(snap.logoDecal1);
@@ -104,7 +108,7 @@ const Shirt = () => {
         )}
 
       <Text className="max-w-xs"
-        color="white"
+        color={state.textColor}
         anchorX="center"
         anchorY="middle"
         font='Poppins'

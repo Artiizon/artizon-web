@@ -2,14 +2,34 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import t1 from "../images/canvas.png";
 
+import { useParams } from "react-router-dom";
+
+import Canvas from "../canvas";
+
 import axios from "axios";
 
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const customerId = sessionStorage.getItem('customer_id');
+const OrderCard = ({id, status, color, material, logo, text, textColor, tstyle, tags, ims ,style }) => {
 
-const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
+  function handleClick() {
+    sessionStorage.setItem('logo', logo);
+    sessionStorage.setItem('tcolor', color);
+    sessionStorage.setItem('text', text);
+    sessionStorage.setItem('textcolor', textColor);
+    sessionStorage.setItem('tstyle', tstyle);
+    if (text == '') {
+      sessionStorage.setItem('text', ' ');
+    }
+    if (logo == '') {
+      state.isLogoTexture = false;
+    }
+    else {
+      state.isLogoTexture = true;
+    }
+  }
+
   const snap = useSnapshot(state);
   return (
     <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[185px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
@@ -23,6 +43,7 @@ const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
         </p>
         <Link to={`/customerorder-view-more/${id}/${status}/${encodeURIComponent(color)}/${material}`}>
           <button
+            onClick={handleClick}
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -31,8 +52,9 @@ const OrderCard = ({id, status, color, material, logo, tags, ims ,style }) => {
             Order details
           </button>
         </Link>
-        <Link to={`/customerorder-view-tshirt/${color}`}>
+        <Link to={`/customerorder-view-tshirt`}>
           <button
+          onClick={handleClick}
             type="button"
             className="rounded   w-[120px] h-[35px] mt-[20px] ml-[480px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
@@ -52,6 +74,7 @@ export default function CustomerOrders() {
     state.page = 'no-canvas';
 
     const [orders, setOrders] = useState([]);
+    const { customerId } = useParams();
 
     useEffect(() => {
         axios.post('http://localhost:8080/getCustomerOrders', {customerId}).then(res => {
@@ -59,7 +82,11 @@ export default function CustomerOrders() {
         })
     }, [])
 
-    console.log(orders);
+    if (!orders) {
+      return (
+        <p>Loading...</p>
+      );
+    }
 
   return (
     <div className="font-sans min-h-screen">
@@ -69,7 +96,7 @@ export default function CustomerOrders() {
         <hr width="80%" />
         {orders.map(order => (
             <div className="cards mt-[40px]">
-            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
+            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} text={order.text} textColor={order.text_color} tstyle={order.tstyle} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
             </div>
         ))}
       </div>

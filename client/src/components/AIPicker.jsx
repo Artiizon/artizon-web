@@ -1,8 +1,12 @@
 import React from 'react'
+import { useSnapshot } from 'valtio';
 
 import CustomButton2 from './CustomButton2';
 
+import state from '../store';
+
 const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
+  const snap = useSnapshot(state);
   return (
     <div className='aipicker-container'>
       <textarea
@@ -35,10 +39,19 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
               handleClick={() => handleSubmit('full')}
               customStyles="text-xs"
             /> */}
-            <select>
+            <select
+               onChange={(e) => {
+                state.textColor = e.target.value
+                sessionStorage.setItem('textcolor', e.target.value)
+              }}
+            >
               <option value="">Color</option>
-              <option value="standard">Standard</option>
-              <option value="collar">Collar</option>
+              <option value="#000000">Black</option>
+              <option value="#FFFFFF">White</option>
+              <option value="#FF0000">Red</option>
+              <option value="#00FF00">Green</option>
+              <option value="#0000FF">Blue</option>
+              <option value="#FFFF00">Yellow</option>
             </select>
           </>
         )}
