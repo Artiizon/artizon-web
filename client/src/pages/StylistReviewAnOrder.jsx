@@ -41,7 +41,7 @@ const StylistReviewOrderForm = () => {
       .then((response) => {
         // Handle success for updating the order status
   
-        // Now, send an email to the customer
+     
         const customerMessage = generateCustomerEmailMessage(rejectMainReason, rejectAdditionalNote);
 
         axios

@@ -3,7 +3,7 @@ import db from '../config/database.js';
 const router = express.Router();
 
 router.route('/').get((req, res) => {
-    // Query to get total orders by status
+
     const query = `
     SELECT
     DATE_FORMAT(t.ordered_date_and_time, '%Y-%m') AS order_month,

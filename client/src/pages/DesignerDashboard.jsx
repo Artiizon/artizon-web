@@ -128,7 +128,7 @@ const DashboardPage = () => {
   const [designCount, setDesignCount] = useState(0);
   const [orderCount, setOrderCount] = useState(0);
   const [monthlyOrderCounts, setMonthlyOrderCounts] = useState([]);
-  // Define your orders and other data here...
+
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8080/getDesignerDashboardData')
@@ -173,7 +173,7 @@ const DashboardPage = () => {
    // Reverse the order of the data to display the latest month on the right
    const reversedData = data.reverse();
 
-   // Do something with the reversed data, e.g., set it in a state variable
+
    setMonthlyOrderCounts(reversedData);
  })
               .catch(error => {
@@ -209,7 +209,7 @@ const DashboardPage = () => {
         <DashboardCard title="View My Designs" topic="My Designs" link="/des-design" value="View" />
       </div>
     </div>
-    {/* Add more cards for other sections */}
+   
   </div>
 </div>
 

@@ -1,7 +1,9 @@
+//this is not needed you can delete this file
+
 import express from 'express';
 import db from '../config/database.js';
 const router = express.Router();
-//this is not needed you can delete this file
+
 router.route('/').get((req, res) => {
   const query = `
   SELECT feedback.*, CONCAT(customer.first_name, ' ', customer.last_name) AS customer_name

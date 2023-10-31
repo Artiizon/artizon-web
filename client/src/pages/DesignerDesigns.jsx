@@ -185,7 +185,7 @@ const DesignerDesignPage = () => {
   };
    
   const handleDelete = (designId) => {
-    console.log("designId:", designId); // Add this line to debug
+    console.log("designId:", designId); 
     setSelectedDesignId(designId);
     setShowDeletePopup(true);
   };
@@ -200,9 +200,9 @@ const DesignerDesignPage = () => {
       
       .then((response) => {
         window.location.reload();
-        // Check if the deletion was successful (you can customize this check)
+       
         if (response.data.success) {
-          // Update the local state to reflect the deleted design
+ 
           setDesigns((prevDesigns) =>
           prevDesigns.filter((design) => design.company_design_id !== Number(designIdToDelete))
         );

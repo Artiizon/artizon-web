@@ -87,7 +87,7 @@ const DashboardPage = () => {
     axios.get('http://127.0.0.1:8080/getStylishDashboardData')
       .then(response => {
         console.log(response.data);
-        const responseData = response.data; // Use the entire response data
+        const responseData = response.data; 
   
         // Total orders data
         const totalOrdersData = responseData.totalOrders;

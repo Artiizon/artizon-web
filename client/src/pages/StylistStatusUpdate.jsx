@@ -83,19 +83,19 @@ const OrderUpdate = () => {
     axios.patch(`http://localhost:8080/stylistUpdateOrderStatus/${orderId}`, { status: selectedStatus })
    
     .then(response => {
-      // Handle successful response here
+   
       console.log('Order status updated successfully:', response.data);
-      // Update the orderData state with the new status
+ 
       setOrderData(prevOrderData => prevOrderData.map(order =>
         order.tshirt_order_id === orderId ? { ...order, status: selectedStatus } : order
       ));
-      // Clear the selectedStatus and updatingOrderId
+     
       setSelectedStatus("");
       setUpdatingOrderId(null);
     })
     .catch(error => {
       console.error('Error updating order status:', error);
-      // Handle error here
+
     });
   };
   

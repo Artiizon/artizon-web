@@ -6,7 +6,7 @@ function ViewSupplier() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // Fetch suppliers from the backend API
+
     axios
       .get(`http://localhost:8080/api/suppliers?search=${searchTerm}`)
       .then((response) => {

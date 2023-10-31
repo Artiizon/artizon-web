@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AiOutlineDelete, AiOutlineUpload } from "react-icons/ai";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import { useSnapshot } from "valtio";
 import state from "../store";
 
@@ -90,7 +89,7 @@ const AddNewDesignPage = () => {
         });
       })
     ).then((results) => {
-      setImagePreviews((prevPreviews) => [...prevPreviews, ...results]); // Append new previews
+      setImagePreviews((prevPreviews) => [...prevPreviews, ...results]); 
     });
   };
 
@@ -116,7 +115,7 @@ const AddNewDesignPage = () => {
     });
 
  // Append the image file names to the formData
-      // formData.append('image', file);
+  
       for (let i = 0; i < file.length; i++) {
         formData.append(`images[${i}]`, file[i]);
       }
@@ -139,7 +138,7 @@ const AddNewDesignPage = () => {
       })
       .catch((error) => {
         console.error("Error adding design and materials:", error);
-        // Handle the error and show an error message to the user
+
       });
   };
   return (

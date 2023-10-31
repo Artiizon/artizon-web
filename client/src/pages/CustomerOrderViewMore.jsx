@@ -1,4 +1,3 @@
-import React from "react";
 import circle from "../images/orders/circle1.png";
 import tick from "../images/orders/tick2.png";
 import ims from "../images/canvas.png";
