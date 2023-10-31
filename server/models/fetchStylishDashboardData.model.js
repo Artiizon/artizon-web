@@ -3,7 +3,6 @@ import db from '../config/database.js';
 const router = express.Router();
 
 router.route('/').get((req, res) => {
-  s
     const totalOrdersQuery = `
     SELECT
         SUM(CASE WHEN status = 'Proceed' THEN 1 ELSE 0 END) AS tot_proceeded_orders,
@@ -33,8 +32,6 @@ router.route('/').get((req, res) => {
             UNION ALL SELECT 11
         ) AS months
     )
-    
-    -- Left join the MonthGenerator subquery with your order data
     SELECT
         MonthGenerator.month AS order_month,
         IFNULL(COUNT(tshirt_order.ordered_date_and_time), 0) AS total_orders
@@ -44,7 +41,7 @@ router.route('/').get((req, res) => {
         tshirt_order
     ON
         MonthGenerator.month = DATE_FORMAT(tshirt_order.ordered_date_and_time, '%Y-%m')
-        AND tshirt_order.status = 'Completed' -- Filter by status here
+        AND tshirt_order.status = 'Completed'
     WHERE
         DATE_SUB(NOW(), INTERVAL 11 MONTH) <= tshirt_order.ordered_date_and_time
     GROUP BY
