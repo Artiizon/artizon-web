@@ -12,6 +12,16 @@ import state from "../store";
 import Canvas from "../canvas";
 
 import axios from "axios";
+import md5 from 'crypto-js/md5';
+
+let merchantSecret  = 'MTc3OTc0OTA3MzQ3ODM2MTkyNjMzMTc0MjQzMTM4MzkyMzEzMg==';
+let merchantId      = '1221976';
+let orderId         = '';
+let amount          = 1000;
+let hashedSecret    = md5(merchantSecret).toString().toUpperCase();
+let amountFormated  = parseFloat( amount ).toLocaleString( 'en-us', { minimumFractionDigits : 2 } ).replaceAll(',', '');
+let currency        = 'LKR';
+let hash            = md5(merchantId + orderId + amountFormated + currency + hashedSecret).toString().toUpperCase();
 
 export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
@@ -535,7 +545,7 @@ export default function CustomerOrderViewMore() {
           <p className="mt-[20px] ml-[60px] ">Rs.1,500.00</p>
         </div>
         <div>
-        <Link to={`/payment-form/1500`}>
+        {/* <Link to={`/payment-form/1500`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
@@ -544,7 +554,18 @@ export default function CustomerOrderViewMore() {
           >
             Pay Now
           </button>
-        </Link>
+        </Link> */}
+        <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
+          <input type="hidden" name="merchant_id" value="1221976"/>
+          <input type="hidden" name="return_url" value="http://sample.com/return"/>
+          <input type="hidden" name="cancel_url" value="http://sample.com/cancel"/>
+          <input type="hidden" name="notify_url" value="http://sample.com/notify"/> 
+          <input type="hidden" name="country" value="Sri Lanka"/>
+          <input type="hidden" name="hash" value={hash}/> 
+          <input type="submit" value="Buy Now" className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
+             pb-[8px] pt-[6px] text-sm font-medium uppercase 
+            text-white  shadow-md shadow-slate-900  bg-black"/>
+        </form>
         </div>
       </div>
       ) : status === "Sample Ready" ? (
