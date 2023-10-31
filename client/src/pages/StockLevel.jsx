@@ -144,10 +144,7 @@ function StockLevelPage() {
                 <tr
                   key={item.itemId}
                   className={index % 2 === 0 ? "bg-[#F1F1F1] text-center" : "bg-[#D9D9D9] text-center"}
-                  style={{ 
-                    backgroundColor: item.color_quantity <= item.color_reorder_level ? '#D30000' : '',
-                    /* Add any additional styling you want for red rows */
-                  }}    >
+                >
 
                   <td className="py-2.5 px-4" style={{ width: "200px" }}>
                     {item.item_name}
@@ -158,10 +155,11 @@ function StockLevelPage() {
                   <td className="py-2.5 px-4" style={{ width: "200px" }}>
                     {item.item_color}
                   </td>
-                  <td className="py-2.5 px-4" style={{ width: "200px" }}>
-                    {item.color_quantity}
+                  <td className="py-2.5 px-4" style={{ width: "200px",  backgroundColor: item.color_quantity <= item.color_reorder_level ? '#D30000' : '', }}>
+                    {item.color_quantity }
                   </td>
-                  <td className="py-2.5 px-4" style={{ width: "200px" }}>
+                  <td className="py-2.5 px-4
+                  " style={{ width: "200px"}}>
                     {item.color_reorder_level}
                   </td>
                   <td className="py-2.5 px-4" style={{ width: "200px" }}>

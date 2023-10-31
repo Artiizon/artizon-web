@@ -104,6 +104,7 @@ import addPriceModel from  './models/Inventory/addPrice.model.js';
 import dashboardModel from './models/Inventory/dashboard.model.js'; 
 import stockLevelModel from './models/Inventory/stocklevel.model.js';
 import fetchSuppliers from './models/Inventory/fetchSuppliers.model.js';
+import checkQuantity from './models/Inventory/checkQuantity.model.js';
 
 dotenv.config();
 
@@ -190,6 +191,10 @@ app.use('/change-password-forgot', changePasswordForgot)
 app.use('/viewOrderstpm', fetchOrderstpmModel)
 app.use('/review_ordertpm', managerReviewOrderModel)
 app.use('/manager_reject_order', managerRejectOrderModel)
+app.use('/checkQuantity',checkQuantity);
+
+
+
 
 app.use("/api/customers", fetchCustomers); 
 app.use("/api/designers", fetchDesigners);
@@ -225,6 +230,7 @@ app.use("/api/add-price",addPriceModel);
 app.use("/api/dashboard",dashboardModel);
 app.use("/api/stockLevel",stockLevelModel);
 app.use("/api/suppliers",fetchSuppliers);
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use('/uploads/company_designs', express.static(path.join(__dirname, 'uploads', 'company_designs')));

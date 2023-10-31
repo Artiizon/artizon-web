@@ -186,7 +186,7 @@ function StockManagementPage() {
 
       // Define the table columns and their widths
       const tableHeaders = ["Item Name", "Item Type", "Item Color", "Quantity"];
-      const tableWidths = [50, 40, 40, 30];
+      const tableWidths = [50, 40, 60, 30];
 
       // Create the table
       doc.autoTable({
@@ -196,14 +196,14 @@ function StockManagementPage() {
         columnStyles: {
           0: { cellWidth: 50 },
           1: { cellWidth: 40 },
-          2: { cellWidth: 40 },
+          2: { cellWidth: 60 },
           3: { cellWidth: 30 },
         },
         margin: { left: 10, right: 10 },
       });
 
       // y += doc.previousAutoTable.finalY + 1; // Move down after the table
-      y += 30; // Move down for the next stock
+      y += 45; // Move down for the next stock
     });
 
     // Draw a border on the last page

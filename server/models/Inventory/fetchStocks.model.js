@@ -12,14 +12,19 @@ router.route('/').get(async (req, res) => {
     FROM stock s
     JOIN supplier su ON s.supplier_id = su.supplier_id
     JOIN stock_items si ON s.stock_id = si.stock_id
-    GROUP BY s.stock_id, su.supplier_name`;
+    `;
 
     if (search) {
       // If search query is provided, add conditions to the SQL query
       sql += ` WHERE 
         su.supplier_name LIKE '%${search}%' OR 
         s.date_and_time LIKE '%${search}%' OR 
-        s.stock_id LIKE '%${search}%'`;
+        s.stock_id LIKE '%${search}%' GROUP BY s.stock_id, su.supplier_name`;
+    }
+    
+    if (!search) {
+      // If search query is provided, add conditions to the SQL query
+      sql += ` GROUP BY s.stock_id, su.supplier_name`;
     }
 
     db.query(sql, (error, results) => {
