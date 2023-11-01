@@ -142,7 +142,6 @@ const StylistReviewOrderForm = () => {
           additionalNote: "",
           logoFile: response.data.logo_file,
           totQuantity: response.data.total_quantity,
-          //TPM
           cusEmail: response.data.email,
           compDesignId: response.data.company_design_id,
           type: response.data.tstyle,
@@ -165,9 +164,12 @@ const StylistReviewOrderForm = () => {
       });
   }, [id]);
 
+  let tcolor = formData.colorCode;
+  let ttcolor = tcolor ? tcolor.slice(0, 7) : '';
+  console.log(ttcolor);
   //TPM
   sessionStorage.setItem("logo", formData.logoFile);
-  sessionStorage.setItem("tcolor", formData.colorCode);
+  sessionStorage.setItem("tcolor", ttcolor);
   sessionStorage.setItem("text", formData.text);
   sessionStorage.setItem("textcolor", formData.text_color);
   sessionStorage.setItem("tstyle", formData.type);
@@ -202,7 +204,7 @@ const StylistReviewOrderForm = () => {
         <div className="">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              {/* {TPM} */}
+              
               <label
                 htmlFor="designImage"
                 className="block text-[20px] font-medium"
@@ -213,7 +215,7 @@ const StylistReviewOrderForm = () => {
               </label>
 
               <div className="image-container">
-                {/* {TPM} */}
+                
                 {formData.compDesignId === null && (
                   <Link to={`/customerorder-view-tshirt`}>
                     <button
@@ -311,7 +313,7 @@ const StylistReviewOrderForm = () => {
               />
             </div>
 
-            {/* {TPM} */}
+            
             <div className="mb-4">
               <label htmlFor="colorCode" className="block  font-medium">
                 T-Shirt Type

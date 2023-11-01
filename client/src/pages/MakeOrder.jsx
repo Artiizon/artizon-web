@@ -55,7 +55,7 @@ const MakeOrder = () => {
     // #013220-DARK-GREEN
     // #00008B-DARK-BLUES
 
-    switch (checkColor) {
+    switch (checkColor.toLowerCase()) {
       case '#666666':
         tcolor = '#666666-LIGHT-BLACK';
         break;

@@ -172,9 +172,12 @@ const ManagerReviewOrderForm = () => {
       });
   }, [id]);
 
+  let tcolor = formData.colorCode;
+  let ttcolor = tcolor ? tcolor.slice(0, 7) : '';
+  console.log(ttcolor);
   //TPM
   sessionStorage.setItem("logo", formData.logoFile);
-  sessionStorage.setItem("tcolor", formData.colorCode);
+  sessionStorage.setItem("tcolor", ttcolor);
   sessionStorage.setItem("text", formData.text);
   sessionStorage.setItem("textcolor", formData.text_color);
   sessionStorage.setItem("tstyle", formData.type);

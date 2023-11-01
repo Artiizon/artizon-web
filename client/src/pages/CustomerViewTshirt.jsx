@@ -11,31 +11,13 @@ const CustomerViewTshirt = () => {
 
   state.page = 'no-canvas';
 
-  const [customerAuth, setCustomerAuth] = useState(false);
-    const [email, setEmail] = useState("");
-
-    axios.defaults.withCredentials = true;
-
-    useEffect(() => {
-      axios.get("http://localhost:8080/verifyCustomer").then((res) => {
-        if (res.data.Status === "Success_Authentication") {
-          setCustomerAuth(true);
-          setEmail(res.data.email);
-        } else {
-          setCustomerAuth(false);
-        }
-      });
-    }, []);
-
   return (
     <>
-    {customerAuth && (
     <AnimatePresence>
         <>
         <Canvas />
         </>
     </AnimatePresence>
-    )}
     </>
   )
 }
