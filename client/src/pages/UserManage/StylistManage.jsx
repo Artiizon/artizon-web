@@ -82,7 +82,7 @@ export default function StylistManage() {
                 <button>
                   {" "}
                   <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
-                    More
+                    Block
                   </button>
                 </button>
               }

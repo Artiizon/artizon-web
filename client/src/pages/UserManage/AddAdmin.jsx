@@ -1,28 +1,51 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddNewAdminPage = () => {
+  const navigate = useNavigate();
+
+  const generateRandomPassword = () => {
+    const passwordLength = 6;
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < passwordLength; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
   const handleSubmit = (event) => {
+    event.preventDefault();
+    const customerMessage = generateRandomPassword();
     const formData = new FormData();
     formData.append("firstName", event.target.firstName.value);
     formData.append("lastName", event.target.lastName.value);
     formData.append("title", event.target.title.value);
     formData.append("eMail", event.target.eMail.value);
     formData.append("contactNumber", event.target.contactNumber.value);
-
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    formData.append("password", customerMessage);
 
     axios
-      .post("http://localhost:8080/api/addNewAdmin", formData, config)
+      .post("http://localhost:8080/api/addNewAdmin", formData,  {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
-        navigate("/des-designrr");
-        console.log("Design and materials added successfully!", response.data);
+        axios
+          .post('http://127.0.0.1:8080/send-customer-email', {
+            customerId: '00', // Replace with the actual customer ID or email address
+            message: "Your password is - " + customerMessage,
+            subject: 'Password',
+            recipientEmail: event.target.eMail.value
+            
+          })
+        navigate("/usermanage");
+        console.log("Admin added successfully!", response.data);
       })
       .catch((error) => {
-        console.error("Error adding design and materials:", error);
+        console.error("Error adding ", error);
       });
   };
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink,useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import pp1 from "../../images/portPp/maleAvatar.png";
 import cmp from "../../images/portPp/complete.png";
 import prc from "../../images/portPp/processing.png";
@@ -9,18 +9,13 @@ import t3 from "../../images/portPp/ot3.png";
 import t4 from "../../images/portPp/ot4.png";
 import heart from "../../images/portPp/heart.png";
 
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
-
-
 const UName = () => {
   const navigate = useNavigate();
-
-  
 
   const [customerAuth, setCustomerAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -74,21 +69,18 @@ const Block = () => {
 
   return (
     <>
-
       <div>
         {adminAuth && (
           <div className=" font-sans ">
-            <form onSubmit={(event) => handleSubmit(event, item.customer_id)}>
             <button
           type="button"
           className="  w-[123px] h-[35px] mt-[30px] ml-[620px]
                  pb-[8px] pt-[6px] text-sm font-medium uppercase 
                 text-white  shadow shadow-slate-600  bg-red-600 rounded-[20px] flex"
-        >  
+        >
           <p className="ml-[21px]">BLOCK USER</p>
-          <p></p>
+          
         </button>
-        </form>
           </div>
         )}
       </div>
@@ -146,24 +138,6 @@ const OrderCard = ({ status, tags, ims, style }) => {
 };
 
 export default function CustomerPortfolia() {
-  const {id} = useParams();
-  const [cusData, setCustData] = useState(null);
-
-    useEffect(() => {
-      const fetchCust = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8080/api/customerport?id=${id}`);
-          setCustData(response.data);
-        } catch (error) {
-          console.error("Error fetching manager:", error);
-        }
-      };
-  
-      fetchCust();
-    }, [id]);
-    if (!cusData) {
-      return <div>Loading...</div>;
-    }
   return (
     <div className="font-sans mt-[70px]">
       <div className="flex mt-[-40px] font-sans">
@@ -196,8 +170,7 @@ export default function CustomerPortfolia() {
       </div>
 
       <div className="orders ml-[200px] mt-[10px]">
-        <p className="font-bold text-2xl">ORDERS{cusData.customer_id}</p>
-        
+        <p className="font-bold text-2xl">ORDERS</p>
         <hr width="80%" />
         <div className="cards mt-[40px]">
           <OrderCard

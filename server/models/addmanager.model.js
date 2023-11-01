@@ -1,17 +1,13 @@
 import multer from  'multer';
 import express from 'express';
 import db from '../config/database.js';
-// import path from 'path';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-    //   cb(null, './uploads/company_designs');
-    },
-    filename: (req, file, cb) => {
-    //   cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    },
+    destination: (req, file, cb) => {},
+    filename: (req, file, cb) => {},
   });
 
   const upload = multer({
@@ -20,8 +16,8 @@ const storage = multer.diskStorage({
 
 
  // Endpoint for adding new designs and materials
-router.route('/').post(upload.any(), (req, res) => {
-    const { firstName, lastName, title, eMail, contactNumber} = req.body;
+router.route('/').post(upload.any(), async (req, res) => {
+    const { firstName, lastName, title, eMail, contactNumber,password} = req.body;
     console.log("Received body:", req.body);
 
    
@@ -29,27 +25,40 @@ router.route('/').post(upload.any(), (req, res) => {
       INSERT INTO manager (first_name, last_name, title, email, contact_number )
       VALUES (?, ?, ?, ?, ?)
     `;
+    const insertLoginDetailsQuery = "INSERT INTO `login_details` (`email`, `usertype`, `password`) VALUES (?, ?, ?);";
   
-  
-    db.query(
-      insertManagerQuery,
-      [
-        firstName,
-        lastName,
-        title,
-        eMail,
-        contactNumber
-        
-      ],
-      (err, result) => {
-        if (err) {
-          console.error("Error adding manager:", err);
-          res.status(500).json({ error: "Error adding stylist" });
-        } else {
-         console.log("Manager added successfully!");
+   
+  try {
+    const result = await db.query(insertManagerQuery, [
+      firstName,
+      lastName,
+      title,
+      eMail,
+      contactNumber
+    ]);
+    console.log('Manager added successfully!'+password);
+
+    // Hash the password before saving it
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) {
+        console.error('Error hashing password:', err);
+        res.status(500).json({ error: 'Error hashing password' });
+      } else {
+        db.query(insertLoginDetailsQuery, [eMail, 'manager', hash], (err, loginResult) => {
+          if (err) {
+            console.error('Error adding login details:', err);
+            res.status(500).json({ error: 'Error adding login details' });
+          } else {
+            console.log('Login details added successfully!');
+            res.json({ status: 'Success_Signup' });
+          }
+        });
       }
-    }
-  );
+    });
+  } catch (error) {
+    console.error('Error adding manager:', error);
+    res.status(500).json({ error: 'Error adding manager' });
+  }
 });
 
 export default router;
