@@ -94,7 +94,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/customerorders/:customerId" element={<CustomerOrders />} />
-          <Route path="/customerorder-view-more/:id/:status/:color/:material" element={<CustomerOrderViewMore />} />
+          <Route path="/customerorder-view-more/:id/:status/:color/:material/:customerID" element={<CustomerOrderViewMore />} />
           <Route path="/customerorder-view-tshirt" element={<CustomerViewTshirt />} />
           <Route path="/payment-form/:fee" element={<PaymentForm />} />
           <Route path="/customerprofile/:customerId" element={<CustomerProfile />} />

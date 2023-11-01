@@ -38,6 +38,8 @@ import getCustomerOrderQuantitiesModel from './models/getCustomerOrderQuantities
 import cancelOrderModel from './models/cancelOrder.model.js'
 import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
 import payOrderChangeStatusModel from './models/payOrderChangeStatus.model.js';
+import payOrderChangeStatusModel1 from './models/payOrderChangeStatus1.model.js';
+import payOrderChangeStatusModel2 from './models/payOrderChangeStatus2.model.js';
 
 import fetchOngoingOrdersModel from './models/fetchOngoingOrders.model.js';
 import companyDesign from './models/fetchCompanyDesigns.model.js';
@@ -158,6 +160,8 @@ app.use('/verifyManager', verifyManager);
 app.use('/verifyStylist', verifyStylist);
 app.use('/api/payment', paymentRoutes);
 app.use('/payOrderChangeStatus', payOrderChangeStatusModel);
+app.use('/payOrderChangeStatus1', payOrderChangeStatusModel1);
+app.use('/payOrderChangeStatus2', payOrderChangeStatusModel2);
 app.use('/signup', signupModel);
 app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);
