@@ -210,9 +210,9 @@ function StockManagementPage() {
   doc.rect(5, 5, pageWidth - 10, pageHeight - 10);
 
   // Reset font to desired style
-  doc.setFontSize(12); // Change to your desired font size
-  doc.setFont("normal"); // Change to your desired font style
-  doc.setTextColor(0, 0, 0); // Change to your desired text color
+  doc.setFontSize(12); // Change to desired font size
+  doc.setFont("normal"); // Change to desired font style
+  doc.setTextColor(0, 0, 0); // Change to desired text color
 
     // Generate the PDF data URL
     const dataURL = doc.output("datauristring");
@@ -246,7 +246,7 @@ function StockManagementPage() {
         {/* Add New Stock Button */}
         <div className="mt-40px]">
           <Link
-            to="/stock/new" // Replace this with the path to the page where you create a new stock
+            to="/stock/new" // Replace this with the path to the page where create a new stock
             className="text-white bg-black font-semibold px-4 pb-[10px] pt-[7px] rounded-md"
           >
             Add New Stock

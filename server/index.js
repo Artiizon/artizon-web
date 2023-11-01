@@ -105,6 +105,9 @@ import dashboardModel from './models/Inventory/dashboard.model.js';
 import stockLevelModel from './models/Inventory/stocklevel.model.js';
 import fetchSuppliers from './models/Inventory/fetchSuppliers.model.js';
 import checkQuantity from './models/Inventory/checkQuantity.model.js';
+import getManagerDetails from './models/Inventory/getManagerDetails.model.js';
+import getStylistDetails from './models/getStylistDetails.model.js';
+import getDesignerDetails from './models/getDesignerDetails.model.js';
 
 dotenv.config();
 
@@ -157,6 +160,10 @@ app.use('/getCustomerOrderQuantities', getCustomerOrderQuantitiesModel);
 app.use('/cancelOrder', cancelOrderModel);
 app.use('/getCustomerDetails', getCustomerDetailsModel);
 app.use('/logout', logoutRoutes);
+app.use('/getManagerDetails', getManagerDetails);
+app.use('/getStylistDetails', getStylistDetails);
+app.use('/getDesignerDetails', getDesignerDetails);
+
 
 app.use('/api/addNewDesign', companydesignModel);
 app.use('/api/addNewDesigner', addDesignerModel);

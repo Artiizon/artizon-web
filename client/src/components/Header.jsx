@@ -250,9 +250,16 @@ const Header = () => {
             <NavLink to={`/customerOrders/${sessionStorage.getItem('customer_id')}`}>ORDERS</NavLink>
           </p>
         )}
-        {/* <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
-          <NavLink to="/about">ABOUT</NavLink>
-        </p> */}
+        
+
+
+        {(! managerAuth) && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+             <NavLink to="/about">ABOUT</NavLink>
+          </p>
+        )}
+   
+
 
         {designerAuth && (
           <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
@@ -338,21 +345,21 @@ const Header = () => {
         )}
         {designerAuth && (
           <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
-            <NavLink to="/profile">
+            <NavLink to="/designerprofile">
               {designerTitle.toUpperCase()}. {designerName.toUpperCase()}
             </NavLink>
           </p>
         )}
         {stylistAuth && (
           <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
-            <NavLink to="/profile">
+            <NavLink to="/stylistprofile">
               {stylistTitle.toUpperCase()}. {stylistName.toUpperCase()}
             </NavLink>
           </p>
         )}
         {managerAuth && (
           <p className="header-item text-[#e64444] hover:text-gray-300 transition-colors duration-300 mr-[20px] font-[700]">
-            <NavLink to="/profile">
+            <NavLink to="/managerprofile">
               {managerTitle.toUpperCase()}. {managerName.toUpperCase()}
             </NavLink>
           </p>

@@ -58,7 +58,9 @@ import CustomerOrderDetailsF from './pages/Orders/CustomerOrderDetailsF';
 import Footer from "./components/footer/Footer";
 import LoginError from "./pages/LoginError";
 import PricePage from "./pages/Price";
-
+import ManagerDetails from "./pages/ManagerDetails";
+import StylistDetails from "./pages/StylistDetails";
+import DesignerDetails from "./pages/DesignerDetails";
 
 import AddNewSupplier from "./pages/AddNewSupplier";
 import AddNewItem from "./pages/AddNewItem";
@@ -112,6 +114,11 @@ function App() {
           <Route exact path="/designerPortfolia" element={<DesignerPortfolia />}/>
           <Route exact path="/customerPortfolia" element={<CustomerPortfolia />}/>
           <Route exact path="/profile" element={<CustomerDetails />}/>
+          <Route exact path="/managerprofile" element={<ManagerDetails />}/>
+          <Route exact path="/stylistprofile" element={<StylistDetails />}/>
+          <Route exact path="/designerprofile" element={<DesignerDetails />}/>
+          
+          
           <Route exact path="/changePassword" element={<ChangePassword />}/>
           <Route exact path="/addUser" element={<AddUsers />}/>
           <Route exact path="/customerOrderDetailsF/" element={<CustomerOrderDetailsF /> }/>

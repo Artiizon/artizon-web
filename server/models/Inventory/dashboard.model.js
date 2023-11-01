@@ -10,7 +10,7 @@ router.route('/orders').get(async (req, res) => {
     
     let sql = `
       SELECT
-        SUM(CASE WHEN status = 'processing' THEN 1 ELSE 0 END) AS pendingOrders,
+        SUM(CASE WHEN status = 'Proceed' THEN 1 ELSE 0 END) AS pendingOrders,
         SUM(CASE WHEN status = 'Accepted' THEN 1 ELSE 0 END) AS acceptedOrders,
         SUM(CASE WHEN status = 'MRejected' THEN 1 ELSE 0 END) AS rejectedOrders
       FROM tshirt_order
