@@ -14,6 +14,22 @@ export default function CustomerProfile() {
     const snap = useSnapshot(state);
     state.page = "no-canvas";
 
+    const [customerAuth, setCustomerAuth] = useState(false);
+    const [email, setEmail] = useState("");
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+      axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+        if (res.data.Status === "Success_Authentication") {
+          setCustomerAuth(true);
+          setEmail(res.data.email);
+        } else {
+          setCustomerAuth(false);
+        }
+      });
+    }, []);
+
     const [customer, setCustomer] = useState([]);
     const { customerId } = useParams();
 
@@ -26,6 +42,8 @@ export default function CustomerProfile() {
     console.log(customer);
     console.log(customerId);
   return (
+    <>
+    {customerAuth && (
     <div className="min-h-screen">
     <div className="font-sans mt-[-50px] min-h-[625.5px]">
       <div className="flex flex-col text-center">
@@ -96,5 +114,7 @@ export default function CustomerProfile() {
       </div>
     </div>
     </div>
+    )}
+    </>
   );
 }

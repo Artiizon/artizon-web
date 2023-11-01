@@ -46,12 +46,12 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
               }}
             >
               <option value="">Color</option>
-              <option value="#000000">Black</option>
+              <option className="w-4 h-4 bg-black mr-2 text-white" value="#000000">Black</option>
               <option value="#FFFFFF">White</option>
-              <option value="#FF0000">Red</option>
-              <option value="#00FF00">Green</option>
-              <option value="#0000FF">Blue</option>
-              <option value="#FFFF00">Yellow</option>
+              <option className="w-4 h-4 bg-red-500 mr-2 text-white" value="#FF0000">Red</option>
+              <option className="w-4 h-4 bg-green-500 mr-2 text-white" value="#00FF00">Green</option>
+              <option className="w-4 h-4 bg-blue-500 mr-2 text-white" value="#0000FF">Blue</option>
+              <option className="w-4 h-4 bg-yellow-500 mr-2 text-white" value="#FFFF00">Yellow</option>
             </select>
           </>
         )}

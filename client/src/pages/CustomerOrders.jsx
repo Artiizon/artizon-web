@@ -11,11 +11,11 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-const OrderCard = ({id, status, color, material, logo, text, textColor, tstyle, tags, ims ,style }) => {
+const OrderCard = ({id, status, color, material, logo, text, textColor, tstyle, tags, ims, customerId ,style }) => {
 
   function handleClick() {
     sessionStorage.setItem('logo', logo);
-    sessionStorage.setItem('tcolor', color);
+    sessionStorage.setItem('tcolor', color.slice(0,7));
     sessionStorage.setItem('text', text);
     sessionStorage.setItem('textcolor', textColor);
     sessionStorage.setItem('tstyle', tstyle);
@@ -33,15 +33,16 @@ const OrderCard = ({id, status, color, material, logo, text, textColor, tstyle, 
   const snap = useSnapshot(state);
   return (
     <div className={`m-4 mt-[20px] p-1 w-[1080px] h-[185px] bg-gray-100 shadow-lg rounded-md flex ${style}`}>
-      <img src={ims} alt="imagemm" className="h-[125px] " />
-      <div className="w-[140px] ml-[25px] mt-[40px]">
+      <img src={ims} alt="imagemm" className="h-[125px] mt-[20px]" />
+      <div className="w-[360px] ml-[25px] mt-[40px]">
+        <p className=" text-l font-normal font-black">Ordered On:</p>
         <p className=" text-l font-normal ">{tags}</p>
       </div>
       <div>
-        <p className="font-bold text-xl mt-[15px] ml-[400px] text-center">
+        {/* <p className="font-bold text-xl mt-[15px] ml-[400px] text-center">
           {status}
-        </p>
-        <Link to={`/customerorder-view-more/${id}/${status}/${encodeURIComponent(color)}/${material}`}>
+        </p> */}
+        <Link to={`/customerorder-view-more/${id}/${status}/${encodeURIComponent(color)}/${material}/${customerId}`}>
           <button
             onClick={handleClick}
             type="button"
@@ -73,6 +74,22 @@ export default function CustomerOrders() {
 
     state.page = 'no-canvas';
 
+    const [customerAuth, setCustomerAuth] = useState(false);
+    const [email, setEmail] = useState("");
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+      axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+        if (res.data.Status === "Success_Authentication") {
+          setCustomerAuth(true);
+          setEmail(res.data.email);
+        } else {
+          setCustomerAuth(false);
+        }
+      });
+    }, []);
+
     const [orders, setOrders] = useState([]);
     const { customerId } = useParams();
 
@@ -89,6 +106,8 @@ export default function CustomerOrders() {
     }
 
   return (
+    <>
+    {customerAuth && (
     <div className="font-sans min-h-screen">
 
       <div className="orders ml-[200px] mt-[10px]">
@@ -96,10 +115,12 @@ export default function CustomerOrders() {
         <hr width="80%" />
         {orders.map(order => (
             <div className="cards mt-[40px]">
-            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} text={order.text} textColor={order.text_color} tstyle={order.tstyle} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} style="bg-[#D9D9D9]" />
+            <OrderCard id={order.tshirt_order_id} status={order.status} color={order.tcolor} material={order.tmaterial} logo={order.logo_file} text={order.text} textColor={order.text_color} tstyle={order.tstyle} tags={new Date(order.ordered_date_and_time).toLocaleString()} ims={t1} customerId={customerId} style="bg-[#D9D9D9]" />
             </div>
         ))}
       </div>
     </div>
+    )}
+    </>
   );
 }

@@ -8,17 +8,21 @@ const stripe = Stripe('sk_test_51MxM0YFreLlEoqoAwtLnDCINkRy19QaosEreWjO9ByEjL2m1
 
 // Define a route to create a payment intent
 router.route('/').post(async (req, res) => {
+  let status, error;
+
+  const {token, amount} = req.body;
   try {
-    const { amount, currency } = req.body;
-    const paymentIntent = await stripe.paymentIntents.create({
+    await stripe.charges.create({
+      source: token.id,
       amount,
-      currency,
-    });
-    res.json({ clientSecret: paymentIntent.client_secret });
+      currency: 'lkr',
+    })
+    status = "Success";
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error.message });
+    status = "Failure";
   }
+  res.send({error, status});
 });
 
 export default router;

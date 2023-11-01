@@ -111,7 +111,6 @@ const Shirt = () => {
         color={state.textColor}
         anchorX="center"
         anchorY="middle"
-        font='Poppins'
         position={[0, 0.1, -0.125]}
         rotation={[0, Math.PI, 0]}
         scale={0.03}

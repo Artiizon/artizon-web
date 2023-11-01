@@ -4,6 +4,7 @@ import Canvas from "./canvas";
 import Customizor from "./pages/Customizor";
 import Home from "./pages/Home";
 import MakeOrder from "./pages/MakeOrder";
+import MakeOrderDesign from "./pages/MakeOrderDesign";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
@@ -90,11 +91,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/customizor" element={<Customizor />} />
           <Route path="/makeorder" element={<MakeOrder />} />
+          <Route path="//makeOrderDesign/:id" element={<MakeOrderDesign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/customerorders/:customerId" element={<CustomerOrders />} />
-          <Route path="/customerorder-view-more/:id/:status/:color/:material" element={<CustomerOrderViewMore />} />
+          <Route path="/customerorder-view-more/:id/:status/:color/:material/:customerID" element={<CustomerOrderViewMore />} />
           <Route path="/customerorder-view-tshirt" element={<CustomerViewTshirt />} />
           <Route path="/payment-form/:fee" element={<PaymentForm />} />
           <Route path="/customerprofile/:customerId" element={<CustomerProfile />} />
