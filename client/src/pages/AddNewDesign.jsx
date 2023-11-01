@@ -15,7 +15,8 @@ const AddNewDesignPage = () => {
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
-  const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
+  
+ const materialOptions = ["COTTON", "SILK", "LINEN", "POLYESTER", "VELVET"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
