@@ -8,7 +8,7 @@ router.route('/')
   .get(async (req, res) => {
     try {
       // Query the database to get all stocks
-      db.query("SELECT * FROM customer", (error, results) => {
+      db.query("SELECT * FROM customer where status=1", (error, results) => {
         if (error) {
           console.error("Error fetching customers:", error);
           res.status(500).json({ message: "Server error" });

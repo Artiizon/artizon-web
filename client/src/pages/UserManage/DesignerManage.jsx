@@ -9,9 +9,9 @@ export default function DesignerManage() {
   // return (
   //   <div>
   //     <div className=" ml-[-23px] gap-2 ">
-  //       {/* <div className="mb-[20px]">
-  //         <SearchBar data={DATA} setFilteredData={setFilteredData} />
-  //       </div> */}
+        // {/* <div className="mb-[20px]">
+        //   <SearchBar data={DATA} setFilteredData={setFilteredData} />
+        // </div> */}
 
   //       <div className="flex flex-row gap-[20px] text-lg ">
   //         <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
@@ -43,6 +43,35 @@ export default function DesignerManage() {
   //     </div>
   //   </div>
   // );
+
+  const handleSubmit = (event,designerId) => {
+    const formData = new FormData();
+    formData.append("user", "designer");
+    formData.append("reason", event.target.reason.value);
+    formData.append("astatus", "0");
+    formData.append("userid", "designer_id");
+    formData.append("designer_id", designerId);
+    
+    
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post("http://localhost:8080/api/addBlockStylist", formData, config)
+      .then((response) => {
+        navigate("/");
+        console.log("successfully!", response.data);
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+      });
+  };
+    
+
+
   const [designerData, setDesignerData] = useState([]);
 
   useEffect(() => {
@@ -66,10 +95,10 @@ export default function DesignerManage() {
           <SearchBar data={DATA} setFilteredData={setFilteredData} />
         </div> */}
         <div className="flex flex-row gap-[20px] text-lg text-black pt-[5px] w-[1185px]">
-          <div className="w-[195px] pb-2 font-sans font-[700]">User ID</div>
-          <div className="w-[270px] pb-2 font-sans font-[700]">Name</div>
-          <div className="w-[250px] font-sans font-[700]">E-Mail</div>
-          <div className="w-[160px] font-sans font-[700]">Orders</div>
+          <div className="w-[175px] mr-[50px] pb-2 font-sans font-[700]">User ID</div>
+          <div className="w-[295px] pb-2 font-sans font-[700]">Name</div>
+          <div className="w-[300px] font-sans font-[700]">E-Mail</div>
+          {/* <div className="w-[160px] font-sans font-[700]">Orders</div> */}
         </div>
         {designerData.map((item,index) => (
           <div
@@ -77,13 +106,13 @@ export default function DesignerManage() {
             key={item.designer_id}
                   className={index % 2 === 0 ? "bg-[#F1F1F1] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md" : "bg-[#D9D9D9] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md"}
           >
-            <div className=" w-[50px] pl-2 pb-1  text-center radius-[15px]">
+            <div className=" w-[50px] mr-[50px] pl-2 pb-1  text-center radius-[15px]">
               {item.designer_id}
             </div>
             <div className="w-[260px] pl-2 ml-[30px] text-center">
               {item.first_name+" "+ item.last_name}
             </div>
-            <div className="w-[305px] pl-2 text-center">{item.email}</div>
+            <div className="w-[350px] mr-[90px] pl-2 text-center">{item.email}</div>
             {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
               {item.orders}
             </div> */}

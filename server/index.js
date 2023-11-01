@@ -64,6 +64,9 @@ import designerFeedbacks from './models/fetchDesignerRatings.model.js';
 import stylishDashboardDataModel from './models/fetchStylishDashboardData.model.js';
 import designerDashboardDataModel from './models/fetchDesignerDashData.model.js';
 
+import fetchCustomerPort from "./models/Users/fetchCustomerPort.model.js";
+import fetchCustomerP from "./models/Users/fetchCustomerP.model.js";
+
 import fetchCustomers from "./models/Users/fetchCustomers.model.js";
 import fetchDesigners from "./models/Users/fetchDesigners.model.js";
 import fetchStylists from "./models/Users/fetchStylists.model.js";
@@ -71,6 +74,10 @@ import fetchManagers from "./models/Users/fetchManagers.model.js";
 import fetchAdmins from "./models/Users/fetchAdmins.model.js";
 
 import fetchBStylists from "./models/Users/fetchBStylists.model.js";
+import fetchBManagers from "./models/Users/fetchBManagers.model.js";
+import fetchBCustomers from "./models/Users/fetchBCustomers.model.js";
+import fetchBDesigners from "./models/Users/fetchBDesigners.model.js";
+import fetchBAdmins from "./models/Users/fetchBAdmins.model.js";
 
 import fetchStocks from "./models/Inventory/fetchStocks.model.js"; // Update the path
 import { fetchStockDetailsByID } from "./models/Inventory/fetchStockDetailsByID.model.js";
@@ -108,6 +115,7 @@ import checkQuantity from './models/Inventory/checkQuantity.model.js';
 import getManagerDetails from './models/Inventory/getManagerDetails.model.js';
 import getStylistDetails from './models/getStylistDetails.model.js';
 import getDesignerDetails from './models/getDesignerDetails.model.js';
+
 
 dotenv.config();
 
@@ -203,12 +211,19 @@ app.use('/checkQuantity',checkQuantity);
 
 
 
+app.use("/api/customerport/:id", fetchCustomerPort); 
+app.use("/api/customerp/:id", fetchCustomerP); 
+
 app.use("/api/customers", fetchCustomers); 
+app.use("/api/bcustomers", fetchBCustomers);
 app.use("/api/designers", fetchDesigners);
+app.use("/api/bdesigners", fetchBDesigners);
 app.use("/api/stylists", fetchStylists);
-app.use("/api/bstylists", fetchBStylists);
+app.use("/api/bstylists", fetchBStylists);//*********** *
+app.use("/api/bmanagers", fetchBManagers);
 app.use("/api/managers", fetchManagers);
 app.use("/api/admins", fetchAdmins);
+app.use("/api/badmins", fetchBAdmins);
 
 app.use("/api/stocks", fetchStocks); 
 

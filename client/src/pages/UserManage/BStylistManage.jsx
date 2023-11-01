@@ -9,8 +9,10 @@ export default function BStylistManage() {
   
     const handleSubmit = (event,stylistId) => {
         const formData = new FormData();
+        formData.append("user", "stylist");
         formData.append("reason", "active account");
         formData.append("astatus", "1");
+        formData.append("userid", "stylist_id");
         formData.append("stylist_id", stylistId);
         
         const config = {
@@ -64,14 +66,14 @@ export default function BStylistManage() {
             key={item.stylist_id}
                   className={index % 2 === 0 ? "bg-[#F1F1F1] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md" : "bg-[#D9D9D9] w-[1185px] flex flex-row gap-[20px] text-slate-600 rounded-md"}
           >
-              <div className=" w-[50px] pl-2 pb-1  text-center radius-[15px]">
+              <div className=" w-[50px] mr-[40px] pl-2 pb-1  text-center radius-[15px]">
                 {item.stylist_id}
               </div>
-              <div className="w-[260px] pl-2 ml-[30px] text-center">
+              <div className="w-[260px] pl-2 ml-[2px] mr-[15px] text-center">
                 {item.first_name+" "+ item.last_name}
               </div>
-              <div className="w-[305px] pl-2 text-center">{item.email}</div>
-              <div className="w-[305px] pl-2 text-center">{item.blockedReason}</div>
+              <div className="w-[245px] mr-[10px] pl-2 text-center">{item.email}</div>
+              <div className="w-[305px] mr-[40px]  text-center">{item.blockedReason}</div>
               {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
                 {item.orders}
               </div> */}
@@ -79,7 +81,7 @@ export default function BStylistManage() {
                 trigger={
                   <button>
                     {" "}
-                    <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
+                    <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[10px] font-sans font-[600]">
                       UNBLOCK
                     </button>
                   </button>
@@ -104,7 +106,7 @@ export default function BStylistManage() {
                         <form onSubmit={(event) => handleSubmit(event, item.stylist_id)}>
                       <div className="">
                         <p className="text-4xl font-bold">Are You Sure Unblock </p>
-                        <p className="text-3xl mt-[10px]">{item.first_name+item.last_name}?</p>
+                        <p className="text-3xl mt-[10px]">{item.first_name +" "+ item.last_name}?</p>
                         {/* <p className="text-sm ml-[20px] mt-[6px]">(stylist)</p> */}
                       </div>
                       {/* <p className="text-xl ml-[20px] mt-[6px]">
