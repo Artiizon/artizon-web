@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { AiOutlineDelete, AiOutlineUpload } from "react-icons/ai";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import state from "../store";
+import LoginError from "./LoginError";
 
 const AddNewDesignPage = () => {
+
   const snap = useSnapshot(state);
   state.page = "no-canvas";
+
+  const [designerAuth, setDesignerAuth] = useState(false);
+  const [email, setEmail] = useState("");
+
   const navigate = useNavigate();
   const materialOptions = ["Cotton", "Silk", "Linen", "Polyester", "Rayon"];
   const [supportingMaterials, setSupportingMaterials] = useState([{ material: "" },]);
@@ -17,8 +23,32 @@ const AddNewDesignPage = () => {
   const [newImages, setNewImages] = useState([]);
   const [newImagePreviews, setNewImagePreviews] = useState([]);
   const colors = [
-    'Red', 'Green', 'Blue', 'Yellow', 'Orange', 'Purple', 'Pink', 'Brown', 'Black', 'White'
+    '#666666-LIGHT-BLACK',
+    ' #000000-BLACK',
+     '#FFFFFF-WHITE',
+     '#FF0000-RED',
+     '#FF6666-LIGHT-RED',
+     '#008000-GREEN',
+     '#66ff66-LIGHT-GREEN',
+     '#0000FF-BLUE',
+     '#6666FF-LIGHT-BLUE',
+     '#FFFF00-YELLOW',
+     '#FFFF66-LIGHT-YELLOW' ,
+     '#8B0000-DARK-RED',
+     '#013220-DARK-GREEN',
+     '#00008B-DARK-BLUES',
   ];
+   
+  useEffect(() => {
+    axios.get("http://localhost:8080/verifyDesigner").then((res) => {
+      if (res.data.Status === "Success_Authentication") {
+        setDesignerAuth(true);
+        setEmail(res.data.email);
+      } else {
+        setDesignerAuth(false);
+      }
+    });
+  }, []);
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -142,6 +172,9 @@ const AddNewDesignPage = () => {
       });
   };
   return (
+
+    <>
+    {designerAuth && (
       <div className="container mx-auto pl-4 py-5 font-sans">
         <h1 className="text-[45px] ml-[50px] font-bold text-gray-800 mb-[5px]">Add New Design</h1>
 
@@ -313,6 +346,9 @@ const AddNewDesignPage = () => {
           </div>
         </div>
       </div>
+      )}
+      {!designerAuth && <LoginError />}
+    </>
   );
 };
 

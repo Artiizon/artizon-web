@@ -1,11 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchbars/searchbar";
+import { generateCustomerEmailMessage } from "../../components/emails/UserBlock";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
 function CustomerManagementPage() {
+
+  const navigate = useNavigate();
   
   const handleSubmit = (event,customerId) => {
     const formData = new FormData();
@@ -25,9 +28,33 @@ function CustomerManagementPage() {
     axios
       .post("http://localhost:8080/api/addBlockStylist", formData, config)
       .then((response) => {
-        navigate("/");
-        console.log("successfully!", response.data);
+
+
+
+       const customerMessage = generateCustomerEmailMessage(formData.reason);
+         
+        
+        axios
+          .post('http://127.0.0.1:8080/send-customer-email', {
+            message: customerMessage,
+            subject: 'Account Blocked',
+            recipientEmail: formData.cusEmail
+            
+          })
+          .then((messageResponse) => {
+            console.log(messageResponse.data);
+            // Handle success for sending the email
+  
+            navigate('/usermanage');
+          })
+          .catch((messageError) => {
+            console.error('Error sending email to customer:', messageError);
+            // Handle error sending the email
+          });
+          console.log("successfully!", response.data);
       })
+        
+      
       .catch((error) => {
         console.error("Error :", error);
       });

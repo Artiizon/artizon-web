@@ -157,7 +157,7 @@ const ReviewOrderPage = () => {
   // };
 
   const filteredOrders = torders.filter((order) => {
-    if (activeTab === "Rejected") return order.status === "S Rejected";
+    if (activeTab === "Rejected") return order.status === "SRejected";
     if (activeTab === "Accepted") return order.status === "Proceed";
     return order.status === "Pending";
   });
@@ -245,7 +245,9 @@ const ReviewOrderPage = () => {
                   {new Date(order.ordered_date_and_time).toLocaleString()}
                  </td>
                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.total_quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.design_name}</td>
+                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">
+                    {order.customer_design_id === 1 ? "Design made using Artizon Customizor" : order.design_name}
+                  </td>
                  
                   <td className="px-6 py-4 whitespace-nowrap text-sm  hover:underline">
                   {order.status === "Pending" ? (
