@@ -5,7 +5,7 @@ const CheckoutForm = ({ sessionId }) => {
     <div>
       {/* Additional content or components can be added here */}
       <iframe
-        src={`https://checkout.stripe.com/${sessionId}`}
+        src={`https://api.stripe.com/v1/checkout/sessions`}
         width="100%"
         height="800px"
         title="Stripe Checkout"

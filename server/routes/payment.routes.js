@@ -8,26 +8,21 @@ const stripe = Stripe('sk_test_51MxM0YFreLlEoqoAwtLnDCINkRy19QaosEreWjO9ByEjL2m1
 
 // Define a route to create a payment intent
 router.route('/').post(async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Your Product Name',
-          },
-          unit_amount: 1000, // Amount in cents
-        },
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
-    success_url: 'http://localhost:5173/', // Redirect to this page on successful payment
-    cancel_url: 'http://localhost:5173/', // Redirect to this page if the user cancels
-  });
+  let status, error;
 
-  res.json({ id: session.id });
+  const {token, amount} = req.body;
+  try {
+    await stripe.charges.create({
+      source: token.id,
+      amount,
+      currency: 'lkr',
+    })
+    status = "Success";
+  } catch (error) {
+    console.log(error);
+    status = "Failure";
+  }
+  res.send({error, status});
 });
 
 export default router;

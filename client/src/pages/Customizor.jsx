@@ -150,18 +150,18 @@ const Customizor = () => {
   return (
     <AnimatePresence>
         <>
-          <select
+          {/* <select
             name="style"
-            className="form-control"
+            className=""
             onChange={(e) => {
               state.tstyle = e.target.value
               sessionStorage.setItem('tstyle', state.tstyle)
             }}
           >
-            <option value={state.tstyle}>Select Style</option>
+            <option value={state.tstyle}>Style</option>
             <option value="standard">Standard</option>
             <option value="collar">Collar</option>
-          </select>
+          </select> */}
           <motion.div key="custom" className='absolute top-0 left-0 z-10' {...slideAnimation('left')}>
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>

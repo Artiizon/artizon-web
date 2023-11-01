@@ -1,6 +1,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url'; 
 import serveStatic from 'serve-static';
@@ -36,6 +37,7 @@ import getCustomerOrdersModel from './models/getCustomerOrders.model.js';
 import getCustomerOrderQuantitiesModel from './models/getCustomerOrderQuantities.model.js';
 import cancelOrderModel from './models/cancelOrder.model.js'
 import getCustomerDetailsModel from './models/getCustomerDetails.model.js';
+import payOrderChangeStatusModel from './models/payOrderChangeStatus.model.js';
 
 import fetchOngoingOrdersModel from './models/fetchOngoingOrders.model.js';
 import companyDesign from './models/fetchCompanyDesigns.model.js';
@@ -126,6 +128,8 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(bodyParser.urlencoded({extended: true}));
+
 // Add a new route to send a message to the customer via email with a custom subject
 app.post('/send-customer-email', (req, res) => {
   // Get data from the request body
@@ -153,6 +157,7 @@ app.use('/verifyDesigner', verifyDesigner);
 app.use('/verifyManager', verifyManager);
 app.use('/verifyStylist', verifyStylist);
 app.use('/api/payment', paymentRoutes);
+app.use('/payOrderChangeStatus', payOrderChangeStatusModel);
 app.use('/signup', signupModel);
 app.use('/login', loginModel);
 app.use('/getCustomer', getCustomerModel);

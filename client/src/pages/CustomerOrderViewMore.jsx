@@ -12,19 +12,57 @@ import Canvas from "../canvas";
 
 import axios from "axios";
 import md5 from 'crypto-js/md5';
+import StripeCheckout from 'react-stripe-checkout';
 
-let merchantSecret  = 'MTc3OTc0OTA3MzQ3ODM2MTkyNjMzMTc0MjQzMTM4MzkyMzEzMg==';
-let merchantId      = '1221976';
-let orderId         = '';
-let amount          = 1000;
-let hashedSecret    = md5(merchantSecret).toString().toUpperCase();
-let amountFormated  = parseFloat( amount ).toLocaleString( 'en-us', { minimumFractionDigits : 2 } ).replaceAll(',', '');
-let currency        = 'LKR';
-let hash            = md5(merchantId + orderId + amountFormated + currency + hashedSecret).toString().toUpperCase();
+// let merchantSecret  = 'MTc3OTc0OTA3MzQ3ODM2MTkyNjMzMTc0MjQzMTM4MzkyMzEzMg==';
+// let merchantId      = '1221976';
+// let orderId         = '';
+// let amount          = 1000;
+// let hashedSecret    = md5(merchantSecret).toString().toUpperCase();
+// let amountFormated  = parseFloat( amount ).toLocaleString( 'en-us', { minimumFractionDigits : 2 } ).replaceAll(',', '');
+// let currency        = 'LKR';
+// let hash            = md5(merchantId + orderId + amountFormated + currency + hashedSecret).toString().toUpperCase();
 
 export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
+
+  const { id, status, color, material } = useParams();
+
+  const [product, setProduct] = useState({
+    name: 'tshirt',
+    price: '100000'
+  });
+
+  const payNow = async token => {
+    try {
+      const response = await axios({
+        url: 'http://localhost:8080/api/payment',
+        method: 'post',
+        data: {
+          amount: product.price,
+          token,
+        }
+      })
+
+      if (response.status === 200) {
+        alert("Payment Success");
+        axios
+        .post("http://localhost:8080/payOrderChangeStatus", {
+          id,
+        })
+        .then((res) => {
+          if (res.data.Status === "Success_ChangeStatus") {
+            alert("Order is proceeded further");
+          } else {
+            alert("Something went wrong");
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const [customerAuth, setCustomerAuth] = useState(false);
     const [email, setEmail] = useState("");
@@ -43,8 +81,6 @@ export default function CustomerOrderViewMore() {
     }, []);
 
   const navigate = useNavigate();
-
-  const { id, status, color, material } = useParams();
 
   const [quantities, setQuantities] = useState([]);
 
@@ -562,7 +598,7 @@ export default function CustomerOrderViewMore() {
           <p className="mt-[20px] ml-[60px] ">Rs.1,500.00</p>
         </div>
         <div>
-        <Link to={`/payment-form/1500`}>
+        {/* <Link to={`/payment-form/1500`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
@@ -571,7 +607,19 @@ export default function CustomerOrderViewMore() {
           >
             Pay Now
           </button>
-        </Link>
+        </Link> */}
+        <StripeCheckout
+          className="mt-[97px] ml-[188px] mb-[25px] pb-[8px] pt-[6px]"
+          stripeKey="pk_test_51MxM0YFreLlEoqoAeH0F3pkVu0M9OKo55p00CZCuYgAeVjMrPs55JVL40UZTPNeapYuzxAn50uH67VpbdkBpobpt00nHKcySE9"
+          label="Pay Now"
+          name="Pay with card"
+          currency="lkr"
+          // billingAddress
+          // shippingAddress
+          amount={product.price}
+          description={`Tatoal amount: ${product.price}`}
+          token={payNow}
+        />
         {/* <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
           <input type="hidden" name="merchant_id" value="1221976"/>
           <input type="hidden" name="return_url" value="http://sample.com/return"/>
