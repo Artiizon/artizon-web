@@ -26,6 +26,22 @@ export default function CustomerOrderViewMore() {
   const snap = useSnapshot(state);
   state.page = "no-canvas";
 
+  const [customerAuth, setCustomerAuth] = useState(false);
+    const [email, setEmail] = useState("");
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+      axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+        if (res.data.Status === "Success_Authentication") {
+          setCustomerAuth(true);
+          setEmail(res.data.email);
+        } else {
+          setCustomerAuth(false);
+        }
+      });
+    }, []);
+
   const navigate = useNavigate();
 
   const { id, status, color, material } = useParams();
@@ -60,8 +76,10 @@ export default function CustomerOrderViewMore() {
 
   // const status = "Sample fee";
   return (
+    <>
+    {customerAuth && (
     <div>
-
+      
       <div>
         <p className="text-[35px]  ml-[50px] mt-[120px] mb-[50px] uppercase">
           ORDER NO : {id}
@@ -544,7 +562,7 @@ export default function CustomerOrderViewMore() {
           <p className="mt-[20px] ml-[60px] ">Rs.1,500.00</p>
         </div>
         <div>
-        {/* <Link to={`/payment-form/1500`}>
+        <Link to={`/payment-form/1500`}>
           <button
             type="button"
             className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
@@ -553,8 +571,8 @@ export default function CustomerOrderViewMore() {
           >
             Pay Now
           </button>
-        </Link> */}
-        <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
+        </Link>
+        {/* <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
           <input type="hidden" name="merchant_id" value="1221976"/>
           <input type="hidden" name="return_url" value="http://sample.com/return"/>
           <input type="hidden" name="cancel_url" value="http://sample.com/cancel"/>
@@ -564,7 +582,7 @@ export default function CustomerOrderViewMore() {
           <input type="submit" value="Buy Now" className="rounded   w-[120px] h-[33px] mt-[97px] ml-[188px] mb-[25px]
              pb-[8px] pt-[6px] text-sm font-medium uppercase 
             text-white  shadow-md shadow-slate-900  bg-black"/>
-        </form>
+        </form> */}
         </div>
       </div>
       ) : status === "Sample Ready" ? (
@@ -627,5 +645,7 @@ export default function CustomerOrderViewMore() {
         </div>
       </div>
     </div>
+    )}
+    </>
   );
 }

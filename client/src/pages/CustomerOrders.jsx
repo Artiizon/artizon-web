@@ -73,6 +73,22 @@ export default function CustomerOrders() {
 
     state.page = 'no-canvas';
 
+    const [customerAuth, setCustomerAuth] = useState(false);
+    const [email, setEmail] = useState("");
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+      axios.get("http://localhost:8080/verifyCustomer").then((res) => {
+        if (res.data.Status === "Success_Authentication") {
+          setCustomerAuth(true);
+          setEmail(res.data.email);
+        } else {
+          setCustomerAuth(false);
+        }
+      });
+    }, []);
+
     const [orders, setOrders] = useState([]);
     const { customerId } = useParams();
 
@@ -89,6 +105,8 @@ export default function CustomerOrders() {
     }
 
   return (
+    <>
+    {customerAuth && (
     <div className="font-sans min-h-screen">
 
       <div className="orders ml-[200px] mt-[10px]">
@@ -101,5 +119,7 @@ export default function CustomerOrders() {
         ))}
       </div>
     </div>
+    )}
+    </>
   );
 }
