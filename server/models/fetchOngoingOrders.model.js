@@ -5,7 +5,7 @@ const router = express.Router();
 router.route('/').get((req, res) => {
   const query = `
   SELECT t.*, 
-  COALESCE(cd.image_1, cud.image_1) AS image,
+  COALESCE(cd.image_1) AS image,
   COALESCE(oq.total_quantity, 0) AS total_quantity
 FROM tshirt_order AS t
 LEFT JOIN company_design AS cd ON t.company_design_id = cd.company_design_id

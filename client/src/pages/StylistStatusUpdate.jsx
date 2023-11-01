@@ -154,9 +154,12 @@ const OrderUpdate = () => {
                   {filteredOrders.map(order => (
                     <tr key={order.tshirt_order_id} className="border-t border-gray-300">
                       <td className="px-4 py-2 text-center">{order.tshirt_order_id}</td>
+                      { order.image === null ? <td className="px-4 py-2 flex justify-center">
+                        <img src={`http://127.0.0.1:8080/uploads/company_designs/ArtizonOrder.JPG`} alt={`Design ${order.tshirt_order_id}`} className="w-16 h-16 object-fit rounded-lg" />
+                      </td> : 
                       <td className="px-4 py-2 flex justify-center">
-                        <img src={`http://127.0.0.1:8080/uploads/company_designs/${order.image}`} alt={`Design ${order.tshirt_order_id}`} className="w-16 h-16 object-cover rounded-lg" />
-                      </td>
+                      <img src={`http://127.0.0.1:8080/uploads/company_designs/${order.image}`} alt={`Design ${order.tshirt_order_id}`} className="w-16 h-16 object-cover rounded-lg" />
+                    </td>}
                       <td className="px-4 py-2 text-center">{new Date(order.ordered_date_and_time).toLocaleString()}</td>
 
                       <td className="px-4 py-2 text-center">{order.total_quantity}</td>
