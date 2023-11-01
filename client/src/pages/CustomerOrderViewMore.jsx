@@ -292,7 +292,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Order
               </button>
             </>
-          ) : status === "Sample Processing" ? (
+          ) : status === "SampleProcessing" ? (
             <>
               <div className="status bar h-[10px] w-[115%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -347,7 +347,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Order
               </button>
             </>
-          ) : status === "Sample Ready" ? (
+          ) : status === "SampleReady" ? (
             <>
               <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -402,7 +402,7 @@ export default function CustomerOrderViewMore() {
                 Cancel Order
               </button>
             </>
-          ) : status === "Order Processing" ? (
+          ) : status === "Processing" ? (
             <>
               <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -448,7 +448,7 @@ export default function CustomerOrderViewMore() {
                 />
               </div>
             </>
-          ) : status === "Order Ready" ? (
+          ) : status === "FinalPayment" ? (
             <>
               <div className="status bar h-[10px] w-[105%] bg-black ml-[-17.5%]  mt-[2%] flex ">
                 <img
@@ -693,7 +693,7 @@ export default function CustomerOrderViewMore() {
         </form> */}
         </div>
       </div>
-      ) : status === "Sample Ready" ? (
+      ) : status === "SampleReady" ? (
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Advance Fee</p>
@@ -722,7 +722,7 @@ export default function CustomerOrderViewMore() {
         />
         </div>
       </div>
-      ) : status === "Order Ready" ? (
+      ) : status === "FinalPayment" ? (
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Complete Fee</p>

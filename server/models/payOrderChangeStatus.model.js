@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route('/').post((req, res) => {
 
-    const sql = 'UPDATE `tshirt_order` SET `status` = "Sample Processing" WHERE `tshirt_order`.`tshirt_order_id` = (?);';
+    const sql = 'UPDATE `tshirt_order` SET `status` = "SampleProcessing" WHERE `tshirt_order`.`tshirt_order_id` = (?);';
 
     const VALUES = [req.body.id];
 
