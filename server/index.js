@@ -63,6 +63,7 @@ import companyFeedbacks from './models/fetchCompanyFeedback.model.js';
 import designerFeedbacks from './models/fetchDesignerRatings.model.js';
 import stylishDashboardDataModel from './models/fetchStylishDashboardData.model.js';
 import designerDashboardDataModel from './models/fetchDesignerDashData.model.js';
+import feedbackModal from './models/customerAddFeedback.model.js';
 
 import fetchCustomerPort from "./models/Users/fetchCustomerPort.model.js";
 import fetchCustomerP from "./models/Users/fetchCustomerP.model.js";
@@ -112,6 +113,7 @@ import dashboardModel from './models/Inventory/dashboard.model.js';
 import stockLevelModel from './models/Inventory/stocklevel.model.js';
 import fetchSuppliers from './models/Inventory/fetchSuppliers.model.js';
 import checkQuantity from './models/Inventory/checkQuantity.model.js';
+
 
 
 dotenv.config();
@@ -212,7 +214,7 @@ app.use("/api/bcustomers", fetchBCustomers);
 app.use("/api/designers", fetchDesigners);
 app.use("/api/bdesigners", fetchBDesigners);
 app.use("/api/stylists", fetchStylists);
-app.use("/api/bstylists", fetchBStylists);//*********** *
+app.use("/api/bstylists", fetchBStylists);
 app.use("/api/bmanagers", fetchBManagers);
 app.use("/api/managers", fetchManagers);
 app.use("/api/admins", fetchAdmins);
@@ -245,6 +247,7 @@ app.use("/api/add-price",addPriceModel);
 app.use("/api/dashboard",dashboardModel);
 app.use("/api/stockLevel",stockLevelModel);
 app.use("/api/suppliers",fetchSuppliers);
+app.use("/api/addFeedback", feedbackModal)
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

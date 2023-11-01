@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSnapshot } from 'valtio';
 import state from '../store';
 
@@ -23,6 +22,23 @@ const StylistViewOrderForm = () => {
       { size: 'xll', quantity: 0 },
     ],
   });
+
+  function handleClick() {
+    sessionStorage.setItem('logo', logo);
+    sessionStorage.setItem('tcolor', color);
+    sessionStorage.setItem('text', text);
+    sessionStorage.setItem('textcolor', textColor);
+    sessionStorage.setItem('tstyle', tstyle);
+    if (text == '') {
+      sessionStorage.setItem('text', ' ');
+    }
+    if (logo == '') {
+      state.isLogoTexture = false;
+    }
+    else {
+      state.isLogoTexture = true;
+    }
+  }
 
   const handleImageClick = (image) => {
     setModalImage(image);
@@ -50,6 +66,10 @@ const StylistViewOrderForm = () => {
           additionalNote:response.data.stylist_note,
           rejectedReason:response.data.reject_reason,
           status:response.data.status,
+          type:response.data.tstyle,
+          compDesignId:response.data.company_design_id,
+          text:response.data.text,
+          text_color:response.data.text_color,
           tshirtQuantity: [
             { size: 'xs', quantity: response.data.xs_quantity },
             { size: 's', quantity: response.data.s_quantity },
@@ -66,6 +86,22 @@ const StylistViewOrderForm = () => {
         
       });
   }, [id]);
+
+  sessionStorage.setItem('logo', formData.logoFile);
+  sessionStorage.setItem('tcolor', formData.colorCode);
+  sessionStorage.setItem('text', formData.text);
+  sessionStorage.setItem('textcolor', formData.text_color);
+  sessionStorage.setItem('tstyle', formData.type);
+  if (formData.text == '') {
+    sessionStorage.setItem('text', ' ');
+  }
+  if (formData.logoFile == '') {
+    state.isLogoTexture = false;
+  }
+  else {
+    state.isLogoTexture = true;
+  }
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -89,11 +125,23 @@ const StylistViewOrderForm = () => {
           <div className="">
             <form onSubmit={handleSubmit} >
             <div className="mb-4">
-          <label htmlFor="designImage" className="block text-[20px] font-medium">
-            Design Images
-          </label>
+            <label htmlFor="designImage" className="block text-[20px] font-medium">
+              {formData.compDesignId === null ? "View Customized Design" : "Design Images"}
+           </label>
+
 
   <div className="image-container">
+  {formData.compDesignId === null && ( <Link to={`/customerorder-view-tshirt`}>
+          <button
+          onClick={handleClick}
+            type="button"
+            className="rounded   w-[120px] h-[35px] mt-[20px]
+                 pb-[8px] pt-[6px] text-sm font-medium uppercase 
+                text-white  shadow-md shadow-slate-900  bg-black"
+          >
+            View T-Shirt
+          </button>
+        </Link>)}
     {formData.designImage && (
       <img
         src={`http://127.0.0.1:8080/uploads/company_designs/${formData.designImage}`}
@@ -181,6 +229,20 @@ const StylistViewOrderForm = () => {
               </div>
 
               <div className="mb-4">
+                <label htmlFor="colorCode" className="block  font-medium">
+                  T-Shirt Type
+                </label>
+                <input
+                  type="text"
+                  id="colorCode"
+                  name="colorCode"
+                  value={formData.type}
+                  className="mt-1 p-2 w-[300px] border rounded"
+                  readOnly
+                />
+              </div>
+
+              <div className="mb-4">
   <label htmlFor="tshirtQuantity" className="block text-sm font-medium">
     T-Shirt Quantity
   </label>
@@ -238,14 +300,14 @@ const StylistViewOrderForm = () => {
                   readOnly
                 />
               </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
               <label htmlFor="logoFile" className="block text-sm font-medium">
                 Logo File
               </label>
               {formData.logoFile && (
                 <img src={`http://127.0.0.1:8080/uploads/logos/${formData.logoFile}`} alt="Logo" className="mt-2 max-h-40" />
               )}
-            </div>
+            </div> */}
 
               <div className="mb-4">
               {formData.status === "Proceed" ? (
