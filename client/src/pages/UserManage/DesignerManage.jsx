@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import SearchBar from "../../components/searchbars/searchbar";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 
 export default function DesignerManage() {
@@ -50,7 +52,7 @@ export default function DesignerManage() {
     formData.append("reason", event.target.reason.value);
     formData.append("astatus", "0");
     formData.append("userid", "designer_id");
-    formData.append("designer_id", designerId);
+    formData.append("stylist_id", designerId);
     
     
     const config = {
@@ -116,11 +118,65 @@ export default function DesignerManage() {
             {/* <div className="w-[80px] pl-2 ml-[50px] text-center">
               {item.orders}
             </div> */}
-            <NavLink to="/designerPortfolia ">
+            {/* <NavLink to="/designerPortfolia ">
               <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
                 More
               </button>
-            </NavLink>
+            </NavLink> */}
+            <Popup
+              trigger={
+                <button>
+                  {" "}
+                  <button className=" w-[100px] h-[25px] mt-[3px] bg-black rounded-md text-white text-sm ml-[180px] font-sans font-[600]">
+                    Block
+                  </button>
+                </button>
+              }
+              modal
+              nested
+              overlayStyle={{
+                background: "rgba(0, 0, 0, 0.5)", // Set the overlay background to transparent black
+              }}
+              contentStyle={{
+                background: "transparent", // Set the content background to transparent
+                border: "none", // Remove border
+                boxShadow: "none", // Remove box shadow
+              }}
+            >
+              {(close) => (
+                <div className="modal flex justify-center items-center font-sans">
+                  <div
+                    className="content p-4 rounded-[15px] bg-white w-[450px] h-[300px] justify-center items-center "
+                    style={{ backdropFilter: "blur(8px)" }} // Apply backdrop filter for a blurred effect
+                  >
+                    <div className="flex">
+                      <p className="text-3xl font-bold">{item.first_name+" "+ item.last_name}</p>
+                      <p className="text-sm ml-[20px] mt-[6px]">(designer)</p>
+                    </div>
+                    <p className="text-xl ml-[20px] mt-[6px]">
+                    {item.email}
+                    </p>
+                    <p className="text mb-[10px]-l ml-[20px] mt-[6px]">
+                    {item.contact_number}
+                    </p>
+                    <form onSubmit={(event) => handleSubmit(event, item.designer_id)}>
+                    <label className="mt-[10px] p-2 w-[130px] h-[40px] font-[600]">
+                      Reason
+                    </label>
+                    <input
+                      type="text"
+                      id="reason"
+                      className="w-[380px] h-[65px]  bg-[#EFEFEF] border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-400 focus:outline-none"
+                      
+                    />
+                    <button className=" w-[120px] h-[30px] mt-[40px] bg-black rounded-md text-white text-sm ml-[150px] font-sans font-[600]">
+                      BLOCK DESIGNER
+                    </button>
+                    </form>
+                  </div>
+                </div>
+              )}
+            </Popup>
           </div>
         ))}
       </div>
