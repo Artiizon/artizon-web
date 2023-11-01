@@ -31,10 +31,7 @@ export default function CustomerOrderViewMore() {
 
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState({
-    name: 'tshirt',
-    price: '100000'
-  });
+  
 
   const payNow = async token => {
     try {
@@ -42,7 +39,7 @@ export default function CustomerOrderViewMore() {
         url: 'http://localhost:8080/api/payment',
         method: 'post',
         data: {
-          amount: product.price,
+          amount: price*100,
           token,
         }
       })
@@ -72,7 +69,7 @@ export default function CustomerOrderViewMore() {
         url: 'http://localhost:8080/api/payment',
         method: 'post',
         data: {
-          amount: product.price,
+          amount: price*100,
           token,
         }
       })
@@ -102,7 +99,7 @@ export default function CustomerOrderViewMore() {
         url: 'http://localhost:8080/api/payment',
         method: 'post',
         data: {
-          amount: product.price,
+          amount: price*100,
           token,
         }
       })
@@ -149,6 +146,20 @@ export default function CustomerOrderViewMore() {
           setQuantities(res.data);
         })
     }, [])
+
+    let total_quantity = quantities.reduce((acc, quantity) => acc + parseInt(quantity.quantity), 0);
+
+    let price = 0;
+
+    if (status == 'Accepted') {
+      price = 1000;
+    }
+    if (status == 'SampleReady') {
+      price = 500 * total_quantity;
+    }
+    if (status == 'FinalPayment') {
+      price = 500 * total_quantity;
+    }
 
     function showPopup() {
       document.getElementById('popup').classList.remove('hidden');
@@ -646,6 +657,7 @@ export default function CustomerOrderViewMore() {
               {quantities.map(quantity => (
               <p className="mt-[17px]  ">{quantity.size} : {quantity.quantity}</p>
               ))}
+              <p className="mt-[17px]  ">Total : {total_quantity}</p>
             </div>
           </div>
           <hr class="border-2 ml-[200px] mt-[45px] w-[650px]" />
@@ -655,7 +667,7 @@ export default function CustomerOrderViewMore() {
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Sample Fee</p>
-          <p className="mt-[20px] ml-[60px] ">Rs.1,500.00</p>
+          <p className="mt-[20px] ml-[60px] ">Rs.{price}.00</p>
         </div>
         <div>
         {/* <Link to={`/payment-form/1500`}>
@@ -676,8 +688,8 @@ export default function CustomerOrderViewMore() {
           currency="lkr"
           // billingAddress
           // shippingAddress
-          amount={product.price}
-          description={`Tatoal amount: ${product.price}`}
+          amount={price}
+          description={`Tatoal amount: Rs.${price}.00`}
           token={payNow}
         />
         {/* <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
@@ -697,7 +709,7 @@ export default function CustomerOrderViewMore() {
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Advance Fee</p>
-          <p className="mt-[20px] ml-[60px] ">Rs.10,000.00</p>
+          <p className="mt-[20px] ml-[60px] ">Rs.{price}.00</p>
         </div>
         <div>
           {/* <button
@@ -716,8 +728,8 @@ export default function CustomerOrderViewMore() {
             currency="lkr"
             // billingAddress
             // shippingAddress
-            amount={product.price}
-            description={`Tatoal amount: ${product.price}`}
+            amount={price}
+            description={`Tatoal amount: ${price}.00`}
             token={payNow1}
         />
         </div>
@@ -726,7 +738,7 @@ export default function CustomerOrderViewMore() {
         <div className="flex ml-[200px]">
         <div>
           <p className="mt-[60px]  font-[700]">Complete Fee</p>
-          <p className="mt-[20px] ml-[60px] ">Rs.20,000.00</p>
+          <p className="mt-[20px] ml-[60px] ">Rs.{price}.00</p>
         </div>
         <div>
           {/* <button
@@ -745,8 +757,8 @@ export default function CustomerOrderViewMore() {
             currency="lkr"
             // billingAddress
             // shippingAddress
-            amount={product.price}
-            description={`Tatoal amount: ${product.price}`}
+            amount={price}
+            description={`Tatoal amount: ${price}.00`}
             token={payNow2}
         />
         </div>
