@@ -245,8 +245,14 @@ const ReviewOrderPage = () => {
                   {new Date(order.ordered_date_and_time).toLocaleString()}
                  </td>
                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.total_quantity}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">{order.design_name}</td>
                  
+                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-[700]">
+                    {order.customer_design_id === 1 ? "Design made using Artizon Customizor" : order.design_name}
+                  </td>
+               
+
+
+
                   <td className="px-6 py-4 whitespace-nowrap text-sm  hover:underline">
                   {order.status === "Proceed" ? (
                       <div>
