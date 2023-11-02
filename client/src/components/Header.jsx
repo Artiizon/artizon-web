@@ -250,6 +250,12 @@ const Header = () => {
             <NavLink to={`/customerOrders/${sessionStorage.getItem('customer_id')}`}>ORDERS</NavLink>
           </p>
         )}
+
+        {/* {customerAuth && (
+          <p className="header-item text-white hover:text-gray-300 transition-colors duration-300">
+            <NavLink to={`/customizorhelp`}>HELP</NavLink>
+          </p>
+        )} */}
         
 
 

@@ -16,6 +16,7 @@ import CustomerProfile from "./pages/CustomerProfile";
 import ForgotPassword from "./pages/ForgotPassword";
 import UserManageMain from "./pages/UserManage/UserManageMain";
 import ForgotPasswordChange from "./pages/ForgotPasswordChange";
+import CustomizorHelp from "./pages/Help";
 
 import { useSnapshot } from "valtio";
 import state from "./store";
@@ -119,6 +120,7 @@ function App() {
           <Route exact path="/managerprofile" element={<ManagerDetails />}/>
           <Route exact path="/stylistprofile" element={<StylistDetails />}/>
           <Route exact path="/designerprofile" element={<DesignerDetails />}/>
+          <Route exact path="/customizorhelp" element={<CustomizorHelp />}/>
           
           
           <Route exact path="/changePassword" element={<ChangePassword />}/>

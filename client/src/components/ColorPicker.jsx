@@ -53,6 +53,7 @@ const ColorPicker = () => {
               <option className="w-4 h-4 bg-black mr-2 text-white" value="#000000">Black</option>
               <option value="#FFFFFF">White</option>
               <option className="w-4 h-4 bg-red-500 mr-2 text-white" value="#FF0000">Red</option>
+              <option className="w-4 h-4 bg-red-400 mr-2 text-white" value="#FF6666">LIGHT RED</option>
               <option className="w-4 h-4 bg-green-500 mr-2 text-white" value="#008000">Green</option>
               <option className="w-4 h-4 bg-blue-500 mr-2 text-white" value="#0000FF">Blue</option>
               <option className="w-4 h-4 bg-yellow-500 mr-2 text-white" value="#FFFF00">Yellow</option>
